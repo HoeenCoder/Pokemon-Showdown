@@ -2018,7 +2018,7 @@ exports.commands = {
 
 		Rooms.rooms.forEach((curRoom, id) => {
 			if (id !== 'global') {
-				curRoom.add('|globalnotify|');
+				curRoom.add('|globalnotify|<div class="broadcast-blue"><b>' + target + '</b></div>');
 				curRoom.addRaw('<div class="broadcast-blue"><b>' + target + '</b></div>').update();
 			}
 		});
@@ -2035,7 +2035,7 @@ exports.commands = {
 
 		Rooms.rooms.forEach((curRoom, id) => {
 			if (id !== 'global' && curRoom.type !== 'battle') {
-				curRoom.add('|globalnotify|');
+				curRoom.add('|globalnotify|<div class="broadcast-blue"><b>' + target + '</b></div>');
 				curRoom.addRaw('<div class="broadcast-blue"><b>' + target + '</b></div>').update();
 			}
 		});
