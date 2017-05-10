@@ -1990,7 +1990,7 @@ exports.commands = {
 		if (!this.can('declare', null, room)) return false;
 		if (!this.canTalk()) return;
 
-		this.add(`|notify|${Chat.escapeHTML(target)}`);
+		this.add(`|notify|The staff in ${room.id} made a declaration|${Chat.escapeHTML(target)}`);
 		this.add(`|raw|<div class="broadcast-blue"><b>${Chat.escapeHTML(target)}</b></div>`);
 		this.logModCommand(user.name + " declared " + target);
 	},
@@ -2003,7 +2003,7 @@ exports.commands = {
 		target = this.canHTML(target);
 		if (!target) return;
 
-		this.add(`|notify|${target}`);
+		this.add(`|notify|The staff in ${room.id} made a declaration|${target}`);
 		this.add(`|raw|<div class="broadcast-blue"><b>'${target}</b></div>`);
 		this.logModCommand(user.name + " declared " + target);
 	},
