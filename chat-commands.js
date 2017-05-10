@@ -2004,7 +2004,7 @@ exports.commands = {
 		if (!target) return;
 
 		this.add(`|notify|The staff in ${room.id} made a declaration|${target}`);
-		this.add(`|raw|<div class="broadcast-blue"><b>'${target}</b></div>`);
+		this.add(`|raw|<div class="broadcast-blue"><b>${target}</b></div>`);
 		this.logModCommand(user.name + " declared " + target);
 	},
 	htmldeclarehelp: ["/htmldeclare [message] - Anonymously announces a message using safe HTML. Requires: ~"],
