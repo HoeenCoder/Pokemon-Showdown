@@ -80,7 +80,7 @@ class UNOgame extends Rooms.RoomGame {
 		this.state = 'signups';
 
 		this.currentPlayer = null;
-		this.deck = Tools.shuffle(createDeck());
+		this.deck = Dex.shuffle(createDeck());
 		this.discards = [];
 		this.topCard = null;
 
@@ -92,9 +92,19 @@ class UNOgame extends Rooms.RoomGame {
 		this.sendToRoom(`|uhtml|uno-${this.room.gameNumber}|<div class="broadcast-green"><p style="font-size: 14pt; text-align: center">A new game of <strong>UNO</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/uno join">Join</button><br />Or use <strong>/uno join</strong> to join the game.</p>${(this.suppressMessages ? `<p style="font-size: 6pt; text-align: center">Game messages will be shown to only players.  If you would like to spectate the game, use <strong>/uno spectate</strong></p>` : '')}</div>`, true);
 	}
 
+	onUpdateConnection() {}
+
+	onConnect(user, connection) {
+		if (this.state === 'signups') {
+			connection.sendTo(this.room, `|uhtml|uno-${this.room.gameNumber}|<div class="broadcast-green"><p style="font-size: 14pt; text-align: center">A new game of <strong>UNO</strong> is starting!</p><p style="font-size: 9pt; text-align: center"><button name="send" value="/uno join">Join</button><br />Or use <strong>/uno join</strong> to join the game.</p>${(this.suppressMessages ? `<p style="font-size: 6pt; text-align: center">Game messages will be shown to only players.  If you would like to spectate the game, use <strong>/uno spectate</strong></p>` : '')}</div>`);
+		} else if (this.onSendHand(user) === false) {
+			connection.sendTo(this.room, `|uhtml|uno-${this.room.gameNumber}|<div class="infobox"><p>A UNO game is currently in progress.</p>${(this.suppressMessages ? `<p style="font-size: 6pt">Game messages will be shown to only players.  If you would like to spectate the game, use <strong>/uno spectate</strong></p>` : '')}</div>`);
+		}
+	}
+
 	onStart() {
 		if (this.playerCount < 2) return false;
-		this.sendToRoom(`|uhtmlchange|uno-${this.room.gameNumber}|<div class="infobox">The game of UNO has started.</div>`, true);
+		this.sendToRoom(`|uhtmlchange|uno-${this.room.gameNumber}|<div class="infobox"><p>The game of UNO has started.</p>${(this.suppressMessages ? `<p style="font-size: 6pt">Game messages will be shown to only players.  If you would like to spectate the game, use <strong>/uno spectate</strong></p>` : '')}</div>`, true);
 		this.state = 'play';
 
 		this.onNextPlayer();  // determines the first player
@@ -216,7 +226,7 @@ class UNOgame extends Rooms.RoomGame {
 
 		clearTimeout(this.timer);
 		let player = this.players[this.currentPlayer];
-		this.sendToRoom(`|c|~|${player.name}'s turn.`);
+		this.sendToRoom(`|c:|${(Math.floor(Date.now() / 1000))}|~|${player.name}'s turn.`);
 		this.state = 'play';
 		if (player.cardLock) delete player.cardLock;
 		player.sendDisplay();
@@ -374,7 +384,7 @@ class UNOgame extends Rooms.RoomGame {
 
 		for (let i = 0; i < count; i++) {
 			if (!this.deck.length) {
-				this.deck = this.discards.length ? Tools.shuffle(this.discards) : Tools.shuffle(createDeck()); // shuffle the cards back into the deck, or if there are no discards, add another deck into the game.
+				this.deck = this.discards.length ? Dex.shuffle(this.discards) : Dex.shuffle(createDeck()); // shuffle the cards back into the deck, or if there are no discards, add another deck into the game.
 				this.discards = []; // clear discard pile
 			}
 			drawnCards.push(this.deck.pop());
@@ -462,7 +472,7 @@ class UNOgamePlayer extends Rooms.RoomGamePlayer {
 		let draw = '<button class="button" style="width: 30%; background: rgba(0, 0, 255, 0.05)" name=send value="/uno draw">Draw a card!</button>';
 		let pass = '<button class="button" style=" width: 30%; background: rgba(255, 0, 0, 0.05)" name=send value="/uno pass">Pass!</button>';
 
-		let top = `<strong>Top Card: <span style="color: ${textColors[this.game.topCard.color]}">${this.game.topCard.name}</span></strong>`;
+		let top = `<strong>Top Card: <span style="color: ${textColors[this.game.changedColor || this.game.topCard.color]}">${this.game.topCard.name}</span></strong>`;
 
 		// clear previous display and show new display
 		this.sendRoom("|uhtmlchange|uno-hand|");
