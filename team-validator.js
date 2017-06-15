@@ -886,7 +886,7 @@ class Validator {
 		 * The format doesn't allow Pokemon traded from the future
 		 * (This is everything except in Gen 1 Tradeback)
 		 */
-		const noFutureGen = !(format.banlistTable && format.banlistTable['allowtradeback']);
+		const noFutureGen = !(format.banlistTable && format.banlistTable['Rule:allowtradeback']);
 		/**
 		 * If a move can only be learned from a gen 2-5 egg, we have to check chainbreeding validity
 		 * limitedEgg is false if there are any legal non-egg sources for the move, and true otherwise
@@ -1279,7 +1279,7 @@ if (process.send && module === process.mainModule) {
 	global.toId = Dex.getId;
 	global.Chat = require('./chat');
 
-	require('./repl').start('team-validator-', process.pid, cmd => eval(cmd));
+	require('./repl').start(`team-validator-${process.pid}`, cmd => eval(cmd));
 
 	process.on('message', message => PM.onMessageDownstream(message));
 	process.on('disconnect', () => process.exit());

@@ -13,8 +13,10 @@ exports.BattleAliases = {
 	"vgc17": "[Gen 7] VGC 2017",
 	"vgc": "[Gen 7] VGC 2017",
 	"bss": "[Gen 7] Battle Spot Singles",
+	"bsd": "[Gen 7] Battle Spot Doubles",
 	"bsdoubles": "[Gen 7] Battle Spot Doubles",
 	"bstriples": "Battle Spot Triples",
+	"bssf": "[Gen 7] BSS Factory",
 	"balancedhackmons": "[Gen 7] Balanced Hackmons",
 	"bh": "[Gen 7] Balanced Hackmons",
 	"1v1": "[Gen 7] 1v1",
@@ -36,8 +38,8 @@ exports.BattleAliases = {
 	"monorandom": "[Gen 7] Monotype Random Battle",
 	"bf": "Battle Factory",
 	"gen6inverse": "Inverse Battle",
-	"lastwill": "[Gen 7] Last Will",
-	"crossevolution": "[Gen 7] Cross Evolution",
+	"godlygift": "[Gen 7] Godly Gift",
+	"dancerability": "[Gen 7] Dancerability",
 
 	// mega evos
 	"maero": "Aerodactyl-Mega",
@@ -67,6 +69,7 @@ exports.BattleAliases = {
 	"megaray": "Rayquaza-Mega",
 	"megasab": "Sableye-Mega",
 	"megasable": "Sableye-Mega",
+	"megasnow": "Abomasnow-Mega",
 	"megamence": "Salamence-Mega",
 	"megascept": "Sceptile-Mega",
 	"megapert": "Swampert-Mega",
@@ -472,6 +475,7 @@ exports.BattleAliases = {
 	"scarf": "Choice Scarf",
 	"sitrus": "Sitrus Berry",
 	"specs": "Choice Specs",
+	"wp": "Weakness Policy",
 	"yache": "Yache Berry",
 
 	// pokemon
@@ -486,6 +490,7 @@ exports.BattleAliases = {
 	"azu": "Azumarill",
 	"bliss": "Blissey",
 	"bee": "Beedrill",
+	"bdrill": "Beedrill",
 	"bulu": "Tapu Bulu",
 	"cathy": "Trevenant",
 	"chomp": "Garchomp",
@@ -514,6 +519,7 @@ exports.BattleAliases = {
 	"hera": "Heracross",
 	"hippo": "Hippowdon",
 	"honch": "Honchkrow",
+	"karp": "Magikarp",
 	"keld": "Keldeo",
 	"klef": "Klefki",
 	"koko": "Tapu Koko",

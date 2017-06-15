@@ -165,7 +165,7 @@ class BattleTimer {
 		if (requester && this.battle.players[requester.userid] && this.lastDisabledByUser === requester.userid) {
 			const remainingCooldownTime = (this.lastDisabledTime || 0) + TIMER_COOLDOWN - Date.now();
 			if (remainingCooldownTime > 0) {
-				this.battle.players[requester.userid].sendRoom(`|inactive|The timer can't be re-enabled so soon after disabling it (${Math.ceil(remainingCooldownTime / 1000)} seconds remaining).`);
+				this.battle.players[requester.userid].sendRoom(`|inactiveoff|The timer can't be re-enabled so soon after disabling it (${Math.ceil(remainingCooldownTime / 1000)} seconds remaining).`);
 				return false;
 			}
 		}
@@ -354,6 +354,7 @@ class Battle {
 		Rooms.global.battleCount += (active ? 1 : 0) - (this.active ? 1 : 0);
 		this.room.active = active;
 		this.active = active;
+		if (Rooms.global.battleCount === 0) Rooms.global.automaticKillRequest();
 	}
 	choose(user, data) {
 		const player = this.players[user];
@@ -686,7 +687,7 @@ if (process.send && module === process.mainModule) {
 		});
 	}
 
-	require('./repl').start('sim-', process.pid, cmd => eval(cmd));
+	require('./repl').start(`sim-${process.pid}`, cmd => eval(cmd));
 
 	let Battles = new Map();
 

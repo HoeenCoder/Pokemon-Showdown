@@ -1511,9 +1511,6 @@ class Battle extends Dex.ModdedDex {
 				this.debug('damage event failed');
 				return damage;
 			}
-			if (target.illusion && target.hasAbility('Illusion') && effect && effect.effectType === 'Move' && effect.id !== 'confused') {
-				this.singleEvent('End', this.getAbility('Illusion'), target.abilityData, target, source, effect);
-			}
 		}
 		if (damage !== 0) damage = this.clampIntRange(damage, 1);
 		damage = target.damage(damage, source, effect);
@@ -1706,9 +1703,7 @@ class Battle extends Dex.ModdedDex {
 		if (!move) {
 			move = {};
 		}
-		if (!move.type) move.type = '???';
-		let type = move.type;
-		// '???' is typeless damage: used for Struggle and Confusion etc
+
 		let category = this.getCategory(move);
 		let defensiveCategory = move.defensiveCategory || category;
 
@@ -1798,7 +1793,16 @@ class Battle extends Dex.ModdedDex {
 		defense = this.runEvent('Modify' + statTable[defenseStat], defender, attacker, move, defense);
 
 		//int(int(int(2 * L / 5 + 2) * A * P / D) / 50);
-		let baseDamage = Math.floor(Math.floor(Math.floor(2 * level / 5 + 2) * basePower * attack / defense) / 50) + 2;
+		let baseDamage = Math.floor(Math.floor(Math.floor(2 * level / 5 + 2) * basePower * attack / defense) / 50);
+		
+		// Calculate damage modifiers separately (order differs between generations)
+		return this.modifyDamage(baseDamage, pokemon, target, move, suppressMessages);
+	}
+	modifyDamage(baseDamage, pokemon, target, move, suppressMessages) {
+		if (!move.type) move.type = '???';
+		let type = move.type;
+
+		baseDamage += 2;
 
 		// multi-target modifier (doubles only)
 		if (move.spreadHit) {
@@ -1847,14 +1851,14 @@ class Battle extends Dex.ModdedDex {
 
 		if (move.crit && !suppressMessages) this.add('-crit', target);
 
-		if (pokemon.status === 'brn' && basePower && move.category === 'Physical' && !pokemon.hasAbility('guts')) {
+		if (pokemon.status === 'brn' && move.category === 'Physical' && !pokemon.hasAbility('guts')) {
 			if (this.gen < 6 || move.id !== 'facade') {
 				baseDamage = this.modify(baseDamage, 0.5);
 			}
 		}
 
 		// Generation 5 sets damage to 1 before the final damage modifiers only
-		if (this.gen === 5 && basePower && !Math.floor(baseDamage)) {
+		if (this.gen === 5 && !Math.floor(baseDamage)) {
 			baseDamage = 1;
 		}
 
@@ -1867,7 +1871,7 @@ class Battle extends Dex.ModdedDex {
 			this.add('-message', target.name + " couldn't fully protect itself and got hurt! (placeholder)");
 		}
 
-		if (this.gen !== 5 && basePower && !Math.floor(baseDamage)) {
+		if (this.gen !== 5 && !Math.floor(baseDamage)) {
 			return 1;
 		}
 
@@ -1997,6 +2001,7 @@ class Battle extends Dex.ModdedDex {
 		while (this.faintQueue.length) {
 			faintData = this.faintQueue.shift();
 			if (!faintData.target.fainted) {
+				this.runEvent('BeforeFaint', faintData.target, faintData.source, faintData.effect);
 				this.add('faint', faintData.target);
 				faintData.target.side.pokemonLeft--;
 				this.runEvent('Faint', faintData.target, faintData.source, faintData.effect);
@@ -2612,28 +2617,20 @@ class Battle extends Dex.ModdedDex {
 		if ((this.p1 && this.p1.name === name) || (this.p2 && this.p2.name === name)) return false;
 
 		let player = null;
-		if (this.p1 || slot === 'p2') {
-			if (this.started) {
-				this.p2.name = name;
-			} else {
-				//console.log("NEW SIDE: " + name);
-				this.p2 = new Sim.Side(name, this, 1, team);
-				this.sides[1] = this.p2;
-			}
-			player = this.p2;
+		if (slot !== 'p1' && slot !== 'p2') slot = (this.p1 ? 'p2' : 'p1');
+		let slotNum = (slot === 'p2' ? 1 : 0);
+		if (this.started) {
+			this[slot].name = name;
 		} else {
-			if (this.started) {
-				this.p1.name = name;
-			} else {
-				//console.log("NEW SIDE: " + name);
-				this.p1 = new Sim.Side(name, this, 0, team);
-				this.sides[0] = this.p1;
-			}
-			player = this.p1;
+			//console.log("NEW SIDE: " + name);
+			this[slot] = new Sim.Side(name, this, slotNum, team);
+			this.sides[slotNum] = this[slot];
 		}
+		player = this[slot];
 
 		if (avatar) player.avatar = avatar;
 		this.add('player', player.id, player.name, avatar);
+		if (!this.started) this.add('teamsize', player.id, player.pokemon.length);
 
 		this.start();
 		return player;

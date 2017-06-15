@@ -365,8 +365,8 @@ exports.commands = {
 		let showDetails = (cmd === 'dt' || cmd === 'details');
 		if (newTargets && newTargets.length) {
 			for (let i = 0; i < newTargets.length; ++i) {
-				if (!newTargets[i].exactMatch && !i) {
-					buffer = "No Pok\u00e9mon, item, move, ability or nature named '" + target + "' was found. Showing the data of '" + newTargets[0].name + "' instead.\n";
+				if (newTargets[i].isInexact && !i) {
+					buffer = "No Pok\u00e9mon, item, move, ability or nature named '" + target + "' was found. Showing the data of '" + newTargets[0].isInexact + "' instead.\n";
 				}
 				if (newTargets[i].searchType === 'nature') {
 					let nature = Dex.getNature(newTargets[i].name);
@@ -1484,15 +1484,21 @@ exports.commands = {
 			return;
 		}
 		if (!room) {
-			this.errorReply("This is not a room you can set the rules of.");
+			return this.errorReply("This is not a room you can set the rules of.");
 		}
 		if (!this.can('editroom', null, room)) return;
 		if (target.length > 100) {
 			return this.errorReply("Error: Room rules link is too long (must be under 100 characters). You can use a URL shortener to shorten the link.");
 		}
 
-		room.rulesLink = target.trim();
-		this.privateModCommand(`(${user.name} changed the room rules link to: ${target})`);
+		if (target === 'delete' || target === 'remove') {
+			if (!room.rulesLink) return this.errorReply("This room does not have rules set to remove.");
+			delete room.rulesLink;
+			this.privateModCommand(`(${user.name} has removed the room rules link.)`);
+		} else {
+			room.rulesLink = target.trim();
+			this.privateModCommand(`(${user.name} changed the room rules link to: ${target})`);
+		}
 
 		if (room.chatRoomData) {
 			room.chatRoomData.rulesLink = room.rulesLink;
@@ -1501,7 +1507,8 @@ exports.commands = {
 	},
 	ruleshelp: ["/rules - Show links to room rules and global rules.",
 		"!rules - Show everyone links to room rules and global rules. Requires: + % @ * # & ~",
-		"/rules [url] - Change the room rules URL. Requires: # & ~"],
+		"/rules [url] - Change the room rules URL. Requires: # & ~",
+		"/rules remove - Removes a room rules URL. Requires: # & ~"],
 
 	'!faq': true,
 	faq: function (target, room, user) {
