@@ -6,6 +6,7 @@ exports.BattleScripts = {
 	init: function () {
 		for (let i in this.data.Pokedex) {
 			delete this.data.Pokedex[i].abilities['H'];
+			if (Dex.getAbility(this.data.Pokedex[i].abilities[1]).gen > 3) delete this.data.Pokedex[i].abilities[1];
 		}
 		let specialTypes = {Fire:1, Water:1, Grass:1, Ice:1, Electric:1, Dark:1, Psychic:1, Dragon:1};
 		let newCategory = '';
@@ -22,7 +23,7 @@ exports.BattleScripts = {
 	calcRecoilDamage: function (damageDealt, move) {
 		return this.clampIntRange(Math.floor(damageDealt * move.recoil[0] / move.recoil[1]), 1);
 	},
-	
+
 	randomSet: function (template, slot, teamDetails) {
 		if (slot === undefined) slot = 1;
 		let baseTemplate = (template = this.getTemplate(template));
@@ -235,26 +236,6 @@ exports.BattleScripts = {
 					rejected = true;
 				}
 
-				// Pokemon should have moves that benefit their Ability/Type/Weather, as well as moves required by its forme
-				/*if ((hasType['Electric'] && !counter['Electric']) ||
-					(hasType['Fighting'] && !counter['Fighting'] && (counter.setupType || !counter['Status'])) ||
-					(hasType['Fire'] && !counter['Fire']) ||
-					(hasType['Ground'] && !counter['Ground'] && (counter.setupType || counter['speedsetup'] || hasMove['raindance'] || !counter['Status'])) ||
-					(hasType['Ice'] && !counter['Ice']) ||
-					(hasType['Psychic'] && !!counter['Psychic'] && !hasType['Flying'] && template.types.length > 1 && counter.stab < 2) ||
-					(hasType['Water'] && !counter['Water'] && (!hasType['Ice'] || !counter['Ice'])) ||
-					((hasAbility['Adaptability'] && !counter.setupType && template.types.length > 1 && (!counter[template.types[0]] || !counter[template.types[1]])) ||
-					(hasAbility['Guts'] && hasType['Normal'] && movePool.includes('facade')) ||
-					(hasAbility['Slow Start'] && movePool.includes('substitute')) ||
-					(counter['defensesetup'] && !counter.recovery && !hasMove['rest']) ||
-					(template.requiredMove && movePool.includes(toId(template.requiredMove)))) &&
-					(counter['physicalsetup'] + counter['specialsetup'] < 2 && (!counter.setupType || (move.category !== counter.setupType && move.category !== 'Status') || counter[counter.setupType] + counter.Status > 3))) {
-					// Reject Status or non-STAB
-					if (!isSetup && !move.weather && moveid !== 'judgment' && moveid !== 'rest' && moveid !== 'sleeptalk') {
-						if (move.category === 'Status' || !hasType[move.type] || (move.basePower && move.basePower < 40 && !move.multihit)) rejected = true;
-					}
-				}*/
-
 				// Sleep Talk shouldn't be selected without Rest
 				if (moveid === 'rest' && rejected) {
 					let sleeptalk = movePool.indexOf('sleeptalk');
@@ -399,7 +380,7 @@ exports.BattleScripts = {
 				item = 'Liechi Berry';
 			} else {
 				item = template.baseStats.spe <= 108 && !counter['priority'] && this.random(3) ? 'Salac Berry' : 'Choice Band';
-			}	
+			}
 		} else if (counter.Special >= 4 || (counter.Special >= 3 && hasMove['batonpass'])) {
 			item = template.baseStats.spe >= 60 && template.baseStats.spe <= 108 && ability !== 'Speed Boost' && !counter['priority'] && this.random(3) ? 'Salac Berry' : 'Petaya Berry';
 		} else if (hasMove['outrage'] && counter.setupType) {
@@ -410,15 +391,8 @@ exports.BattleScripts = {
 			item = 'Leftovers';
 
 		// This is the "REALLY can't think of a good item" cutoff
-		} else if (hasType['Poison']) {
-			item = 'Black Sludge';
 		} else {
-			item = 'Leftovers';
-		}
-
-		// For Trick / Switcheroo
-		if (item === 'Leftovers' && hasType['Poison']) {
-			item = 'Black Sludge';
+			item = this.random(5) ? 'Leftovers' : ['Bright Powder', 'Quick Claw'][this.random(2)];
 		}
 
 		let levelScale = {
@@ -449,7 +423,14 @@ exports.BattleScripts = {
 			// Reversal users should be able to use four Substitutes
 			if (hp % 4 === 0) evs.hp -= 4;
 		} else if (item === 'Salac Berry' || item === 'Petaya Berry' || item === 'Liechi Berry') {
-			if (hp % 4 === 0) evs.hp -= 4;
+			if (hasMove['flail'] || hasMove['reversal']) {
+				while (hp % 4 !== 1) {
+					evs.hp -= 4;
+					hp = Math.floor(Math.floor(2 * template.baseStats.hp + ivs.hp + Math.floor(evs.hp / 4) + 100) * level / 100 + 10);
+				}
+			} else {
+				if (hp % 4 === 0) evs.hp -= 4;
+			}
 		}
 
 		// Minimize confusion damage
@@ -472,7 +453,7 @@ exports.BattleScripts = {
 	},
 	randomTeam: function (side) {
 		let pokemon = [];
-		
+
 		let bannedTiers = {'LC': 1, 'NFE': 1};
 		let pokemonPool = [];
 		for (let id in this.data.FormatsData) {
@@ -534,7 +515,6 @@ exports.BattleScripts = {
 
 			// Okay, the set passes, add it to our team
 			pokemon.push(set);
-			console.log(set);
 
 			// Now that our Pokemon has passed all checks, we can increment our counters
 			baseFormes[template.baseSpecies] = 1;
