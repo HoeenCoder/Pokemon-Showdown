@@ -55,7 +55,7 @@ exports.BattleFormatsData = {
 	},
 	beedrill: {
 		inherit: true,
-		randomBattleMoves: ["sludgebomb", "hiddenpowerbug", "brickbreak", "doubleedge", "swordsdance", "substitute"],
+		randomBattleMoves: ["sludgebomb", "hiddenpowerbug", "brickbreak", "doubleedge", "swordsdance", "substitute", "endeavor"],
 		tier: "NU",
 	},
 	pidgey: {
@@ -833,7 +833,7 @@ exports.BattleFormatsData = {
 		tier: "UU",
 	},
 	unown: {
-		randomBattleMoves: ["hiddenpowerpsychic"],
+		randomBattleMoves: ["hiddenpowerpsychic", "hiddenpowerfighting"],
 		tier: "NU",
 	},
 	wynaut: {
@@ -948,7 +948,7 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	houndoom: {
-		randomBattleMoves: ["pursuit", "fireblastflamethrower", "willowisp", "crunch", "hiddenpowerice", "hiddenpowergrass"],
+		randomBattleMoves: ["pursuit", "fireblast", "flamethrower", "willowisp", "crunch", "hiddenpowerice", "hiddenpowergrass"],
 		tier: "BL",
 	},
 	phanpy: {
