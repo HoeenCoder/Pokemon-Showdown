@@ -23,7 +23,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Cyndaquil', ability: 'Flash Fire', item: 'Leftovers', gender: 'M', //ask gender
 				moves: ['Eruption', 'Extrasensory', 'Facade'],
 				signatureMove: 'LaFireBlaze',
-				evs: {}, /* he said skip */ nature: 'Adamant',
+				nature: 'Adamant',
 			},
 			'Scotteh': {
 				species: 'Suicune', ability: 'Fur Coat', item: 'Leftovers', gender: 'N',
