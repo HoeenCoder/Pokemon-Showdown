@@ -90,7 +90,6 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Flying",
 	},
-	
 	// panpawn
 	lafireblaze: {
 		accuracy: 60,
@@ -109,7 +108,6 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
-	
 	// Scotteh
 	geomagneticstorm: {
 		accuracy: 100,
