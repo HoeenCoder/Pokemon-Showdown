@@ -95,19 +95,19 @@ exports.BattleMovedex = {
 	lafireblaze: {
 		accuracy: 60,
 		basepower: 150,
-		category: "Special", //ask panpawn since he gave no info
+		category: "Physical",
 		id: "lafireblaze",
 		isNonstandard: true,
 		name: "LaFireBlaze",
-		pp: 8, //ask panpawn since he gave no info
+		pp: 15,
 		priority: 0,
 		onTryHit: function (target, source, move) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Eruption", target);
+			this.add('-anim', source, "Fire Blast", target);
 		},
 		secondary: false,
 		target: "normal",
-		type: "Flying",
+		type: "Fire",
 	},
 	
 	// Scotteh
