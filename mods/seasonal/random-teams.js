@@ -25,6 +25,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Geomagnetic Storm',
 				evs: {def: 252, spa: 4, spe: 252}, nature: 'Bold',
 			},
+            'Beowulf': {
+				species: 'Beedrill', ability: 'Download', item: 'Beedrillite', gender: 'M',
+				moves: ['spikyshield', 'gunkshot', ['sacredfire', 'boltstrike', 'diamondstorm'][this.random(3)]],
+				signatureMove: "Buzzing of the Swarm",
+				evs: {def:4, atk:252, spe:252}, nature: 'Jolly',
+			},
 		};
 		
 		// Generate the team randomly.

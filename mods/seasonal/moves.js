@@ -110,4 +110,27 @@ exports.BattleMovedex = {
 		target: "allAdjacent",
 		type: "Electric",
 	},
+    // Beowulf
+    buzzingofthestorm: {
+        accuracy: 100,
+        basePower: 100,
+        category: "Physical",
+        id: "buzzingofthestorm",
+        isViable: true,
+        isNonstandard: true,
+        name: "Buzzing of the Storm",
+        pp: 10,
+        priority: 0,
+        flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
+        onTryHit: function (target, source, move) {
+            this.attrLastMove(['still']);
+            this.add('-anim', source, "Bug Buzz", target);
+        },
+        secondary: {
+			chance: 20,
+			volatileStatus: 'flinch',
+		},
+        target: "any",
+        type: "Bug",
+    },
 };
