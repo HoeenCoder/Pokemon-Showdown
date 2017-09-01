@@ -90,6 +90,26 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Flying",
 	},
+	
+	// panpawn
+	lafireblaze: {
+		accuracy: 60,
+		basepower: 150,
+		category: "Special", //ask panpawn since he gave no info
+		id: "lafireblaze",
+		isNonstandard: true,
+		name: "LaFireBlaze",
+		pp: 8, //ask panpawn since he gave no info
+		priority: 0,
+		onTryHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Eruption", target);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Flying",
+	},
+	
 	// Scotteh
 	geomagneticstorm: {
 		accuracy: 100,
