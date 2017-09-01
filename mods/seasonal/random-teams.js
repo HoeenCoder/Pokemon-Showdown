@@ -20,7 +20,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 172, atk: 228, spe: 108}, nature: 'Adamant',
 			},
 			'panpawn': {
-				species: 'Cyndaquil', ability: 'Flash Fire', item: 'Leftovers', gender: 'M', //ask gender
+				species: 'Cyndaquil', ability: 'Flash Fire', item: 'Leftovers', gender: 'M',
 				moves: ['Eruption', 'Extrasensory', 'Facade'],
 				signatureMove: 'LaFireBlaze',
 				nature: 'Adamant',
