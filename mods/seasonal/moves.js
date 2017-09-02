@@ -57,7 +57,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 0,
 		category: "Physical",
-		shortDesc: "Does damage equal to the user's HP. User faints. Replacement is fully healed.",
+		shortDesc: "Does damage equal to the amount of damage the pokemon has taken. User faints. Replacement is fully healed.",
 		id: "kamikazerebirth",
 		isNonstandard: true,
 		name: "Kamikaze Rebirth",
