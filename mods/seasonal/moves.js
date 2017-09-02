@@ -127,7 +127,7 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		onTryHit: function (target, source, move) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Giga Impact", target); //needs confirmation
+			this.add('-anim', source, "Memento", target);
 		},
 		onHit: function (target, source, move) {
 			if (!target.addVolatile('trapped', source, move, 'trapper')) {
@@ -157,7 +157,7 @@ exports.BattleMovedex = {
 		},
 		secondary: false,
 		target: "normal",
-		type: "Normal", // Needs confirmation	
+		type: "Normal",
 	},	
 	// panpawn
 	lafireblaze: {
