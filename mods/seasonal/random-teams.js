@@ -31,6 +31,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Geomagnetic Storm',
 				evs: {def: 252, spa: 4, spe: 252}, nature: 'Bold',
 			},
+			'Trickster': {
+				species: 'Hoopa', ability: 'Shadow Shield', item: 'Figy Berry', gender: 'N',
+				moves: ['Inferno', 'Zap Cannon', ['Dynamic Punch', 'Grass Whistle'][this.random(2)]],
+				signatureMove: '3 Freeze',
+				evs: {Atk: 4, SpA: 252, Spe: 252}, nature: 'Hasty',
+			},
 		};
 		
 		// Generate the team randomly.
