@@ -25,6 +25,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Kamikaze Rebirth',
 				evs: {hp: 172, atk: 228, spe: 108}, nature: 'Adamant',
 			},
+			'MochaMint': {
+				species: 'Deerling', ability: 'Sturdy', item: 'Eviolite', gender: 'M', //needs confirmation
+				moves: ['Protect', 'Nuzzle', 'U-Turn'],
+				signatureMove: 'Car Accident',
+				evs: {hp: 252, def: 4, spe: 252}, nature: 'Jolly',
+			},
 			'panpawn': {
 				species: 'Cyndaquil', ability: 'Flash Fire', item: 'Leftovers', gender: 'M',
 				moves: ['Eruption', 'Extrasensory', 'Facade'],
