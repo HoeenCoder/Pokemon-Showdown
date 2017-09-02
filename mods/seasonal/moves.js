@@ -28,15 +28,9 @@ exports.BattleMovedex = {
 		type: "Dark",
 	},
 	// kamikaze
-	// WIP  - healing wish is targeting wrong side
 	kamikazerebirth: {
 		accuracy: 100,
 		basePower: 0,
-		damageCallback: function (pokemon) {
-			let damage = pokemon.maxhp - pokemon.hp;
-			//pokemon.faint();
-			return damage;
-		},
 		category: "Physical",
 		id: "kamikazerebirth",
 		isNonstandard: true,
@@ -44,9 +38,9 @@ exports.BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		onPrepareHit: function (target, source) {
+		onPrepareHit: function (source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Final Gambit", target);
+			this.add('-anim', source, "Final Gambit", source.side.foe.active);
 			this.add('-anim', source, "Healing Wish", source);
 		},
 		onTryHit: function (pokemon, target, move) {
@@ -55,11 +49,16 @@ exports.BattleMovedex = {
 				return false;
 			}
 		},
-		selfdestruct: "ifHit",
+		onHit: function (target, source) {
+			target = target.side.foe.pokemon[0];
+			target.damage(source.maxhp - source.hp);
+			source.faint();
+		},
 		sideCondition: 'kamikazerebirth',
 		effect: {
 			duration: 2,
 			onStart: function (side, source) {
+				side = side.foe;
 				this.debug('Kamikaze Rebirth started on ' + side.name);
 				this.effectData.positions = [];
 				for (let i = 0; i < side.active.length; i++) {
@@ -87,8 +86,26 @@ exports.BattleMovedex = {
 			},
 		},
 		secondary: false,
-		target: "normal",
+		target: "self",
 		type: "Flying",
+	},
+	// panpawn
+	lafireblaze: {
+		accuracy: 60,
+		basepower: 150,
+		category: "Physical",
+		id: "lafireblaze",
+		isNonstandard: true,
+		name: "LaFireBlaze",
+		pp: 15,
+		priority: 0,
+		onTryHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Fire Blast", target);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Fire",
 	},
 	// Scotteh
 	geomagneticstorm: {

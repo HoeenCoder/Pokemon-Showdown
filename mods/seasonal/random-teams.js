@@ -19,6 +19,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Kamikaze Rebirth',
 				evs: {hp: 172, atk: 228, spe: 108}, nature: 'Adamant',
 			},
+			'panpawn': {
+				species: 'Cyndaquil', ability: 'Flash Fire', item: 'Leftovers', gender: 'M',
+				moves: ['Eruption', 'Extrasensory', 'Facade'],
+				signatureMove: 'LaFireBlaze',
+				nature: 'Adamant',
+			},
 			'Scotteh': {
 				species: 'Suicune', ability: 'Fur Coat', item: 'Leftovers', gender: 'N',
 				moves: ['Slack Off', 'Amnesia', 'Steam Eruption'],
