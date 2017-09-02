@@ -112,6 +112,53 @@ exports.BattleMovedex = {
 		target: "self",
 		type: "Flying",
 	},
+	// MochaMint
+	caraccident: {
+		accuracy: true,
+		basepower: 0,
+		category: "status",
+		id: "caraccident",
+		isNonstandard: true,
+		name: "Car Accident",
+		pp: 5,
+		priority: 1,
+		selfdestruct: "ifHit",
+		volatileStatus: 'torment',
+		flags: {protect: 1, mirror: 1},
+		onTryHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Giga Impact", target); //needs confirmation
+		},
+		onHit: function (target, source, move) {
+			if (!target.addVolatile('trapped', source, move, 'trapper')) {
+				this.add('-fail', target);
+			}
+		},
+		boosts: {
+			atk: -1,
+			def: -1,
+			spa: -1,
+			spd: -1,
+			spe: -1,
+			evasion: -1,
+			accuracy: -1,
+		},
+		effect: {
+			noCopy: true,
+			onStart: function (pokemon) {
+				this.add('-start', pokemon, 'Torment');
+			},
+			onEnd: function (pokemon) {
+				this.add('-end', pokemon, 'Torment');
+			},
+			onDisableMove: function (pokemon) {
+				if (pokemon.lastMove !== 'struggle') pokemon.disableMove(pokemon.lastMove);
+			},
+		},
+		secondary: false,
+		target: "normal",
+		type: "Normal", // Needs confirmation	
+	},	
 	// panpawn
 	lafireblaze: {
 		accuracy: 60,
