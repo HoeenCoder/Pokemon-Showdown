@@ -36,8 +36,8 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Recover', ['Night Shade', 'Seismic Toss'][this.random(2)], ['Nature\'s Madness', 'Cosmic Power', 'Cotton Guard'][this.random(3)]],
 				signatureMove: 'Next Level Strats',
 				evs: {hp: 236, def: 220, spd: 48, spe: 4}, nature: 'Calm',
-      },
-      'MochaMint': {
+			},
+			'MochaMint': {
 				species: 'Deerling', ability: 'Sturdy', item: 'Eviolite', gender: 'M', //needs confirmation
 				moves: ['Protect', 'Nuzzle', 'U-Turn'],
 				signatureMove: 'Car Accident',
