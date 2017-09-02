@@ -21,7 +21,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Joim': {
 				species: 'Zapdos', ability:'Tinted Lens', item: 'Life Orb', gender: 'N',
-				moves: ['Roost', 'Hurricane', [,'Thunderbolt' 'Quiver Dance'][this.random(2)]],
+				moves: ['Roost', 'Hurricane', ['Thunderbolt', 'Quiver Dance'][this.random(2)]],
 				signatureMove: 'Retirement',
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', //ask nature
 			},
