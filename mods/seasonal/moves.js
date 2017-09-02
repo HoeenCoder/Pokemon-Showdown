@@ -127,6 +127,7 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		onTryHit: function (target, source, move) {
 			this.attrLastMove('[still]');
+			this.add('-anim', target, "Double Edge" source);
 			this.add('-anim', source, "Memento", target);
 		},
 		onHit: function (target, source, move) {
