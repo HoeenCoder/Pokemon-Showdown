@@ -7,6 +7,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 		let team = [];
 		let variant = (this.random(2) === 1);
 		let sets = {
+			'Beowulf': {
+				species: 'Beedrill', ability: 'Download', item: 'Beedrillite', gender: 'M',
+				moves: ['spikyshield', 'gunkshot', ['sacredfire', 'boltstrike', 'diamondstorm'][this.random(3)]],
+				signatureMove: "Buzzing of the Storm",
+				evs: {def:4, atk:252, spe:252}, nature: 'Jolly',
+			},
 			'EV': {
 				species: 'Muk-Alola', ability: 'Unaware', item: 'Black Sludge', gender: 'M', // ask gender
 				moves: [['Gunk Shot', 'Poison Jab'][this.random(2)], 'Recover', 'Coil'],
@@ -31,16 +37,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Geomagnetic Storm',
 				evs: {def: 252, spa: 4, spe: 252}, nature: 'Bold',
 			},
-			'Trickster': {
-				species: 'Hoopa', ability: 'Shadow Shield', item: 'Figy Berry', gender: 'N',
-				moves: ['Inferno', 'Zap Cannon', ['Dynamic Punch', 'Grass Whistle'][this.random(2)]],
-				signatureMove: '3 Freeze',
-				evs: {Atk: 4, SpA: 252, Spe: 252}, nature: 'Hasty',
-			'Beowulf': {
-				species: 'Beedrill', ability: 'Download', item: 'Beedrillite', gender: 'M',
-				moves: ['spikyshield', 'gunkshot', ['sacredfire', 'boltstrike', 'diamondstorm'][this.random(3)]],
-				signatureMove: "Buzzing of the Storm",
-				evs: {def:4, atk:252, spe:252}, nature: 'Jolly',
+			'Temporaryanonymous': {
+				species: 'Doublade', ability: 'Tough Claws', item: 'Eviolite',
+				gender: 'M',
+				moves: ['Swords Dance', 'Gear Grind', ['Sacred Sword', 'X-Scissor', 'Knock off'][this.random(3)]],
+				signatureMove: 'SPOOPY EDGE CUT',
+				evs: {atk: 252, hp: 252, def: 4}, nature: 'Adamant',
 			},
 			'Trickster': {
 				species: 'Hoopa', ability: 'Shadow Shield', item: 'Figy Berry',
@@ -49,12 +51,11 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: '3 Freeze',
 				evs: {atk: 4, spa: 252, spe: 252}, nature: 'Hasty',
 			},
-			'Temporaryanonymous': {
-				species: 'Doublade', ability: 'Tough Claws', item: 'Eviolite',
-				gender: 'M',
-				moves: ['Swords Dance', 'Gear Grind', ['Sacred Sword', 'X-Scissor', 'Knock off'][this.random(3)]],
-				signatureMove: 'SPOOPY EDGE CUT',
-				evs: {atk: 252, hp: 252, def: 4}, nature: 'Adamant',
+			'xfix': {
+				species: 'Xatu', ability: ['Magic Bounce', 'Prankster', 'Skill Link'][this.random(3)], item: 'Pomeg Berry', gender: 'M',
+				moves: ['Substitute', ['Roost', 'Strength Sap'][this.random(2)], 'Thunder Wave'],
+				signatureMove: 'glitzer popping',
+				evs: {hp: 4, def: 252, spd: 252}, nature: 'Calm',
 			},
 		};
 

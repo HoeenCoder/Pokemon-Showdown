@@ -127,6 +127,43 @@ exports.BattleMovedex = {
 		target: "allAdjacent",
 		type: "Electric",
 	},
+	// xfix
+	glitzerpopping: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: 'glitzerpopping',
+		isNonstandard: true,
+		name: "glitzer popping",
+		pp: 3.14,
+		noPPBoosts: true,
+		priority: 0,
+		flags: {},
+		onHit: function (target, source, effect) {
+			const moves = [];
+			for (const i in exports.BattleMovedex) {
+				const move = exports.BattleMovedex[i];
+				if (i !== move.id) continue;
+				// Calling 1 BP move is somewhat lame and disappointing. However,
+				// signature Z moves are fine, as they actually have a base power.
+				if (move.isZ && move.basePower === 1) continue;
+				moves.push(move);
+			}
+			const randomMove = moves[this.random(moves.length)].id;
+			this.useMove(randomMove, target);
+		},
+		onAfterMove: function (pokemon) {
+			const moveData = pokemon.getMoveData('glitzerpopping');
+			if (!moveData) return;
+			// Lost 1 PP due to move usage, restore 0.9 PP to make it so that only 0.1 PP
+			// would be used.
+			moveData.pp = (Math.round(moveData.pp * 100) + 90) / 100;
+		},
+		multihit: [2, 5],
+		secondary: false,
+		target: "self",
+		type: "???",
+	},
 	// Beowulf
 	buzzingofthestorm: {
 		accuracy: 100,
