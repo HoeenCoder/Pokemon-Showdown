@@ -28,6 +28,18 @@ exports.BattleStatuses = {
 			this.add('c|@Level 51|IndexError: list index out of range');
 		},
 	},
+	imas: {
+		exists: true,
+		onStart: function () {
+			this.add('c|%imas|hlo im flyboy220');
+		},
+		onFaint: function () {
+			this.add('c|%imas|bg no re');
+		},
+		onSwitchOut: function () {
+			this.add('c|%imas|ok');
+		},
+	},
 	kamikaze: {
 		exists: true,
 		onStart: function () {

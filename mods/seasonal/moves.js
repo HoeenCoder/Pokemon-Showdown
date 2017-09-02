@@ -87,6 +87,49 @@ exports.BattleMovedex = {
 		target: "self",
 		type: "Normal",
 	},
+	//Imas
+ 	accelesquawk: {
+ 		accuracy: 100,
+ 		basePower: 90,
+ 		category: "Physical",
+ 		shortDesc: "No additional effect.",
+ 		id: "accelesquawk",
+ 		isNonstandard: true,
+ 		name: "Accele Squawk",
+ 		pp: 10,
+ 		priority: 0,
+		ignoreAbility: true,
+ 		onPrepareHit: function (target, source) {
+ 			this.attrLastMove('[still]');
+ 			this.add('-anim', source, "Brave Bird", target); //placeholder
+			this.add('c|%imas|**AcceleSquawk**');
+ 		},
+ 		secondary: false,
+ 		target: "normal",
+ 		type: "Flying",
+ 	},
+ 	boi: {
+ 		accuracy: true,
+ 		basePower: 180,
+ 		category: "Physical",
+ 		shortDesc: "No additional effect.",
+ 		id: "boi",
+ 		isNonstandard: true,
+ 		name: "B O I",
+ 		pp: 1,
+ 		priority: 0,
+		isZ: 'imasiumz',
+ 		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+ 			this.add('-anim', source, "Brave Bird", target);  //placeholder
+ 		},
+		onHit: function(target, source, move) {
+			this.boost({atk: 3, def: 1, spd: 1}, source);
+		},
+ 		secondary: false,
+ 		target: "normal",
+ 		type: "Flying",
+ 	},
 	//joim
 	retirement: {
 		accuracy: 100,
