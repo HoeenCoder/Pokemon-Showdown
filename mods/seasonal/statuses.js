@@ -40,4 +40,16 @@ exports.BattleStatuses = {
 			this.add('c|@Beowulf|There is no need to be mad');
 		},
 	},
+	trickster: {
+		exists: true,
+		onStart: function () {
+			this.add('c|@Trickster|(◕‿◕✿)');
+		},
+		onFaint: function () {
+			this.add('c|@Trickster|(✖﹏✖✿)');
+		},
+		onSwitchOut: function () {
+			this.add('c|@Trickster|(◠﹏◠✿)');
+		},
+	},
 };
