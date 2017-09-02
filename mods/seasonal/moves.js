@@ -127,46 +127,168 @@ exports.BattleMovedex = {
 		target: "allAdjacent",
 		type: "Electric",
 	},
-	//Trickster
-	'3freeze': {
+	// xfix
+	glitzerpopping: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: 'glitzerpopping',
+		isNonstandard: true,
+		name: "glitzer popping",
+		pp: 3.14,
+		noPPBoosts: true,
+		priority: 0,
+		flags: {},
+		onHit: function (target, source, effect) {
+			const moves = [];
+			for (const i in exports.BattleMovedex) {
+				const move = exports.BattleMovedex[i];
+				if (i !== move.id) continue;
+				// Calling 1 BP move is somewhat lame and disappointing. However,
+				// signature Z moves are fine, as they actually have a base power.
+				if (move.isZ && move.basePower === 1) continue;
+				moves.push(move);
+			}
+			const randomMove = moves[this.random(moves.length)].id;
+			this.useMove(randomMove, target);
+		},
+		onAfterMove: function (pokemon) {
+			const moveData = pokemon.getMoveData('glitzerpopping');
+			if (!moveData) return;
+			// Lost 1 PP due to move usage, restore 0.9 PP to make it so that only 0.1 PP
+			// would be used.
+			moveData.pp = (Math.round(moveData.pp * 100) + 90) / 100;
+		},
+		multihit: [2, 5],
+		secondary: false,
+		target: "self",
+		type: "???",
+	},
+	// Beowulf
+	buzzingofthestorm: {
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		id: "buzzingofthestorm",
+		isViable: true,
+		isNonstandard: true,
+		name: "Buzzing of the Storm",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
+		onTryHit: function (target, source, move) {
+			this.attrLastMove(['still']);
+			this.add('-anim', source, "Bug Buzz", target);
+		},
+		secondary: {
+			chance: 20,
+			volatileStatus: 'flinch',
+		},
+		target: "any",
+		type: "Bug",
+	},
+	// Trickster, haven't completely tested this yet
+	"3freeze": {
 		accuracy: 100,
 		basePower: 0,
+		pp: 10,
+		priority: 0,
+		category: "Special",
+		id: "3freeze",
+		isViable: true,
+		isNonstandard: true,
+		name: "3 Freeze",
 		basePowerCallback: function (pokemon, target) {
 			let targetWeight = target.getWeight();
 			if (targetWeight >= 200) {
+				this.debug('120 bp');
 				return 120;
 			}
 			if (targetWeight >= 100) {
+				this.debug('100 bp');
 				return 100;
 			}
 			if (targetWeight >= 50) {
+				this.debug('80 bp');
 				return 80;
 			}
 			if (targetWeight >= 25) {
+				this.debug('60 bp');
 				return 60;
 			}
 			if (targetWeight >= 10) {
+				this.debug('40 bp');
 				return 40;
 			}
+			this.debug('20 bp');
 			return 20;
 		},
-		category: 'Special',
-		id: '3freeze',
-		name: '3 Freeze',
-		isNonstandard: true,
-		pp: 10,
-		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		onStart: function (source) {
-			this.setPseudoWeather('gravity');
-		},
 		onTryHit: function (target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Psyshock", target); //Still needs confirmation
+			this.attrLastMove(['still']);
+			this.add('-anim', source, "Spacial Rend", target); // confirmed with Trickster
 		},
-		secondary: {
-			chance: 10,
-			volatileStatus: 'flinch',
+		effect: {
+			duration: 5,
+			durationCallback: function (source, effect) {
+				if (source && source.hasAbility('persistent')) {
+					return 7;
+				}
+				return 5;
+			},
+			onStart: function () {
+				this.add('-fieldstart', 'move: Gravity');
+				const allActivePokemon = this.sides[0].active.concat(this.sides[1].active);
+				for (let pokemon of allActivePokemon) {
+					let applies = false;
+					if (pokemon.removeVolatile('bounce') || pokemon.removeVolatile('fly')) {
+						applies = true;
+						this.cancelMove(pokemon);
+						pokemon.removeVolatile('twoturnmove');
+					}
+					if (pokemon.volatiles['skydrop']) {
+						applies = true;
+						this.cancelMove(pokemon);
+
+						if (pokemon.volatiles['skydrop'].source) {
+							this.add('-end', pokemon.volatiles['twoturnmove'].source, 'Sky Drop', '[interrupt]');
+						}
+						pokemon.removeVolatile('skydrop');
+						pokemon.removeVolatile('twoturnmove');
+					}
+					if (pokemon.volatiles['magnetrise']) {
+						applies = true;
+						delete pokemon.volatiles['magnetrise'];
+					}
+					if (pokemon.volatiles['telekinesis']) {
+						applies = true;
+						delete pokemon.volatiles['telekinesis'];
+					}
+					if (applies) this.add('-activate', pokemon, 'move: Gravity');
+				}
+			},
+			onModifyAccuracy: function (accuracy) {
+				if (typeof accuracy !== 'number') return;
+				return accuracy * 5 / 3;
+			},
+			onDisableMove: function (pokemon) {
+				for (let i = 0; i < pokemon.moveset.length; i++) {
+					if (this.getMove(pokemon.moveset[i].id).flags['gravity']) {
+						pokemon.disableMove(pokemon.moveset[i].id);
+					}
+				}
+			},
+			// groundedness implemented in battle.engine.js:BattlePokemon#isGrounded
+			onBeforeMovePriority: 6,
+			onBeforeMove: function (pokemon, target, move) {
+				if (move.flags['gravity']) {
+					this.add('cant', pokemon, 'move: Gravity', move);
+					return false;
+				}
+			},
+			onResidualOrder: 22,
+			onEnd: function () {
+				this.add('-fieldend', 'move: Gravity');
+			},
 		},
 		target: "normal",
 		type: "Psychic",
