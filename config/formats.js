@@ -355,7 +355,6 @@ exports.Formats = [
 		name: "[Gen 7] Super Staff Bros Brawl",
 		desc: "WIP",
 		debug: true,
-		
 		mod: 'seasonal',
 		team: 'randomStaffBros',
 		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
