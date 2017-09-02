@@ -23,9 +23,13 @@ exports.BattleStatuses = {
 		exists: true,
 		onStart: function () {
 			this.add('c|%panpawn|hello darkness my old friend,,,');
-		}, //lack on switch out phrase
+		},
 		onFaint: function () {
 			this.add('c|%panpawn|how RUDE ;_;7');
+		},
+		onSwitchOut: function () {
+			this.add('c|%panpawn|... >:^(');
+		},
 	},
 	scotteh: {
 		exists: true,
