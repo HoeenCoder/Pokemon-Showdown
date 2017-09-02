@@ -207,6 +207,7 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basepower: 0,
 		category: "status",
+		shortDesc: "Drops all foe's stats. Traps foe. Torments foe",
 		id: "caraccident",
 		isNonstandard: true,
 		name: "Car Accident",
