@@ -6,6 +6,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 100,
 		category: "Physical",
+		shortDesc: "20% chance to flinch the target.",
 		id: "buzzingofthestorm",
 		isViable: true,
 		isNonstandard: true,
@@ -32,6 +33,7 @@ exports.BattleMovedex = {
 			return move.basePower + 20 * pokemon.positiveBoosts();
 		},
 		category: "Physical",
+		shortDesc: "Steals target's boosts before dealing damage. + 20 power for each of the user's stat boosts.",
 		id: "darkaggro",
 		isNonstandard: true,
 		name: "Dark Aggro",
@@ -50,11 +52,101 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Dark",
 	},
+	// Level 51
+	nextlevelstrats: {
+		accuracy: true,
+		category: "Status",
+		id: "nextlevelstrats",
+		isNonstandard: true,
+		name: "Next Level Strats",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, snatch: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Follow Me", target);
+		},
+		onHit: function (pokemon) {
+			const template = pokemon.template;
+			pokemon.level += 10;
+			pokemon.set.level = pokemon.level;
+			// recalcs stats, the client is not informed about a change
+			pokemon.formeChange(template);
+
+			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+			this.add('detailschange', pokemon, pokemon.details);
+
+			const newHP = Math.floor(Math.floor(2 * template.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] / 4) + 100) * pokemon.level / 100 + 10);
+			pokemon.hp = newHP - (pokemon.maxhp - pokemon.hp);
+			pokemon.maxhp = newHP;
+			this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
+
+			this.add('-message', 'Level 51 advanced 10 levels! It is now level ' + pokemon.level + '!');
+		},
+		secondary: false,
+		target: "self",
+		type: "Normal",
+	},
+	//joim
+	retirement: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Special",
+		shortDesc: "-1 def, spd on foe, +1 atk, spa on replacement",
+		id: "retirement",
+		isNonstandard: true,
+		name: "Retirement",
+		pp: 32,
+		priority: 2,
+		flags: {protect: 1, mirror: 1},
+		selfSwitch: true,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Volt Switch", target);
+		},
+		onAfterMove: function (pokemon, target, move) {
+			target.foe.addSideConditon("retirement", pokemon, move);
+		},
+		effect: {
+			duration: 2,
+			onStart: function (side, source) {
+				side = side.foe;
+				this.debug('Retirement started on ' + side.name);
+				this.effectData.positions = [];
+				for (let i = 0; i < side.active.length; i++) {
+					this.effectData.positions[i] = false;
+				}
+				this.effectData.positions[source.position] = true;
+			},
+			onRestart: function (side, source) {
+				this.effectData.positions[source.position] = true;
+			},
+			onSwitchInPriority: 1,
+			onSwitchIn: function (target) {
+				if (!this.effectData.positions[target.position]) {
+					return;
+				}
+				if (!target.fainted) {
+					this.boost({atk: 1, spa: 1}, target);
+					//this.add('-boost', target, target.getHealth, '[from] move: Kamikaze Rebirth');
+					this.effectData.positions[target.position] = false;
+				}
+				if (!this.effectData.positions.some(affected => affected === true)) {
+					target.side.removeSideCondition('retirement');
+				}
+			},
+		},
+		boosts: {def: -1, spd: -1},
+		secondary: false,
+		target: "normal",
+		type: "Electric",
+	},
 	// kamikaze
 	kamikazerebirth: {
 		accuracy: 100,
 		basePower: 0,
 		category: "Physical",
+		shortDesc: "Final Gambit + Healing Wish",
 		id: "kamikazerebirth",
 		isNonstandard: true,
 		name: "Kamikaze Rebirth",
@@ -68,20 +160,18 @@ exports.BattleMovedex = {
 		},
 		onTryHit: function (pokemon, target, move) {
 			if (!this.canSwitch(pokemon.side)) {
-				delete move.selfdestruct;
 				return false;
 			}
 		},
 		onHit: function (target, source) {
 			target = target.side.foe.pokemon[0];
-			target.damage(source.maxhp - source.hp);
+			target.damage(source.hp);
 			source.faint();
 		},
 		sideCondition: 'kamikazerebirth',
 		effect: {
 			duration: 2,
 			onStart: function (side, source) {
-				side = side.foe;
 				this.debug('Kamikaze Rebirth started on ' + side.name);
 				this.effectData.positions = [];
 				for (let i = 0; i < side.active.length; i++) {
@@ -112,21 +202,73 @@ exports.BattleMovedex = {
 		target: "self",
 		type: "Flying",
 	},
+	// MochaMint
+	caraccident: {
+		accuracy: true,
+		basepower: 0,
+		category: "status",
+		id: "caraccident",
+		isNonstandard: true,
+		name: "Car Accident",
+		pp: 5,
+		priority: 1,
+		selfdestruct: "ifHit",
+		volatileStatus: 'torment',
+		flags: {protect: 1, mirror: 1},
+		onTryHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', target, "Double Edge" source);
+			this.add('-anim', source, "Memento", target);
+		},
+		onHit: function (target, source, move) {
+			if (!target.addVolatile('trapped', source, move, 'trapper')) {
+				this.add('-fail', target);
+			}
+		},
+		boosts: {
+			atk: -1,
+			def: -1,
+			spa: -1,
+			spd: -1,
+			spe: -1,
+			evasion: -1,
+			accuracy: -1,
+		},
+		effect: {
+			noCopy: true,
+			onStart: function (pokemon) {
+				this.add('-start', pokemon, 'Torment');
+			},
+			onEnd: function (pokemon) {
+				this.add('-end', pokemon, 'Torment');
+			},
+			onDisableMove: function (pokemon) {
+				if (pokemon.lastMove !== 'struggle') pokemon.disableMove(pokemon.lastMove);
+			},
+		},
+		secondary: false,
+		target: "normal",
+		type: "Normal",
+	},	
 	// panpawn
-	lafireblaze: {
-		accuracy: 60,
+	lafireblaze420: {
+		accuracy: 75,
 		basepower: 150,
 		category: "Physical",
-		id: "lafireblaze",
+		shortDesc: "No additional effect.",
+		id: "lafireblaze420",
 		isNonstandard: true,
-		name: "LaFireBlaze",
+		name: "LaFireBlaze420",
 		pp: 15,
 		priority: 0,
 		onTryHit: function (target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Fire Blast", target);
 		},
-		secondary: false,
+		secondary: {
+			chance: 20,
+			status: 'brn',
+		},
 		target: "normal",
 		type: "Fire",
 	},
@@ -135,6 +277,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 140,
 		category: "Special",
+		shortDesc: "No additional effect. Hits adjacent Pokemon.",
 		id: "geomagneticstorm",
 		isViable: true,
 		isNonstandard: true,
@@ -157,6 +300,7 @@ exports.BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		category: "Special",
+		shortDesc: "For 5 turns, negates all Ground immunities. More power the heavier the target.",
 		id: "3freeze",
 		isViable: true,
 		isNonstandard: true,
@@ -261,6 +405,7 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
+		shortDesc: "Picks a random move 2-5 times in one turn.",
 		id: 'glitzerpopping',
 		isNonstandard: true,
 		name: "glitzer popping",

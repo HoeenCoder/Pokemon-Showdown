@@ -19,6 +19,15 @@ exports.BattleStatuses = {
 			this.add('c|~EV|muk off');
 		},
 	},
+	level51: {
+		exists: true,
+		onStart: function () {
+			this.add('c|@Level 51|Calculating chance of victory!');
+		},
+		onFaint: function () {
+			this.add('c|@Level 51|IndexError: list index out of range');
+		},
+	},
 	kamikaze: {
 		exists: true,
 		onStart: function () {

@@ -19,13 +19,25 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Dark Aggro',
 				evs: {hp: 252, spa: 252, spd: 4}, nature: 'Adamant',
 			},
+			'Joim': {
+				species: 'Zapdos', ability:'Tinted Lens', item: 'Life Orb', gender: 'N',
+				moves: ['Roost', 'Hurricane', ['Thunderbolt', 'Quiver Dance'][this.random(2)]],
+				signatureMove: 'Retirement',
+				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', //ask nature
+			},
 			'kamikaze': {
 				species: 'Staraptor', ability: 'Flash Feather', item: 'Choice Band', gender: 'M',
 				moves: ['Brave Bird', 'Close Combat', ['Double Edge', 'U-Turn'][this.random(2)]],
 				signatureMove: 'Kamikaze Rebirth',
 				evs: {hp: 172, atk: 228, spe: 108}, nature: 'Adamant',
 			},
-			'MochaMint': {
+			'Level 51': {
+				species: 'Porygon2', ability: 'Trace', item: 'Eviolite',
+				moves: ['Recover', ['Night Shade', 'Seismic Toss'][this.random(2)], ['Nature\'s Madness', 'Cosmic Power', 'Cotton Guard'][this.random(3)]],
+				signatureMove: 'Next Level Strats',
+				evs: {hp: 236, def: 220, spd: 48, spe: 4}, nature: 'Calm',
+      },
+      'MochaMint': {
 				species: 'Deerling', ability: 'Sturdy', item: 'Eviolite', gender: 'M', //needs confirmation
 				moves: ['Protect', 'Nuzzle', 'U-Turn'],
 				signatureMove: 'Car Accident',
@@ -34,7 +46,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'panpawn': {
 				species: 'Cyndaquil', ability: 'Flash Fire', item: 'Leftovers', gender: 'M',
 				moves: ['Eruption', 'Extrasensory', 'Facade'],
-				signatureMove: 'LaFireBlaze',
+				signatureMove: 'LaFireBlaze420',
 				nature: 'Adamant',
 			},
 			'Scotteh': {
@@ -58,7 +70,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {atk: 4, spa: 252, spe: 252}, nature: 'Hasty',
 			},
 			'xfix': {
-				species: 'Xatu', ability: ['Magic Bounce', 'Prankster', 'Skill Link'][this.random(3)], item: 'Pomeg Berry', gender: 'M',
+				species: 'Xatu', ability: ['Magic Bounce', 'Prankster'][this.random(2)], item: 'Pomeg Berry', gender: 'M',
 				moves: ['Substitute', ['Roost', 'Strength Sap'][this.random(2)], 'Thunder Wave'],
 				signatureMove: 'glitzer popping',
 				evs: {hp: 4, def: 252, spd: 252}, nature: 'Calm',
