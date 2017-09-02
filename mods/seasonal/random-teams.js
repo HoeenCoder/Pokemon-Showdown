@@ -19,6 +19,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Dark Aggro',
 				evs: {hp: 252, spa: 252, spd: 4}, nature: 'Adamant',
 			},
+			'Joim': {
+				species: 'Zapdos', ability:'Tinted Lens', item: 'Life Orb', gender: 'N',
+				moves: ['Roost', 'Hurricane', [,'Thunderbolt' 'Quiver Dance'][this.random(2)]],
+				signatureMove: 'Retirement',
+				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', //ask nature
+			},
 			'kamikaze': {
 				species: 'Staraptor', ability: 'Flash Feather', item: 'Choice Band', gender: 'M',
 				moves: ['Brave Bird', 'Close Combat', ['Double Edge', 'U-Turn'][this.random(2)]],
