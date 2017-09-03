@@ -71,6 +71,7 @@ exports.BattleMovedex = {
 		accuracy: 75,
 		basePower: 0,
 		category: "Physical",
+		shortDesc: "Steals foe's status move. Deals Damage",
 		id: "starboltdesperation",
 		isViable: true,
 		isNonstandard: true,
