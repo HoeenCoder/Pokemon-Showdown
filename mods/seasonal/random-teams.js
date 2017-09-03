@@ -13,6 +13,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: "Energy Field",
 				evs: {hp:4, spa:252, spe:252}, nature: 'Modest',
 			},
+			'Andy >_>': {
+				species: 'Absol', ability: 'Justified', item: 'Absolite', gender: 'M',
+				moves: ['Swords Dance', 'Sucker Punch', ['U-Turn', 'Knock Off'][this.random(2)]],
+				signatureMove: "Pilfer",
+				evs: {hp:252, atk: 252, spe:4}, nature: 'Adamant,
+			},
 			'Astara': {
 				species: 'Jirachi', ability: 'Cursed Body', item: ['Leftovers', 'Sitrus Berry'][this.random(2)], gender: 'F', shiny: true,
 				moves: ['psystrike', 'moonblast', 'nastyplot', 'scald', 'recover'],
