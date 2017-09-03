@@ -11,6 +11,28 @@ exports.BattleStatuses = {
 			this.add('c|%Aelita|CODE: LYOKO. Tower deactivated...');
 		},
 	},
+	andy: {
+		exists: true,
+		onUpdate: function (pokemon) {
+			let name = toId(pokemon.name);
+			if (pokemon.template.isMega) {
+				if (name === 'andy' && pokemon.getAbility().id === 'magicbounce') {
+					pokemon.setAbility('Huge Power'); //change to adaptability if to strong
+					this.add('-ability', pokemon, 'Huge Power'); //change to adaptability if to strong
+				}
+			}
+		},
+		onStart: function () {
+			this.add('c|@AndrewGoncel >_>|AHAM!!!');
+		},
+		onFaint: function () {
+			this.add('c|@AndrewGoncel >_>|>_>');
+		},
+		onSwitchOut: function () {
+			this.add('c|@AndrewGoncel >_>|:<');
+		},
+		
+	},
 	astara: {
 		exists: true,
 		onStart: function () {
