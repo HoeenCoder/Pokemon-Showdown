@@ -106,6 +106,15 @@ exports.BattleStatuses = {
 			this.add('-message', '█████████████████████▀▀');
 		},
 	},
+	teremiare: {
+		exists: true,
+		onStart: function () {
+			this.add('c|@Teremiare|(>\'o\')>');
+		},
+		onFaint: function () {
+			this.add('c|@Teremiare|<(\'o\'<)');
+		},
+	},
 	trickster: {
 		exists: true,
 		onStart: function () {

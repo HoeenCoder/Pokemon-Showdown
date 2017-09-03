@@ -86,6 +86,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'SPOOPY EDGE CUT',
 				evs: {atk: 252, hp: 252, def: 4}, nature: 'Adamant',
 			},*/
+			'Teremiare': {
+				species: 'Zorua', ability: 'Super Prankster', item: 'Red Card', gender: 'M',
+				moves: ['Topsy-Turvy', 'Taunt', 'Memento'],
+				signatureMove: 'Baton Thief',
+				evs: {hp: 252, def: 4, spe: 252}, nature: 'Timid',
+			},
 			'Trickster': {
 				species: 'Hoopa', ability: 'Shadow Shield', item: 'Figy Berry',
 				gender: 'M',

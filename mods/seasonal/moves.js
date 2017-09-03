@@ -475,6 +475,29 @@ exports.BattleMovedex = {
 		target: "allAdjacent",
 		type: "Electric",
 	},
+	// Teremiare
+	batonthief: {
+		accuracy: true,
+		category: "Status",
+		shortDesc: "Steals target's boosts and then Baton Passes them out.",
+		id: "batonthief",
+		isNonstandard: true,
+		name: "Baton Thief",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		stealsBoosts: true,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Spectral Thief", target);
+		},
+		onAfterMoveSecondarySelf: function (source) {
+			this.useMove('batonpass', source);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Dark",
+	},
 	// Trickster, haven't completely tested this yet
 	"3freeze": {
 		accuracy: 100,
