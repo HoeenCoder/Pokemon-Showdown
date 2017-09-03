@@ -37,6 +37,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Accele Squawk',
 				evs: {hp: 252, atk: 252, spe: 4}, nature: 'Adamant',
 			},
+			'innovamania': {
+				species: 'Arceus', ability: 'Pick Up', item: 'Black Glasses', gender: 'M',
+				moves: [['holdhands', 'trickortreat'][this.random(2)], ['swordsdance', 'agility'][this.random(2)], 'celebrate'],
+				signatureMove: "Rage Quit",
+				evs: {hp:4, atk:252, spe:252}, nature: 'Jolly',
+			},
 			'Joim': {
 				species: 'Zapdos', ability:'Tinted Lens', item: 'Life Orb', gender: 'N',
 				moves: ['Roost', 'Hurricane', ['Thunderbolt', 'Quiver Dance'][this.random(2)]],
@@ -86,12 +92,18 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'SPOOPY EDGE CUT',
 				evs: {atk: 252, hp: 252, def: 4}, nature: 'Adamant',
 			},*/
+			'Teremiare': {
+				species: 'Zorua', ability: 'Super Prankster', item: 'Red Card', gender: 'M',
+				moves: ['Topsy-Turvy', 'Taunt', 'Memento'],
+				signatureMove: 'Baton Thief',
+				evs: {hp: 252, def: 4, spe: 252}, nature: 'Timid',
+			},
 			'Trickster': {
 				species: 'Hoopa', ability: 'Shadow Shield', item: 'Figy Berry',
 				gender: 'M',
 				moves: ['Inferno', 'Zap cannon', ['Dynamic Punch', 'Grass Whistle'][this.random(2)]],
-				signatureMove: '3 Freeze',
-				evs: {atk: 4, spa: 252, spe: 252}, nature: 'Hasty',
+				signatureMove: 'Event Horizon',
+				evs: {hp: 252, atk: 4, spa: 252}, ivs: {spe: 0}, nature: 'Quiet', 
 			},
 			'xfix': {
 				species: 'Xatu', ability: ['Magic Bounce', 'Prankster'][this.random(2)], item: 'Pomeg Berry', gender: 'M',

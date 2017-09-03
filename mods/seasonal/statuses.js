@@ -60,12 +60,25 @@ exports.BattleStatuses = {
 			this.add('c|%imas|ok');
 		},
 	},
+	innovamania: {
+		exists: true,
+		onStart: function () {
+			let sentences = ['Don\'t take this seriously', 'These Black Glasses sure look cool', 'Ready for some fun?( ͡° ͜ʖ ͡°)', '( ͡° ͜ʖ ͡°'];
+			this.add('c|@innovamania|' + sentences[this.random(4)]);
+			this.boost({atk: 6, def: 6, spa: 6, spd: 6, spe: 6, accuracy: 6}, source);
+		},
+		onFaint: function () {
+			let sentences = ['Did you rage quit?', 'How\'d you lose with this set?'];
+			this.add('c|@innovamania|' + sentences[this.random(2)]);
+		},
+	},
 	kalalokki: {
 		exists: true,
 		onStart: function () {
 			this.add('c|%kalalokki|(•_•)');
 			this.add('c|%Kalalokki|( •_•)>⌐■-■');
 			this.add('c|%Kalalokki|(⌐■_■)');
+			this.setWeather('raindance');
 		},
 		onFaint: function () {
 			this.add('c|%kalalokki|(•_•)');
@@ -104,6 +117,15 @@ exports.BattleStatuses = {
 		onFaint: function () {
 			this.add('-message', '▄███████▄.▲.▲.▲.▲.▲.▲');
 			this.add('-message', '█████████████████████▀▀');
+		},
+	},
+	teremiare: {
+		exists: true,
+		onStart: function () {
+			this.add('c|@Teremiare|(>\'o\')>');
+		},
+		onFaint: function () {
+			this.add('c|@Teremiare|<(\'o\'<)');
 		},
 	},
 	trickster: {

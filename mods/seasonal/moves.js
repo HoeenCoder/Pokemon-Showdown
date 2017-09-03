@@ -184,16 +184,17 @@ exports.BattleMovedex = {
  		accuracy: 100,
  		basePower: 90,
  		category: "Physical",
- 		shortDesc: "No additional effect.",
+ 		shortDesc: "Ignores the Abilities of other Pokemon.",
  		id: "accelesquawk",
  		isNonstandard: true,
  		name: "Accele Squawk",
  		pp: 10,
  		priority: 0,
+		flags: {protect: 1, mirror: 1},
 		ignoreAbility: true,
  		onPrepareHit: function (target, source) {
  			this.attrLastMove('[still]');
- 			this.add('-anim', source, "Brave Bird", target); //placeholder
+ 			this.add('-anim', source, "Brave Bird", target);
 			this.add('c|%imas|**AcceleSquawk**');
  		},
  		secondary: false,
@@ -213,15 +214,30 @@ exports.BattleMovedex = {
 		isZ: 'imasiumz',
  		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
- 			this.add('-anim', source, "Brave Bird", target);  //placeholder
- 		},
-		onHit: function(target, source, move) {
+ 			this.add('-anim', source, "Supersonic Skystrike", target);
 			this.boost({atk: 3, def: 1, spd: 1}, source);
-		},
+ 		},
  		secondary: false,
  		target: "normal",
  		type: "Flying",
  	},
+	// Innovamania
+	ragequit: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: "ragequit",
+		name: "Rage Quit",
+		pp: 40,
+		priority: 0,
+		flags: {gravity: 1},
+		onHit: function (pokemon) {
+			pokemon.faint();
+		},
+		secondary: false,
+		target: "self",
+		type: "Normal",
+	},
 	//joim
 	retirement: {
 		accuracy: 100,
@@ -240,12 +256,12 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Volt Switch", target);
 		},
 		onAfterMove: function (pokemon, target, move) {
-			pokemon.side.addSideConditon("retirement", pokemon, move);
+			pokemon.side.addSideCondition("retirement", pokemon, move);
 		},
 		effect: {
 			duration: 2,
 			onStart: function (side, source) {
-				side = side.foe;
+				//side = side.foe;
 				this.debug('Retirement started on ' + side.name);
 				this.effectData.positions = [];
 				for (let i = 0; i < side.active.length; i++) {
@@ -347,6 +363,7 @@ exports.BattleMovedex = {
 		onHit: function (target, source) {
 			target = target.side.foe.pokemon[0];
 			target.damage(source.hp);
+			this.add('-damage', target, target.getHealth);
 			source.faint();
 		},
 		sideCondition: 'kamikazerebirth',
@@ -475,18 +492,41 @@ exports.BattleMovedex = {
 		target: "allAdjacent",
 		type: "Electric",
 	},
+	// Teremiare
+	batonthief: {
+		accuracy: true,
+		category: "Status",
+		shortDesc: "Steals target's boosts and then Baton Passes them out.",
+		id: "batonthief",
+		isNonstandard: true,
+		name: "Baton Thief",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		stealsBoosts: true,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Spectral Thief", target);
+		},
+		onAfterMoveSecondarySelf: function (source) {
+			this.useMove('batonpass', source);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Dark",
+	},
 	// Trickster, haven't completely tested this yet
-	"3freeze": {
+	eventhorizon: {
 		accuracy: 100,
 		basePower: 0,
 		pp: 10,
 		priority: 0,
 		category: "Special",
 		shortDesc: "For 5 turns, negates all Ground immunities. More power the heavier the target.",
-		id: "3freeze",
+		id: "eventhorizon",
 		isViable: true,
 		isNonstandard: true,
-		name: "3 Freeze",
+		name: "Event Horizon",
 		basePowerCallback: function (pokemon, target) {
 			let targetWeight = target.getWeight();
 			if (targetWeight >= 200) {
@@ -516,6 +556,9 @@ exports.BattleMovedex = {
 			this.attrLastMove(['still']);
 			this.add('-anim', source, "Spacial Rend", target); // confirmed with Trickster
 		},
+		onHitField: function (target, source, effect) {
+			this.addPseudoWeather('trickroom', source, effect, '[of] ' + source);
+		},
 		effect: {
 			duration: 5,
 			durationCallback: function (source, effect) {
@@ -524,59 +567,13 @@ exports.BattleMovedex = {
 				}
 				return 5;
 			},
-			onStart: function () {
-				this.add('-fieldstart', 'move: Gravity');
-				const allActivePokemon = this.sides[0].active.concat(this.sides[1].active);
-				for (let pokemon of allActivePokemon) {
-					let applies = false;
-					if (pokemon.removeVolatile('bounce') || pokemon.removeVolatile('fly')) {
-						applies = true;
-						this.cancelMove(pokemon);
-						pokemon.removeVolatile('twoturnmove');
-					}
-					if (pokemon.volatiles['skydrop']) {
-						applies = true;
-						this.cancelMove(pokemon);
-
-						if (pokemon.volatiles['skydrop'].source) {
-							this.add('-end', pokemon.volatiles['twoturnmove'].source, 'Sky Drop', '[interrupt]');
-						}
-						pokemon.removeVolatile('skydrop');
-						pokemon.removeVolatile('twoturnmove');
-					}
-					if (pokemon.volatiles['magnetrise']) {
-						applies = true;
-						delete pokemon.volatiles['magnetrise'];
-					}
-					if (pokemon.volatiles['telekinesis']) {
-						applies = true;
-						delete pokemon.volatiles['telekinesis'];
-					}
-					if (applies) this.add('-activate', pokemon, 'move: Gravity');
-				}
+			onStart: function (target, source) {
+				this.add('-fieldstart', 'move: Trick Room', '[of] ' + source);
 			},
-			onModifyAccuracy: function (accuracy) {
-				if (typeof accuracy !== 'number') return;
-				return accuracy * 5 / 3;
-			},
-			onDisableMove: function (pokemon) {
-				for (let i = 0; i < pokemon.moveset.length; i++) {
-					if (this.getMove(pokemon.moveset[i].id).flags['gravity']) {
-						pokemon.disableMove(pokemon.moveset[i].id);
-					}
-				}
-			},
-			// groundedness implemented in battle.engine.js:BattlePokemon#isGrounded
-			onBeforeMovePriority: 6,
-			onBeforeMove: function (pokemon, target, move) {
-				if (move.flags['gravity']) {
-					this.add('cant', pokemon, 'move: Gravity', move);
-					return false;
-				}
-			},
-			onResidualOrder: 22,
+			// Speed modification is changed in Pokemon.getDecisionSpeed() in sim/pokemon.js
+			onResidualOrder: 23,
 			onEnd: function () {
-				this.add('-fieldend', 'move: Gravity');
+				this.add('-fieldend', 'move: Trick Room');
 			},
 		},
 		target: "normal",
