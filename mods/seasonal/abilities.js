@@ -11,7 +11,7 @@ exports.BattleAbilities = {
 	interdimensional:{
 		shortDesc: "On switch-in, summons Gravity.",
 		onHitField: function (target, source, effect) {
-			this.addPseudoWeather('trickroom', source, effect, '[of] ' + source);
+			this.addPseudoWeather('gravity', source, effect, '[of] ' + source);
 		},
 	},
 };
