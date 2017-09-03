@@ -217,6 +217,52 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Electric",
 	},
+	// Kalalokki
+	maelstrm: {
+		accuracy: 85,
+		basePower: 100,
+		category: "Special",
+		id: "maelstrm",
+		name: "Maelström",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Surf", target);
+			this.add('-anim', source, "Dark Void", target);
+		},
+		onHit: function (target, source) {
+			target.addVolatile('maelstrm', source);
+		},
+		effect: {
+			duration: 5,
+			durationCallback: function (target, source) {
+				if (source.hasItem('gripclaw')) return 8;
+				return this.random(5, 7);
+			},
+			onStart: function () {
+				this.add('message', 'It became trapped in an enormous maelström!');
+			},
+			onResidualOrder: 11,
+			onResidual: function (pokemon) {
+				if (this.effectData.source.hasItem('bindingband')) {
+					this.damage(pokemon.maxhp / 6);
+				} else {
+					this.damage(pokemon.maxhp / 8);
+				}
+			},
+			onEnd: function () {
+				this.add('message', 'The maelström dissipated.');
+			},
+			onTrapPokemon: function (pokemon) {
+				pokemon.tryTrap();
+			},
+		},
+		secondary: false,
+		target: "normal",
+		type: "Water",
+	},
 	// kamikaze
 	kamikazerebirth: {
 		accuracy: 100,

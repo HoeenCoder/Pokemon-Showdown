@@ -50,6 +50,19 @@ exports.BattleStatuses = {
 			this.add('c|%imas|ok');
 		},
 	},
+	kalalokki: {
+		exists: true,
+		onStart: function () {
+			this.add('c|%kalalokki|(•_•)');
+			this.add('c|%Kalalokki|( •_•)>⌐■-■');
+			this.add('c|%Kalalokki|(⌐■_■)');
+		},
+		onFaint: function () {
+			this.add('c|%kalalokki|(•_•)');
+			this.add('c|%Kalalokki|( •_•)>⌐■-■');
+			this.add('c|%Kalalokki|(x_x)');
+		},
+	},
 	kamikaze: {
 		exists: true,
 		onStart: function () {

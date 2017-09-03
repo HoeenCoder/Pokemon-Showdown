@@ -37,6 +37,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Retirement',
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', //ask nature
 			},
+			'Kalalokki': {
+				species: 'Wingull', ability: 'Swift Swim', item: ['Waterium Z', 'Electrium Z', 'Flyinium Z'][this.random(3)], gender: 'M',
+				moves: ['hurricane', 'thunder', 'waterspout'],
+				signatureMove: "Maelström",
+				evs: {spa:252, spd:4, spe:252}, nature: 'Modest',
+			},
 			'kamikaze': {
 				species: 'Staraptor', ability: 'Flash Feather', item: 'Choice Band', gender: 'M',
 				moves: ['Brave Bird', 'Close Combat', ['Double Edge', 'U-Turn'][this.random(2)]],
