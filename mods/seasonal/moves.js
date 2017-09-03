@@ -516,6 +516,9 @@ exports.BattleMovedex = {
 			this.attrLastMove(['still']);
 			this.add('-anim', source, "Spacial Rend", target); // confirmed with Trickster
 		},
+		onHitField: function (target, source, effect) {
+			this.addPseudoWeather('trickroom', source, effect, '[of] ' + source);
+		},
 		effect: {
 			duration: 5,
 			durationCallback: function (source, effect) {
@@ -524,59 +527,13 @@ exports.BattleMovedex = {
 				}
 				return 5;
 			},
-			onStart: function () {
-				this.add('-fieldstart', 'move: Gravity');
-				const allActivePokemon = this.sides[0].active.concat(this.sides[1].active);
-				for (let pokemon of allActivePokemon) {
-					let applies = false;
-					if (pokemon.removeVolatile('bounce') || pokemon.removeVolatile('fly')) {
-						applies = true;
-						this.cancelMove(pokemon);
-						pokemon.removeVolatile('twoturnmove');
-					}
-					if (pokemon.volatiles['skydrop']) {
-						applies = true;
-						this.cancelMove(pokemon);
-
-						if (pokemon.volatiles['skydrop'].source) {
-							this.add('-end', pokemon.volatiles['twoturnmove'].source, 'Sky Drop', '[interrupt]');
-						}
-						pokemon.removeVolatile('skydrop');
-						pokemon.removeVolatile('twoturnmove');
-					}
-					if (pokemon.volatiles['magnetrise']) {
-						applies = true;
-						delete pokemon.volatiles['magnetrise'];
-					}
-					if (pokemon.volatiles['telekinesis']) {
-						applies = true;
-						delete pokemon.volatiles['telekinesis'];
-					}
-					if (applies) this.add('-activate', pokemon, 'move: Gravity');
-				}
+			onStart: function (target, source) {
+				this.add('-fieldstart', 'move: Trick Room', '[of] ' + source);
 			},
-			onModifyAccuracy: function (accuracy) {
-				if (typeof accuracy !== 'number') return;
-				return accuracy * 5 / 3;
-			},
-			onDisableMove: function (pokemon) {
-				for (let i = 0; i < pokemon.moveset.length; i++) {
-					if (this.getMove(pokemon.moveset[i].id).flags['gravity']) {
-						pokemon.disableMove(pokemon.moveset[i].id);
-					}
-				}
-			},
-			// groundedness implemented in battle.engine.js:BattlePokemon#isGrounded
-			onBeforeMovePriority: 6,
-			onBeforeMove: function (pokemon, target, move) {
-				if (move.flags['gravity']) {
-					this.add('cant', pokemon, 'move: Gravity', move);
-					return false;
-				}
-			},
-			onResidualOrder: 22,
+			// Speed modification is changed in Pokemon.getDecisionSpeed() in sim/pokemon.js
+			onResidualOrder: 23,
 			onEnd: function () {
-				this.add('-fieldend', 'move: Gravity');
+				this.add('-fieldend', 'move: Trick Room');
 			},
 		},
 		target: "normal",
