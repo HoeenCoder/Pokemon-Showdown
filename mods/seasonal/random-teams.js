@@ -90,8 +90,9 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Hoopa', ability: 'Shadow Shield', item: 'Figy Berry',
 				gender: 'M',
 				moves: ['Inferno', 'Zap cannon', ['Dynamic Punch', 'Grass Whistle'][this.random(2)]],
-				signatureMove: '3 Freeze',
-				evs: {atk: 4, spa: 252, spe: 252}, nature: 'Hasty',
+				signatureMove: 'Event Horizon',
+				evs: {hp: 252, atk: 4, spa: 252}, nature: 'Quiet', 
+				set.ivs = {spe:0},
 			},
 			'xfix': {
 				species: 'Xatu', ability: ['Magic Bounce', 'Prankster'][this.random(2)], item: 'Pomeg Berry', gender: 'M',
