@@ -91,8 +91,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				gender: 'M',
 				moves: ['Inferno', 'Zap cannon', ['Dynamic Punch', 'Grass Whistle'][this.random(2)]],
 				signatureMove: 'Event Horizon',
-				evs: {hp: 252, atk: 4, spa: 252}, nature: 'Quiet', 
-				set.ivs = {spe:0},
+				evs: {hp: 252, atk: 4, spa: 252}, ivs: {spe: 0}, nature: 'Quiet', 
 			},
 			'xfix': {
 				species: 'Xatu', ability: ['Magic Bounce', 'Prankster'][this.random(2)], item: 'Pomeg Berry', gender: 'M',
