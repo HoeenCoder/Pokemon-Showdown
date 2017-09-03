@@ -37,6 +37,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Accele Squawk',
 				evs: {hp: 252, atk: 252, spe: 4}, nature: 'Adamant',
 			},
+			'innovamania': {
+				species: 'Arceus', ability: 'Pick Up', item: 'Black Glasses', gender: 'M',
+				moves: [['holdhands', 'trickortreat'][this.random(2)], ['swordsdance', 'agility'][this.random(2)], 'celebrate'],
+				signatureMove: "Rage Quit",
+				evs: {hp:4, atk:252, spe:252}, nature: 'Jolly',
+			},
 			'Joim': {
 				species: 'Zapdos', ability:'Tinted Lens', item: 'Life Orb', gender: 'N',
 				moves: ['Roost', 'Hurricane', ['Thunderbolt', 'Quiver Dance'][this.random(2)]],

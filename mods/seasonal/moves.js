@@ -221,6 +221,23 @@ exports.BattleMovedex = {
  		target: "normal",
  		type: "Flying",
  	},
+	// Innovamania
+	ragequit: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: "ragequit",
+		name: "Rage Quit",
+		pp: 40,
+		priority: 0,
+		flags: {gravity: 1},
+		onHit: function (pokemon) {
+			pokemon.faint();
+		},
+		secondary: false,
+		target: "self",
+		type: "Normal",
+	},
 	//joim
 	retirement: {
 		accuracy: 100,
