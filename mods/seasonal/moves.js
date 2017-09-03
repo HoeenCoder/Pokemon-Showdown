@@ -34,6 +34,38 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Electric",
 	},
+	// Andy (AndrewGoncel)
+	pilfer: {
+		accuracy: true,
+		basePower: 90,
+		category: "Physical",
+		id: "pilfer",
+		isNonstandard: true,
+		name: "Pilfer",
+		pp: 8,
+		priority: 3, //nerf if it's to broken
+		flags: {protect: 1, authentic: 1},
+		onTryHit: function (target, pokemon) {
+			let decision = this.willMove(target);
+			if (decision) {
+				let noMeFirst = {
+					mefirst:1,
+				};
+				let move = this.getMoveCopy(decision.move.id);
+				if (move.category === 'Status' && !noMeFirst[move]) {
+					this.useMove(move, pokemon);
+					this.attrLastMove('[still]');
+					this.add('-anim', pokemon, "Night Slash", target);
+					return;
+				}
+			}
+			return false;
+		},
+		secondary: false,
+		pressureTarget: "foeSide",
+		target: "normal",
+		type: "Dark",
+	},
 	// Astara
 	starboltdesperation: {
 		accuracy: 75,
