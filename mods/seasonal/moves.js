@@ -476,17 +476,17 @@ exports.BattleMovedex = {
 		type: "Electric",
 	},
 	// Trickster, haven't completely tested this yet
-	"3freeze": {
+	eventhorizon: {
 		accuracy: 100,
 		basePower: 0,
 		pp: 10,
 		priority: 0,
 		category: "Special",
 		shortDesc: "For 5 turns, negates all Ground immunities. More power the heavier the target.",
-		id: "3freeze",
+		id: "eventhorizon",
 		isViable: true,
 		isNonstandard: true,
-		name: "3 Freeze",
+		name: "Event Horizon",
 		basePowerCallback: function (pokemon, target) {
 			let targetWeight = target.getWeight();
 			if (targetWeight >= 200) {
