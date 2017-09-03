@@ -13,6 +13,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: "Energy Field",
 				evs: {hp:4, spa:252, spe:252}, nature: 'Modest',
 			},
+			'Astara': {
+				species: 'Jirachi', ability: 'Cursed Body', item: ['Leftovers', 'Sitrus Berry'][this.random(2)], gender: 'F', shiny: true,
+				moves: ['psystrike', 'moonblast', 'nastyplot', 'scald', 'recover'],
+				signatureMove: 'Star Bolt Desperation',
+				evs: {hp:4, spa:252, spe:252}, nature: 'Modest',
+			},
 			'Beowulf': {
 				species: 'Beedrill', ability: 'Download', item: 'Beedrillite', gender: 'M',
 				moves: ['spikyshield', 'gunkshot', ['sacredfire', 'boltstrike', 'diamondstorm'][this.random(3)]],

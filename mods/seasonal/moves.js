@@ -34,6 +34,65 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Electric",
 	},
+	// Astara
+	starboltdesperation: {
+		accuracy: 75,
+		basePower: 0,
+		category: "Physical",
+		id: "starboltdesperation",
+		isViable: true,
+		isNonstandard: true,
+		name: 'Star Bolt Desperation',
+		pp: 5,
+		priority: 0,
+		flags: {contact: 1, protect: 1},
+		typechart: [
+			'Bug', 'Dark', 'Dragon', 'Electric', 'Fairy', 'Fighting',
+			'Fire', 'Flying', 'Ghost', 'Grass', 'Ground', 'Ice',
+			'Normal', 'Poison', 'Psychic', 'Rock', 'Steel', 'Water',
+		],
+		damageCallback: function (pokemon, target) {
+			return target.hp * 0.75;
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Grudge", target);
+			this.add('-anim', source, "Dragon Ascent", target);
+		},
+		onHit: function (target, source) {
+			const boosts = {};
+			const stats = ['atk', 'def', 'spa', 'spd', 'spe', 'accuracy'];
+			const increase = stats[this.random(6)];
+			const decrease = stats[this.random(6)];
+			boosts[increase] = 1;
+			boosts[decrease] = -1;
+			this.boost(boosts, source, source);
+		},
+		onModifyMove: function (move) {
+			move.type = move.typechart[this.random(18)];
+		},
+		secondary: {
+			chance: 100,
+			onHit: function (target) {
+				if (this.random(2) === 1) {
+					const status = ['par', 'brn', 'frz', 'psn', 'tox', 'slp'][this.random(6)];
+					if (status === 'frz') {
+						let freeze = true;
+						for (let i = 0; i < target.side.pokemon.length; i++) {
+							const pokemon = target.side.pokemon[i];
+							if (pokemon.status === 'frz') freeze = false;
+						}
+						if (freeze) target.trySetStatus('frz');
+					} else {
+						target.trySetStatus(status);
+					}
+				}
+				if (this.random(2) === 1) target.addVolatile('confusion');
+			},
+		},
+		target: "normal",
+		type: "Normal",
+	},
 	// Beowulf
 	buzzingofthestorm: {
 		accuracy: 100,
