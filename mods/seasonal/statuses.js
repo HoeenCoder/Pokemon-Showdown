@@ -66,6 +66,7 @@ exports.BattleStatuses = {
 			this.add('c|%kalalokki|(•_•)');
 			this.add('c|%Kalalokki|( •_•)>⌐■-■');
 			this.add('c|%Kalalokki|(⌐■_■)');
+			this.setWeather('raindance');
 		},
 		onFaint: function () {
 			this.add('c|%kalalokki|(•_•)');
