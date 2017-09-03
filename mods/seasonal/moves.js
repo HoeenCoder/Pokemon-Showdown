@@ -184,16 +184,17 @@ exports.BattleMovedex = {
  		accuracy: 100,
  		basePower: 90,
  		category: "Physical",
- 		shortDesc: "No additional effect.",
+ 		shortDesc: "Ignores the Abilities of other Pokemon.",
  		id: "accelesquawk",
  		isNonstandard: true,
  		name: "Accele Squawk",
  		pp: 10,
  		priority: 0,
+		flags: {protect: 1, mirror: 1},
 		ignoreAbility: true,
  		onPrepareHit: function (target, source) {
  			this.attrLastMove('[still]');
- 			this.add('-anim', source, "Brave Bird", target); //placeholder
+ 			this.add('-anim', source, "Brave Bird", target);
 			this.add('c|%imas|**AcceleSquawk**');
  		},
  		secondary: false,
@@ -213,11 +214,9 @@ exports.BattleMovedex = {
 		isZ: 'imasiumz',
  		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
- 			this.add('-anim', source, "Brave Bird", target);  //placeholder
- 		},
-		onHit: function(target, source, move) {
+ 			this.add('-anim', source, "Supersonic Skystrike", target);
 			this.boost({atk: 3, def: 1, spd: 1}, source);
-		},
+ 		},
  		secondary: false,
  		target: "normal",
  		type: "Flying",
