@@ -1,6 +1,39 @@
 'use strict';
 
 exports.BattleMovedex = {
+	// Aelita
+	energyfield: {
+		accuracy: 90,
+		basePower: 150,
+		category: "Special",
+		id: "energyfield",
+		isNonstandard: true,
+		isViable: true,
+		name: "Energy Field",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onModifyMove: function (move) {
+			if (this.isWeather(['raindance', 'primordialsea'])) {
+				move.accuracy = true;
+			} else if (this.isWeather(['sunnyday', 'desolateland'])) {
+				move.accuracy = 50;
+			}
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Parabolic Charge", source);
+			this.add('-anim', source, "Parabolic Charge", source);
+			this.add('-anim', source, "Ion Deluge", target);
+		},
+		self: {boosts:{spa:-1, spd:-1, spe:-1}},
+		secondary: {
+			chance: 40,
+			status: 'par',
+		},
+		target: "normal",
+		type: "Electric",
+	},
 	// Beowulf
 	buzzingofthestorm: {
 		accuracy: 100,

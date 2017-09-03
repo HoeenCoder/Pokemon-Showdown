@@ -7,6 +7,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 		let team = [];
 		let variant = (this.random(2) === 1);
 		let sets = {
+			'Aelita': {
+				species: 'Porygon-Z', ability: 'Protean', item: 'Life Orb', gender: 'N',
+				moves: [['boomburst', 'moonblast'][this.random(2)], 'quiverdance', 'chatter'],
+				signatureMove: "Energy Field",
+				evs: {hp:4, spa:252, spe:252}, nature: 'Modest',
+			},
 			'Beowulf': {
 				species: 'Beedrill', ability: 'Download', item: 'Beedrillite', gender: 'M',
 				moves: ['spikyshield', 'gunkshot', ['sacredfire', 'boltstrike', 'diamondstorm'][this.random(3)]],

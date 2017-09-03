@@ -1,6 +1,16 @@
 'use strict';
 
 exports.BattleStatuses = {
+	aelita: {
+		exists: true,
+		onStart: function (target, source) {
+			this.add('c|%Aelita|Transfer, Aelita. Scanner, Aelita. Virtualization!');
+			this.boost({spe: 1}, source);
+		},
+		onFaint: function () {
+			this.add('c|%Aelita|CODE: LYOKO. Tower deactivated...');
+		},
+	},
 	beowulf: {
 		exists: true,
 		onSwitchIn: function () {
