@@ -42,7 +42,7 @@ exports.BattleMovedex = {
 		id: "pilfer",
 		isNonstandard: true,
 		name: "Pilfer",
-		pp: 8,
+		pp: 5,
 		priority: 3, //nerf if it's to broken
 		flags: {protect: 1, authentic: 1},
 		onTryHit: function (target, pokemon) {
@@ -290,11 +290,12 @@ exports.BattleMovedex = {
  		accuracy: true,
  		basePower: 180,
  		category: "Physical",
- 		shortDesc: "No additional effect.",
+ 		shortDesc: "Raises Atk by, Def and SpD by 1.",
  		id: "boi",
  		isNonstandard: true,
  		name: "B O I",
  		pp: 1,
+		noPPBoosts: true,
  		priority: 0,
 		isZ: 'imasiumz',
 		flags: {protect: 1, mirror: 1},
@@ -496,6 +497,7 @@ exports.BattleMovedex = {
 		isViable: true,
 		name: "dragonswrath",
 		pp: 17,
+		noPPBoosts: true,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		onEffectiveness: function (typeMod, type) {
