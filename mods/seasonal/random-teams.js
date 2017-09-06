@@ -62,7 +62,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp:4, atk:252, spe:252}, nature: 'Jolly',
 			},
 			'Joim': {
-				species: 'Zapdos', ability:'Tinted Lens', item: 'Life Orb', gender: 'N',
+				species: 'Zapdos', ability: 'Tinted Lens', item: 'Life Orb', gender: 'N',
 				moves: ['Roost', 'Hurricane', ['Thunderbolt', 'Quiver Dance'][this.random(2)]],
 				signatureMove: 'Retirement',
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', //ask nature
@@ -125,7 +125,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'Trickster': {
 				species: 'Hoopa', ability: 'Shadow Shield', item: 'Figy Berry',
 				gender: 'M',
-				moves: ['Inferno', 'Zap cannon', ['Dynamic Punch', 'Grass Whistle'][this.random(2)]],
+				moves: ['Inferno', 'Zap Cannon', ['Dynamic Punch', 'Grass Whistle'][this.random(2)]],
 				signatureMove: 'Event Horizon',
 				evs: {hp: 252, atk: 4, spa: 252}, ivs: {spe: 0}, nature: 'Quiet', 
 			},
