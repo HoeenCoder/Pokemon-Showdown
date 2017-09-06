@@ -37,7 +37,7 @@ exports.BattleAbilities = {
 	interdimensional:{
 		shortDesc: "On switch-in, summons Gravity.",
 		onStart: function () {
-			this.addPseudoWeather('Gravity');
+			this.addPseudoWeather('gravity');
 		},
 	},
 	// Teremiare
