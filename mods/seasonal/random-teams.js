@@ -49,6 +49,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Cha Cha Slide',
 				evs: {hp: 252, def: 16, spd: 240}, nature: 'Impish',
 			},
+			'HimMyNamesL': {
+				species: 'Xurkitree', ability: 'Beast Boost', item: 'Life Orb', gender: 'M', // ask gender
+				moves: ['Tail Glow', 'Thunderbolt', 'Grass Knot'],
+				signatureMove: 'Y\'all are stupid!',
+				evs: {hp: 4, spa: 252, spe:252}, nature: 'Timid',
+			}
 			'HoeenHero': {
 				species: 'Ludicolo', ability: 'Swift Swim', item: 'Damp Rock', gender: 'M',
 				moves: [['Hydro Pump', 'Scald'][this.random(2)], 'Giga Drain', 'Ice Beam'],

@@ -84,13 +84,28 @@ exports.BattleStatuses = {
 			this.add('c|@grimAuxiliatrix|∠( ᐛ 」∠)＿');
 		},
 	},
+	himynamesl: {
+		exists: true,
+		onStart: function() {
+			let messages = ["iT'S YA BOI! XURKITREE!", "Wanna see what destruction looks like? Here it is in Ultra Beast form.", "The hated boss who beats you down, and beats you down, and never lets up...Yeah. Big bad Xurkitree is here!", "Watch closely, [opponent]. Someday I'm gonna destroy you. But first, I'll destroy everything you care about!", "I don't really get you, [opponent], but at least this is a change of pace. It's not every day someone comes straight to me for a beating!"];
+			this.add('c|%HiMyNamesL|' + messages[this.random(messages.length)]);
+		},
+		onSwitchOut: function() {
+			let messages = ["What now?! What's going on?! And just when things were getting good!", "You're still trying to front like you're my master, huh? I gave up on you a long time ago.", "Doesn't matter who I'm up against, I'm gonna beat them down! That's what big bad Xurkitree is all about!"];
+			this.add('c|%HiMyNamesL|' + messages[this.random(messages.length)]);
+		},
+		onFaint: function() {
+			let messages = ["XURKITREE! WHAT IS WRONG WITH YOU!?", "I see. Great work, I guess", "It was [opponent], right? I'll remember you...as someone I'll be happy to beat down anytime!"];
+			this.add('c|%HiMyNamesL|' + messages[this.random(messages.length)]);
+		},
+	},
 	hoeenhero: {
 		exists: true,
 		onStart: function () {
 			this.add('c|@HoeenHero|I have cheat codes!');
 		},
 		onFaint: function () {
-			this.add('c|@HoeenHero|No! My cheats wern\'t enough ;-;');
+			this.add('c|@HoeenHero|No! My cheats weren\'t enough ;-;');
 		},
 	},
 	imas: {
