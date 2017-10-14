@@ -170,6 +170,23 @@ exports.BattleMovedex = {
 		target: "any",
 		type: "Bug",
 	},
+	// biggie
+	foodrush: {
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		shortDesc: "Forces the target to switch to a random ally.",
+		id: "foodrush",
+		isNonstandard: true,
+		name: "Food Rush",
+		pp: 10,
+		priority: -6,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: false,
+		forceSwitch: true,
+		target: "normal",
+		type: "Normal",
+	},
 	// EV
 	darkaggro: {
 		accuracy: 100,

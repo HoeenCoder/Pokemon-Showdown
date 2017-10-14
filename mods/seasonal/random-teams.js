@@ -37,6 +37,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: "Buzzing of the Storm",
 				evs: {def:4, atk:252, spe:252}, nature: 'Jolly',
 			},
+			'Biggie': {
+				species: 'Snorlax', ability: 'Fur Coat', item: 'Leftovers', gender: 'M', //ask gender
+				moves: ['drainpunch', ['diamondstorm', 'kingsshield'][this.random(2)], ['knockoff', 'precipiceblades'][this.random(2)]], // ask about moveset
+				signatureMove: "Food Rush",
+				evs: {hp:4, atk:252, spd:252}, nature: 'Adamant',
+			},
 			'EV': {
 				species: 'Muk-Alola', ability: 'Unaware', item: 'Black Sludge', gender: 'M', // ask gender
 				moves: [['Gunk Shot', 'Poison Jab'][this.random(2)], 'Recover', 'Coil'],
