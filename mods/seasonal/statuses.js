@@ -85,6 +85,7 @@ exports.BattleStatuses = {
 		},
 	},
 	himynamesl: {
+		nocopy: true,
 		exists: true,
 		onStart: function() {
 			let messages = ["iT'S YA BOI! XURKITREE!", "Wanna see what destruction looks like? Here it is in Ultra Beast form.", "The hated boss who beats you down, and beats you down, and never lets up...Yeah. Big bad Xurkitree is here!", "Watch closely, [opponent]. Someday I'm gonna destroy you. But first, I'll destroy everything you care about!", "I don't really get you, [opponent], but at least this is a change of pace. It's not every day someone comes straight to me for a beating!"];

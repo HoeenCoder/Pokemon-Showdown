@@ -205,9 +205,9 @@ exports.BattleMovedex = {
 		id: 'yallarestupid',
 		isNonstandard: true,
 		name: "Y'all are stupid!",
-		pp:10,
-		flags: {mirror: 1, protect: 1, reflectable: 1},
-		volatileStatus: 'Confusion',
+		pp: 10,
+		flags: {mirror: 1, protect: 1, reflectable: 1, snatch: 1},
+		volatileStatus: 'confusion',
 		boosts: {
 			acc: -1,
 		},
