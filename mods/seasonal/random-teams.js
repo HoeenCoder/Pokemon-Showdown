@@ -39,7 +39,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Biggie': {
 				species: 'Snorlax', ability: 'Fur Coat', item: 'Leftovers', gender: 'M', //ask gender
-				moves: ['drainpunch', ['diamondstorm', 'kingsshield'][this.random(2)], ['knockoff', 'precipiceblades'][this.random(2)]], // ask about moveset
+				moves: ['drainpunch', 'diamondstorm', 'kingsshield', 'knockoff', 'precipiceblades'],
 				signatureMove: "Food Rush",
 				evs: {hp:4, atk:252, spd:252}, nature: 'Adamant',
 			},
