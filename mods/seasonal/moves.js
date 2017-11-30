@@ -66,6 +66,34 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Dark",
 	},
+	// antemortem
+	postmortem: {
+		acc: 85,
+		basePower: 110,
+		category: "Special",
+		shortDesc: "Makes contact. 50% boost Spa, Spe.",
+		id: "postmortem",
+		isNonstandard: true,
+		name: "Postmortem",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, heal: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', target, 'Moonblast', source);
+		},
+		secondary: {
+			chance: 50,
+			self: {
+				boosts: {
+					spa: 1,
+					spe: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Fairy",
+	},
 	// ascriptmaster
 	voltechburst: {
 		accuracy: true,

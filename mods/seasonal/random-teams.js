@@ -19,6 +19,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: "Pilfer",
 				evs: {hp:252, atk: 252, spe:4}, nature: 'Adamant',
 			},
+			'antemortem': {
+				species: 'Clefable', ability:'Multiscale', item: 'Leftovers', gender: 'M', //ask gender
+				moves: ['Earth Power', 'Cosmic Power', 'Recover', 'Giga Drain'],
+				signatureMove: 'Postmortem',
+				evs: {hp: 252, spa: 252, def: 4}, nature: 'Modest',
+			},
 			'Ascriptmaster': {
 				species: 'Rotom', ability: 'Appliance Change', item: '', gender: 'M', // ask gender
 				moves: ['Searing Shot', 'Ice Beam', 'Aeroblast', 'Origin Pulse', 'Seed Flare'],

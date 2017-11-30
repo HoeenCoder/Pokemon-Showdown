@@ -34,6 +34,16 @@ exports.BattleStatuses = {
 			this.add('c|@AndrewGoncel >_>|:<');
 		},
 	},
+	antemortem: {
+		exists: true,
+		noCopy: true,
+		onSwitchIn: function () {
+			this.add('c|~antemortem|I Am Here To Oppress Users');
+		},
+		onFaint: function () {
+			this.add('c|~antemortem|FUCKING CAMPAIGNERS');
+		},
+	},
 	ascriptmaster: {
 		exists: true,
 		noCopy: true,
