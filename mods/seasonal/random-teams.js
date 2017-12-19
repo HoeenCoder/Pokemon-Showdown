@@ -20,10 +20,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp:252, atk: 252, spe:4}, nature: 'Adamant',
 			},
 			'antemortem': {
-				species: 'Clefable', ability:'Multiscale', item: 'Leftovers', gender: 'M', //ask gender
+				species: 'Clefable', ability: ['Multiscale', 'Sheer Force'], item: 'Leftovers', gender: 'M', //ask gender
 				moves: ['Earth Power', 'Cosmic Power', 'Recover', 'Giga Drain'],
 				signatureMove: 'Postmortem',
-				evs: {hp: 252, spa: 252, def: 4}, nature: 'Modest',
+				evs: {hp: 252, def: 4, spa: 252}, nature: 'Modest',
 			},
 			'Ascriptmaster': {
 				species: 'Rotom', ability: 'Appliance Change', item: '', gender: 'M', // ask gender
@@ -207,6 +207,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			}
 			// Assuming the hardcoded set evs are all legal.
 			if (!set.evs) set.evs = {hp:84, atk:84, def:84, spa:84, spd:84, spe:84};
+			if (Array.isArray(set.ability)) set.ability = this.sampleNoReplace(set.ability);
 			set.moves = [this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves), this.sampleNoReplace(set.moves)].concat(set.signatureMove);
 			if (name === 'Ascriptmaster') {
 				// item hack

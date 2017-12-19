@@ -76,6 +76,7 @@ exports.BattleMovedex = {
 		isNonstandard: true,
 		name: "Postmortem",
 		pp: 10,
+		noPPBoosts: true,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1, heal: 1},
 		onPrepareHit: function (target, source) {
