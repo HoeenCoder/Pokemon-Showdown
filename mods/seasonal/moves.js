@@ -180,6 +180,7 @@ exports.BattleMovedex = {
 		isNonstandard: true,
 		name: "Food Rush",
 		pp: 10,
+		noPPBoosts: true,
 		priority: -6,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		secondary: false,
