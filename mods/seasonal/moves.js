@@ -832,6 +832,27 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
+	// Raseri
+	hey: {
+		accuracy: true,
+		category: "Status",
+		shortDesc: "Heals 50%, user gains Ground type.",
+		id: "hey",
+		isNonstandard: true,
+		isViable: true,
+		name: "hey",
+		pp: 10,
+		priority: 0,
+		flags: {snatch: 1, heal: 1},
+		heal: [1, 2],
+		onPrepareHit: function (target, source) {
+			if (source.hasType('Ground')) return false;
+			if (!source.addType('Ground')) return false;
+			this.add('-start', source, 'typeadd', 'Ground', '[from] move: hey');
+		},
+		target: "self",
+		type: "Normal",
+	},
 	// Scotteh
 	geomagneticstorm: {
 		accuracy: 100,

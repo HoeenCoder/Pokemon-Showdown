@@ -294,6 +294,18 @@ exports.BattleStatuses = {
 			this.add('c|%panpawn|... >:^(');
 		},
 	},
+	raseri: {
+		exists: true,
+		onStart: function () {
+			this.add('c|+Raseri|sub to me on youtube im really good https://www.youtube.com/user/SmogonRaseri/featured');
+		},
+		onFaint: function () {
+			this.add('c|+Raseri|like comment and subscribe');
+		},
+		onSwitchOut: function () {
+			this.add('c|+Raseri|pce');
+		},
+	},
 	scotteh: {
 		exists: true,
 		noCopy: true,

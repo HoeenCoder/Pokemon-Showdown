@@ -163,6 +163,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'LaFireBlaze420',
 				nature: 'Adamant',
 			},
+			'Raseri': {
+				species: 'Reshiram', ability: 'Sheer Force', item: 'Life Orb', gender: 'M',
+				moves: ['Blue Flare', 'Core Enforcer', 'Earth Power'],
+				signatureMove: 'hey',
+				evs: {def:4, spa:252, spe:252}, ivs: {atk: 0}, nature: 'Modest',
+			},
 			'Scotteh': {
 				species: 'Suicune', ability: 'Fur Coat', item: 'Leftovers', gender: 'N',
 				moves: ['Slack Off', 'Amnesia', 'Steam Eruption'],
