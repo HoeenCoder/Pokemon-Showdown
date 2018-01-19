@@ -289,6 +289,31 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Steel",
 	},
+	// Cerberax
+	blimpcrash: {
+		accuracy: 100,
+		basePower: 120,
+		category: "Physical",
+		id: "blimpcrash",
+		isNonstandard: true,
+		isViable: true,
+		name: "Blimp Crash",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, nonsky: 1},
+		volatileStatus: 'smackdown',
+		recoil: [1, 2],
+ 		onPrepareHit: function (target, source) {
+ 			this.attrLastMove('[still]');
+ 			this.add('-anim', source, "Head Smash", target);
+ 		},
+		secondary: {
+			chance: 30,
+			status: 'par',
+		},
+		target: "normal",
+		type: "Flying",
+	},
 	// Chloe
 	addedpreservatives: {
 		accuracy: 100,

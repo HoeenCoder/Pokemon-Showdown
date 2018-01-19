@@ -129,6 +129,18 @@ exports.BattleStatuses = {
 			}
 		},
 	},
+	cerberax: {
+		exists: true,
+		onStart: function () {
+			this.add('c|@Cerberax|(╯°□°)╯︵ ┻━┻');
+		},
+		onFaint: function () {
+			this.add('c|@Cerberax|┬─┬ ︵ /(.□. \）');
+		},
+		onSwitchOut: function () {
+			this.add('c|@Cerberax|┬─┬ ノ( ゜-゜ノ)');
+		},
+	},
 	chloe: {
 		exists: true,
 		noCopy: true,

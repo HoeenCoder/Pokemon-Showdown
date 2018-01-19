@@ -67,6 +67,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'blade of ~aesthetics~',
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant',
 			},
+			'Cerberax': {
+				species: 'Wailord', ability: 'Huge Power', item: 'Air Balloon', gender: 'M',
+				moves: ['Roost', 'Waterfall', 'Shift Gear'],
+				signatureMove: 'Blimp Crash',
+				evs: {hp:4, atk:252, spe:252}, nature: 'Adamant',
+			},
 			'Chloe': {
 				species: 'Vileplume', ability: 'Prankster', item: 'Light Clay', gender: 'F',
 				moves: ['Parting Shot', 'Topsy Turvy', 'Encore'],
