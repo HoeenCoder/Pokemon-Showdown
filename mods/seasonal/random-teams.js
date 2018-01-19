@@ -19,6 +19,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: "Energy Field",
 				evs: {hp:4, spa:252, spe:252}, nature: 'Modest',
 			},
+			'Akir': {
+				species: 'Parasect', ability: 'Mushroom Wall', item: 'Leftovers', gender: 'M',
+				moves: [['x-Scissor', 'Seed Bomb'][this.random(2)], 'Recover', ['Sacred Fire', 'Toxic'][this.random(2)]],
+				signatureMove: 'Allergy',
+				evs: {hp:248, def:252, spe:8}, nature: 'Impish',
+			},
 			'Andy >_>': {
 				species: 'Absol', ability: 'Justified', item: 'Absolite', gender: 'M',
 				moves: ['Swords Dance', 'Sucker Punch', ['U-Turn', 'Knock Off'][this.random(2)]],

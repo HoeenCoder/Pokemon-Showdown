@@ -57,6 +57,30 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Electric",
 	},
+	// Akir
+	allergy: {
+		accuracy: 100,
+		category: "Status",
+		shortDesc: "Causes target to fall asleep, boosts all stats.",
+		id: "allergy",
+		isNonstandard: true,
+		isViable: true,
+		name: "Allergy",
+		pp: 5,
+		priority: 1,
+		flags: {powder: 1, protect: 1, mirror: 1, snatch: 1, reflectable: 1},
+		status: 'slp',
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+ 			this.add('-anim', source, "Spore", target);
+		},
+		onHit: function (target, source) {
+			this.boost({def: 1, spd: 1, atk: 1, spa: 1, spe: 1}, source, source, '[from] move: Allergy');
+			this.add('c|%Akir|A Parasect is giving you trouble? Seriously?');
+		},
+		target: "normal",
+		type: "Grass",
+	},
 	// Andy (AndrewGoncel)
 	pilfer: {
 		accuracy: true,

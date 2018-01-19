@@ -25,6 +25,18 @@ exports.BattleStatuses = {
 			this.add('c|%Aelita|CODE: LYOKO. Tower deactivated...');
 		},
 	},
+	akir: {
+		exists: true,
+		onStart: function () {
+			this.add('c|%Akir|Yeah yeah...I\'m awake. What do you need?');
+		},
+		onFaint: function () {
+			this.add('c|%Akir|Going to bed, goodbye');
+		},
+		onSwitchOut: function () {
+			this.add('c|%Akir|I\'m busy, can\'t play.');
+		},
+	},
 	andy: {
 		exists: true,
 		noCopy: true,
