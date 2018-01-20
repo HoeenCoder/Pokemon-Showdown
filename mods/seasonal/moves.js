@@ -347,6 +347,31 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Dark",
 	},
+	// HiMyNamesL
+	yallarestupid: {
+		accuracy: 100,
+		category: 'Status',
+		shortDesc: 'Confuse opponent, +1 spa, -1 opponent acc',
+		id: 'yallarestupid',
+		isNonstandard: true,
+		name: "Y'all are stupid!",
+		pp: 10,
+		flags: {mirror: 1, protect: 1, reflectable: 1, snatch: 1},
+		volatileStatus: 'confusion',
+		boosts: {
+			acc: -1,
+		},
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					spa: 1,
+				},
+			}
+		}
+		target: "normal",
+		type: "Ghost",
+	}
 	// grimAuxiliatrix
 	chachaslide: {
 		accuracy: 100,
