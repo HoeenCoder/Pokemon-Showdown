@@ -401,7 +401,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Winry': {
 				species: 'Buizel', ability: 'Water Veil', item: 'Life Orb', gender: 'F', shiny: true,
-				moves: ['watershuriken', ['jumpkick', 'iciclecrash'][this.random(2)], 'waterfall'],
+				moves: ['aquajet', ['jumpkick', 'iciclecrash'][this.random(2)], 'waterfall'],
 				signatureMove: 'Fight to the Death',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
