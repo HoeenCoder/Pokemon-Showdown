@@ -24,6 +24,52 @@ exports.BattleStatuses = {
 			this.add('c|%Aelita|CODE: LYOKO. Tower deactivated...');
 		},
 	},
+	akir: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add("c|%Akir|Yeah yeah...I'm awake. What do you need?");
+		},
+		onSwitchOut: function () {
+			this.add("c|%Akir|I'm busy, can't play.");
+		},
+		onFaint: function () {
+			this.add("c|%Akir|Going to bed, goodbye");
+		},
+	},
+	amingo: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add("c|+Amingo|I'm too sober for this.");
+		},
+		onSwitchOut: function () {
+			this.add("c|+Amingo|Time to grab a whisky.");
+		},
+		onFaint: function () {
+			this.add("c|+Amingo|That was some questionable decisions dude.");
+		},
+		// This should be applied directly to the stat as opposed to chaining witht he others
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (atk) {
+			return this.modify(atk, 1.5);
+		},
+		onModifyMove: function (move) {
+			if (move.category === 'Physical' && typeof move.accuracy === 'number') {
+				move.accuracy *= 0.8;
+			}
+		},
+		onImmunity: function (type, pokemon) {
+			if (type === 'sandstorm' || type === 'hail' || type === 'powder') return false;
+		},
+		onTryHitPriority: 1,
+		onTryHit: function (target, source, move) {
+			if (move.flags['powder'] && target !== source && this.getImmunity('powder', target)) {
+				this.add('-immune', target, '[msg]', '[from] ability: Overcoat');
+				return null;
+			}
+		},
+	},
 	andy: {
 		exists: true,
 		noCopy: true,
@@ -31,8 +77,8 @@ exports.BattleStatuses = {
 			let name = toId(pokemon.name);
 			if (pokemon.template.isMega) {
 				if (name === 'andy' && pokemon.getAbility().id === 'magicbounce') {
-					pokemon.setAbility('Adaptability'); //change to adaptability if to strong
-					this.add('-ability', pokemon, 'Adaptability'); //change to adaptability if to strong
+					pokemon.setAbility('Adaptability');
+					this.add('-ability', pokemon, 'Adaptability');
 				}
 			}
 		},
@@ -46,6 +92,19 @@ exports.BattleStatuses = {
 			this.add('c|@AndrewGoncel >_>|:<');
 		},
 	},
+	ant: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add("c|&ant|the superior ant is here");
+		},
+		onSwitchOut: function () {
+			this.add("c|&ant|hasta la vista baby");
+		},
+		onFaint: function () {
+			this.add("c|&ant|I'M NOT ANTEMORTEM");
+		},
+	},
 	antemortem: {
 		exists: true,
 		noCopy: true,
@@ -54,6 +113,58 @@ exports.BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add('c|~antemortem|FUCKING CAMPAIGNERS');
+		},
+	},
+	arrested: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add("c|%Arrested|Let's get this party started.");
+		},
+		onSwitchOut: function () {
+			this.add("c|%Arrested|I need a break, this is tiring.");
+		},
+		onFaint: function () {
+			this.add("c|%Arrested|It's cool, I didn't wanna battle anyway.");
+		},
+	},
+	articuno: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|%articuno|/me teleports behind you "hehe..."');
+		},
+		onSwitchOut: function () {
+			this.add("c|%articuno|You haven't seen the last of these tail feathers...");
+		},
+		onFaint: function () {
+			this.add("c|%articuno|Stall is a viable strat...!");
+		},
+	},
+	legendaryfrost: {
+		effectType: 'Weather',
+		duration: 5,
+		onStart: function (battle, source, effect) {
+			this.add('-weather', 'Legendary Frost');
+		},
+		onTryMove: function (target, source, effect) {
+			if (effect.type === 'Fire') {
+				this.debug('Legendary Frost fire suppress');
+				this.add('-message', 'But it was too cold to use the move!');
+				return null;
+			}
+		},
+		onResidualOrder: 1,
+		onResidual: function () {
+			this.add('-weather', 'Legendary Frost', '[upkeep]');
+			this.add('html|<div><small>The hail is crashing down.</small></div>');
+			if (this.isWeather('legendaryfrost')) this.eachEvent('Weather');
+		},
+		onWeather: function (target) {
+			this.damage(target.maxhp / 16, null, null, 'hail');
+		},
+		onEnd: function () {
+			this.add('-weather', 'none');
 		},
 	},
 	ascriptmaster: {
@@ -75,6 +186,20 @@ exports.BattleStatuses = {
 		onFaint: function () {
 			let sentences = ['/me twerks into oblivion', 'good night ♥', 'Astara Vista Baby'];
 			this.add('c|%Ast☆arA|' + sentences[this.random(3)]);
+		},
+	},
+	asty: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|#Asty|Once upon a time, there was a user called Asty. Asty said "Hello" in the Spanish chat room. After he said this, a user came and complained about staff corruption and injustice because of what Asty said.');
+			this.add("c|#Asty|The end :V");
+		},
+		onSwitchOut: function () {
+			this.add("c|#Asty|Eventos was a mistake :\\/");
+		},
+		onFaint: function () {
+			this.add("c|#Asty|VISCA CATALUNYA INDEPENDENT ll*ll :\u29F9\u29F8");
 		},
 	},
 	atomicllamas: {
@@ -124,6 +249,58 @@ exports.BattleStatuses = {
 			this.add('c|@Beowulf|There is no need to be mad');
 		},
 	},
+	biggie: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			let sentences = ["Now I'm in the limelight cause I rhyme tight", "HAPPY FEET! WOMBO COMBO!", "You finna mess around and get dunked on"];
+			this.add('c|@biggie|' + sentences[this.random(3)]);
+		},
+		onFaint: function () {
+			let sentences = ['It was all a dream', 'It\'s gotta be the shoes', 'ヽ༼ຈل͜ຈ༽ﾉ RIOT ヽ༼ຈل͜ຈ༽ﾉ'];
+			this.add('c|@biggie|' + sentences[this.random(3)]);
+		},
+	},
+	bondie: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add("c|+Bondie|Have you tried the toast sandwich?");
+		},
+		onSwitchOut: function () {
+			this.add("c|+Bondie|It's just bread, toast, and bread");
+		},
+		onFaint: function () {
+			this.add("c|+Bondie|NEVER go toast, bread, toast");
+		},
+	},
+	brandon: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			let sentences = ["My milkshake brings all the boys to the yard", "I'm just here to hax Astara", "On good days, I am charming as fuck"];
+			this.add('c|%Brandon~|' + sentences[this.random(3)]);
+		},
+		onSwitchOut: function () {
+			let sentences = ["Up out my face boy", "I just wanna be part of your symphony", "I'm out"];
+			this.add('c|%Brandon~|' + sentences[this.random(3)]);
+		},
+		onFaint: function () {
+			let sentences = ["Let's go to perfect places", "Phew! I'm gonna need to take a break", "Maybe one day, I'll find my Brooklyn baby..."];
+			this.add('c|%Brandon~|' + sentences[this.random(3)]);
+		},
+	},
+	bumbadadabum: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add("c|&bumbadadabum|The light shall burn you!");
+			// if (pokemon.side.foe.active.length && pokemon.side.foe.active[0].name === 'Scotteh') this.add('c|&bumbadadabum|Also, fuck you Scotteh');
+		},
+		onFaint: function () {
+			this.add("c|&bumbadadabum|Find another planet make the same mistakes.");
+		},
+	},
 	cantsay: {
 		exists: true,
 		noCopy: true,
@@ -157,6 +334,19 @@ exports.BattleStatuses = {
 			this.add('c|%Chloe|/me (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧');
 		},
 	},
+	dragonwhale: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|@DragonWhale|gg lol');
+		},
+		onSwitchOut: function () {
+			this.add('c|@DragonWhale|gg lol');
+		},
+		onFaint: function () {
+			this.add('c|@DragonWhale|gg lol');
+		},
+	},
 	duck: {
 		exists: true,
 		noCopy: true,
@@ -183,6 +373,16 @@ exports.BattleStatuses = {
 			this.add('c|~EV|muk off');
 		},
 	},
+	goodmorningespeon: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|%GoodMorningEspeon|type /part to continue participating in this battle :)');
+		},
+		onFaint: function () {
+			this.add('c|%GoodMorningEspeon|it\'s 5 am and i haven\'t slept yet wtf');
+		},
+	},
 	grimauxiliatrix: {
 		exists: true,
 		noCopy: true,
@@ -193,6 +393,45 @@ exports.BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add('c|@grimAuxiliatrix|∠( ᐛ 」∠)＿');
+		},
+	},
+	haund: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('-ability', source, 'Prodigy');
+			this.addPseudoWeather('prodigyweather', source, "Prodigy");
+			this.add('c|%Haund|le balanced normal flying bird has arrived');
+		},
+		onSwitchOut: function (pokemon) {
+			const foes = pokemon.side.foe.active;
+			if (this.pseudoWeather['prodigyweather'] && !(foes.length && foes[0].volatiles['prodigy'])) {
+				this.removePseudoWeather('prodigyweather', pokemon);
+			}
+		},
+		onFaint: function () {
+			const foes = pokemon.side.foe.active;
+			if (this.pseudoWeather['prodigyweather'] && !(foes.length && foes[0].volatiles['prodigy'])) {
+				this.removePseudoWeather('prodigyweather', pokemon);
+			}
+			this.add('c|%Haund|omg noob team report');
+		},
+	},
+	prodigyweather: {
+		effectType: 'Pseudoweather',
+		duration: 0,
+		onStart: function () {
+			this.add('message', "Physical and special move categories on the battlefield have become inverted!");
+		},
+		onModifyMove: function (move) {
+			if (move.category === 'Physical') {
+				move.category = 'Special';
+			} else if (move.category === 'Special') {
+				move.category = 'Physical';
+			}
+		},
+		onEnd: function () {
+			this.add('message', "Physical and special move categories on the battlefield have returned to normal!");
 		},
 	},
 	healndeal: {
@@ -226,10 +465,10 @@ exports.BattleStatuses = {
 		exists: true,
 		noCopy: true,
 		onStart: function () {
-			this.add('c|@HoeenHero|I have cheat codes!');
+			this.add('c|&HoeenHero|I have cheat codes!');
 		},
 		onFaint: function () {
-			this.add('c|@HoeenHero|No! My cheats wern\'t enough ;-;');
+			this.add('c|&HoeenHero|No! My cheats wern\'t enough ;-;');
 		},
 	},
 	imas: {
@@ -253,7 +492,8 @@ exports.BattleStatuses = {
 			this.add('c|@innovamania|' + sentences[this.random(4)]);
 			this.boost({atk: 6, def: 6, spa: 6, spd: 6, spe: 6, accuracy: 6}, pokemon);
 		},
-		onFaint: function () {
+		onFaint: function (pokemon) {
+			pokemon.side.addSideCondition('healingwish', pokemon, this);
 			let sentences = ['Did you rage quit?', 'How\'d you lose with this set?'];
 			this.add('c|@innovamania|' + sentences[this.random(2)]);
 		},
@@ -296,6 +536,32 @@ exports.BattleStatuses = {
 			this.add('c|&kamikaze|NANI!');
 		},
 	},
+	kaori: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|%Kaori|Hello there.');
+		},
+		onSwitchOut: function () {
+			this.add('c|%Kaori|A surprise to be sure, but a welcome one.');
+		},
+		onFaint: function () {
+			this.add('c|%Kaori|Another happy landing.');
+		},
+	},
+	kay: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|%Kay|Every kiss begins with kay');
+		},
+		onSwitchOut: function () {
+			this.add('c|%Kay|\u304F\u30B3:\u5F61');
+		},
+		onFaint: function () {
+			this.add('c|%Kay|\u304F\u30B3:\u5F61');
+		},
+	},
 	level51: {
 		exists: true,
 		noCopy: true,
@@ -304,6 +570,26 @@ exports.BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add('c|@Level 51|IndexError: list index out of range');
+		},
+	},
+	lifeisdank: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|@LifeisDANK|(\u2070\u2296\u2070)Peent');
+		},
+		onFaint: function () {
+			this.add('c|@LifeisDANK|(\u2022\u0348\u2314\u2022\u0348 ) ...peent');
+		},
+	},
+	macchaeger: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add("c|%MacChaeger|What are you gonna do with that big bat? Gonna hit me? Better make it count. Better make it hurt. Better kill me in one shot.");
+		},
+		onFaint: function () {
+			this.add("c|%MacChaeger|i'm gonna pyuk");
 		},
 	},
 	megazard: {
@@ -330,34 +616,48 @@ exports.BattleStatuses = {
 		},
 	},
 	// nv
-	duststorm: {
+	aridplateau: {
 		effectType: 'Weather',
 		duration: 0,
 		onEffectiveness: function (typeMod, target, type, move) {
 			if (move && move.effectType === 'Move' && type === 'Rock' && typeMod > 0) {
-				this.add('-activate', target, 'aridplateau');
+				this.add('-activate', target, 'Arid Plateau');
 				return 0;
 			}
 		},
 		onModifySpDPriority: 10,
 		onModifySpD: function (spd, pokemon) {
-			if (pokemon.hasType('Rock') && this.isWeather('duststorm')) {
+			if (pokemon.hasType('Rock') && this.isWeather('aridplateau')) {
 				return this.modify(spd, 1.5);
 			}
 		},
 		onStart: function (battle, source, effect) {
-			this.add('-weather', 'AridPlateau', '[from] ability: ' + effect, '[of] ' + source);
+			this.add('-weather', 'Arid Plateau', '[from] ability: ' + effect, '[of] ' + source);
 		},
 		onResidualOrder: 1,
 		onResidual: function () {
-			this.add('-weather', 'AridPlateau', '[upkeep]');
+			this.add('-weather', 'Arid Plateau', '[upkeep]');
+			this.add('html|<div><small>The dust storm is raging.</small></div>');
 			this.eachEvent('Weather');
 		},
 		onWeather: function (target) {
-			if (target.hasType('Rock') || target.hasType('Ground') || target.hasType('teel')) this.damage(target.maxhp / 16);
+			this.damage(target.maxhp / 16, null, null, 'sandstorm');
 		},
 		onEnd: function () {
 			this.add('-weather', 'none');
+		},
+	},
+	nui: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|@nui|**Omae wa mou Shinderu \u0CA0_\u0CA0**');
+		},
+		onSwitchOut: function () {
+			this.add('c|@nui|See ya! \u2727__ \u2727__\uFF9F\u30FB: *__\u30FD__(\u25D5\u30EE__\u25D5\u30FD__)');
+		},
+		onFaint: function () {
+			this.add('c|@nui|(\u25D5\uFE3F\u25D5\u273F)');
 		},
 	},
 	panpawn: {
@@ -385,6 +685,7 @@ exports.BattleStatuses = {
 		onStart: function () {
 			this.add('c|&Scotteh|─────▄▄████▀█▄');
 			this.add('c|&Scotteh|───▄██████████████████▄');
+			// if (pokemon.side.foe.active.length && pokemon.side.foe.active[0].name === 'bumbadadabum') this.add('c|&bumbadadabum|Fuck you Scotteh');
 			this.add('c|&Scotteh|─▄█████.▼.▼.▼.▼.▼.▼.▼');
 		},
 		onFaint: function () {
@@ -437,6 +738,19 @@ exports.BattleStatuses = {
 		/*onFaint: function () {
 			this.add('c|@SpaceBass|');
 		},*/
+	},
+	swirlyder: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|%Swirlyder|/me swirls');
+		},
+		onSwitchOut: function () {
+			this.add('c|%Swirlyder|/me swirls on');
+		},
+		onFaint: function () {
+			this.add('c|%Swirlyder|/me sad swirls :(');
+		},
 	},
 	teremiare: {
 		exists: true,
@@ -494,6 +808,48 @@ exports.BattleStatuses = {
 		},
 		onSwitchOut: function () {
 			this.add('c|@Trickster|(◠﹏◠✿)');
+		},
+	},
+	urkerab: {
+		exists: true,
+		noCopy: true,
+		onStart: function (pokemon) {
+			pokemon.addVolatile('focusenergy', pokemon);
+			this.add('j|@urkerab');
+		},
+		onFaint: function () {
+			this.add('l|@urkerab');
+		},
+		/* onSwitchOut: function () {
+			this.add('l|@urkerab');
+		}, */
+	},
+	winry: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|%winry|fight me irl');
+		},
+		onFaint: function () {
+			this.add('c|%winry|I AM NOT A WEEB');
+		},
+		onModifyDef: function () {
+			return this.chainModify(3.2);
+		},
+		onModifySpD: function () {
+			return this.chainModify(3.2);
+		},
+		onModifyAtk: function () {
+			return this.chainModify(1.7);
+		},
+		onModifySpA: function () {
+			return this.chainModify(1.7);
+		},
+		onAfterDamage: function (damage, target, source, effect) {
+			if (effect && effect.category && effect.category !== 'Status' && source && source.hp) {
+				this.add('-ability', target, 'Hella Cute');
+				this.boost({def: -1, spd: -1}, source, target, effect);
+			}
 		},
 	},
 	xfix: {

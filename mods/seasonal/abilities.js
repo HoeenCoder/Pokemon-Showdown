@@ -14,11 +14,111 @@ exports.BattleAbilities = {
 			}
 		},
 		onEffectiveness: function (typeMod, target, type, move) {
-			if (!this.activeTarget) return;
+			if (!this.activeTarget || this.effectData.busted) return;
 			let pokemon = this.activeTarget;
 			if (pokemon.volatiles['substitute'] && !(move.flags['authentic'] || move.infiltrates)) return;
 			if (!pokemon.runImmunity(move.type)) return;
 			return 0;
+		},
+	},
+	// Akir
+	mushroomwall: {
+		id: "mushroomwall",
+		name: "Mushroom Wall",
+		shortDesc: "Healed 1/4 by water, 1/8 by rain; takes 3/4 damage from supereffective attacks.",
+		onSourceModifyDamage: function (damage, source, target, move) {
+			if (move.typeMod > 0) {
+				this.debug('Mushroom Wall neutralize');
+				return this.chainModify(0.75);
+			}
+		},
+		onTryHit: function (target, source, move) {
+			if (target !== source && move.type === 'Water') {
+				if (!this.heal(target.maxhp / 4)) {
+					this.add('-immune', target, '[msg]', '[from] ability: Mushroom Wall');
+				}
+				return null;
+			}
+		},
+		onWeather: function (target, source, effect) {
+			if (effect.id === 'raindance' || effect.id === 'primordialsea') {
+				this.heal(target.maxhp / 8);
+			} else if (effect.id === 'sunnyday' || effect.id === 'desolateland') {
+				this.damage(target.maxhp / 8, target, target);
+			}
+		},
+	},
+	// Amingo
+	disguise: {
+		inherit: true,
+		shortDesc: "The first hit this Pokemon takes in battle deals 0 neutral damage.",
+		onDamage: function (damage, target, source, effect) {
+			if (effect && effect.effectType === 'Move' && !this.effectData.busted) {
+				this.add('-activate', target, 'ability: Stealth');
+				this.effectData.busted = true;
+				return 0;
+			}
+		},
+		onEffectiveness: function (typeMod, target, type, move) {
+			if (!this.activeTarget || this.effectData.busted) return;
+			let pokemon = this.activeTarget;
+			if (pokemon.volatiles['substitute'] && !(move.flags['authentic'] || move.infiltrates)) return;
+			if (!pokemon.runImmunity(move.type)) return;
+			return 0;
+		},
+	},
+	// ant
+	truant: {
+		inherit: true,
+		name: "TRU ANT",
+		onStart: function (pokemon) {
+			if (this.activeMove && this.activeMove.id === 'skillswap') return;
+			let target = pokemon.side.foe.active[pokemon.side.foe.active.length - 1 - pokemon.position];
+			if (target) {
+				this.useMove('skillswap', pokemon, target, this.getAbility('truant'));
+			}
+		},
+	},
+	// Arrested
+	shellshocker: {
+		id: "shellshocker",
+		name: "Shell Shocker",
+		shortDesc: "This Pokemon's Normal type moves -> Electric; absorbs Electric moves.",
+		onModifyMovePriority: -1,
+		onModifyMove: function (move, pokemon) {
+			if (move.type === 'Normal' && !['judgment', 'multiattack', 'naturalgift', 'revelationdance', 'technoblast', 'weatherball'].includes(move.id) && !(move.isZ && move.category !== 'Status')) {
+				move.type = 'Electric';
+				move.galvanizeBoosted = true;
+			}
+		},
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, pokemon, target, move) {
+			if (move.galvanizeBoosted) return this.chainModify([0x1333, 0x1000]);
+		},
+		onTryHit: function (target, source, move) {
+			if (target !== source && move.type === 'Electric') {
+				if (!this.heal(target.maxhp / 4)) {
+					this.add('-immune', target, '[msg]', '[from] ability: Shell Shocker');
+				}
+				return null;
+			}
+		},
+	},
+	// Articuno
+	icydown: {
+		id: "icydown",
+		name: "Icy Down",
+		shortDesc: "Takes only direct damage. -1 speed on contact.",
+		onDamage: function (damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				return false;
+			}
+		},
+		onAfterDamage: function (damage, target, source, effect) {
+			if (effect && effect.flags['contact']) {
+				this.add('-ability', target, 'Icy Down');
+				this.boost({spe: -1}, source, target, null, true);
+			}
 		},
 	},
 	// Ascriptmaster
@@ -44,6 +144,89 @@ exports.BattleAbilities = {
 			if (pokemon.template.baseSpecies !== 'Rotom' || !pokemon.template.forme) return;
 			if (pokemon.formeChange('Rotom')) {
 				this.add('-formechange', pokemon, 'Rotom', '[from] ability: Appliance Change');
+			}
+		},
+	},
+	// Astyanax
+	frogskin: {
+		id: "frogskin",
+		name: "Frogskin",
+		shortDesc: "Heal 1/8 of max HP each turn while poisoned; poisoned targets take critical hits.",
+		onDamage: function (damage, target, source, effect) {
+			if (effect.id === 'psn' || effect.id === 'tox') {
+				this.heal(target.maxhp / 8);
+				return false;
+			}
+		},
+		onModifyCritRatio: function (critRatio, source, target) {
+			if (target && ['psn', 'tox'].includes(target.status)) return 5;
+		},
+	},
+	// Bondie
+	solarsurge: {
+		id: "solarsurge",
+		name: "Solar Surge",
+		shortDesc: "Sets extremely harsh sunlight; doubles speed and boosts SpA by 1 each turn.",
+		onStart: function (source) {
+			this.setWeather('desolateland');
+		},
+		onAnySetWeather: function (target, source, weather) {
+			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream', 'aridplateau'].includes(weather.id)) return false;
+		},
+		onModifySpe: function (spe) {
+			if (this.isWeather(['sunnyday', 'desolateland'])) return this.chainModify(2);
+		},
+		onWeather: function (target, source, effect) {
+			if (effect.id === 'sunnyday' || effect.id === 'desolateland') {
+				this.boost({spa: 1});
+			}
+		},
+		onEnd: function (pokemon) {
+			if (this.weatherData.source !== pokemon) return;
+			for (let i = 0; i < this.sides.length; i++) {
+				for (let j = 0; j < this.sides[i].active.length; j++) {
+					let target = this.sides[i].active[j];
+					if (target === pokemon) continue;
+					if (target && target.hp && target.hasAbility('desolateland')) {
+						this.weatherData.source = target;
+						return;
+					}
+				}
+			}
+			this.clearWeather();
+		},
+	},
+	// Brandon
+	thickskin: {
+		id: "thickskin",
+		name: "Thick Skin",
+		shortDesc: "Shed Skin + Thick Fat + Stamina.",
+		onResidualOrder: 5,
+		onResidualSubOrder: 1,
+		onResidual: function (pokemon) {
+			if (pokemon.hp && pokemon.status && this.random(3) === 0) {
+				this.debug('thick skin');
+				this.add('-activate', pokemon, 'ability: Thick Skin');
+				pokemon.cureStatus();
+			}
+		},
+		onModifyAtkPriority: 6,
+		onSourceModifyAtk: function (atk, attacker, defender, move) {
+			if (move.type === 'Ice' || move.type === 'Fire') {
+				this.debug('Thick Skin weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		onModifySpAPriority: 5,
+		onSourceModifySpA: function (atk, attacker, defender, move) {
+			if (move.type === 'Ice' || move.type === 'Fire') {
+				this.debug('Thick Skin weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		onAfterDamage: function (damage, target, source, effect) {
+			if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
+				this.boost({def: 1});
 			}
 		},
 	},
@@ -82,16 +265,23 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	// MacChaeger
+	'350cups': {
+		id: "350cups",
+		name: "350 Cups",
+		shortDesc: "If Mantyke, doubles base stats."
+		// Ipmlemented in mods/seasonal/pokedex.js
+	},
 	// nv
 	aridplateau: {
 		id: "aridplateau",
 		name: "Arid Plateau",
 		shortDesc: "Summons dust storm and gets rid of all Rock Type's weaknesses.",
 		onStart: function (source) {
-			this.setWeather('duststorm');
+			this.setWeather('aridplateau');
 		},
 		onAnySetWeather: function (target, source, weather) {
-			if (this.getWeather().id === 'duststorm' && !['desolateland', 'primordialsea', 'deltastream', 'aridplateau'].includes(weather.id)) return false;
+			if (this.getWeather().id === 'aridplateau' && !['desolateland', 'primordialsea', 'deltastream', 'aridplateau'].includes(weather.id)) return false;
 		},
 		onEnd: function (pokemon) {
 			if (this.weatherData.source !== pokemon) return;
@@ -150,6 +340,20 @@ exports.BattleAbilities = {
 		shortDesc: "On switch-in, summons Gravity.",
 		onStart: function () {
 			this.addPseudoWeather('gravity');
+		},
+	},
+
+	// Normal abilities modified to account for new effects
+	desolateland: {
+		inherit: true,
+		onAnySetWeather: function (target, source, weather) {
+			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream', 'aridplateau'].includes(weather.id)) return false;
+		},
+	},
+	primordialsea: {
+		inherit: true,
+		onAnySetWeather: function (target, source, weather) {
+			if (this.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream', 'aridplateau'].includes(weather.id)) return false;
 		},
 	},
 };

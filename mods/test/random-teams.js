@@ -7,10 +7,22 @@ class RandomStaffBrosTestTeams extends RandomTeams {
 		let team = [];
 		let variant = (this.random(2) === 1);
 		let sets = {
+			'Winry': {
+				species: 'Buizel', ability: 'Water Veil', item: 'Life Orb', gender: 'F', shiny: true,
+				moves: ['watershuriken', ['jumpkick', 'iciclecrash'][this.random(2)], 'waterfall'],
+				signatureMove: 'Fight to the Death',
+				evs: {atk:252, def:4, spe:252}, nature: 'Jolly',
+			},
+			'Yuki': {
+				species: 'Ninetales-Alola', ability: 'Snow Warning', item: 'Fairium Z', gender: 'N',
+				moves: ['Blizzard', 'Moonblast', 'Aurora Veil'],
+				signatureMove: 'Cutie Escape',
+				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
+			},
 			/*
 			'template': {
 				species: 'Unown', ability: 'Levitate', item: 'Choice Specs', gender: 'N',
-				moves: ['', '', '', ''],
+				moves: ['', '', ''],
 				signatureMove: '',
 				evs: {spa: 252, spd: 4, spe: 252}, nature: 'Serious',
 			},
