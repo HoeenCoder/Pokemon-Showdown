@@ -398,9 +398,9 @@ exports.BattleStatuses = {
 	haund: {
 		exists: true,
 		noCopy: true,
-		onStart: function () {
-			this.add('-ability', source, 'Prodigy');
-			this.addPseudoWeather('prodigyweather', source, "Prodigy");
+		onStart: function (pokemon) {
+			this.add('-ability', pokemon, 'Prodigy');
+			this.addPseudoWeather('prodigyweather', pokemon, "Prodigy");
 			this.add('c|%Haund|le balanced normal flying bird has arrived');
 		},
 		onSwitchOut: function (pokemon) {
@@ -409,7 +409,7 @@ exports.BattleStatuses = {
 				this.removePseudoWeather('prodigyweather', pokemon);
 			}
 		},
-		onFaint: function () {
+		onFaint: function (pokemon) {
 			const foes = pokemon.side.foe.active;
 			if (this.pseudoWeather['prodigyweather'] && !(foes.length && foes[0].volatiles['prodigy'])) {
 				this.removePseudoWeather('prodigyweather', pokemon);

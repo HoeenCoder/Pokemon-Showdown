@@ -269,7 +269,7 @@ exports.BattleAbilities = {
 	'350cups': {
 		id: "350cups",
 		name: "350 Cups",
-		shortDesc: "If Mantyke, doubles base stats."
+		shortDesc: "If Mantyke, doubles base stats.",
 		// Ipmlemented in mods/seasonal/pokedex.js
 	},
 	// nv

@@ -5,13 +5,13 @@ const RandomTeams = require('../../data/random-teams');
 class RandomStaffBrosTestTeams extends RandomTeams {
 	randomStaffBrosTestTeam() {
 		let team = [];
-		let variant = (this.random(2) === 1);
+		// let variant = (this.random(2) === 1);
 		let sets = {
 			'Winry': {
 				species: 'Buizel', ability: 'Water Veil', item: 'Life Orb', gender: 'F', shiny: true,
 				moves: ['watershuriken', ['jumpkick', 'iciclecrash'][this.random(2)], 'waterfall'],
 				signatureMove: 'Fight to the Death',
-				evs: {atk:252, def:4, spe:252}, nature: 'Jolly',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
 			'Yuki': {
 				species: 'Ninetales-Alola', ability: 'Snow Warning', item: 'Fairium Z', gender: 'N',

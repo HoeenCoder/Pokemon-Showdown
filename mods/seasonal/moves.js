@@ -484,7 +484,7 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Water",
-		zMoveBoost: {spa: 1}, 
+		zMoveBoost: {spa: 1},
 	},
 	// bumbadadabum
 	freesoftware: {
@@ -1281,14 +1281,14 @@ exports.BattleMovedex = {
 			let rand = this.random(10);
 			if (rand < 2) {
 				// 20% Dual screens
-				this.useMove('reflect', source, pokemon);
-				this.useMove('lightscreen', source, pokemon)
+				this.useMove('reflect', source);
+				this.useMove('lightscreen', source);
 			} else if (rand < 6) {
 				// 40% Sleep Powder
 				this.useMove('sleeppowder', source, pokemon);
 			} else if (rand < 9) {
 				// 30% Recover
-				this.useMove('recover', source, pokemon);
+				this.useMove('recover', source);
 			} else {
 				// 10% Explosion
 				this.useMove('explosion', source, pokemon);
@@ -1689,11 +1689,11 @@ exports.BattleMovedex = {
 		},
 		onHit: function (target) {
 			let moves = [];
-			for (moveSlot of source.moveSlots) {
+			for (let i = 0; i < target.moveSlots.length;) {
 				let dexMoves = [];
-				for (let i in exports.BattleMovedex) {
-					let dexMove = exports.BattleMovedex[i];
-					if (i !== dexMove.id) continue;
+				for (let j in exports.BattleMovedex) {
+					let dexMove = exports.BattleMovedex[j];
+					if (j !== dexMove.id) continue;
 					if (this.getMove(i).gen > this.gen) continue;
 					dexMoves.push(dexMove);
 				}
@@ -1704,7 +1704,7 @@ exports.BattleMovedex = {
 				}
 				moves.push(randomMove);
 				randomMove = this.getMove(randomMove);
-				moveSlot = {
+				target.moveSlots[i] = {
 					move: randomMove.name,
 					id: randomMove.id,
 					pp: randomMove.pp,
@@ -2025,7 +2025,7 @@ exports.BattleMovedex = {
 				pokemon.removeVolatile('fighttothedeath');
 				if (['Guillotine', 'Fissure', 'Sheer Cold', 'Horn Drill'].contains(move.name)) return 55;
 				return accuracy;
-			}
+			},
 		},
 		secondary: false,
 		target: "normal",

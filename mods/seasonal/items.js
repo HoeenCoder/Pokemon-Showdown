@@ -10,7 +10,7 @@ exports.BattleItems = {
 		zMoveUser: ["Skarmory"],
 		gen: 7,
 		desc: "If held by imas with Accele Squawk, it can use B O I.",
-	}, 
+	},
 	"tiksiumz": {
 		id: "tiksiumz",
 		name: "Tiksium Z",

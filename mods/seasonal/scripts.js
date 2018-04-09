@@ -188,13 +188,12 @@ exports.BattleScripts = {
 	},
 	effectiveWeather: function () {
 		if (this.suppressingWeather()) return '';
-		let weather = this.weather;
 		let weatherClones = {
 			desolateland: 'sunnyday',
 			primordialsea: 'raindance',
 			legendaryfrost: 'hail',
 			aridplateau: 'sandstorm',
-		}
+		};
 		return weatherClones[this.weather] || this.weather;
 	},
 };

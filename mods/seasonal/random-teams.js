@@ -5,7 +5,7 @@ const RandomTeams = require('../../data/random-teams');
 class RandomStaffBrosTeams extends RandomTeams {
 	randomStaffBrosTeam() {
 		let team = [];
-		let variant = (this.random(2) === 1);
+		// let variant = (this.random(2) === 1);
 		let sets = {
 			'Acast': {
 				species: 'Decidueye', ability: 'Stealth', item: 'Decidium Z', gender: 'M', // ask gender
@@ -125,7 +125,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Samurott', ability: 'Analytic', item: 'Leftovers', gender: 'M',
 				moves: ['calmmind', 'originpulse', 'icebeam'],
 				signatureMove: "Free Software",
-				evs: {hp:252, spa:252, spd:4}, ivs: {atk: 0}, nature: 'Modest',
+				evs: {hp: 252, spa: 252, spd: 4}, ivs: {atk: 0}, nature: 'Modest',
 			},
 			'cant say': {
 				species: 'Aegislash', ability: 'Stance Change', item: 'Weakness Policy', gender: 'M',
@@ -137,7 +137,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Bewear', ability: 'Fur Coat', item: 'Red Card', gender: 'M',
 				moves: ['Close Combat', ['Recover', 'Swords Dance'][this.random(2)], ['Knock Off', 'Extreme Speed'][this.random(2)]],
 				signatureMove: 'Forcewin',
-				evs: {atk:252, def:4, spe:252}, nature: 'Adamant',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Adamant',
 			},
 			'Chloe': {
 				species: 'Vileplume', ability: 'Prankster', item: 'Light Clay', gender: 'F',
@@ -179,7 +179,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Espeon', ability: 'Drought', item: 'Red Card', gender: 'M',
 				moves: ['morningsun', 'growth', 'storedpower'],
 				signatureMove: 'FRIDGE OFF',
-				evs: {hp:4, spa:252, spe:252}, ivs: {atk: 0}, nature: 'Timid',
+				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'grimAuxiliatrix': {
 				species: 'Aggron', ability: 'Chrome Finish', item: 'Aggronite', gender: 'M', // ask gender
@@ -191,7 +191,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Swellow', ability: 'Guts', item: 'Toxic Orb', gender: 'M',
 				moves: ['boomburst', 'heatwave', 'ominouswind'],
 				signatureMove: "Psychokinesis",
-				evs: {atk:252, def:4, spe:252}, nature: 'Jolly',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
 			'HeaLnDeaL': {
 				species: 'Lycanroc-Midday', ability: 'Fur Coat', item: 'Rockium Z', gender: 'N',
@@ -393,7 +393,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Event Horizon',
 				evs: {hp: 252, atk: 4, spa: 252}, ivs: {spe: 0}, nature: 'Quiet',
 			},
-			'urkerab': {      
+			'urkerab': {
 				 species: 'Skuntank', ability: 'Sniper', item: 'Razor Claw', gender: 'M',
 				 moves: ['nightslash', 'drillrun', 'crosspoison'],
 				 signatureMove: 'Holy Orders',
@@ -403,7 +403,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Buizel', ability: 'Water Veil', item: 'Life Orb', gender: 'F', shiny: true,
 				moves: ['watershuriken', ['jumpkick', 'iciclecrash'][this.random(2)], 'waterfall'],
 				signatureMove: 'Fight to the Death',
-				evs: {atk:252, def:4, spe:252}, nature: 'Jolly',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
 			'xfix': {
 				species: 'Xatu', ability: ['Magic Bounce', 'Prankster'][this.random(2)], item: 'Pomeg Berry', gender: 'M',
