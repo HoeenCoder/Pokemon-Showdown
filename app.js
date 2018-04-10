@@ -56,7 +56,7 @@ try {
 	throw new Error("Dependencies are unmet; run node pokemon-showdown before launching Pokemon Showdown again.");
 }
 
-const FS = require('./fs');
+const FS = require('./lib/fs');
 
 /*********************************************************
  * Load configuration
@@ -71,6 +71,8 @@ try {
 
 global.Config = require('./config/config');
 
+global.Monitor = require('./monitor');
+
 if (Config.watchconfig) {
 	let configPath = require.resolve('./config/config');
 	FS(configPath).onModify(() => {
@@ -78,9 +80,9 @@ if (Config.watchconfig) {
 			delete require.cache[configPath];
 			global.Config = require('./config/config');
 			if (global.Users) Users.cacheGroupData();
-			console.log('Reloaded config/config.js');
+			Monitor.notice('Reloaded config/config.js');
 		} catch (e) {
-			console.error(`Error reloading config/config.js: ${e.stack}`);
+			Monitor.adminlog(`Error reloading config/config.js: ${e.stack}`);
 		}
 	});
 }
@@ -89,14 +91,12 @@ if (Config.watchconfig) {
  * Set up most of our globals
  *********************************************************/
 
-global.Monitor = require('./monitor');
-
 global.Dex = require('./sim/dex');
 global.toId = Dex.getId;
 
 global.LoginServer = require('./loginserver');
 
-global.Ladders = require(Config.remoteladder ? './ladders-remote' : './ladders');
+global.Ladders = require('./ladders');
 
 global.Users = require('./users');
 
@@ -117,7 +117,7 @@ Dnsbl.loadDatacenters();
 if (Config.crashguard) {
 	// graceful crash - allow current battles to finish before restarting
 	process.on('uncaughtException', err => {
-		let crashType = require('./crashlogger')(err, 'The main process');
+		let crashType = require('./lib/crashlogger')(err, 'The main process');
 		if (crashType === 'lockdown') {
 			Rooms.global.startLockdown(err);
 		} else {
@@ -152,11 +152,11 @@ if (require.main === module) {
  * Set up our last global
  *********************************************************/
 
-global.TeamValidator = require('./team-validator');
-TeamValidator.PM.spawn();
+global.TeamValidatorAsync = require('./team-validator-async');
+TeamValidatorAsync.PM.spawn();
 
 /*********************************************************
  * Start up the REPL server
  *********************************************************/
 
-require('./repl').start('app', cmd => eval(cmd));
+require('./lib/repl').start('app', cmd => eval(cmd));

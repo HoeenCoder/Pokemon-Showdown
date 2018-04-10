@@ -4,7 +4,7 @@ exports.BattleMovedex = {
 	// Acast
 	arrowdance: {
 		accuracy: 100,
-		basePower: 100,
+		basePower: 60,
 		category: "Physical",
 		shortDesc: "Raises user's attack by 1.",
 		id: "arrowdance",
@@ -49,7 +49,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Parabolic Charge", source);
 			this.add('-anim', source, "Ion Deluge", target);
 		},
-		self: {boosts:{spa:-1, spd:-1, spe:-1}},
+		self: {boosts: {spa: -1, spd: -1, spe: -1}},
 		secondary: {
 			chance: 40,
 			status: 'par',
@@ -84,20 +84,20 @@ exports.BattleMovedex = {
 	// Andy (AndrewGoncel)
 	pilfer: {
 		accuracy: true,
-		basePower: 90,
+		basePower: 70,
 		category: "Physical",
-		shortDesc: "User uses foe's selected move first. Fails if the move is not a Status move.",
+		shortDesc: "User steals certain support moves to use itself.",
 		id: "pilfer",
 		isNonstandard: true,
 		name: "Pilfer",
 		pp: 5,
-		priority: 3, //nerf if it's to broken
+		priority: 3,
 		flags: {protect: 1, authentic: 1, mirror: 1},
 		onTryHit: function (target, pokemon) {
 			let decision = this.willMove(target);
 			if (decision) {
 				let noMeFirst = {
-					mefirst:1,
+					mefirst: 1,
 				};
 				let move = this.getMoveCopy(decision.move.id);
 				if (move.category === 'Status' && !noMeFirst[move]) {
@@ -119,7 +119,7 @@ exports.BattleMovedex = {
 		acc: 85,
 		basePower: 110,
 		category: "Special",
-		shortDesc: "Makes contact. 50% boost Spa, Spe.",
+		shortDesc: "10% boost Spa, Spe.",
 		id: "postmortem",
 		isNonstandard: true,
 		name: "Postmortem",
@@ -132,7 +132,7 @@ exports.BattleMovedex = {
 			this.add('-anim', target, 'Moonblast', source);
 		},
 		secondary: {
-			chance: 50,
+			chance: 10,
 			self: {
 				boosts: {
 					spa: 1,
@@ -142,6 +142,31 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Fairy",
+	},
+	// Articblast
+	trashalance: {
+		accuracy: 100,
+		basePower: 20,
+		basePowerCallBack: function (pokemon, target, move) {
+			if (!move.boostCount) move.boostCount = 0;
+			++move.boostCount;
+			if (move.boostCount >= 4) move.boostCount = 4;
+			if (move.boostCount) {
+				return 20 + (move.boostCount * 40);
+			}
+		},
+		category: "Physical",
+		shortDesc: "Gains 40 BP every time the move is used.",
+		desc: "Gains 40 BP every time this attack is used. Maxes at 180",
+		id: "trashalance",
+		isNonstandard: true,
+		name: "Trashalanche",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: false,
+		target: "normal",
+		type: "Poison",
 	},
 	// ascriptmaster
 	voltechburst: {
@@ -169,7 +194,7 @@ exports.BattleMovedex = {
 		accuracy: 75,
 		basePower: 0,
 		category: "Physical",
-		shortDesc: "Steals foe's status move. Deals Damage",
+		shortDesc: "",
 		id: "starboltdesperation",
 		isNonstandard: true,
 		name: 'Star Bolt Desperation',
@@ -182,7 +207,7 @@ exports.BattleMovedex = {
 			'Normal', 'Poison', 'Psychic', 'Rock', 'Steel', 'Water',
 		],
 		damageCallback: function (pokemon, target) {
-			return target.hp * 0.75;
+			return target.hp * 0.5;
 		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -222,6 +247,24 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Normal",
+	},
+	// atomicllamas
+	bitchycomment: {
+		basePower: 100,
+		accuracy: 100,
+		category: "Special",
+		desc: '50% chance to inflict burn.',
+		shortDesc: '50% chance to burn.',
+		name: 'Bitchy Comment',
+		id: 'bitchycomment',
+		flags: {protect: 1, mirror: 1, sound: 1},
+		secondary: {
+			chance: 50,
+			status: 'brn',
+		},
+		pp: 5,
+		target: "normal",
+		type: "Psychic",
 	},
 	// Auzbat
 	fatbat: {
@@ -341,6 +384,23 @@ exports.BattleMovedex = {
 		target: "self",
 		type: "Normal",
 	},
+	// Ciran
+	burnturn: {
+		shortDesc: "User switches out after damaging and burning the target.",
+		id: "burnturn",
+		isViable: true,
+		name: "bUrn-turn",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		selfSwitch: true,
+		secondary: {
+			chance: 100,
+			status: 'brn',
+		},
+		target: "normal",
+		type: "Fire",
+	},
 	// Duck
 	holyduck: {
 		accuracy: 100,
@@ -396,6 +456,34 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Dark",
 	},
+	// feliburn
+	"clangoroussoulblaze": {
+		num: 728,
+		accuracy: true,
+		basePower: 185,
+		category: "Physical",
+		desc: "Raises the user's Attack, Defense, Special Attack, Special Defense, and Speed by 1 stage.",
+		shortDesc: "Raises the user's Atk/Def/SpAtk/SpDef/Spe by 1.",
+		id: "clangoroussoulblaze",
+		name: "Clangorous Soulblaze",
+		noPPBoosts: true,
+		pp: 1,
+		priority: 0,
+		flags: {sound: 1, authentic: 1},
+		selfBoost: {
+			boosts: {
+				atk: 1,
+				def: 1,
+				spa: 1,
+				spd: 1,
+				spe: 1,
+			},
+		},
+		secondary: false,
+		target: "allAdjacentFoes",
+		type: "Dragon",
+		contestType: "Cool",
+	},
 	// grimAuxiliatrix
 	chachaslide: {
 		accuracy: 100,
@@ -424,6 +512,46 @@ exports.BattleMovedex = {
 		heal: [1, 3],
 		target: "self",
 		type: "Steel",
+	},
+	// HeaLnDeaL
+	petrifychomp: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		shortDesc: "User recovers 75% of the damage dealt.",
+		id: "petrifychomp",
+		isViable: true,
+		name: "Petrify Chomp",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, contact: 1, heal: 1},
+		drain: [3, 4],
+		secondary: false,
+		target: "normal",
+		type: "Rock",
+	},
+	// Hippopotas
+	beannoying: {
+		accuracy: 100,
+		category: "Status",
+		pp: 20,
+		shortDesc: "Sets 2 random hazards + roars.",
+		id: "beannoying",
+		name: "Be Annoying",
+		flags: {reflectable: 1, mirror: 1, sound: 1, authentic: 1, mystery: 1},
+		onHit: function (target, source) {
+			let hazards = ['stealthrock', 'spikes', 'toxicspikes', 'stickyweb'];
+			let hazard1 = hazards[this.random(4)];
+			hazards.splice(hazards.indexOf(hazard1), 1);
+			let hazard2 = hazards[this.random(3)];
+			this.useMove(hazard1, source);
+			this.useMove(hazard2, source);
+			this.useMove("roar", source);
+		},
+		priority: -1,
+		secondary: false,
+		target: "normal",
+		type: "Normal",
 	},
 	// HoeenHero
 	scripting: {
@@ -457,7 +585,7 @@ exports.BattleMovedex = {
 	//Imas
 	accelesquawk: {
 		accuracy: 100,
-		basePower: 90,
+		basePower: 70,
 		category: "Physical",
 		shortDesc: "Ignores the Abilities of other Pokemon.",
 		id: "accelesquawk",
@@ -762,6 +890,26 @@ exports.BattleMovedex = {
 		target: "self",
 		type: "Normal",
 	},
+	// LifeisDANK
+	peentpeent: {
+		accuracy: 100,
+		basePower: 60,
+		category: "Physical",
+		id: "peentpeent",
+		isNonstandard: true,
+		name: "Peent Peent",
+		flags: {protect: 1, mirror: 1, sound: 1},
+		pp: 5,
+		priority: 0,
+		secondary: {
+			boosts: {
+				spa: -1,
+				spe: -1,
+			},
+		},
+		target: "normal",
+		type: "Flying",
+	},
 	// Megazard
 	dragonswrath: {
 		accuracy: 100,
@@ -833,10 +981,9 @@ exports.BattleMovedex = {
 	// NOVED
 	forthekids: {
 		accuracy: 100,
-		basePower: 0,
-		damage: 'level',
+		basePower: 60,
 		category: "Physical",
-		shortDesc: "Damage = user's level, Paralyzes the foe, 30% flinch, lowers own def, spd by 1.",
+		shortDesc: "10% to paralyze, 10% to flinch, lowers own def, spd by 1.",
 		id: "forthekids",
 		isNonstandard: true,
 		name: "For The Kids",
@@ -848,15 +995,37 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Seismic Toss", target);
 			this.add('-anim', source, "Seismic Toss", target);
 		},
-		onHit: function (target, source) {
-			target.trySetStatus('par', source);
-		},
-		secondary: {
-			chance: 30,
-			volatileStatus: 'flinch',
-		},
+		secondaries: [
+			{
+				chance: 10,
+				volatileStatus: 'flinch',
+			},
+			{
+				chance: 10,
+				volatileStatus: 'par',
+			},
+		],
 		target: "normal",
 		type: "Fighting",
+	},
+	// nv
+	anappleaday: {
+		accuracy: true,
+		category: "Status",
+		shortDesc: "Raises atk, def and spe by 1",
+		id: "anappleaday",
+		isNonstandard: true,
+		name: "An Apple A Day",
+		pp: 15,
+		priority: 0,
+		flags: {snatch: 1, mirror: 1},
+		boosts: {
+			atk: 1,
+			def: 1,
+			spe: 1,
+		},
+		target: "self",
+		type: "Normal",
 	},
 	// panpawn
 	lafireblaze420: {
@@ -880,6 +1049,33 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Fire",
+	},
+	// Paradise
+	dizzyrock: {
+		accuracy: true,
+		category: "Status",
+		shortDesc: "Hurts foes on switch-in. Factors Rock weakness. Confuses foe",
+		id: "dizzyrock",
+		isViable: true,
+		name: "Dizzy Rock",
+		pp: 20,
+		priority: 0,
+		flags: {reflectable: 1},
+		sideCondition: 'dizzyrock',
+		effect: {
+			// this is a side condition
+			onStart: function (side) {
+				this.add('-sidestart', side, 'move: Dizzy Rock');
+			},
+			onSwitchIn: function (pokemon) {
+				let typeMod = this.clampIntRange(pokemon.runEffectiveness('Rock'), -6, 6);
+				pokemon.addVolatile('confusion');
+				this.damage(pokemon.maxhp * Math.pow(2, typeMod) / 8);
+			},
+		},
+		secondary: false,
+		target: "foeSide",
+		type: "Rock",
 	},
 	// Raseri
 	hey: {
@@ -926,7 +1122,7 @@ exports.BattleMovedex = {
 	// Scyther NO Swiping
 	"3strikeswipe": {
 		accuracy: true,
-		basePower: 35,
+		basePower: 40,
 		category: "Physical",
 		shortDesc: "Hits 1-3 times with inverse type chart. High crit.",
 		id: "3strikeswipe",
@@ -960,7 +1156,7 @@ exports.BattleMovedex = {
 	// sirDonovan
 	ladiesfirst: {
 		accuracy: 100,
-		basePower: 120,
+		basePower: 80,
 		category: 'Special',
 		shortDesc: 'Move second if foe is female, +1 speed.',
 		id: 'ladiesfirst',
@@ -988,7 +1184,21 @@ exports.BattleMovedex = {
 			}
 		},
 		self: {boosts: {spe: 1}},
-		secondary: false,
+		secondary: {
+			chance: 60,
+			onHit: function (target, source) {
+				let result = this.random(4);
+				if (result === 0) {
+					target.trySetStatus('brn', source);
+				} else if (result === 1) {
+					target.trySetStatus('par', source);
+				} else if (result === 2) {
+					target.trySetStatus('frz', source);
+				} else {
+					target.trySetStatus('slp', source);
+				}
+			},
+		},
 		target: 'normal',
 		type: 'Fairy',
 	},
@@ -1015,6 +1225,34 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "self",
 		type: "Grass",
+	},
+	// Team Pokepals
+	finalkamehameha: {
+		accuracy: 100,
+		basePower: 200,
+		category: "Special",
+		id: "finalkamehameha",
+		isNonstandard: true,
+		name: "FINAL KAMEHAMEHA",
+		pp: 5,
+		flags: {protect: 1, mirror: 1},
+		shortDesc: "Boosts spa by 2 before attack, has 1 hp left and spa goes down by 2 after",
+		beforeTurnCallback: function (pokemon) {
+			this.boost({spa: 2}, pokemon, pokemon, 'FINAL KAMEHAMEHA');
+		},
+
+		onHit: function (target, source) {
+			this.damage(source.hp - 1, source, source, 'finalkamehameha');
+		},
+		priority: 0,
+		secondary: false,
+		self: {
+			boosts: {
+				spa: -2,
+			},
+		},
+		target: "normal",
+		type: "Fighting",
 	},
 	// Temporaryanonymous
 	spoopyedgecut: {
@@ -1070,6 +1308,50 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Dark",
+	},
+	// The Immortal
+	sleepwalk: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: "sleepwalk",
+		isNonstandard: true,
+		isViable: true,
+		name: "Sleep Walk",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		sleepUsable: true,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Healing Wish", target);
+		},
+		onHit: function (pokemon, source) {
+			if (pokemon.status !== 'slp') {
+				if (pokemon.hp >= pokemon.maxhp) return false;
+				if (!pokemon.setStatus('slp')) return false;
+				pokemon.statusData.time = 3;
+				pokemon.statusData.startTime = 3;
+				this.heal(pokemon.maxhp);
+				this.add('-status', pokemon, 'slp', '[from] move: Rest');
+			}
+			let moves = [];
+			for (let i = 0; i < pokemon.moveSlots.length; i++) {
+				let move = pokemon.moveSlots[i].id;
+				if (move && move !== 'sleepwalk') moves.push(move);
+			}
+			let move = '';
+			if (moves.length) move = moves[this.random(moves.length)];
+			if (!move) return false;
+			this.useMove(move, pokemon);
+			if (!pokemon.informed && source.name === 'The Immortal') {
+				this.add('c|~The Immortal|I don\'t really sleep walk...');
+				pokemon.informed = true;
+			}
+		},
+		secondary: false,
+		target: "self",
+		type: "Normal",
 	},
 	// Tiksi
 	devolutionwave: {
@@ -1224,6 +1506,54 @@ exports.BattleMovedex = {
 		target: "self",
 		type: "???",
 	},
+	// Yuki
+	cutieescape: {
+		accuracy: true,
+		category: "Status",
+		pp: 10,
+		id: "cutieescape",
+		isNonstandard: true,
+		name: "Cutie Escape",
+		onHit: function (target, pokemon, move) {
+			if (target.lastDamage > 0 && pokemon.lastAttackedBy && pokemon.lastAttackedBy.thisTurn && pokemon.lastAttackedBy.pokemon === target) {
+				target.addVolatile('attract');
+				target.addVolatile('trapped');
+			}
+		},
+		effect: {
+			noCopy: true, // doesn't get copied by Baton Pass
+			onStart: function (pokemon, source, effect) {
+				if (!this.runEvent('Attract', pokemon, source)) {
+					this.debug('Attract event failed');
+					return false;
+				}
+				this.add('-start', pokemon, 'Attract');
+			},
+			onUpdate: function (pokemon) {
+				if (this.effectData.source && !this.effectData.source.isActive && pokemon.volatiles['attract']) {
+					this.debug('Removing Attract volatile on ' + pokemon);
+					pokemon.removeVolatile('attract');
+				}
+			},
+			onBeforeMovePriority: 2,
+			onBeforeMove: function (pokemon, target, move) {
+				this.add('-activate', pokemon, 'move: Attract', '[of] ' + this.effectData.source);
+				if (this.random(2) === 0) {
+					this.add('cant', pokemon, 'Attract');
+					return false;
+				}
+			},
+			onEnd: function (pokemon) {
+				this.add('-end', pokemon, 'Attract', '[silent]');
+			},
+		},
+		priority: -1,
+		selfSwitch: true,
+		secondary: false,
+		zMoveEffect: 'heal',
+		target: "normal",
+		type: "Fairy",
+	},
 	// Zod
 	cheerleadingsquad: {
 		accuracy: 100,
@@ -1248,7 +1578,7 @@ exports.BattleMovedex = {
 				for (let i = 0; i < pokemon.moveset.length; i++) {
 					let move = pokemon.moveset[i].id;
 					let noAssist = {
-						assist:1, belch:1, bestow:1, bounce:1, chatter:1, cheerleadingsquad:1, circlethrow:1, copycat:1, counter:1, covet:1, destinybond:1, detect:1, dig:1, dive:1, dragontail:1, endure:1, feint:1, fly:1, focuspunch:1, followme:1, glitzerpopping: 1, helpinghand:1, kingsshield:1, matblock:1, mefirst:1, metronome:1, mimic:1, mirrorcoat:1, mirrormove:1, naturepower:1, phantomforce:1, protect:1, ragepowder:1, roar:1, shadowforce:1, sketch:1, skydrop:1, sleeptalk:1, snatch:1, spikyshield:1, struggle:1, switcheroo:1, thief:1, transform:1, trick:1, whirlwind:1,
+						assist: 1, belch: 1, bestow: 1, bounce: 1, chatter: 1, cheerleadingsquad: 1, circlethrow: 1, copycat: 1, counter: 1, covet: 1, destinybond: 1, detect: 1, dig: 1, dive: 1, dragontail: 1, endure: 1, feint: 1, fly: 1, focuspunch: 1, followme: 1, glitzerpopping: 1, helpinghand: 1, kingsshield: 1, matblock: 1, mefirst: 1, metronome: 1, mimic: 1, mirrorcoat: 1, mirrormove: 1, naturepower: 1, phantomforce: 1, protect: 1, ragepowder: 1, roar: 1, shadowforce: 1, sketch: 1, skydrop: 1, sleeptalk: 1, snatch: 1, spikyshield: 1, struggle: 1, switcheroo: 1, thief: 1, transform: 1, trick: 1, whirlwind: 1,
 					};
 					if (!noAssist[move] && !this.getMove(move).isZ) {
 						randomMoves.push(move);

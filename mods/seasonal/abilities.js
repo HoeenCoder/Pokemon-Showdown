@@ -102,39 +102,70 @@ exports.BattleAbilities = {
 			if (move && move.type === 'Flying') return priority + 1;
 		},
 	},
-	// Megazard
-	insensible: {
-		id: "insensible",
-		name: "Insensible",
-		shortDesc: "This Pokemon ignores other Pokemon's stat stages when taking or doing damage, and receives 3/4th damage from super effective attacks.",
-		onAnyModifyBoost: function (boosts, target) {
-			let source = this.effectData.target;
-			if (source === target) return;
-			if (source === this.activePokemon && target === this.activeTarget) {
-				boosts['def'] = 0;
-				boosts['spd'] = 0;
-				boosts['evasion'] = 0;
-			}
-			if (target === this.activePokemon && source === this.activeTarget) {
-				boosts['atk'] = 0;
-				boosts['spa'] = 0;
-				boosts['accuracy'] = 0;
-			}
-		},
-		onSourceModifyDamage: function (damage, source, target, move) {
-			if (move.typeMod > 0) {
-				this.debug('Insensible neutralize');
-				return this.chainModify(0.75);
+	// LifeisDANK
+	birb: {
+		id: "birb",
+		name: "Birb",
+		shortDesc: "On switch-in, foe becomes a delibird, user's ability is then Refrigerate.",
+		onStart: function (pokemon) {
+			if (this.activeMove && this.activeMove.id === 'skillswap') return;
+			let target = pokemon.side.foe.active[pokemon.side.foe.active.length - 1 - pokemon.position];
+			if (pokemon) {
+				target.transformInto(pokemon, target, this.getAbility('birb'));
+				target.setAbility('Refrigerate');
 			}
 		},
 	},
-	// Trickster
-	interdimensional:{
-		id: "interdimensional",
-		name: "Interdimensional",
-		shortDesc: "On switch-in, summons Gravity.",
-		onStart: function () {
-			this.addPseudoWeather('gravity');
+	// nv
+	aridplateau: {
+		id: "aridplateau",
+		name: "Arid Plateau",
+		shortDesc: "Summons dust storm and gets rid of all Rock Type's weaknesses.",
+		onStart: function (source) {
+			this.setWeather('duststorm');
+		},
+		onAnySetWeather: function (target, source, weather) {
+			if (this.getWeather().id === 'duststorm' && !['desolateland', 'primordialsea', 'deltastream', 'aridplateau'].includes(weather.id)) return false;
+		},
+		onEnd: function (pokemon) {
+			if (this.weatherData.source !== pokemon) return;
+			for (let i = 0; i < this.sides.length; i++) {
+				for (let j = 0; j < this.sides[i].active.length; j++) {
+					let target = this.sides[i].active[j];
+					if (target === pokemon) continue;
+					if (target && target.hp && target.hasAbility('aridplateau')) {
+						this.weatherData.source = target;
+						return;
+					}
+				}
+			}
+			this.clearWeather();
+		},
+	},
+	// Paradise
+	toxicuser: {
+		id: "toxicuser",
+		name: "Toxic User",
+		onSetStatus: function (status, target, source, effect) {
+			if (['Poison', 'Steel'].includes(target.type) && ['psn', 'tox'].includes(status.id)) return true;
+		},
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.flags['heal']) return priority + 3;
+		},
+		shortDesc: "Can posion or badly poison foe regardless of type, healing moves boost their priority by 3.",
+	},
+	// Team Pokepals
+	aurasense: {
+		id: "aurasense",
+		name: "Aura Sense",
+		shortDesc: "Aura Sphere's power is 100 BP, Fighting type moves hit Ghost types.",
+		onNegateImmunity: function (pokemon, type) {
+			if (pokemon.hasType('Ghost') && type === 'Fighting') return false;
+		},
+		onBasePower: function (basePower, attacker, defender, move) {
+			if (move.id === 'aurasphere') {
+				return this.chainModify(1.25);
+			}
 		},
 	},
 	// Teremiare
@@ -144,6 +175,15 @@ exports.BattleAbilities = {
 		shortDesc: "This Pokemon's status moves have their priority increased by 3.",
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === 'Status') return priority + 3;
+		},
+	},
+	// Trickster
+	interdimensional: {
+		id: "interdimensional",
+		name: "Interdimensional",
+		shortDesc: "On switch-in, summons Gravity.",
+		onStart: function () {
+			this.addPseudoWeather('gravity');
 		},
 	},
 };

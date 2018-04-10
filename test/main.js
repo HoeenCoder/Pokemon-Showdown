@@ -11,7 +11,7 @@ before('initialization', function () {
 	try {
 		require.resolve('../config/config');
 	} catch (err) {
-		if (err.code !== 'MODULE_NOT_FOUND') throw err; // Should never happen
+		if (err.code !== 'MODULE_NOT_FOUND' && err.code !== 'ENOENT') throw err; // Should never happen
 
 		console.log("config.js doesn't exist - creating one with default settings...");
 		fs.writeFileSync(path.resolve(__dirname, '../config/config.js'),
@@ -20,6 +20,7 @@ before('initialization', function () {
 	} finally {
 		config = require('../config/config');
 	}
+	require('./../lib/process-manager').disabled = true;
 
 	// Actually crash if we crash
 	config.crashguard = false;
@@ -29,17 +30,10 @@ before('initialization', function () {
 	config.nofswriting = true;
 
 	// Don't create a REPL
-	require('../repl').start = noop;
+	require('../lib/repl').start = noop;
 
 	// Start the server.
 	require('../app');
-
-	Rooms.RoomBattle.prototype.send = noop;
-	Rooms.RoomBattle.prototype.receive = noop;
-	for (let process of Rooms.SimulatorProcess.processes) {
-		// Don't crash -we don't care of battle child processes.
-		process.process.on('error', noop);
-	}
 
 	LoginServer.disabled = true;
 });
