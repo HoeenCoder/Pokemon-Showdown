@@ -57,6 +57,30 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Electric",
 	},
+	// Akir
+	allergy: {
+		accuracy: 100,
+		category: "Status",
+		shortDesc: "Causes target to fall asleep, boosts all stats.",
+		id: "allergy",
+		isNonstandard: true,
+		isViable: true,
+		name: "Allergy",
+		pp: 5,
+		priority: 1,
+		flags: {powder: 1, protect: 1, mirror: 1, snatch: 1, reflectable: 1},
+		status: 'slp',
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+ 			this.add('-anim', source, "Spore", target);
+		},
+		onHit: function (target, source) {
+			this.boost({def: 1, spd: 1, atk: 1, spa: 1, spe: 1}, source, source, '[from] move: Allergy');
+			this.add('c|%Akir|A Parasect is giving you trouble? Seriously?');
+		},
+		target: "normal",
+		type: "Grass",
+	},
 	// Andy (AndrewGoncel)
 	pilfer: {
 		accuracy: true,
@@ -307,6 +331,31 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Steel",
+	},
+	// Cerberax
+	blimpcrash: {
+		accuracy: 100,
+		basePower: 120,
+		category: "Physical",
+		id: "blimpcrash",
+		isNonstandard: true,
+		isViable: true,
+		name: "Blimp Crash",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, nonsky: 1},
+		volatileStatus: 'smackdown',
+		recoil: [1, 2],
+ 		onPrepareHit: function (target, source) {
+ 			this.attrLastMove('[still]');
+ 			this.add('-anim', source, "Head Smash", target);
+ 		},
+		secondary: {
+			chance: 30,
+			status: 'par',
+		},
+		target: "normal",
+		type: "Flying",
 	},
 	// Chloe
 	addedpreservatives: {
@@ -1027,6 +1076,27 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "foeSide",
 		type: "Rock",
+	},
+	// Raseri
+	hey: {
+		accuracy: true,
+		category: "Status",
+		shortDesc: "Heals 50%, user gains Ground type.",
+		id: "hey",
+		isNonstandard: true,
+		isViable: true,
+		name: "hey",
+		pp: 10,
+		priority: 0,
+		flags: {snatch: 1, heal: 1},
+		heal: [1, 2],
+		onPrepareHit: function (target, source) {
+			if (source.hasType('Ground')) return false;
+			if (!source.addType('Ground')) return false;
+			this.add('-start', source, 'typeadd', 'Ground', '[from] move: hey');
+		},
+		target: "self",
+		type: "Normal",
 	},
 	// Scotteh
 	geomagneticstorm: {

@@ -24,6 +24,18 @@ exports.BattleStatuses = {
 			this.add('c|%Aelita|CODE: LYOKO. Tower deactivated...');
 		},
 	},
+	akir: {
+		exists: true,
+		onStart: function () {
+			this.add('c|%Akir|Yeah yeah...I\'m awake. What do you need?');
+		},
+		onFaint: function () {
+			this.add('c|%Akir|Going to bed, goodbye');
+		},
+		onSwitchOut: function () {
+			this.add('c|%Akir|I\'m busy, can\'t play.');
+		},
+	},
 	andy: {
 		exists: true,
 		noCopy: true,
@@ -143,6 +155,18 @@ exports.BattleStatuses = {
 				this.add('-formechange', pokemon, 'Aegislash', '[from] ability: Stance Change');
 			}
 		},*/
+	},
+	cerberax: {
+		exists: true,
+		onStart: function () {
+			this.add('c|@Cerberax|(╯°□°)╯︵ ┻━┻');
+		},
+		onFaint: function () {
+			this.add('c|@Cerberax|┬─┬ ︵ /(.□. \）');
+		},
+		onSwitchOut: function () {
+			this.add('c|@Cerberax|┬─┬ ノ( ゜-゜ノ)');
+		},
 	},
 	chloe: {
 		exists: true,
@@ -377,6 +401,18 @@ exports.BattleStatuses = {
 		},
 		onSwitchOut: function () {
 			this.add('c|%panpawn|... >:^(');
+		},
+	},
+	raseri: {
+		exists: true,
+		onStart: function () {
+			this.add('c|+Raseri|sub to me on youtube im really good https://www.youtube.com/user/SmogonRaseri/featured');
+		},
+		onFaint: function () {
+			this.add('c|+Raseri|like comment and subscribe');
+		},
+		onSwitchOut: function () {
+			this.add('c|+Raseri|pce');
 		},
 	},
 	scotteh: {

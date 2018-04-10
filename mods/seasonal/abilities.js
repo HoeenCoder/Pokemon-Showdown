@@ -21,6 +21,40 @@ exports.BattleAbilities = {
 			return 0;
 		},
 	},
+	// Akir
+	mushroomwall: {
+		id: "mushroomwall",
+		name: "Mushroom Wall",
+		shortDesc: "Solid Rock + Dry Skin.",
+		onTryHit: function (target, source, move) {
+			if (target !== source && move.type === 'Water') {
+				if (!this.heal(target.maxhp / 4)) {
+					this.add('-immune', target, '[msg]', '[from] ability: Mushroom Wall');
+				}
+				return null;
+			}
+		},
+		onBasePowerPriority: 7,
+		onFoeBasePower: function (basePower, attacker, defender, move) {
+			if (this.effectData.target !== defender) return;
+			if (move.type === 'Fire') {
+				return this.chainModify(1.25);
+			}
+		},
+		onWeather: function (target, source, effect) {
+			if (effect.id === 'raindance' || effect.id === 'primordialsea') {
+				this.heal(target.maxhp / 8);
+			} else if (effect.id === 'sunnyday' || effect.id === 'desolateland') {
+				this.damage(target.maxhp / 8, target, target);
+			}
+		},
+		onSourceModifyDamage: function (damage, source, target, move) {
+			if (move.typeMod > 0) {
+				this.debug('Solid Rock neutralize');
+				return this.chainModify(0.75);
+			}
+		},
+	},
 	// Ascriptmaster
 	appliancechange: {
 		id: "appliancechange",

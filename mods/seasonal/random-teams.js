@@ -19,6 +19,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: "Energy Field",
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest',
 			},
+			'Akir': {
+				species: 'Parasect', ability: 'Mushroom Wall', item: 'Leftovers', gender: 'M',
+				moves: [['x-Scissor', 'Seed Bomb'][this.random(2)], 'Recover', ['Sacred Fire', 'Toxic'][this.random(2)]],
+				signatureMove: 'Allergy',
+				evs: {hp:248, def:252, spe:8}, nature: 'Impish',
+			},
 			'Andy >_>': {
 				species: 'Absol', ability: 'Justified', item: 'Absolite', gender: 'M',
 				moves: ['Swords Dance', 'Sucker Punch', ['U-Turn', 'Knock Off'][this.random(2)]],
@@ -72,6 +78,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Shift Gear', 'Spectral Thief', 'Sacred Sword'],
 				signatureMove: 'blade of ~aesthetics~',
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant',
+			},
+			'Cerberax': {
+				species: 'Wailord', ability: 'Huge Power', item: 'Air Balloon', gender: 'M',
+				moves: ['Roost', 'Waterfall', 'Shift Gear'],
+				signatureMove: 'Blimp Crash',
+				evs: {hp:4, atk:252, spe:252}, nature: 'Adamant',
 			},
 			'Chloe': {
 				species: 'Vileplume', ability: 'Prankster', item: 'Light Clay', gender: 'F',
@@ -216,6 +228,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['haze', 'Toxic', 'Recover'],
 				signatureMove: 'Dizzy Rock',
 				evs: {hp: 248, def: 8, spd: 252}, ivs: {atk: 0}, nature: 'Calm',
+			},
+			'Raseri': {
+				species: 'Reshiram', ability: 'Sheer Force', item: 'Life Orb', gender: 'M',
+				moves: ['Blue Flare', 'Core Enforcer', 'Earth Power'],
+				signatureMove: 'hey',
+				evs: {def:4, spa:252, spe:252}, ivs: {atk: 0}, nature: 'Modest',
 			},
 			'Scotteh': {
 				species: 'Suicune', ability: 'Fur Coat', item: 'Leftovers', gender: 'N',
