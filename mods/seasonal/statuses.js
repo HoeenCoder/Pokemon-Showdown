@@ -363,6 +363,19 @@ exports.BattleStatuses = {
 			return critRatio + 1;
 		},
 	},
+	eternally: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|%eternally|quack');
+		},
+		onSwitchOut: function () {
+			this.add('c|%eternally|ducklett lol');
+		},
+		onFaint: function () {
+			this.add('c|%eternally|quack');
+		},
+	},
 	ev: {
 		exists: true,
 		noCopy: true,
@@ -371,6 +384,48 @@ exports.BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add('c|~EV|muk off');
+		},
+	},
+	eyan: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|@Eyan|WHAT DO YOU WANT??');
+		},
+		onSwitchOut: function () {
+			this.add('c|@Eyan|the wings of steel will return');
+		},
+		onFaint: function () {
+			this.add("c|@Eyan|I suck more than hikari's internet");
+		},
+	},
+	false: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|@false|\u0669(\u2022\u0324\u0300\u1D55\u2022\u0324\u0301\u0E51)\u1D52\u1D4F\u1D4E\u1D4E\u1D4E\u1D4E');
+		},
+		onSwitchOut: function () {
+			this.add('c|@false|\u0669(\u0E51\u2022\u25E1-\u0E51)\u06F6\u24BD\u24E4\u24BC\u2764');
+		},
+		onFaint: function () {
+			this.add("c|@false|\u0262\u221E\u05E4\u22C6\u1599\u1D52\u1D5D \u0669\uA4B0\u201D\u032E*\u0942\uA4B1");
+		},
+	},
+	formerhope: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|+Former Hope|A new Hope');
+		},
+		onModifyMove: function (move) {
+			move.infiltrates = true;
+		},
+		onSwitchOut: function () {
+			this.add('c|+Former Hope|Return of the Hope');
+		},
+		onFaint: function (pokemon) {
+			this.add(`c|+Former Hope|Help me ${pokemon.side.name} you're my only hope`);
 		},
 	},
 	goodmorningespeon: {
@@ -562,6 +617,19 @@ exports.BattleStatuses = {
 			this.add('c|%Kay|\u304F\u30B3:\u5F61');
 		},
 	},
+	kingswordyt: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add("c|%KingSwordYT|You're the master of your destiny, take destiny by the horns and have fun!");
+		},
+		onSwitchOut: function () {
+			this.add('c|%KingSwordYT|I eat when im upset, and i gotta eat');
+		},
+		onFaint: function () {
+			this.add('c|%KingSwordYT|BUAAAAAA IYA AY\u00DADAME :(');
+		},
+	},
 	level51: {
 		exists: true,
 		noCopy: true,
@@ -713,6 +781,19 @@ exports.BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add('c|@Scyther NO Swiping|Aww man');
+		},
+	},
+	sigilyph: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|@Sigilyph|Perpare for the Soog');
+		},
+		onSwitchOut: function () {
+			this.add('c|@Sigilyph|Swerve lmao');
+		},
+		onFaint: function () {
+			this.add('c|@Sigilyph|**SOOGOOLOOPH**');
 		},
 	},
 	sirdonovan: {

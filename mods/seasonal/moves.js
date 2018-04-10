@@ -539,6 +539,20 @@ exports.BattleMovedex = {
 		type: "Steel",
 		zMovePower: 180,
 	},
+	// Ceteris Paribus
+	/* bringerofdarkness: { I'll come back to this when I figure out how to make the spikes and sleep work independently
+		accuracy: 50,
+		basePower: 0,
+		category: "Status",
+		desc: "Sets one layer of spikes and boosts the users Special Attack and Speed by one stage. Also has a 50% chance to put the target to sleep.",
+		shortDesc: "Sets spikes, boosts SpA/Spe, 50% sleep.",
+		id: "bringerofdarkness",
+		isNonstandard: true,
+		name: "Bringer of Darkness",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, r}
+	}, */
 	// chaos
 	forcewin: {
 		accuracy: 100,
@@ -617,6 +631,34 @@ exports.BattleMovedex = {
 		type: "Fire",
 		zMovePower: 140,
 	},
+	// Coronis
+	blackhole: {
+		accuracy: 70,
+		basePower: 120,
+		category: "Special",
+		desc: "Has a 30% chance to raise the user's Special Attack, and a 30% chance to lower the target's Special Attack.",
+		shortDesc: "30% chance to boost own SpA, lower target's.",
+		id: "blackhole",
+		isNonstandard: true,
+		name: "Black Hole",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondaries: [
+			{
+				chance: 30,
+				boosts: {spa: -1},
+			}, {
+				chance: 30,
+				self: {
+					boosts: {spa: 1},
+				},
+			},
+		],
+		target: "normal",
+		type: "Dark",
+		zMovePower: 190,
+	},
 	// DragonWhale
 	earthsblessing: {
 		accuracy: true,
@@ -633,9 +675,9 @@ exports.BattleMovedex = {
 		boosts: {
 			atk: 2,
 		},
-		zMoveEffect: "Sets Substitute, restores HP 50%",
 		target: "self",
 		type: "Ground",
+		zMoveEffect: "Sets Substitute, restores HP 50%",
 	},
 	// Duck
 	holyduck: {
@@ -666,6 +708,36 @@ exports.BattleMovedex = {
 		type: "Normal",
 		zMovePower: 175,
 	},
+	// eternally
+	quackattack: {
+		accuracy: 100,
+		basePower: 40,
+		category: "Special",
+		desc: "Has a 100% chance to raise the user's Special Attack and Speed.",
+		shortDesc: "100% chance to raise user's Spa, Spe.",
+		id: "quackattack",
+		isNonstandard: true,
+		name: "Quack Attack",
+		pp: 20,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hydro Vortex", target);
+		},
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					spa: 1,
+					spe: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Water",
+		zMovePower: 100,
+	},
 	// EV
 	darkaggro: {
 		accuracy: 100,
@@ -694,9 +766,86 @@ exports.BattleMovedex = {
 		type: "Dark",
 		zMovePower: 160,
 	},
+	// Eyan
+	spectralthiefbutdragontype: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		desc: "The target's raised stat stages are stolen from it and applied to the user before dealing damage. This move's type effectiveness against Fairy is changed to be neutrally effective no matter what this move's type is.",
+		shortDesc: "Steals target's boosts. Neutral vs. Fairy.",
+		id: "spectralthiefbutdragontype",
+		isNonstandard: true,
+		name: "Spectral Thief but Dragon Type",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, authentic: 1},
+		onEffectiveness: function (typeMod, type) {
+			if (type === 'Fairy') return 0;
+		},
+		ignoreImmunity: {'Dragon': true},
+		stealsBoosts: true,
+		secondary: false,
+		target: "normal",
+		type: "Dragon",
+		zMovePower: 175,
+	},
+	// false
+	relentlessroseraid: {
+		accuracy: true,
+		basePower: 175, // This is literally just Acid Downpour off of Sludge Wave but with a custom animation...
+		category: "Special",
+		id: "relentlessroseraid",
+		isViable: true,
+		name: "Relentless Rose Raid",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Acid Downpour", target);
+			this.add('-anim', source, "Bloom Doom", target);
+		},
+		isZ: "roseradiumz",
+		secondary: false,
+		target: "normal",
+		type: "Poison",
+	},
 	// feliburn
 	"clangoroussoulblaze": {
 		inherit: true,
+		cateogry: "Physical",
+	},
+	// Former Hope
+	hopestrikesback: {
+		accuracy: 100,
+		basePower: 10,
+		category: "Special",
+		desc: "Has a 100% chance to raise the user's Defense and Special Defense by 1. Resets all of the target's stat stages to 0. Fails if the target is not poisoned.",
+		shortDesc: "Target must be poisoned. Clears boosts.",
+		id: "hopestrikesback",
+		isNonstandard: true,
+		name: "Hope Strikes Back",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove: function (pokemon, target) {
+			if (target.status === 'psn' || target.status === 'tox') return;
+			this.add('-fail', pokemon, 'move: Hope Strikes Back');
+			return null;
+		},
+		onHit: function (target) {
+			target.clearBoosts();
+			this.add('-clearboost', target);
+		},
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {def: 1, spd: 1},
+			},
+		},
+		target: "normal",
+		type: "Water",
+		zMovePower: 100,
 	},
 	// GoodMorningEspeon
 	fridgeoff: {
@@ -1222,6 +1371,32 @@ exports.BattleMovedex = {
 		type: "Psychic",
 		zMoveEffect: 'healreplacement',
 	},
+	// KingSwordYT
+	dragonwarriortouch: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		desc: "Has a 100% chance to increase the user's Attack by 1. The user recovers 1/2 the HP lost by the target, rounded half up. If Big Root is held by the user, the HP recovered is 1.3x normal, rounded half down.",
+		shortDesc: "User recovers 50% of damage dealt. Boosts Atk.",
+		id: "dragonwarriortouch",
+		isNonstandard: true,
+		name: "Dragon Warrior Touch",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, punch: 1, heal: 1},
+		drain: [1, 2],
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					atk: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Fighting",
+		zMovePower: 160,
+	},
 	// Level 51
 	nextlevelstrats: {
 		accuracy: true,
@@ -1328,7 +1503,7 @@ exports.BattleMovedex = {
 					for (let j = 0; j < this.sides[i].active.length; j++) {
 						let target = this.sides[i].active[j];
 						if (target === source) continue;
-						if (target && target.hp) {
+						if (target && target.hp && target.status !== 'frz') {
 							this.useMove(move, target, target, move);
 						}
 					}
@@ -1561,7 +1736,7 @@ exports.BattleMovedex = {
 	// Scyther NO Swiping
 	"3strikeswipe": {
 		accuracy: true,
-		basePower: 40,
+		basePower: 45,
 		category: "Physical",
 		shortDesc: "Hits 1-3 times with inverse type chart. High crit.",
 		id: "3strikeswipe",
@@ -1592,6 +1767,31 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Bug",
 		zMovePower: 190,
+	},
+	// Sigilyph
+	gammarayburst: {
+		accuracy: true,
+		basePower: 350,
+		category: "Special",
+		id: "gammarayburst",
+		isNonstandard: true,
+		isViable: true,
+		name: "Gamma Ray Burst",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		ignoreImmunity: {'Psychic': true},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Cosmic Power", source);
+			this.add('-anim', source, "Explosion", source);
+			this.add('-anim', source, "Light of Ruin", target);
+		},
+		isZ: "singularity",
+		selfdestruct: "always",
+		secondary: false,
+		target: "allAdjacentFoes",
+		type: "Psychic",
 	},
 	// sirDonovan
 	ladiesfirst: {

@@ -133,6 +133,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'blade of ~aesthetics~',
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant',
 			},
+			/* 'Ceteris Paribus': { // On hold while I try to figure out how to properly code the custom
+				species: 'Greninja', ability: 'Protean', item: 'Expert Belt', gender: 'M',
+				moves: ['Dark Pulse', 'Origin Pulse', ['Gunk Shot', 'Shadow Sneak'][this.random(2)]],
+				signatureMove: 'Bringer of Darkness',
+				evs: {spa: 252, spd: 4, spe: 252}, nature: 'Naive',
+			}, */
 			'chaos': {
 				species: 'Bewear', ability: 'Fur Coat', item: 'Red Card', gender: 'M',
 				moves: ['Close Combat', ['Recover', 'Swords Dance'][this.random(2)], ['Knock Off', 'Extreme Speed'][this.random(2)]],
@@ -151,6 +157,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'bUrn-Turn',
 				evs: {atk: 252, def: 4, spe: 252}, ivs: {spa: 0}, nature: 'Adamant',
 			},
+			'Coronis': {
+				species: 'Darkrai', ability: 'No Guard', item: 'Life Orb', gender: 'N', // ask gender
+				moves: ['Dark Void', 'Focus Blast', 'Sludge Wave'],
+				signatureMove: 'Black Hole',
+				evs: {spa: 252, spd: 4, spe: 252}, nature: 'Modest',
+			},
 			'DragonWhale': {
 				species: 'Garchomp', ability: 'Dazzling', item: 'Groundium Z', gender: 'M', // ask gender
 				moves: ['Fire Fang', 'Earthquake', 'Dragon Rush'],
@@ -163,17 +175,41 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Holy Duck!',
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
 			},
+			'eternally': {
+				species: 'Ducklett', ability: 'Duck Season', item: 'Eviolite', gender: 'N',
+				moves: ['Hurricane', 'Origin Pulse', 'Roost'],
+				signatureMove: 'Quack Attack',
+				evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid',
+			},
 			'EV': {
 				species: 'Muk-Alola', ability: 'Unaware', item: 'Black Sludge', gender: 'M', // ask gender
 				moves: [['Gunk Shot', 'Poison Jab'][this.random(2)], 'Recover', 'Coil'],
 				signatureMove: 'Dark Aggro',
 				evs: {hp: 252, atk: 252, spd: 4}, nature: 'Adamant',
 			},
+			'Eyan': {
+				species: 'Hydreigon', ability: 'Adaptability', item: 'Life Orb', gender: 'M', // ask gender
+				moves: ['Roost', 'Quiver Dance', 'Dark Pulse'],
+				signatureMove: 'Spectral Thief but Dragon-type', // "(yes, this shall be the name)"
+				evs: {hp: 252, atk: 252, spd: 4}, nature: 'Adamant',
+			},
+			'False': {
+				species: 'Roserade', ability: 'Nitric Acid', item: 'Roseradium Z', gender: 'N', // ask gender
+				moves: ['Energy Ball', 'Psystrike', 'Quiver Dance'],
+				signatureMove: 'Sludge Wave', // custom Z move
+				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
+			},
 			'Feliburn': {
-				species: 'Kommo-o', ability: 'Turboblaze', item: 'Dragonium Z', gender: 'N', // ask gender
+				species: 'Kommo-o', ability: 'Turboblaze', item: 'Kommonium Z', gender: 'N', // ask gender
 				moves: ['Close Combat', 'Dragon Hammer', ['Sunsteel Strike', 'Earthquake'][this.random(2)]],
-				signatureMove: 'Clangorous Soulblaze',
+				signatureMove: 'Clanging Scales', // Clangorous Soulblaze is Physical
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
+			},
+			'Former Hope': {
+				species: 'Toxapex', ability: 'Corrosion', item: 'Leftovers', gender: 'N', // ask gender
+				moves: ['Toxic', 'Recover', ['Substitute', 'Magic Coat'][this.random(2)]],
+				signatureMove: 'Hope Stikes Back',
+				evs: {hp: 252, def: 192, spd: 64}, nature: 'Bold',
 			},
 			'GoodMorningEspeon': {
 				species: 'Espeon', ability: 'Drought', item: 'Red Card', gender: 'M',
@@ -224,7 +260,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
 			},
 			'Iyarito': {
-				species: 'Gengar', ability: 'Fur Coat', item: 'Grassium Z', gender: 'M', // Ask gender
+				species: 'Gengar', ability: 'Tinted Lens', item: 'Grassium Z', gender: 'M', // Ask gender
 				moves: ['Sleep Powder', 'Dream Eater', 'Secret Sword'],
 				signatureMove: 'Iya\'s Rage',
 				evs: {hp: 184, spa: 252, spe: 60}, nature: 'Timid',
@@ -264,6 +300,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: [],
 				signatureMove: 'Special Kay',
 				evs: {hp: 252, def: 4, spe: 252}, nature: 'Timid',
+			},
+			'KingSwordYT': {
+				species: 'Pangoro', ability: 'Kung Fu Panda', item: 'Life Orb', gender: 'M', // ask gender
+				moves: ['Swords Dance', 'Bullet Punch', 'Knock Off'],
+				signatureMove: 'Dragon Warrior Touch',
+				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
 			},
 			'Level 51': {
 				species: 'Porygon2', ability: 'Unaware', item: 'Eviolite',
@@ -337,11 +379,23 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: '3 Strike Swipe',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
+			'Sigilyph': {
+				species: 'Sigilyph', ability: 'Magic Guard', item: 'Singularity', gender: 'M',
+				moves: ['Aeroblast', 'Blue Flare', 'Night Daze'],
+				signatureMove: 'Psystrike', // custom Z move
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+			},
 			'sirDonovan': {
 				species: 'Togetic', ability: 'Gale Wings', item: 'Eviolite', gender: 'M',
 				moves: ['Roost', 'Hurricane', 'Charm'],
 				signatureMove: 'Ladies First',
 				evs: {hp: 252, spa: 252, spe: 4}, nature: 'Modest',
+			},
+			'Soccer': {
+				species: 'Gible', ability: 'Rough Skin', item: 'Eviolite', gender: 'M', // ask gender
+				moves: ['Baton Pass', 'Ingrain', 'Substitute'],
+				signatureMove: 'Army of Mushrooms',
+				evs: {hp: 252, def: 128, spd: 128}, nature: 'Sassy',
 			},
 			'SpaceBass': {
 				species: 'foongus', ability: 'Prankster', item: 'Eviolite', gender: 'M',

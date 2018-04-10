@@ -187,7 +187,7 @@ exports.BattleAbilities = {
 				for (let j = 0; j < this.sides[i].active.length; j++) {
 					let target = this.sides[i].active[j];
 					if (target === pokemon) continue;
-					if (target && target.hp && target.hasAbility('desolateland')) {
+					if (target && target.hp && (target.hasAbility('desolateland') || target.hasAbility('solarsurge'))) {
 						this.weatherData.source = target;
 						return;
 					}
@@ -230,6 +230,48 @@ exports.BattleAbilities = {
 			}
 		},
 	},
+	// eternally
+	duckseason: {
+		id: "duckseason",
+		name: "Duck Season",
+		shortDesc: "Sets heavy rain on switch-in, STAB becomes 2 instead of 1.5.",
+		onStart: function (source) {
+			this.setWeather('primordialsea');
+		},
+		onModifyMove: function (move) {
+			move.stab = 2;
+		},
+		onAnySetWeather: function (target, source, weather) {
+			if (this.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
+		},
+		onEnd: function (pokemon) {
+			if (this.weatherData.source !== pokemon) return;
+			for (let i = 0; i < this.sides.length; i++) {
+				for (let j = 0; j < this.sides[i].active.length; j++) {
+					let target = this.sides[i].active[j];
+					if (target === pokemon) continue;
+					if (target && target.hp && (target.hasAbility('primordialsea') || target.hasAbility('duckseason'))) {
+						this.weatherData.source = target;
+						return;
+					}
+				}
+			}
+			this.clearWeather();
+		},
+	},
+	// false
+	nitricacid: {
+		id: "nitricacid",
+		name: "Nitric Acid",
+		shortDesc: "This Pokemon can hit Steel types with Poison-type moves.",
+		onModifyMovePriority: -5,
+		onModifyMove: function (move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Poison'] = true;
+			}
+		},
+	},
 	// grimAuxiliatrix
 	chromefinish: {
 		id: "chromefinish",
@@ -251,6 +293,23 @@ exports.BattleAbilities = {
 			if (move && move.type === 'Flying') return priority + 1;
 		},
 	},
+	// KingSwordYT
+	kungfupanda: {
+		id: "kungfupanda",
+		name: "Kung Fu Panda",
+		shortDesc: "Immunity to Fighting. Boosts speed when hit. Boosts punch moves.",
+		onTryHit: function (target, source, move) {
+			if (target !== source && move.type === 'Fighting') {
+				this.add('-immune', target, '[msg]', '[from] ability: Kung Fu Panda');
+				return null;
+			}
+		},
+		onAfterDamage: function (damage, target, source, effect) {
+			if (effect && effect.effectType === 'Move' && effect.id !== 'confused') {
+				this.boost({spe: 1});
+			}
+		},
+	},
 	// LifeisDANK
 	birb: {
 		id: "birb",
@@ -270,7 +329,7 @@ exports.BattleAbilities = {
 		id: "350cups",
 		name: "350 Cups",
 		shortDesc: "If Mantyke, doubles base stats.",
-		// Ipmlemented in mods/seasonal/pokedex.js
+		// Implemented in mods/seasonal/pokedex.js
 	},
 	// nv
 	aridplateau: {
@@ -349,11 +408,39 @@ exports.BattleAbilities = {
 		onAnySetWeather: function (target, source, weather) {
 			if (this.getWeather().id === 'desolateland' && !['desolateland', 'primordialsea', 'deltastream', 'aridplateau'].includes(weather.id)) return false;
 		},
+		onEnd: function (pokemon) {
+			if (this.weatherData.source !== pokemon) return;
+			for (let i = 0; i < this.sides.length; i++) {
+				for (let j = 0; j < this.sides[i].active.length; j++) {
+					let target = this.sides[i].active[j];
+					if (target === pokemon) continue;
+					if (target && target.hp && (target.hasAbility('desolateland') || target.hasAbility('solarsurge'))) {
+						this.weatherData.source = target;
+						return;
+					}
+				}
+			}
+			this.clearWeather();
+		},
 	},
 	primordialsea: {
 		inherit: true,
 		onAnySetWeather: function (target, source, weather) {
 			if (this.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream', 'aridplateau'].includes(weather.id)) return false;
+		},
+		onEnd: function (pokemon) {
+			if (this.weatherData.source !== pokemon) return;
+			for (let i = 0; i < this.sides.length; i++) {
+				for (let j = 0; j < this.sides[i].active.length; j++) {
+					let target = this.sides[i].active[j];
+					if (target === pokemon) continue;
+					if (target && target.hp && (target.hasAbility('primordialsea') || target.hasAbility('duckseason'))) {
+						this.weatherData.source = target;
+						return;
+					}
+				}
+			}
+			this.clearWeather();
 		},
 	},
 };
