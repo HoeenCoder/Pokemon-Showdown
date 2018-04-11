@@ -151,7 +151,7 @@ exports.BattleMovedex = {
 		pp: 10,
 		noPPBoosts: true,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1, heal: 1},
+		flags: {contact: 1, protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', target, 'Moonblast', source);
@@ -1781,6 +1781,9 @@ exports.BattleMovedex = {
 		priority: 0,
 		flags: {},
 		ignoreImmunity: {'Psychic': true},
+		onModifyMove: function (move, pokemon, target) {
+			if (target.getStat('def', false, true) < target.getStat('spd', false, true)) move.defensiveCategory = 'Physical';
+		},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Cosmic Power", source);
@@ -1842,6 +1845,27 @@ exports.BattleMovedex = {
 		target: 'normal',
 		type: 'Fairy',
 		zMovePower: 160,
+	},
+	// Soccer
+	dragonforce: {
+		accuracy: 100,
+		basePower: 60,
+		category: "Physical",
+		desc: "Neutrally affects all types, including Fairy. The user recovers 1/2 the HP lost by the target, rounded half up. If Big Root is held by the user, the HP recovered is 1.3x normal, rounded half down.",
+		shortDesc: "Neutral vs. all types. Drains HP.",
+		id: "dragonforce",
+		isNonstandard: true,
+		name: "Dragon Force",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, heal: 1},
+		onEffectiveness: 0,
+		drain: [1, 2],
+		ignoreImmunity: {'Dragon': true},
+		secondary: false,
+		target: "normal",
+		type: "Dragon",
+		zMovePower: 120,
 	},
 	// SpaceBass
 	armyofmushrooms: {

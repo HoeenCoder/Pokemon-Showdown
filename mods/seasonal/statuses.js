@@ -789,11 +789,46 @@ exports.BattleStatuses = {
 		onStart: function () {
 			this.add('c|@Sigilyph|Perpare for the Soog');
 		},
+		onModifyMovePriority: -5,
+		onModifyMove: function (move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Psychic'] = true;
+			}
+		},
+		onModifySpe: function (spe) {
+			return this.chainModify(1.1);
+		},
 		onSwitchOut: function () {
 			this.add('c|@Sigilyph|Swerve lmao');
 		},
 		onFaint: function () {
 			this.add('c|@Sigilyph|**SOOGOOLOOPH**');
+		},
+	},
+	soccer: {
+		exists: true,
+		noCopy: true,
+		onStart: function (pokemon) {
+			this.add('j|@Soccer');
+			pokemon.side.addSideCondition('soccergreeting', pokemon);
+		},
+		onSwitchOut: function (pokemon) {
+			this.add("c|@Soccer|I'll come back when you switch me in");
+			this.add('l|@Soccer');
+			pokemon.side.removeSideCondition('soccergreeting');
+		},
+		onFaint: function (pokemon) {
+			this.add("c|@Soccer|I was only here to see myself in action");
+			this.add('l|@Soccer');
+			pokemon.side.removeSideCondition('soccergreeting');
+		},
+	},
+	soccergreeting: {
+		duration: 2,
+		onEnd: function () {
+			if (this.effectData.duration !== 0) return;
+			this.add(`c|@Soccer|Yo ${this.p1.name}, ${this.p2.name}`);
 		},
 	},
 	sirdonovan: {

@@ -392,10 +392,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 252, spa: 252, spe: 4}, nature: 'Modest',
 			},
 			'Soccer': {
-				species: 'Gible', ability: 'Rough Skin', item: 'Eviolite', gender: 'M', // ask gender
-				moves: ['Baton Pass', 'Ingrain', 'Substitute'],
-				signatureMove: 'Army of Mushrooms',
-				evs: {hp: 252, def: 128, spd: 128}, nature: 'Sassy',
+				species: 'Gible', ability: 'Unaware', item: 'Eviolite', gender: 'M', // ask gender
+				moves: ['Earthquake', 'Stone Edge', 'Shift Gear'],
+				signatureMove: 'Dragonforce',
+				evs: {hp: 252, atk: 252, spe: 4}, nature: 'Adamant',
 			},
 			'SpaceBass': {
 				species: 'foongus', ability: 'Prankster', item: 'Eviolite', gender: 'M',
