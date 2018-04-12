@@ -512,7 +512,8 @@ exports.BattleStatuses = {
 		onModifySpD: function (spd) {
 			return this.chainModify(1.5);
 		},
-		onEatItem: function (item, pokemon) {
+		onAfterUseItem: function (item, pokemon) {
+			if (pokemon.item) return;
 			this.useMove('recycle', pokemon);
 		},
 	},

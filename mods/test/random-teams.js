@@ -9,15 +9,21 @@ class RandomStaffBrosTestTeams extends RandomTeams {
 		let sets = {
 			'Winry': {
 				species: 'Buizel', ability: 'Water Veil', item: 'Life Orb', gender: 'F', shiny: true,
-				moves: ['watershuriken', ['jumpkick', 'iciclecrash'][this.random(2)], 'waterfall'],
+				moves: ['aquajet', ['jumpkick', 'iciclecrash'][this.random(2)], 'waterfall'],
 				signatureMove: 'Fight to the Death',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
-			'Yuki': {
-				species: 'Ninetales-Alola', ability: 'Snow Warning', item: 'Fairium Z', gender: 'N',
-				moves: ['Blizzard', 'Moonblast', 'Aurora Veil'],
-				signatureMove: 'Cutie Escape',
-				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
+			'Articblast': {
+				species: 'Garbodor', ability: 'Speed Boost', item: 'Choice Band', gender: 'N',
+				moves: ['Acid Spray', 'Knock Off', 'Earthquake'],
+				signatureMove: 'Trashalanche',
+				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant',
+			},
+			'hippopotas': {
+				species: 'Hippopotas', ability: 'Sturdy', item: 'Wiki Berry', gender: 'N',
+				moves: ['Protect', 'Destiny Bond', ['Stealth Rock', 'Spikes', 'Toxic Spikes', 'Sticky Web'][this.random(4)]],
+				signatureMove: 'Be Annoying',
+				evs: {hp: 252, def: 252, spd: 4}, ivs: {atk: 0, spa: 0}, nature: 'Bold',
 			},
 			/*
 			'template': {

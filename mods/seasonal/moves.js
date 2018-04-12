@@ -199,26 +199,37 @@ exports.BattleMovedex = {
 		zMovePower: 175,
 	},
 	// Articblast
-	trashalance: {
+	trashalanche: {
 		accuracy: 100,
 		basePower: 20,
-		basePowerCallBack: function (pokemon, target, move) {
-			if (!move.boostCount) move.boostCount = 0;
-			++move.boostCount;
-			if (move.boostCount >= 4) move.boostCount = 4;
-			if (move.boostCount) {
-				return 20 + (move.boostCount * 40);
+		basePowerCallback: function (pokemon, target, move) {
+			if (!pokemon.volatiles.trashalanche) {
+				pokemon.addVolatile('trashalanche');
 			}
+			return pokemon.volatiles.trashalanche.basePower;
 		},
 		category: "Physical",
 		shortDesc: "Gains 40 BP every time the move is used.",
 		desc: "Gains 40 BP every time this attack is used. Maxes at 180",
-		id: "trashalance",
+		id: "trashalanche",
 		isNonstandard: true,
 		name: "Trashalanche",
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
+		onHit: function (target, source) {
+			source.addVolatile('trashalanche');
+		},
+		effect: {
+			onStart: function () {
+				this.effectData.basePower = 20;
+			},
+			onRestart: function () {
+				if (this.effectData.basePower < 180) {
+					this.effectData.basePower += 40;
+				}
+			},
+		},
 		secondary: false,
 		target: "normal",
 		type: "Poison",

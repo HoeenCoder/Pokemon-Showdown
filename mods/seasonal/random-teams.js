@@ -58,7 +58,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'Articblast': {
 				species: 'Garbodor', ability: 'Speed Boost', item: 'Choice Band', gender: 'N',
 				moves: ['Acid Spray', 'Knock Off', 'Earthquake'],
-				signatureMove: 'Trashalance',
+				signatureMove: 'Trashalanche',
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant',
 			},
 			'Articuno': {
@@ -236,7 +236,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {spa: 252, spd: 4, spe: 252}, nature: 'Jolly',
 			},
 			'hippopotas': {
-				species: 'Hippopotas', ability: 'Sturdy', item: 'Figy Berry', gender: 'N',
+				species: 'Hippopotas', ability: 'Sturdy', item: 'Wiki Berry', gender: 'N',
 				moves: ['Protect', 'Destiny Bond', ['Stealth Rock', 'Spikes', 'Toxic Spikes', 'Sticky Web'][this.random(4)]],
 				signatureMove: 'Be Annoying',
 				evs: {hp: 252, def: 252, spd: 4}, ivs: {atk: 0, spa: 0}, nature: 'Bold',
