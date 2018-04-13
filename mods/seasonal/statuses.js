@@ -927,6 +927,16 @@ exports.BattleStatuses = {
 			this.add('c|@Tiksi|You rotten ' + pokemon.side.foe.name + '! I\'ll send you to the Tiksi branch!');
 		},
 	},
+	timbuktu: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add('c|%Timbuktu|Would you like to join the Revival Party?');
+		},
+		onFaint: function () {
+			this.add('c|%Timbuktu|Would you like to join the Revival Party?');
+		},
+	},
 	trickster: {
 		exists: true,
 		noCopy: true,

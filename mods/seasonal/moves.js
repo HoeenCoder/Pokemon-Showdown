@@ -1520,6 +1520,11 @@ exports.BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {snatch: 1, heal: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Rest", target);
+			this.add('-anim', source, "Aromatic Mist", target);
+		},
 		onHit: function (target, source, move) {
 			if (target.hp >= target.maxhp && !move.originalUser) return false;
 			if (!move.originalUser) {
@@ -1536,10 +1541,11 @@ exports.BattleMovedex = {
 				move.originalUser = source;
 				for (let i = 0; i < this.sides.length; i++) {
 					for (let j = 0; j < this.sides[i].active.length; j++) {
-						let target = this.sides[i].active[j];
-						if (target === source) continue;
-						if (target && target.hp && target.status !== 'frz') {
-							this.useMove(move, target, target, move);
+						let curMon = this.sides[i].active[j];
+						if (curMon === source) continue;
+						if (curMon && curMon.hp && curMon.status !== 'frz') {
+							this.add('-anim', source, "Yawn", curMon);
+							this.useMove(move, curMon, curMon, move);
 						}
 					}
 				}
@@ -2196,6 +2202,47 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Rock",
+	},
+	// Timbuktu
+	entrapment: {
+		accuracy: 90,
+		basePower: 60,
+		category: "Physical",
+		shortDesc: "Traps target for 5 turns, 50% chance of leech seeds.",
+		id: "entrapment",
+		isNonstandard: true,
+		name: "Entrapment",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, contact: 1},
+		onTryHit: function (target, source, move) {
+			this.attrLastMove(['still']);
+			this.add('-anim', source, "Wrap", target);
+		},
+		onHit: function (target, source, move) {
+			if (!target.volatiles['trapped'] && this.addVolatile('trapped')) {
+				target.volatiles['trapped'].duration = 5;
+			}
+			if (this.random(2) && !target.hasType('Bug')) target.addVolatile('entrapment', source, move);
+		},
+		effect: {
+			onStart: function (target) {
+				this.add('-start', target, 'Eggs');
+			},
+			onResidualOrder: 8,
+			onResidual: function (pokemon) {
+				let target = this.effectData.source.side.active[this.effectData.sourcePosition];
+				if (!target || target.fainted || target.hp <= 0) {
+					this.debug('Nothing to leech into');
+					return;
+				}
+				let eggs = {id: "eggs", fullName: "Eggs"};
+				let damage = this.damage(pokemon.maxhp / 8, pokemon, target, eggs);
+				if (damage) {
+					this.heal(damage, target, pokemon, eggs);
+				}
+			},
+		},
 	},
 	// Trickster
 	eventhorizon: {

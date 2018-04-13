@@ -440,6 +440,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Rock Slide', // custom Z Move
 				evs: {hp: 248, atk: 252, spd: 8}, nature: 'Adamant',
 			},
+			'Timbuktu': {
+				species: 'Araquanid', ability: 'Water Bubble', item: 'Waterium Z', gender: 'M', // ask gender
+				moves: ['Liquidation', 'Aqua Ring', 'Toxic'],
+				signatureMove: 'Entrapment',
+				evs: {hp: 184, atk: 252, spe: 72}, nature: 'Adamant',
+			},
 			'Trickster': {
 				species: 'Hoopa', ability: 'Interdimensional', item: 'Figy Berry',
 				gender: 'M',
