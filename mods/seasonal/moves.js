@@ -1845,7 +1845,7 @@ exports.BattleMovedex = {
 		isNonstandard: true,
 		isViable: true,
 		name: 'Ladies First',
-		pp: 20,
+		pp: 5,
 		priority: 0,
 		flags: {protect: 1},
 		onPrepareHit: function (target, source) {
