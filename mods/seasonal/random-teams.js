@@ -309,7 +309,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Level 51': {
 				species: 'Porygon2', ability: 'Unaware', item: 'Eviolite',
-				moves: ['Recover', ['Night Shade', 'Seismic Toss'][this.random(2)], ['Nature\'s Madness', 'Cosmic Power', 'Cotton Guard'][this.random(3)]],
+				moves: ['Recover', 'Seismic Toss', ['Cosmic Power', 'Cotton Guard'][this.random(2)]],
 				signatureMove: 'Next Level Strats',
 				evs: {hp: 236, def: 220, spd: 48, spe: 4}, nature: 'Calm',
 			},
@@ -465,10 +465,6 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'glitzer popping',
 				evs: {hp: 4, def: 252, spd: 252}, nature: 'Calm',
 			},
-			/**
-			* Side note: would it be able to make the infatuation and trapping persist through the switch? As xfix mentioned it is better for flavour reasons.
-			* Cutie Escape isn't adding the volatiles, needs to be fixed.
-			*/
 			'Yuki': {
 				species: 'Ninetales-Alola', ability: 'Snow Warning', item: 'Fairium Z', gender: 'N',
 				moves: ['Blizzard', 'Moonblast', 'Aurora Veil'],

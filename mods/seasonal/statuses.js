@@ -558,10 +558,10 @@ exports.BattleStatuses = {
 		exists: true,
 		noCopy: true,
 		onStart: function () {
-			this.add('c|%Iyarito|Iyarito is always right');
+			this.add('c|@Iyarito|Iyarito is always right');
 		},
 		onSwitchOut: function () {
-			this.add('c|%Iyarito|It\'s all Iyarito\'s fault');
+			this.add('c|@Iyarito|It\'s all Iyarito\'s fault');
 		},
 		onFaint: function () {
 			this.add('c|~Zarel|Iyarito you did it wrong ;_;');

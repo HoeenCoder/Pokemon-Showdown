@@ -25,6 +25,24 @@ class RandomStaffBrosTestTeams extends RandomTeams {
 				signatureMove: 'Be Annoying',
 				evs: {hp: 252, def: 252, spd: 4}, ivs: {atk: 0, spa: 0}, nature: 'Bold',
 			},
+			'Zod': {
+				species: 'Oricorio-Pom-Pom', ability: 'Drizzle', item: 'Leftovers', gender: 'M', //needs confirmation
+				moves: ['Quiver Dance', 'Thunder', 'Hurricane'],
+				signatureMove: 'Cheerleading Squad',
+				evs: {spa: 252, spd: 4, spe: 252}, nature: 'Modest',
+			},
+			'urkerab': {
+				 species: 'Skuntank', ability: 'Sniper', item: 'Razor Claw', gender: 'M',
+				 moves: ['nightslash', 'drillrun', 'crosspoison'],
+				 signatureMove: 'Holy Orders',
+				 evs: {hp: 248, atk: 228, def: 24, spd: 8}, nature: 'Careful',
+			},
+			'Swirlyder': {
+				species: 'Swirlix', ability: 'Prankster', item: 'Focus Sash', gender: 'M', // ask gender
+				moves: ['Light Screen', 'Heal Bell', 'Toxic'],
+				signatureMove: '/me swirls you',
+				evs: {hp: 252, def: 252, spd: 4}, nature: 'Bold',
+			},
 			/*
 			'template': {
 				species: 'Unown', ability: 'Levitate', item: 'Choice Specs', gender: 'N',

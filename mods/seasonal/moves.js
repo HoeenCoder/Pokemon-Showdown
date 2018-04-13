@@ -1010,7 +1010,7 @@ exports.BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('c|&HoeenHero|!evalbattle let p=p1.pokemon.find(p => p.speciesid===\'ludicolo\'); battle.boost({spa:1,spe:1},p); battle.setWeather(\'raindance\', p); for(let i in p2.pokemon) if(p2.pokemon[i].isActive) { p2.pokemon[i].setStatus(\'confusion\'); break;}');
+			this.add('c|&HoeenHero|!evalbattle let p=p1.pokemon.find(p => p.speciesid===\'ludicolo\'); battle.boost({spa:1},p); battle.setWeather(\'raindance\', p); for(let i in p2.pokemon) if(p2.pokemon[i].isActive) { p2.pokemon[i].setStatus(\'confusion\'); break;}');
 			this.add('', '<<< true');
 			this.add('-anim', source, "Calm Mind", source);
 			this.add('-anim', source, "Geomancy", source);
@@ -1412,7 +1412,7 @@ exports.BattleMovedex = {
 	nextlevelstrats: {
 		accuracy: true,
 		category: "Status",
-		shortDesc: "User gains 5 levels.",
+		shortDesc: "User gains 10 levels.",
 		id: "nextlevelstrats",
 		isNonstandard: true,
 		name: "Next Level Strats",
@@ -1426,7 +1426,7 @@ exports.BattleMovedex = {
 		},
 		onHit: function (pokemon) {
 			const template = pokemon.template;
-			pokemon.level += 5;
+			pokemon.level += 10;
 			pokemon.set.level = pokemon.level;
 			// recalcs stats, the client is not informed about a change
 			pokemon.formeChange(template);
@@ -1439,7 +1439,7 @@ exports.BattleMovedex = {
 			pokemon.maxhp = newHP;
 			this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
 
-			this.add('-message', `${pokemon.name} advanced 5 levels! It is now level ${pokemon.level}!`);
+			this.add('-message', `${pokemon.name} advanced 10 levels! It is now level ${pokemon.level}!`);
 		},
 		secondary: false,
 		target: "self",
@@ -1602,7 +1602,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 60,
 		category: "Physical",
-		shortDesc: "10% to paralyze, 10% to flinch, lowers own def, spd by 1.",
+		shortDesc: "10% to paralyze, 10% to flinch.",
 		id: "forthekids",
 		isNonstandard: true,
 		name: "For The Kids",
@@ -1705,6 +1705,10 @@ exports.BattleMovedex = {
 		pp: 20,
 		priority: 0,
 		flags: {reflectable: 1},
+		onPrepareHit: function (target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Stealth Rock", target);
+		},
 		sideCondition: 'dizzyrock',
 		effect: {
 			// this is a side condition
@@ -1870,6 +1874,11 @@ exports.BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1, heal: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Sacred Fire", target);
+			this.add('-anim', source, "Gravity", target);
+		},
 		onEffectiveness: 0,
 		drain: [1, 2],
 		ignoreImmunity: {'Dragon': true},
@@ -1924,7 +1933,7 @@ exports.BattleMovedex = {
 		},
 		onHit: function (target) {
 			let moves = [];
-			for (let i = 0; i < target.moveSlots.length;) {
+			for (let i = 0; i < target.moveSlots.length; i++) {
 				let dexMoves = [];
 				for (let j in exports.BattleMovedex) {
 					let dexMove = exports.BattleMovedex[j];
@@ -1950,6 +1959,14 @@ exports.BattleMovedex = {
 					virtual: true,
 				};
 			}
+		},
+		effect: {
+			onDisableMove: function (pokemon) {
+				pokemon.disableMove('meswirlsyou');
+			},
+		},
+		self: {
+			volatileStatus: 'meswirlsyou',
 		},
 		target: "normal",
 		type: "Normal",
