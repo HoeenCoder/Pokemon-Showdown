@@ -133,12 +133,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'blade of ~aesthetics~',
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant',
 			},
-			/* 'Ceteris Paribus': { // On hold while I try to figure out how to properly code the custom
+			'Ceteris Paribus': {
 				species: 'Greninja', ability: 'Protean', item: 'Expert Belt', gender: 'M',
 				moves: ['Dark Pulse', 'Origin Pulse', ['Gunk Shot', 'Shadow Sneak'][this.random(2)]],
 				signatureMove: 'Bringer of Darkness',
 				evs: {spa: 252, spd: 4, spe: 252}, nature: 'Naive',
-			}, */
+			},
 			'chaos': {
 				species: 'Bewear', ability: 'Fur Coat', item: 'Red Card', gender: 'M',
 				moves: ['Close Combat', ['Recover', 'Swords Dance'][this.random(2)], ['Knock Off', 'Extreme Speed'][this.random(2)]],

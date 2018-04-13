@@ -321,6 +321,19 @@ exports.BattleStatuses = {
 			}
 		},*/
 	},
+	ceterisparibus: {
+		exists: true,
+		noCopy: true,
+		onStart: function () {
+			this.add("c|%Ceteris Paribus|Your loss is inevitable, you best forfeit the battle if you know what's good for you. \u2570(\u21C0\uFE3F\u21C0)\u3064-]\u2550\u2500\u2500\u2500");
+		},
+		onSwitchOut: function (pokemon) {
+			this.add(`c|%Ceteris Paribus|Saving the best for last, ${pokemon.side.name}, a wise choice my friend.`);
+		},
+		onFaint: function () {
+			this.add('c|%Ceteris Paribus|IMPOSSIBLE!! THIS IS AN OUTRAGE!! I WILL EXACT MY REVENGE ON YOU ONE DAY (\u25E3_\u25E2)');
+		},
+	},
 	chloe: {
 		exists: true,
 		noCopy: true,

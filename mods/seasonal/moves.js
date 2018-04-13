@@ -551,19 +551,43 @@ exports.BattleMovedex = {
 		zMovePower: 180,
 	},
 	// Ceteris Paribus
-	/* bringerofdarkness: { I'll come back to this when I figure out how to make the spikes and sleep work independently
-		accuracy: 50,
+	bringerofdarkness: {
+		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Sets one layer of spikes and boosts the users Special Attack and Speed by one stage. Also has a 50% chance to put the target to sleep.",
-		shortDesc: "Sets spikes, boosts SpA/Spe, 50% sleep.",
+		desc: "Boosts the user's Special Attack and Speed by 1 stage, then calls Spikes and Dark Void.",
+		shortDesc: "Boosts SpA/Spe, calls Spikes and Dark Void.",
 		id: "bringerofdarkness",
 		isNonstandard: true,
 		name: "Bringer of Darkness",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, r}
-	}, */
+		flags: {},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Nightmare", source);
+		},
+		onHit: function (target, source) {
+			this.boost({spa: 1, spe: 1}, source, source);
+			this.useMove("spikes", source);
+			this.useMove("darkvoid", source);
+		},
+		secondary: false,
+		target: "normal",
+		type: "Dark",
+		zMoveEffect: "clearnegativeboosts",
+	},
+	darkvoid: {
+		inherit: true,
+		onTryMove: function (pokemon, target, move) {
+			if (pokemon.template.species === 'Darkrai' || move.hasBounced || move.sourceEffect.id === 'bringerofdarkness') {
+				return;
+			}
+			this.add('-fail', pokemon, 'move: Dark Void');
+			this.add('-hint', "Only a Pokemon whose form is Darkrai can use this move.");
+			return null;
+		},
+	},
 	// chaos
 	forcewin: {
 		accuracy: 100,
@@ -803,7 +827,7 @@ exports.BattleMovedex = {
 	// false
 	relentlessroseraid: {
 		accuracy: true,
-		basePower: 175, // This is literally just Acid Downpour off of Sludge Wave but with a custom animation...
+		basePower: 176,
 		category: "Special",
 		id: "relentlessroseraid",
 		isViable: true,
