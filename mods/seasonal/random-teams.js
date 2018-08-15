@@ -47,6 +47,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Quack',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'Kalalokki': { // Drizzle
+				species: 'Wingull',  ability: 'Swift Swim', item: ['Waterium Z', 'Flyinium Z', 'Electrium Z'], gender: 'M',
+				moves: ['Water Spout', 'Hurricane', 'Thunder'],
+				signatureMove: 'Maelström',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
+			},
 			hoeenhero: {
 				species: 'Ludicolo', ability: 'Swift Swim', item: 'Damp Rock', gender: 'M',
 				moves: [['Hydro Pump', 'Scald'], 'Giga Drain', 'Ice Beam'],

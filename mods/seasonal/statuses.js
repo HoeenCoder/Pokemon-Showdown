@@ -28,6 +28,20 @@ let BattleStatuses = {
 			this.add(`c|@eternally|quack`);
 		},
 	},
+	kalalokki: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@Kalalokki|(•_•)`);
+			this.add(`c|@Kalalokki|( •_•)>⌐■-■`);
+			this.add(`c|@Kalalokki|(⌐■■)`);
+			this.setWeather('raindance');
+		},
+		onFaint: function () {
+			this.add(`c|@Kalalokki|(⌐■■)`);
+			this.add(`c|@Kalalokki|( •_•)>⌐■-■`);
+			this.add(`c|@Kalalokki|(x_x)`);
+		},
+	},
 	hoeenhero: {
 		noCopy: true,
 		onStart: function () {
