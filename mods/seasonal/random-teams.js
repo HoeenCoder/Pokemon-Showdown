@@ -41,6 +41,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 			// Nature needs to be a valid nature with the first letter capitalized ex: Modest
 			*/
 			// Please keep sets organized alphabetically based on staff member name!
+			cc: {
+				species: 'Cobalion', ability: 'Lurking', item: ['Shuca Berry', 'Chople Berry', 'Fightinium Z'], gender: 'M',
+				moves: ['Focus Blast', 'Flash Cannon', ['Thunderbolt', 'Ice Beam']],
+				signatureMove: 'Restarting Router',
+				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+			},
 			eternally: { //Primordial Sea
 				species: 'Ducklett', ability: 'Battle Armor', item: 'Eviolite', gender: 'M',
 				moves: ['Surf', 'Hurricane', 'Roost'],

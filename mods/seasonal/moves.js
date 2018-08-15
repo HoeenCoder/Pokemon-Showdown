@@ -33,6 +33,26 @@ let BattleMovedex = {
 	},
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
+	// cc
+	restartingrouter: {
+		accuracy: 100,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "restartingrouter",
+		name: "Restarting Router",
+		pp: 10,
+		priority: 0,
+		flags: {mirror: 1, snatch: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Charge', source);
+		},
+		boosts: {spa: 1, spe: 1},
+		secondary: null,
+		target: "self",
+		type: "Electric",
+	},
 	// eternally
 	quack: {
 		accuracy: 100,
