@@ -45,11 +45,11 @@ let BattleStatuses = {
 		onStart: function () {
 			this.add(`c|@Kalalokki|(•_•)`);
 			this.add(`c|@Kalalokki|( •_•)>⌐■-■`);
-			this.add(`c|@Kalalokki|(⌐■■)`);
+			this.add(`c|@Kalalokki|(⌐■_■)`);
 			this.setWeather('raindance');
 		},
 		onFaint: function () {
-			this.add(`c|@Kalalokki|(⌐■■)`);
+			this.add(`c|@Kalalokki|(⌐■_■)`);
 			this.add(`c|@Kalalokki|( •_•)>⌐■-■`);
 			this.add(`c|@Kalalokki|(x_x)`);
 		},
