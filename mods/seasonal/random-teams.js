@@ -47,13 +47,13 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Restarting Router',
 				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
-			eternally: { //Primordial Sea
-				species: 'Ducklett', ability: 'Battle Armor', item: 'Eviolite', gender: 'M',
+			eternally: {
+				species: 'Ducklett', ability: 'Primordial Sea', item: 'Eviolite', gender: 'M',
 				moves: ['Surf', 'Hurricane', 'Roost'],
 				signatureMove: 'Quack',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
-			'Kalalokki': { // Drizzle
+			'Kalalokki': {
 				species: 'Wingull',  ability: 'Swift Swim', item: ['Waterium Z', 'Flyinium Z', 'Electrium Z'], gender: 'M',
 				moves: ['Water Spout', 'Hurricane', 'Thunder'],
 				signatureMove: 'Maelström',
