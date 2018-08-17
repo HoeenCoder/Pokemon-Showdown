@@ -123,31 +123,6 @@ let BattleMovedex = {
 		target: "self",
 		type: "Flying",
 	},
-	// kalalokki
-	maelstrm: {
-		accuracy: 85,
-		basePower: 100,
-		category: "Special",
-		desc: "",
-		shortDesc: "",
-		id: "maelstrm",
-		name: "Maelström",
-		pp: 5,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		volatileStatus: 'partiallytrapped',
-		onPrepareHit: function (target, source) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, 'Dark Void', source);
-			this.add('-anim', source, 'Surf', source);
-		},
-		onHit: function (target, source, move) {
-			target.addVolatile('trapped', source, move);
-		},
-		secondary: null,
-		target: "normal",
-		type: "Water",
-	},
 	// Hippopotas
 	hazardpass: {
 		accuracy: 100,
@@ -225,10 +200,61 @@ let BattleMovedex = {
 		target: "self",
 		type: "Psychic",
 	},
+	// Iyarito
+	vbora: {
+		accuracy: 100,
+		category: "Status",
+		desc: "Cures the user's party of all status conditions, but poisons the user.",
+		shortDesc: "Cures party, poisons self.",
+		id: "vbora",
+		name: "Víbora",
+		pp: 5,
+		flags: {mirror: 1, snatch: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Acid Armor', source);
+		},
+		onHit: function (pokemon, source, move) {
+			//this.add('-activate', source, 'move: Víbora');
+			let success = false;
+			for (const ally of pokemon.side.pokemon) {
+				if (ally.cureStatus()) success = true;
+			}
+			pokemon.setStatus('psn', pokemon);
+			return success;
+		},
+		secondary: null,
+		target: "allyTeam",
+		type: "Poison",
+	},
+	// kalalokki
+	maelstrm: {
+		accuracy: 85,
+		basePower: 100,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		id: "maelstrm",
+		name: "Maelström",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		volatileStatus: 'partiallytrapped',
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Dark Void', source);
+			this.add('-anim', source, 'Surf', source);
+		},
+		onHit: function (target, source, move) {
+			target.addVolatile('trapped', source, move);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Water",
+	},
 	// MacChaeger
 	naptime: {
-		accuracy: true,
-		basePower: 0,
+		accuracy: 100,
 		category: "Status",
 		desc: "The user falls asleep for the next turn and restores 50% of its HP, curing itself of any major status condition. If the user falls asleep in this way, all other active Pokemon that are not asleep or frozen also try to use Nap Time. Fails if the user has full HP, is already asleep, or if another effect is preventing sleep.",
 		shortDesc: "All active Pokemon sleep 1 turn, restore HP & status.",
@@ -279,6 +305,105 @@ let BattleMovedex = {
 		target: "self",
 		type: "Fairy",
 		zMoveEffect: 'clearnegativeboosts',
+	},
+	// Megazard
+	tippingover: {
+		accuracy: 100,
+		basePower: 20,
+		basePowerCallback: function (pokemon, target, move) {
+			return move.basePower + 20 * pokemon.positiveBoosts();
+		},
+		category: "Physical",
+		desc: "Power is equal to 20+(X*20), where X is the user's total stat stage changes that are greater than 0. If the user had any stockpile layers, they lose them.",
+		shortDesc: " + 20 power for each of the user's stat boosts. Removes Stockpile.",
+		id: "tippingover",
+		name: "Tipping Over",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dragon Hammer", target);
+			this.add('-anim', target, "Explosion", target);
+		},
+		onTry: function (pokemon) {
+			if (!pokemon.volatiles['stockpile']) return false;
+		},
+		onAfterMove: function (pokemon) {
+			pokemon.removeVolatile('stockpile');
+		},
+		secondary: null,
+		target: "normal",
+		type: "???",
+	},
+	// moo
+	proteinshake: {
+		accuracy: 100,
+		category: "Status",
+		desc: "The user's Attack, Special Attack, and Speed are boosted by 1. The user also gains 100kg of weight.",
+		shortDesc: "Boosts users atk, spa, and spe by 1. User gains 100kg",
+		id: "proteinshake",
+		name: "Protein Shake",
+		pp: 10,
+		priority: 0,
+		flags: {snatch: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Milk Drink", source);
+		},
+		volatileStatus: 'proteinshake',
+		effect: {
+			onStart: function (pokemon) {
+				this.effectData.multiplier = 1;
+				this.add('-start', pokemon, 'Protein Shake');
+			},
+			onRestart: function (pokemon) {
+				this.effectData.multiplier++;
+				this.add('-start', pokemon, 'Protein Shake');
+			},
+			onModifyWeightPriority: 1,
+			onModifyWeight: function (weight, pokemon) {
+				if (this.effectData.multiplier) {
+					weight += this.effectData.multiplier * 100;
+					return weight;
+				}
+			},
+		},
+		boosts: {atk: 1, def: 1, spe: 1},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+	},
+	// torkool
+	smokebomb: {
+		accuracy: 100,
+		category: "Status",
+		desc: "Moves all hazards on the user's side of the field to the foe's side of the field. The user then switches out.",
+		shortDesc: "Moves hazards to foe's side. Switches out.",
+		id: "smokebomb",
+		name: "Smoke Bomb",
+		pp: 10,
+		priority: 0,
+		flags: {snatch: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Smokescreen", target);
+			this.add('-anim', source, "Parting Shot", target);
+		},
+		onHit: function (target, source) {
+			const sideConditions = {'spikes': 1, 'toxicspikes': 1, 'burnspikes': 1, 'stealthrock': 1, 'stickyweb': 1};
+			for (let i in sideConditions) {
+				let layers = source.side.sideConditions[i] ? (source.side.sideConditions[i].layers || 1) : 1;
+				if (source.side.removeSideCondition(i)) {
+					this.add('-sideend', source.side, this.getEffect(i).name, '[from] move: Smoke Bomb', '[of] ' + source);
+					for (layers; layers > 0; layers--) target.side.addSideCondition(i, source);
+				}
+			}
+		},
+		selfSwitch: true,
+		secondary: null,
+		target: "normal",
+		type: "Fire",
 	},
 };
 

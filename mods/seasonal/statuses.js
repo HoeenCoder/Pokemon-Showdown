@@ -102,6 +102,18 @@ let BattleStatuses = {
 			this.add(`c|&HoeenHero|NO! There must of been a bug in my script ;-;`);
 		},
 	},
+	iyarito: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@Iyarito|Iyarito is always right`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|@Iyarito|It's all Iyarito's fault`);
+		},
+		onFaint: function () {
+			this.add(`c|@Iyarito|RIP Patrona`);
+		},
+	},
 	macchaeger: {
 		noCopy: true,
 		onStart: function () {
@@ -109,6 +121,42 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|@MacChaeger|im gonna pyuk`);
+		},
+	},
+	megazard: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@Megazard|Almond top of the world!`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|@Megazard|Change of plants`);
+		},
+		onFaint: function () {
+			this.add(`c|@Megazard|Better luck next thyme`);
+		},
+	},
+	moo: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@moo|/me moo`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|@moo|/me moo`);
+		},
+		onFaint: function () {
+			this.add(`c|@moo|/me moo`);
+		},
+	},
+	torkool: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|%torkool|:peepodetective:`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|%torkool|i cba`);
+		},
+		onFaint: function () {
+			this.add(`c|%torkool|I don't deserve this...`);
 		},
 	},
 };

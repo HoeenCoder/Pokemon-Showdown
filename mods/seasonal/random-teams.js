@@ -53,23 +53,17 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Buzzing of the Swarm',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
-			cc: {
+			'cc': {
 				species: 'Cobalion', ability: 'Lurking', item: ['Shuca Berry', 'Chople Berry', 'Fightinium Z'], gender: 'M',
 				moves: ['Focus Blast', 'Flash Cannon', ['Thunderbolt', 'Ice Beam']],
 				signatureMove: 'Restarting Router',
 				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
-			eternally: {
+			'eternally': {
 				species: 'Ducklett', ability: 'Primordial Sea', item: 'Eviolite', gender: 'M',
 				moves: ['Surf', 'Hurricane', 'Roost'],
 				signatureMove: 'Quack',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
-			},
-			'Kalalokki': {
-				species: 'Wingull', ability: 'Swift Swim', item: ['Waterium Z', 'Flyinium Z', 'Electrium Z'], gender: 'M',
-				moves: ['Water Spout', 'Hurricane', 'Thunder'],
-				signatureMove: 'Maelström',
-				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
 			'Hippopotas': {
 				species: 'Hippopotas', ability: 'Regenerator', item: 'Eviolite', gender: 'N',
@@ -77,10 +71,22 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Hazard Pass',
 				evs: {hp: 252, def: 252, spd: 4}, ivs: {atk: 0, spa: 0}, nature: 'Bold',
 			},
-			hoeenhero: {
+			'HoeenHero': {
 				species: 'Ludicolo', ability: 'Swift Swim', item: 'Damp Rock', gender: 'M',
 				moves: [['Hydro Pump', 'Scald'], 'Giga Drain', 'Ice Beam'],
 				signatureMove: 'Scripting',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
+			},
+			'Iyarito': {
+				species: 'Vaporeon', ability: 'Poison Heal', item: 'Leftovers', gender: 'F',
+				moves: ['Scald', 'Wish', 'Toxic'],
+				signatureMove: 'Víbora',
+				evs: {hp: 252, def: 220, spd: 36}, nature: 'Bold', shiny: true,
+			},
+			'Kalalokki': {
+				species: 'Wingull', ability: 'Swift Swim', item: ['Waterium Z', 'Flyinium Z', 'Electrium Z'], gender: 'M',
+				moves: ['Water Spout', 'Hurricane', 'Thunder'],
+				signatureMove: 'Maelström',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
 			'MacChaeger': {
@@ -88,6 +94,24 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Scald', 'Clear Smog', 'Sleep Talk'],
 				signatureMove: 'Nap Time',
 				evs: {hp: 248, spa: 84, spe: 176}, ivs: {atk: 0}, nature: 'Modest',
+			},
+			'Megazard': {
+				species: 'Exeggutor-Alola', ability: 'Stand Up Tall', item: 'Leftovers', gender: 'M',
+				moves: ['Strength Sap', 'Growth', 'Stockpile'],
+				signatureMove: 'Tipping Over',
+				evs: {hp: 252, atk: 252, def: 4}, ivs: {spe: 0}, nature: 'Adament',
+			},
+			'moo': {
+				species: 'Miltank', ability: 'Scrappy', item: 'Life Orb', gender: 'M',
+				moves: ['Extreme Speed', 'Rapid Spin', 'Close Combat'],
+				signatureMove: 'Protein Shake',
+				evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful',
+			},
+			'torkool': {
+				species: 'Torkoal', ability: 'Deflective Shell', item: 'Leftovers', gender: 'M',
+				moves: ['Morning Sun', ['Lava Plume', 'Magma Storm'], 'Toxic'],
+				signatureMove: 'Smoke Bomb',
+				evs: {hp: 248, spa: 8, spd: 252}, nature: 'Calm',
 			},
 		};
 		let pool = Object.keys(sets);
