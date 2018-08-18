@@ -89,6 +89,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Maelström',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
+			'KingSwordYT': {
+				species: 'Pangoro', ability: 'Kung Fu Panda', item: 'Life Orb', gender: 'M',
+				moves: ['Ice Punch', 'Bullet Punch', 'Knock Off'],
+				signatureMove: 'Dragon Warrior Touch',
+				evs: {atk: 252, hp: 4, spe: 252}, nature: 'Jolly',
+			},
 			'MacChaeger': {
 				species: 'Mantyke', ability: 'Water Veil', item: ['Life Orb', 'Normalium Z'], gender: 'M',
 				moves: ['Scald', 'Clear Smog', 'Sleep Talk'],
