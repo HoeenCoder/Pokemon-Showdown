@@ -114,6 +114,18 @@ let BattleStatuses = {
 			this.add(`c|@Iyarito|RIP Patrona`);
 		},
 	},
+	kingswordyt: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@KingSwordYT|You're the master of your destiny, take destiny by the horns and have fun!`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|@KingSwordYT|I eat when im upset, and i gotta eat`);
+		},
+		onFaint: function () {
+			this.add(`c|@KingSwordYT|BUAAAAAA IYA AYÚDAME :(`);
+		},
+	},
 	macchaeger: {
 		noCopy: true,
 		onStart: function () {
