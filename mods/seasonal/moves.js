@@ -59,6 +59,32 @@ let BattleMovedex = {
 		type: "Electric",
 		zMovePower: 200,
 	},
+	// ant
+	truant: {
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		desc: "",
+		shortDesc: "",
+		id: "truant",
+		name: "TRU ANT",
+		pp: 5,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Sunsteel Strike', target);
+		},
+		onHit: function (pokemon) {
+			let oldAbility = pokemon.setAbility('truant');
+			if (oldAbility) {
+				this.add('-ability', pokemon, 'Truant', '[from] move: TRU ANT');
+				return;
+			}
+			return false;
+		},
+		target: "normal",
+		type: "Steel",
+	},
 	// Beowulf
 	buzzingoftheswarm: {
 		accuracy: 100,
@@ -101,6 +127,34 @@ let BattleMovedex = {
 		secondary: null,
 		target: "self",
 		type: "Electric",
+	},
+	// E4 Flint
+	fangofthefireking: {
+		accuracy: 100,
+		basePower: 0,
+		damage: 150,
+		category: "Physical",
+		desc: "Does 150 damage and burns the target.",
+		shortDesc: "Does 150 damage, burns.",
+		id: "fangofthefireking",
+		name: "Fang of the Fire King",
+		pp: 10,
+		priority: 0,
+		flags: {mirror: 1, protect: 1, bite: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Burn Up', target);
+			this.add('-anim', source, 'Crunch', target);
+			this.add('-anim', source, 'Crunch', target);
+		},
+		onHit: function (target, source) {
+			target.setStatus('brn', source, null, true);
+			// Cringy message
+			if (this.random(5) === 1) this.add(`c|@e4 Flint|here's a __taste__ of my __firepower__ XD`);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fire",
 	},
 	// eternally
 	quack: {
@@ -400,6 +454,35 @@ let BattleMovedex = {
 		secondary: null,
 		target: "self",
 		type: "Normal",
+	},
+	// The Immortal
+	ultrasucc: {
+		accuracy: 95,
+		basePower: 90,
+		desc: "",
+		shortDesc: "",
+		id: "ultrasucc",
+		name: "Ultra Succ",
+		category: "Physical",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, heal: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dragon Ascent", target);
+			this.add('-anim', source, "Draining Kiss", target);
+		},
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					spe: 1,
+				},
+			},
+		},
+		drain: [1, 2],
+		target: "normal",
+		type: "Fighting",
 	},
 	// torkool
 	smokebomb: {

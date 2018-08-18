@@ -47,6 +47,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Energy Field',
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
+			'ant': {
+				species: 'Durant', ability: 'Flash Fire', item: 'Leftovers', gender: 'F',
+				moves: ['King\'s Shield', 'U-turn', 'Pursuit'],
+				signatureMove: 'TRU ANT',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
+			},
 			'Beowulf': {
 				species: 'Beedrill', ability: ['Download', 'Speed Boost'], item: 'Beedrillite', gender: 'M',
 				moves: ['Spiky Shield', 'Gunk Shot', ['Bolt Strike', 'Diamond Storm', 'Sacred Fire']],
@@ -58,6 +64,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Focus Blast', 'Flash Cannon', ['Thunderbolt', 'Ice Beam']],
 				signatureMove: 'Restarting Router',
 				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+			},
+			'E4 Flint': {
+				species: 'Steelix', ability: 'Sturdy', item: 'Magmarizer', gender: 'M', // Ability is changed on mega evo, which is instant for this set
+				moves: ['Sunsteel Strike', 'Thousand Arrows', ['Dragon Tail', 'Diamond Storm', 'V-create', 'V-create']], // V-create listed twice for 50% chance to get it
+				signatureMove: 'Fang of the Fire King',
+				evs: {hp: 252, atk: 36, def: 100, spd: 120}, nature: 'Adament',
 			},
 			'eternally': {
 				species: 'Ducklett', ability: 'Primordial Sea', item: 'Eviolite', gender: 'M',
@@ -112,6 +124,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Extreme Speed', 'Rapid Spin', 'Close Combat'],
 				signatureMove: 'Protein Shake',
 				evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful',
+			},
+			'The Immortal': {
+				species: 'Buzzwole', ability: 'Beast Boost 2', item: 'Assault Vest', gender: 'N', // confirm with TI
+				moves: ['Leech Life', 'Plasma Fists', 'Ice Punch'],
+				signatureMove: 'Ultra Succ',
+				evs: {atk: 252, hp: 252, spd: 4}, nature: 'Adamant',
 			},
 			'torkool': {
 				species: 'Torkoal', ability: 'Deflective Shell', item: 'Leftovers', gender: 'M',
