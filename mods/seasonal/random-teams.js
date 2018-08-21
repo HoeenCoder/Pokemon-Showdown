@@ -95,6 +95,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Dragon Warrior Touch',
 				evs: {atk: 252, hp: 4, spe: 252}, nature: 'Jolly',
 			},
+			'Level 51': {
+				species: 'Porygon2', ability: 'Parental Bond', item: 'Eviolite', gender: 'N',
+				moves: ['Recover', 'Seismic Toss', ['Cosmic Power', 'Aqua Ring']],
+				signatureMove: 'Next Level Strats',
+				evs: {hp: 236, def: 220, spd: 48, spe: 4}, ivs: {atk: 0}, nature: 'Calm',
+			},
 			'MacChaeger': {
 				species: 'Mantyke', ability: 'Water Veil', item: ['Life Orb', 'Normalium Z'], gender: 'M',
 				moves: ['Scald', 'Clear Smog', 'Sleep Talk'],
