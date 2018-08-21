@@ -527,9 +527,6 @@ let BattleMovedex = {
 		type: "Fire",
 	},
 	// Trickster
-	/*
-	Effects: weight resets after switch-out.
-	*/
 	minisingularity: {
 		accuracy: 55,
 		basePower: 0,
