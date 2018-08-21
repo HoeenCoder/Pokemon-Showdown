@@ -27,6 +27,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			/*
 			// Example:
 			'Username': {
+				species: 'Species',  ability: 'Ability', item: 'Item', gender: '',
 				species: 'Species', ability: 'Ability', item: 'Item', gender: '',
 				moves: ['Move Name', ['Move Name', 'Move Name']],
 				signatureMove: 'Move Name',
@@ -100,6 +101,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Water Spout', 'Hurricane', 'Thunder'],
 				signatureMove: 'Maelström',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
+			},
+			'KingSwordYT': {
+				species: 'Pangoro', ability: 'Kung Fu Panda', item: 'Life Orb', gender: 'M',
+				moves: ['Ice Punch', 'Bullet Punch', 'Knock Off'],
+				signatureMove: 'Dragon Warrior Touch',
+				evs: {atk: 252, hp: 4, spe: 252}, nature: 'Jolly',
 			},
 			'Level 51': {
 				species: 'Porygon2', ability: 'Parental Bond', item: 'Eviolite', gender: 'N',
