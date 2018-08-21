@@ -31,6 +31,18 @@ let BattleStatuses = {
 			this.add(`c|@Aelita|CODE: LYOKO . Tower deactivated... Return to the past, now!`);
 		},
 	},
+	ant: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|&ant|the superior ant is here`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|&ant|hasta la vista baby`);
+		},
+		onFaint: function () {
+			this.add(`c|&ant|I'M NOT ANTEMORTEM`);
+		},
+	},
 	beowulf: {
 		noCopy: true,
 		onStart: function () {
@@ -53,6 +65,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|%cc|Unfort`);
+		},
+	},
+	e4flint: {
+		noCopy: true,
+		onStart: function (target, source) {
+			this.add(`c|@E4 Flint|How many Fire-Types do I have now`);
+			// Mega evo right away and display unique typing
+			this.runMegaEvo(source);
+			this.add('-start', source, 'typeadd', 'Fire');
+		},
+		onFaint: function () {
+			this.add(`c|@E4 Flint|lul ok`);
 		},
 	},
 	eternally: {
@@ -124,6 +148,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|@KingSwordYT|BUAAAAAA IYA AYÚDAME :(`);
+      },
+    },
+	level51: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@Level 51|Calculating chance of victory!`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|@Level 51|chance_victory < 1. Recalibrating...`);
+		},
+		onFaint: function () {
+			this.add(`c|@Level 51|**IndexError**: list index out of range`);
 		},
 	},
 	macchaeger: {
@@ -157,6 +193,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|@moo|/me moo`);
+		},
+	},
+	theimmortal: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|~The Immortal|h-hi`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|~The Immortal|ok`);
+		},
+		onFaint: function () {
+			this.add(`c|~The Immortal|zzz`);
 		},
 	},
 	torkool: {

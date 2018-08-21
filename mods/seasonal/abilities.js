@@ -26,7 +26,23 @@ let BattleAbilities = {
 			}
 		},
 	},
-	// KingSwordYT
+	// E4 Flint
+	starkmountain: {
+		desc: "The user summong sunny when they switch in. If the weather is sunny, the user is immune to water type attacks.",
+		shortDesc: "Summons sunny weather, Immune to Water type attacks in sunny weather.",
+		id: "starkmountain",
+		name: "Stark Mountain",
+		onStart: function (target, source) {
+			this.setWeather('sunnyday', source);
+		},
+		onTryHit: function (target, source, move) {
+			if (target !== source && move.type === 'Water' && this.isWeather(['sunnyday', 'desolateland'])) {
+				this.add('-immune', target, '[msg]', '[from] ability: Stark Mountain');
+				return null;
+			}
+		},
+	},
+    // KingSwordYT
 	kungfupanda: {
 		desc: "This Pokemon's punch-based attacks have their power multiplied by 1.2, and this Pokemon's Speed is raised by 1 stage after it is damaged by a move",
 		shortDesc: "This Pokemon's punch-based attacks have 1.2x power. +1 Spe when hit.",
@@ -61,6 +77,23 @@ let BattleAbilities = {
 			}
 		},
 	},
+<<<<<<< HEAD
+=======
+	// The Immortal
+	beastboost2: {
+		desc: "This Pokemon's highest 2 stats are raised by 1 if it attacks and KOes another Pokemon",
+		shortDesc: "This Pokemon's highest 2 stats are raised by 1 if it attacks and KOes another Pokemon",
+		id: "beastboost2",
+		name: "Beast Boost 2",
+		onSourceFaint: function (target, source, effect) {
+			if (effect && effect.effectType === 'Move') {
+				let statOrder = Object.keys(source.stats)
+				    .sort((stat1, stat2) => source.stats[stat2] - source.stats[stat1]);
+				this.boost({[statOrder[0]]: 1, [statOrder[1]]: 1}, source);
+			}
+		},
+	},
+>>>>>>> ea3733f45b4bd132a09bedc47e3fb7f3cb30ff94
 	// torkool
 	deflectiveshell: {
 		desc: "Non-contact moves do 33% less damage to this pokemon.",
