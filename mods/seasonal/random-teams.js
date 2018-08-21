@@ -107,7 +107,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Ice Punch', 'Bullet Punch', 'Knock Off'],
 				signatureMove: 'Dragon Warrior Touch',
 				evs: {atk: 252, hp: 4, spe: 252}, nature: 'Jolly',
-     		},
+			},
 			'Level 51': {
 				species: 'Porygon2', ability: 'Parental Bond', item: 'Eviolite', gender: 'N',
 				moves: ['Recover', 'Seismic Toss', ['Cosmic Power', 'Aqua Ring']],

@@ -148,8 +148,8 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|@KingSwordYT|BUAAAAAA IYA AYÚDAME :(`);
-      },
-    },
+		},
+	},
 	level51: {
 		noCopy: true,
 		onStart: function () {

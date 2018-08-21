@@ -42,7 +42,7 @@ let BattleAbilities = {
 			}
 		},
 	},
-    // KingSwordYT
+	// KingSwordYT
 	kungfupanda: {
 		desc: "This Pokemon's punch-based attacks have their power multiplied by 1.2, and this Pokemon's Speed is raised by 1 stage after it is damaged by a move",
 		shortDesc: "This Pokemon's punch-based attacks have 1.2x power. +1 Spe when hit.",
@@ -77,8 +77,6 @@ let BattleAbilities = {
 			}
 		},
 	},
-<<<<<<< HEAD
-=======
 	// The Immortal
 	beastboost2: {
 		desc: "This Pokemon's highest 2 stats are raised by 1 if it attacks and KOes another Pokemon",
@@ -93,7 +91,6 @@ let BattleAbilities = {
 			}
 		},
 	},
->>>>>>> ea3733f45b4bd132a09bedc47e3fb7f3cb30ff94
 	// torkool
 	deflectiveshell: {
 		desc: "Non-contact moves do 33% less damage to this pokemon.",
