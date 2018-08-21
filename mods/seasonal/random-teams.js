@@ -27,7 +27,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			/*
 			// Example:
 			'Username': {
-				species: 'Species',  ability: 'Ability', item: 'Item', gender: '',
+				species: 'Species', ability: 'Ability', item: 'Item', gender: '',
 				moves: ['Move Name', ['Move Name', 'Move Name']],
 				signatureMove: 'Move Name',
 				evs: {stat: number}, ivs: {stat: number}, nature: 'Nature', level: 100, shiny: false,
@@ -106,6 +106,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Ice Punch', 'Bullet Punch', 'Knock Off'],
 				signatureMove: 'Dragon Warrior Touch',
 				evs: {atk: 252, hp: 4, spe: 252}, nature: 'Jolly',
+      }
+			'Level 51': {
+				species: 'Porygon2', ability: 'Parental Bond', item: 'Eviolite', gender: 'N',
+				moves: ['Recover', 'Seismic Toss', ['Cosmic Power', 'Aqua Ring']],
+				signatureMove: 'Next Level Strats',
+				evs: {hp: 236, def: 220, spd: 48, spe: 4}, ivs: {atk: 0}, nature: 'Calm',
 			},
 			'MacChaeger': {
 				species: 'Mantyke', ability: 'Water Veil', item: ['Life Orb', 'Normalium Z'], gender: 'M',
