@@ -368,6 +368,15 @@ let BattleStatuses = {
 			}
 		},
 	},
+	shiba: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|%Shiba|LINDA IS INDA`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|%Shiba|gotta buy an alt rq brb`);
+		},
+	},
 	theimmortal: {
 		noCopy: true,
 		onStart: function () {
