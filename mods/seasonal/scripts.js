@@ -157,7 +157,7 @@ let BattleScripts = {
 		}
 		if (atLeastOne) return zMoves;
 	},
-	runZPower: function (move, pokemon) {
+	/*runZPower: function (move, pokemon) {
 		const zPower = this.getEffect('zpower');
 		if (move.category !== 'Status') {
 			this.attrLastMove('[zeffect]');
@@ -200,7 +200,7 @@ let BattleScripts = {
 				}
 			}
 		}
-	},
+	},*/
 };
 
 exports.BattleScripts = BattleScripts;

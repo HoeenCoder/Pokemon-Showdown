@@ -89,6 +89,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Lucid Dreams',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: ['Modest', 'Timid'],
 			},
+			'DragonWhale': {
+				species: 'Garchomp', ability: 'Beast Boost', item: 'Groundium Z', gender: 'M',
+				moves: ['Earthquake', 'Dragon Rush', 'Diamond Storm'],
+				signatureMove: 'Earth\'s Blessing',
+				evs: {hp: 112, atk: 144, spe: 252}, nature: 'Jolly',
+			},
 			'E4 Flint': {
 				species: 'Steelix', ability: 'Sturdy', item: 'Magmarizer', gender: 'M', // Ability is changed on mega evo, which is instant for this set
 				moves: ['Sunsteel Strike', 'Thousand Arrows', ['Dragon Tail', 'Diamond Storm', 'V-create', 'V-create']], // V-create listed twice for 50% chance to get it
@@ -226,10 +232,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 		while (pool.length && team.length < 6) {
 			let name = '';
 			// DEBUG CODE
-			let debug = false; // Programmers - Toggle this to use the code below
+			let debug = true; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'Kalalokki';
+				name = 'DragonWhale';
 				if (pool.indexOf(name) > -1) pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);

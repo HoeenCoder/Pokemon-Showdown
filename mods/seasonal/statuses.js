@@ -121,6 +121,12 @@ let BattleStatuses = {
 			this.add(`c|%deg|Dream Eater Gengar is an unset.`);
 		},
 	},
+	dragonwhale: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@DragonWhale|i would switch to chomper here`);
+		},
+	},
 	e4flint: {
 		noCopy: true,
 		onStart: function (target, source) {
