@@ -265,7 +265,7 @@ let BattleMovedex = {
 			if (['', 'slp', 'frz'].includes(pokemon.status)) return;
 			pokemon.cureStatus();
 		},
-		flags: {snatch: 1, heal: 1},
+		flags: {mirror: 1, snatch: 1},
 		secondary: false,
 		target: "self",
 		type: "Ground",
