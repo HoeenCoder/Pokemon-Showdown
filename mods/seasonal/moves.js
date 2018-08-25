@@ -567,8 +567,8 @@ let BattleMovedex = {
 		accuracy: 100,
 		basePower: 80,
 		category: "Physical",
-		desc: "Lowers the user's Defense and Special Defense by 1 stage.",
-		shortDesc: "Lowers the user's Defense and Sp. Def by 1.",
+		desc: "Lowers the user's Defense, Special Defense and Speed by 1 stage.",
+		shortDesc: "Lowers the user's Def, SpD and Spe by 1.",
 		id: "inked",
 		name: "Inked",
 		pp: 5,
@@ -576,13 +576,13 @@ let BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, 'Psywave', target);
 			this.add('-anim', source, 'Octazooka', target);
 		},
 		self: {
 			boosts: {
 				def: -1,
 				spd: -1,
+				spe: -1,
 			},
 		},
 		secondary: null,
