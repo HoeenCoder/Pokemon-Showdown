@@ -79,7 +79,7 @@ let BattleAbilities = {
 	},
 	// Teremiare
 	notprankster: {
-		shortDesc: "This Pokemon's Status moves have priority raised by 1, but Dark types are immune.",
+		shortDesc: "This Pokemon's Status moves have priority raised by 1.",
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.category === 'Status') {
 				return priority + 1;
