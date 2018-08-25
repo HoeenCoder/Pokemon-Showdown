@@ -252,6 +252,25 @@ let BattleStatuses = {
 			this.add(`c|@Iyarito|RIP Patrona`);
 		},
 	},
+	kay: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@Kay|Every kiss begins with Kay`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|@Kay|くコ:彡`);
+		},
+		onFaint: function () {
+			this.add(`c|@Kay|'kay bye!くコ:彡`);
+		},
+		onBoost: function (boost, target, source, effect) {
+			if (effect && effect.id === 'zpower') return;
+			for (let i in boost) {
+				// @ts-ignore
+				boost[i] *= 2;
+			}
+		},
+	},
 	kingswordyt: {
 		noCopy: true,
 		onStart: function () {

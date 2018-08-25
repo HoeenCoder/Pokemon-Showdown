@@ -137,6 +137,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Maelström',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
+			'Kay': {
+				species: 'Inkay', ability: 'Contrary', item: 'Eviolite', gender: 'M',
+				moves: ['Power Trip', 'Rest', 'Sleep Talk'],
+				signatureMove: 'Inked',
+				evs: {hp: 252, atk: 144, spe: 112}, nature: 'Adament',
+			},
 			'KingSwordYT': {
 				species: 'Pangoro', ability: 'Kung Fu Panda', item: 'Life Orb', gender: 'M',
 				moves: ['Ice Punch', 'Bullet Punch', 'Knock Off'],
