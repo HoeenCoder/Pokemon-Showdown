@@ -251,7 +251,7 @@ let BattleMovedex = {
 		shortDesc: "",
 		id: "earthsblessing",
 		name: "Earth's Blessing",
-		pp: 10,
+		pp: 5,
 		priority: 0,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
