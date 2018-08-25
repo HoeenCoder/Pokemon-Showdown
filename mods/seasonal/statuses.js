@@ -269,6 +269,7 @@ let BattleStatuses = {
 		onFaint: function () {
 			this.add(`c|@Kay|'kay bye!くコ:彡`);
 		},
+		// Simple Innate
 		onBoost: function (boost, target, source, effect) {
 			if (effect && effect.id === 'zpower') return;
 			for (let i in boost) {
