@@ -73,6 +73,18 @@ let BattleStatuses = {
 			this.add(`c|@Beowulf|BUZZ BUZZ BUZZ BUZZ`);
 		},
 	},
+	cantsay: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@cant say|(´・ω・\`)`); // Ecscaped to not bug out
+		},
+		onSwitchOut: function () {
+			this.add(`c|@cant say|wow CTed lol`);
+		},
+		onFaint: function () {
+			this.add(`c|@cant say|bg haxor :(`);
+		},
+	},
 	cc: {
 		noCopy: true,
 		onStart: function () {

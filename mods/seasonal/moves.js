@@ -135,6 +135,31 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Bug",
 	},
+	// cant say
+	vaporwaveblade: {
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		desc: "The terrain becomes Grassy Terrain.",
+		shortDesc: "Summons Grassy Terrain.",
+		id: "vaporwaveblade",
+		name: "レ丹尸回尺山丹レヨ　日し丹句ヨ",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Geomancy', source);
+			this.add('-anim', source, 'Swords Dance', source);
+			this.add('-anim', source, 'Bloom Doom', target);
+			this.add('-anim', source, 'Sacred Sword', target);
+		},
+		onHit: function () {
+			this.setTerrain('grassyterrain');
+		},
+		target: "normal",
+		type: "Steel",
+	},
 	// cc
 	restartingrouter: {
 		accuracy: 100,
