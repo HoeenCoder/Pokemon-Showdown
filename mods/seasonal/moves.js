@@ -186,8 +186,6 @@ let BattleMovedex = {
 				let boost = {};
 				boost[randomStat] = 1;
 				this.boost(boost, source);
-			} else {
-				return;
 			}
 		},
 		secondary: {
