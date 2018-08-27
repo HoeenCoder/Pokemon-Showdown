@@ -85,16 +85,16 @@ let BattleStatuses = {
 			this.add(`c|%cc|Unfort`);
 		},
 	},
-	cerberax: {
+	ceteris: {
 		noCopy: true,
 		onStart: function () {
-			this.add(`c|%Cerberax|(╯°□°)╯︵ ┻━┻`);
+			this.add(`c|%Ceteris|Your loss is inevitable, you best forfeit the battle if you know what's good for you. ╰(⇀︿⇀)つ-]═───`);
 		},
-		onSwitchOut: function () {
-			this.add(`c|%Cerberax|┬─┬ ノ( ゜-゜ノ)`);
+		onSwitchOut: function (source) {
+			this.add(`c|%Ceteris|Saving the best for last, ${source.side.name}, a wise choice my friend.`);
 		},
 		onFaint: function () {
-			this.add(`c|%Cerberax|┬─┬ ︵ /(.□. \\）`);
+			this.add(`c|%Ceteris|IMPOSSIBLE!! THIS IS AN OUTRAGE!! I WILL EXACT MY REVENGE ON YOU ONE DAY (◣_◢)`);
 		},
 	},
 	chloe: {
