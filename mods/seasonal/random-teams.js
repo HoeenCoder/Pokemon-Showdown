@@ -89,6 +89,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Lucid Dreams',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: ['Modest', 'Timid'],
 			},
+			'DragonWhale': {
+				species: 'Garchomp', ability: 'Beast Boost', item: 'Groundium Z', gender: 'M',
+				moves: ['Earthquake', 'Dragon Rush', 'Diamond Storm'],
+				signatureMove: 'Earth\'s Blessing',
+				evs: {hp: 112, atk: 144, spe: 252}, nature: 'Jolly',
+			},
 			'E4 Flint': {
 				species: 'Steelix', ability: 'Sturdy', item: 'Magmarizer', gender: 'M', // Ability is changed on mega evo, which is instant for this set
 				moves: ['Sunsteel Strike', 'Thousand Arrows', ['Dragon Tail', 'Diamond Storm', 'V-create', 'V-create']], // V-create listed twice for 50% chance to get it
@@ -136,6 +142,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Water Spout', 'Hurricane', 'Thunder'],
 				signatureMove: 'Maelström',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
+			},
+			'Kay': {
+				species: 'Inkay', ability: 'Contrary', item: 'Eviolite', gender: 'M',
+				moves: ['Power Trip', 'Rest', 'Sleep Talk'],
+				signatureMove: 'Inked',
+				evs: {hp: 252, atk: 144, spe: 112}, nature: 'Adament',
 			},
 			'KingSwordYT': {
 				species: 'Pangoro', ability: 'Kung Fu Panda', item: 'Life Orb', gender: 'M',
@@ -185,6 +197,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Protein Shake',
 				evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful',
 			},
+			'OM Room': {
+				species: 'Flareon', ability: 'Pixilate', item: 'Metronome', gender: 'M',
+				moves: ['Fake Out', 'Thousand Arrows', 'Extreme Speed'],
+				signatureMove: 'OM Boom',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Adamant',
+			},
 			'Quite Quiet': {
 				species: 'Misdreavus', ability: 'Levitate', item: 'Leftovers', gender: 'F',
 				moves: [['Moongeist Beam', 'Shadow Ball', 'Night Shade'], 'Recover', ['Heal Bell', 'Taunt']],
@@ -196,6 +214,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Dragon Ascent', 'Sacred Fire', 'Roost'],
 				signatureMove: 'GO INDA',
 				evs: {atk: 252, hp: 248, spe: 8}, nature: 'Adamant',
+      },
+			'Teremiare': {
+				species: 'Zorua', ability: 'Not Prankster', item: 'Eject Button', gender: 'N',
+				moves: ['Encore', 'Taunt', 'Lunar Dance'],
+				signatureMove: 'No Fun Zone',
+				evs: {hp: 252, def: 136, spd: 120}, ivs: {atk: 0}, nature: 'Bold', shiny: true,
 			},
 			'The Immortal': {
 				species: 'Buzzwole', ability: 'Beast Boost 2', item: 'Assault Vest', gender: 'N', // confirm with TI
@@ -221,6 +245,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Mini Singularity',
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'Yuki': {
+				species: 'Ninetales-Alola', ability: 'Snow Storm', item: 'Focus Sash', gender: 'F',
+				moves: ['Blizzard', 'Moonblast', 'Aurora Veil'],
+				signatureMove: 'Cutie Escape',
+				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
+			},
 		};
 		let pool = Object.keys(sets);
 		while (pool.length && team.length < 6) {
@@ -229,7 +259,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let debug = false; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'Kalalokki';
+				name = 'Yuki';
 				if (pool.indexOf(name) > -1) pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);

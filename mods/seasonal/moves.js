@@ -242,6 +242,35 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Ghost",
 	},
+	// DragonWhale
+	earthsblessing: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "earthsblessing",
+		name: "Earth's Blessing",
+		pp: 5,
+		priority: 0,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Swords Dance', source);
+			this.add('-anim', source, 'Wood Hammer', source);
+		},
+		onHit: function (pokemon, move) {
+			if (this.pseudoWeather.gravity) return false;
+			this.boost({atk: 2}, pokemon, pokemon, 'move: Earth\'s Blessing');
+			this.addPseudoWeather('gravity');
+			if (['', 'slp', 'frz'].includes(pokemon.status)) return;
+			pokemon.cureStatus();
+		},
+		flags: {mirror: 1, snatch: 1},
+		secondary: null,
+		target: "self",
+		type: "Ground",
+		zMoveEffect: 'healhalf',
+	},
 	// E4 Flint
 	fangofthefireking: {
 		accuracy: 100,
@@ -533,6 +562,33 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Water",
 	},
+	// Kay
+	inked: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		desc: "Lowers the user's Defense, Special Defense and Speed by 1 stage.",
+		shortDesc: "Lowers the user's Def, SpD and Spe by 1.",
+		id: "inked",
+		name: "Inked",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Octazooka', target);
+		},
+		self: {
+			boosts: {
+				def: -1,
+				spd: -1,
+				spe: -1,
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Psychic",
+	},
 	// KingSwordYT
 	dragonwarriortouch: {
 		accuracy: 100,
@@ -816,6 +872,37 @@ let BattleMovedex = {
 		target: "self",
 		type: "Normal",
 	},
+	// OM Room
+	omboom: {
+		accuracy: 95,
+		basePower: 110,
+		desc: "",
+		shortDesc: "",
+		id: "omboom",
+		name: "OM Boom",
+		category: "Physical",
+		pp: 15,
+		priority: 0,
+		flags: {mirror: 1, protect: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Fire Lash", target);
+			this.add('-anim', source, "Heat Crash", target);
+		},
+		onHit: function () {
+			this.add(`c|%OM Room|Bang Bang`);
+		},
+		secondary: {
+			chance: 50,
+			self: {
+				boosts: {
+					spe: 2,
+				},
+			},
+		},
+		target: "normal",
+		type: "Fire",
+	},
 	// Quite Quiet
 	"spookytransform": {
 		accuracy: true,
@@ -898,6 +985,60 @@ let BattleMovedex = {
 		},
 		target: "self",
 		type: "Flying",
+  },
+	// Teremiare
+	nofunzone: {
+		accuracy: 100,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "nofunzone",
+		name: "No Fun Zone",
+		pp: 5,
+		priority: 0,
+		flags: {snatch: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Celebrate", target);
+		},
+		onHit: function (target, source) {
+			for (const side of this.sides) {
+				for (const pokemon of side.active) {
+					if (pokemon.hasAbility('soundproof')) continue;
+					pokemon.cureStatus();
+				}
+			}
+			target.addVolatile('healblock');
+			target.addVolatile('embargo');
+			let removeTarget = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
+			let removeAll = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
+			for (const targetCondition of removeTarget) {
+				if (target.side.removeSideCondition(targetCondition)) {
+					if (!removeAll.includes(targetCondition)) continue;
+					this.add('-sideend', target.side, this.getEffect(targetCondition).name, '[from] move: No Fun Zone', '[of] ' + target);
+				}
+			}
+			for (const sideCondition of removeAll) {
+				if (source.side.removeSideCondition(sideCondition)) {
+					this.add('-sideend', source.side, this.getEffect(sideCondition).name, '[from] move: No Fun Zone', '[of] ' + source);
+				}
+			}
+			this.add('-clearallboost');
+			for (const side of this.sides) {
+				for (const pokemon of side.active) {
+					if (pokemon && pokemon.isActive) pokemon.clearBoosts();
+				}
+			}
+			for (const clear in this.pseudoWeather) {
+				if (clear.endsWith('mod') || clear.endsWith('clause')) continue;
+				this.removePseudoWeather(clear);
+			}
+			this.clearWeather();
+			this.clearTerrain();
+		},
+		secondary: null,
+		target: "foe",
+		type: "Normal",
 	},
 	// The Immortal
 	ultrasucc: {
@@ -1112,6 +1253,50 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Psychic",
+	},
+	// Yuki
+	cutieescape: {
+		accuracy: true,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "cutieescape",
+		name: "Cutie Escape",
+		pp: 10,
+		priority: -6,
+		flags: {snatch: 1, mirror: 1},
+		beforeTurnCallback: function (pokemon) {
+			pokemon.addVolatile('cutieescape');
+			this.add('-message', `${pokemon.name} is preparing to flee!`);
+		},
+		beforeMoveCallback: function (pokemon) {
+			if (!pokemon.volatiles['cutieescape'] || !pokemon.volatiles['cutieescape'].tookDamage) {
+				this.add('-fail', pokemon, 'move: Cutie Escape');
+				return true;
+			}
+		},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Baton Pass", source);
+		},
+		onHit: function (target, source) {
+			target.addVolatile('confusion');
+			target.addVolatile('cutietrap');
+		},
+		effect: {
+			duration: 1,
+			onStart: function (pokemon) {
+				this.add('-singleturn', pokemon, 'move: Cutie Escape');
+			},
+			onHit: function (pokemon, source, move) {
+				if (move.category !== 'Status') {
+					pokemon.volatiles['cutieescape'].tookDamage = true;
+				}
+			},
+		},
+		selfSwitch: true,
+		target: "normal",
+		type: "Fairy",
 	},
 };
 

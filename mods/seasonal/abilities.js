@@ -86,6 +86,17 @@ let BattleAbilities = {
 		onModifyPriority: function (priority, pokemon, target, move) {
 			if (move && move.type === 'Flying') return priority + 1;
 		},
+  },
+	// Teremiare
+	notprankster: {
+		shortDesc: "This Pokemon's Status moves have priority raised by 1.",
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.category === 'Status') {
+				return priority + 1;
+			}
+		},
+		id: "notprankster",
+		name: "Not Prankster",
 	},
 	// The Immortal
 	beastboost2: {
@@ -121,6 +132,18 @@ let BattleAbilities = {
 		name: "Interdimensional",
 		onStart: function (target, source) {
 			this.addPseudoWeather('gravity', source);
+		},
+	},
+	// Yuki
+	snowstorm: {
+		desc: "Hail crashes down for unlimited turns.",
+		shortDesc: "Hail crashes down for unlimited turns.",
+		id: "snowstorm",
+		name: "Snow Storm",
+		onStart: function () {
+			let snowStorm = this.getEffect('hail');
+			snowStorm.duration = -1;
+			this.setWeather(snowStorm);
 		},
 	},
 };

@@ -121,6 +121,12 @@ let BattleStatuses = {
 			this.add(`c|%deg|Dream Eater Gengar is an unset.`);
 		},
 	},
+	dragonwhale: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@DragonWhale|i would switch to chomper here`);
+		},
+	},
 	e4flint: {
 		noCopy: true,
 		onStart: function (target, source) {
@@ -252,6 +258,26 @@ let BattleStatuses = {
 			this.add(`c|@Iyarito|RIP Patrona`);
 		},
 	},
+	kay: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@Kay|Every kiss begins with Kay`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|@Kay|くコ:彡`);
+		},
+		onFaint: function () {
+			this.add(`c|@Kay|'kay bye!くコ:彡`);
+		},
+		// Simple Innate
+		onBoost: function (boost, target, source, effect) {
+			if (effect && effect.id === 'zpower') return;
+			for (let i in boost) {
+				// @ts-ignore
+				boost[i] *= 2;
+			}
+		},
+	},
 	kingswordyt: {
 		noCopy: true,
 		onStart: function () {
@@ -347,6 +373,20 @@ let BattleStatuses = {
 			this.add(`c|@moo|/me moo`);
 		},
 	},
+	omroom: {
+		noCopy: true,
+		onStart: function (target, source) {
+			source.types = ["Fire", "Fairy"];
+			this.add(`c|%OM Room|use shift gear`);
+			this.add('-start', source, 'typeadd', 'Fairy');
+		},
+		onSwitchOut: function () {
+			this.add(`c|%OM Room|Ok brb I'm gonna ${["ladder Mix and Mega", "roll battle some surv regs real quick"][this.random(2)]}`);
+		},
+		onFaint: function () {
+			this.add(`c|%OM Room|Oh god I rolled a 1`);
+		},
+	},
 	quitequiet: {
 		noCopy: true,
 		onStart: function () {
@@ -375,6 +415,15 @@ let BattleStatuses = {
 		},
 		onSwitchOut: function () {
 			this.add(`c|%Shiba|gotta buy an alt rq brb`);
+    },
+  },
+	teremiare: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@Teremiare|<('o'<)`);
+		},
+		onFaint: function () {
+			this.add(`c|@Teremiare|(>'o')>`);
 		},
 	},
 	theimmortal: {
@@ -423,6 +472,58 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|@Trickster|(✖﹏✖✿)`);
+		},
+	},
+	yuki: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|%Yuki|My ice may be a little __cold__, but your plan has been put completely on __hold__!`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|%Yuki|I-It's too hot in here!`);
+		},
+		onFaint: function () {
+			this.add(`c|%Yuki|I'm melting...`);
+		},
+	},
+	// Custom effect for Yuki
+	cutietrap: {
+		duration: 5,
+		noCopy: true,
+		onStart: function (pokemon, source) {
+			if (!this.runEvent('Attract', pokemon, source)) {
+				this.debug('Attract event failed');
+				return false;
+			}
+			this.add('-start', pokemon, 'Attract', '[from] move: Cutie Trap', '[of] ' + source);
+			this.add('-message', `${pokemon.name} was trapped by love!`);
+		},
+		onBeforeMovePriority: 2,
+		onBeforeMove: function (pokemon, target, move) {
+			this.add('-activate', pokemon, 'move: Attract', '[of] ' + this.effectData.source);
+			if (this.randomChance(1, 2)) {
+				this.add('cant', pokemon, 'Attract');
+				return false;
+			}
+		},
+		onTrapPokemon: function (pokemon) {
+			pokemon.tryTrap();
+		},
+		onEnd: function (pokemon) {
+			this.add('-end', pokemon, 'Attract', '[silent]');
+			this.add('-message', `${pokemon.name} is no longer trapped by love.`);
+		},
+	},
+	// Modified hail for Yuki
+	hail: {
+		inherit: true,
+		onStart: function (battle, source, effect) {
+			if (effect && effect.effectType === 'Ability') {
+				if (this.gen <= 5 || effect.id === 'snowstorm') this.effectData.duration = 0;
+				this.add('-weather', 'Hail', '[from] ability: ' + effect, '[of] ' + source);
+			} else {
+				this.add('-weather', 'Hail');
+			}
 		},
 	},
 };
