@@ -76,7 +76,7 @@ let BattleStatuses = {
 	cantsay: {
 		noCopy: true,
 		onStart: function () {
-			this.add(`c|@cant say|(´・ω・\`)`); // Ecscaped to not bug out
+			this.add(`c|@cant say|(´・ω・\`)`);
 		},
 		onSwitchOut: function () {
 			this.add(`c|@cant say|wow CTed lol`);
