@@ -71,6 +71,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Restarting Router',
 				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'Ceteris': {
+				species: 'Greninja', ability: 'Protean', item: 'Expert Belt', gender: 'M',
+				moves: ['Dark Pulse', 'Origin Pulse', 'Gunk Shot', 'Shadow Sneak'],
+				signatureMove: 'Bringer of Darknesst',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
+			},
 			'Cerberax': {
 				species: 'Wailord', ability: 'Levitate', item: 'Figy Berry', gender: 'F',
 				moves: ['Shift Gear', 'Waterfall', 'Recover'],
