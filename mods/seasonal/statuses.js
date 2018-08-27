@@ -85,6 +85,18 @@ let BattleStatuses = {
 			this.add(`c|%cc|Unfort`);
 		},
 	},
+	cerberax: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|%Cerberax|(╯°□°)╯︵ ┻━┻`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|%Cerberax|┬─┬ ノ( ゜-゜ノ)`);
+		},
+		onFaint: function () {
+			this.add(`c|%Cerberax|┬─┬ ︵ /(.□. \\）`);
+		},
+	},
 	ceteris: {
 		noCopy: true,
 		onStart: function () {
