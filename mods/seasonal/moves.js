@@ -1383,7 +1383,7 @@ let BattleMovedex = {
 		beforeMoveCallback: function (pokemon) {
 			if (!pokemon.volatiles['cutieescape'] || !pokemon.volatiles['cutieescape'].tookDamage) {
 				this.add('-fail', pokemon, 'move: Cutie Escape');
-				this.add('-hint', 'Cutie Escape only works when Yuki is hit.');
+				this.add('-hint', 'Cutie Escape only works when Yuki is hit in the same turn the move is used.');
 				return true;
 			}
 		},
