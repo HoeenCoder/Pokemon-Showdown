@@ -333,7 +333,7 @@ let BattleMovedex = {
 		onHit: function (target, source) {
 			target.setStatus('brn', source, null, true);
 			// Cringy message
-			if (this.random(5) === 1) this.add(`c|@e4 Flint|here's a __taste__ of my __firepower__ XD`);
+			if (this.random(5) === 1) this.add(`c|@E4 Flint|here's a __taste__ of my __firepower__ XD`);
 		},
 		secondary: null,
 		target: "normal",
