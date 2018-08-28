@@ -483,6 +483,7 @@ let Formats = [
 		onBegin: function () {
 			this.add('raw|SUPER STAFF BROS <b>BRAWL</b>!!');
 			this.add('message', 'GET READY FOR THE NEXT BATTLE!');
+			this.add("raw|<div class='broadcast-green'>Wanna know what these cool moves and abilities do? Type '/dt <move or ability name>' to find out!</div>");
 			// REMOVE BEFORE PRing
 			this.add("raw|<div class='broadcast-red'><b>PLEASE REPORT BUGS, MISTAKES, AND ANYTHING ELSE THAT IS INCORRECT.</b></div>");
 		},
