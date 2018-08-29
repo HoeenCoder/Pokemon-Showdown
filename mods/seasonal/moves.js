@@ -136,13 +136,13 @@ let BattleMovedex = {
 		type: "Bug",
 	},
 	// cant say
-	aesthetislash : {
+	aesthetislash: {
 		accuracy: 100,
 		basePower: 100,
 		category: "Physical",
 		desc: "The terrain becomes Grassy Terrain.",
 		shortDesc: "Summons Grassy Terrain.",
-		id: "aesthetislash ",
+		id: "aesthetislash",
 		name: "a e s t h e t i s l a s h",
 		pp: 10,
 		priority: 0,
