@@ -136,14 +136,14 @@ let BattleMovedex = {
 		type: "Bug",
 	},
 	// cant say
-	vaporwaveblade: {
+	aesthetislash : {
 		accuracy: 100,
 		basePower: 100,
 		category: "Physical",
 		desc: "The terrain becomes Grassy Terrain.",
 		shortDesc: "Summons Grassy Terrain.",
-		id: "vaporwaveblade",
-		name: "レ丹尸回尺山丹レヨ　日し丹句ヨ",
+		id: "aesthetislash ",
+		name: "a e s t h e t i s l a s h",
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
@@ -152,7 +152,6 @@ let BattleMovedex = {
 			this.add('-anim', source, 'Geomancy', source);
 			this.add('-anim', source, 'Swords Dance', source);
 			this.add('-anim', source, 'Bloom Doom', target);
-			this.add('-anim', source, 'Sacred Sword', target);
 		},
 		onHit: function () {
 			this.setTerrain('grassyterrain');
