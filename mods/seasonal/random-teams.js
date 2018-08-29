@@ -68,7 +68,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'cant say': {
 				species: 'Aegislash', ability: 'Stance Change', item: 'Weakness Policy', gender: 'M',
 				moves: ['Shift Gear', 'Spectral Thief', 'Sacred Sword'],
-				signatureMove: 'Vaporwave Blade',
+				signatureMove: 'a e s t h e t i s l a s h',
 				evs: {hp: 32, atk: 252, spd: 4, spe: 220}, nature: 'Jolly',
 			},
 			'cc': {
