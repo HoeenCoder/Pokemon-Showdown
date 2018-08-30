@@ -125,22 +125,10 @@ let BattleAbilities = {
 			},
 			onBeforeMovePriority: 2,
 			onBeforeMove: function (pokemon, target, move) {
-				let hazards = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'hazardpass', 'beskyttelsesnet'];
+				let hazards = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'hazardpass', 'beskyttelsesnet', 'bringerofdarkness'];
 				if (hazards.includes(move.id)) {
 					this.add('-message', 'The Prismatic Terrain prevents ' + move.name + ' from working.');
 					return false;
-				}
-			},
-			onAfterMove: function (source, target, move) { // Catch-all for certain moves that aren't specifically hazards like Ceteris's move.
-				let removeAll = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
-				for (const sideCondition of removeAll) {
-					let target = source.side.foe;
-					if (target.removeSideCondition(sideCondition)) {
-						this.add('-sideend', target, this.getEffect(sideCondition).name, '[from] move: Prismatic Terrain', '[of] ' + target);
-					}
-					if (source.side.removeSideCondition(sideCondition)) {
-						this.add('-sideend', source.side, this.getEffect(sideCondition).name, '[from] move: Prismatic Terrain', '[of] ' + source);
-					}
 				}
 			},
 			onBasePower: function (basePower, attacker, defender, move) {
