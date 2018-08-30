@@ -657,7 +657,7 @@ let BattleMovedex = {
 	dragonwarriortouch: {
 		accuracy: 100,
 		basePower: 70,
-		status: "Physical",
+		category: "Physical",
 		id: "dragonwarriortouch",
 		name: "Dragon Warrior Touch",
 		pp: 5,
