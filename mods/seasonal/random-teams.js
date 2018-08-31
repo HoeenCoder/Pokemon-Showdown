@@ -217,7 +217,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'nui': {
 				species: 'Milotic', ability: 'Prismatic Terrain', item: 'Waterium Z', gender: 'N',
-				moves: ['Steam Eruption', 'Toxic', 'Recover',],
+				moves: ['Steam Eruption', 'Toxic', 'Recover'],
 				signatureMove: 'Pyramiding Song',
 				evs: {hp: 252, def: 252, spd: 4}, ivs: {atk: 0}, nature: 'Bold', shiny: true,
 			},
