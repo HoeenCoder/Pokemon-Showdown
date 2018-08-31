@@ -579,15 +579,10 @@ let BattleStatuses = {
 		// this is a side condition
 		name: 'boostreplacement',
 		id: 'boostreplacement',
-		onStart: function (side, source, sourceEffect) {
-			this.effectData.position = source.position;
-			this.effectData.sourceEffect = sourceEffect;
-			this.add('-message', source.name + '\'s replacement will get its defenses boosted!');
-		},
 		onSwitchInPriority: 1,
 		onSwitchIn: function (target) {
 			if (!target.fainted && target.position === this.effectData.position) {
-				this.boost({def: 1, spd: 1}, target);
+				this.boost({def: 1, spd: 1});
 				target.side.removeSideCondition('boostreplacement');
 			}
 		},
