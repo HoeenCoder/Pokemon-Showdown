@@ -155,10 +155,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Maelström',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
-			'Kay': {
+			'kay': {
 				species: 'Inkay', ability: 'Contrary', item: 'Eviolite', gender: 'M',
 				moves: ['Power Trip', 'Rest', 'Sleep Talk'],
-				signatureMove: 'Inked',
+				signatureMove: 'Inkzooka',
 				evs: {hp: 252, atk: 144, spe: 112}, nature: 'Adament',
 			},
 			'KingSwordYT': {
@@ -280,10 +280,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 		while (pool.length && team.length < 6) {
 			let name = '';
 			// DEBUG CODE
-			let debug = false; // Programmers - Toggle this to use the code below
+			let debug = true; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'Ceteris';
+				name = 'kay';
 				if (pool.indexOf(name) > -1) pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);
