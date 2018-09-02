@@ -1065,11 +1065,11 @@ let BattleMovedex = {
 				target.status = status.id;
 				target.statusData = {id: status.id, target: target, source: source, stage: 0};
 				this.add('-status', target, target.status);
-				move.status = false;
+				move.status = undefined;
 			}
 		},
 		status: 'tox',
-		secondary: false,
+		secondary: null,
 		target: "normal",
 		type: "Poison",
 	},
