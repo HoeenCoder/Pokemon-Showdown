@@ -1070,12 +1070,12 @@ let BattleMovedex = {
 	// Osiris
 	nightmarch: {
 		basePower: 60,
-		basePowerCallback: function (pokemon, source, move, target) {
+		basePowerCallback: function (pokemon, target, move) {
 			let faintedmons = 0;
-			for (const ally of source.side.pokemon) {
+			for (const ally of pokemon.side.pokemon) {
 				if (ally.fainted || !ally.hp) faintedmons += 20;
 			}
-			for (const foes of source.side.foe.pokemon) {
+			for (const foes of target.side.pokemon) {
 				if (foes.fainted || !foes.hp) faintedmons += 20;
 			}
 			return move.basePower + faintedmons;
