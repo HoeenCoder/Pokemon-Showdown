@@ -1095,7 +1095,7 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Ghost",
-  },
+	},
 	// Paradise
 	"corrosivetoxic": {
 		accuracy: true,
