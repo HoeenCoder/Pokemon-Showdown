@@ -457,6 +457,7 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|%Osiris|I'm getting too old for this x_x`);
+		},
 	},
 	paradise: {
 		noCopy: true,
