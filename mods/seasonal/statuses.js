@@ -457,6 +457,17 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|%Osiris|I'm getting too old for this x_x`);
+    },
+	paradise: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@Paradise|⠠⠺⠓⠁⠞⠀⠞⠓⠑⠀⠋⠥⠉⠅⠀⠙⠊⠙⠀⠽⠕⠥⠀⠚⠥⠎⠞⠀⠋⠥⠉⠅⠊⠝⠛⠀⠎⠁⠽⠀⠁⠃⠕⠥⠞⠀⠍⠑,⠀⠽⠕⠥⠀⠇⠊⠞⠞⠇⠑⠀⠃⠊⠞⠉⠓?`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|@Paradise|Braille is the only language you need.`);
+		},
+		onFaint: function () {
+			this.add(`c|@Paradise|⠠⠽⠕⠥’⠗⠑⠀⠋⠥⠉⠅⠊⠝⠛⠀⠙⠑⠁⠙,⠀⠅⠊⠙⠙⠕.`);
 		},
 	},
 	quitequiet: {
