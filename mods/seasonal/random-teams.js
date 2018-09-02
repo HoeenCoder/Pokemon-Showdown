@@ -238,7 +238,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Leech Seed', 'Will-O-Wisp', 'Seed Bomb'],
 				signatureMove: 'Night March',
 				evs: {hp: 252, atk: 144, spd: 112}, nature: 'Adamant', shiny: true,
-      },
+			},
 			'Paradise': {
 				species: 'Muk', ability: 'Unaware', item: 'Black Sludge', gender: '',
 				moves: ['Wish', 'Knock Off', 'Protect'],
