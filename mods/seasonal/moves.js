@@ -336,9 +336,6 @@ let BattleMovedex = {
 		zMoveEffect: 'healhalf',
 	},
 	// duck
-	/*
-	Animation: dunno maybe extreme speed with some wings?
-	*/
 	holyduck: {
 		accuracy: 95,
 		basePower: 95,
