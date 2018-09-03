@@ -1090,7 +1090,9 @@ let BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Fire Lash", target);
+			this.add('-anim', source, "Nightmare", target);
+			this.add('-anim', source, "Moongeist Beam", target);
+			this.add('-anim', source, "Stomping Tantrum", target);
 		},
 		secondary: null,
 		target: "normal",
