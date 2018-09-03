@@ -132,7 +132,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 252, spe: 252}, nature: 'Serious',
 			},
 			'false': {
-				species: 'Rayquaza-Mega', ability: 'Infiltrator', item: 'Focus Band', gender: 'M',
+				species: 'Rayquaza-Mega', ability: 'Infiltrator', item: 'Focus Band', gender: 'F',
 				moves: ['Celebrate'],
 				signatureMove: 'fr*ck',
 				evs: {atk: 252, spe: 252, def: 4}, nature: 'Jolly', shiny: true,
