@@ -131,6 +131,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Evoblast',
 				evs: {hp: 252, spe: 252}, nature: 'Serious',
 			},
+			'grimAuxiliatrix': {
+				species: 'Aggron', ability: 'Sturdy', item: 'Aggronite', gender: '',
+				moves: ['Earthquake', ['Toxic', 'Thunder Wave'], ['Stone Edge', 'Heat Crash']],
+				signatureMove: 'Pain Train',
+				evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful',
+			},
 			'Hippopotas': {
 				species: 'Hippopotas', ability: 'Regenerator', item: 'Eviolite', gender: 'N',
 				moves: ['Stealth Rock', 'Spikes', 'Toxic Spikes', 'Sticky Web'],

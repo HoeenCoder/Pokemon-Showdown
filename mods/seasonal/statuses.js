@@ -232,6 +232,21 @@ let BattleStatuses = {
 			this.add(`c|~EV|If you __say__ EV it sounds like Eevee. It's actually quite simple.`);
 		},
 	},
+	grimauxiliatrix: {
+		noCopy: true,
+		onUpdate: function (pokemon) {
+			if (pokemon.template.isMega && pokemon.getAbility().id === 'filter') {
+				pokemon.setAbility('Intimidate');
+				this.add('-ability', pokemon, 'Intimidate');
+			}
+		},
+		onStart: function () {
+			this.add(`c|@grimAuxiliatrix|${['A BRAWL IS SURELY BREWING!', 'GOOD DAY FOR A SWELL BATTLE!', 'THIS MATCH WILL GET RED HOT!'][this.random(3)]}`);
+		},
+		onFaint: function () {
+			this.add(`c|@grimAuxiliatrix|KNOCKOUT!`);
+		},
+	},
 	kalalokki: {
 		noCopy: true,
 		onStart: function () {
