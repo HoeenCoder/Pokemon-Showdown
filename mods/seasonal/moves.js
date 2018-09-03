@@ -472,7 +472,7 @@ let BattleMovedex = {
 	frck: {
 		accuracy: true,
 		basePower: 1000,
-		category: "Status",
+		category: "Physical",
 		desc: "",
 		shortDesc: "",
 		id: "frck",
