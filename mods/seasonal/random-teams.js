@@ -65,6 +65,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Buzzing of the Swarm',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
+			'Brandon': {
+				species: 'Shaymin', ability: 'Gracidea Mastery', item: 'Red Card', gender: 'N',
+				moves: ['Seed Flare', ['Earth Power', 'Moonblast', 'Psychic'], ['Oblivion Wing', 'Strength Sap']],
+				signatureMove: 'Blustery Winds',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: ['Modest', 'Timid'],
+			},
 			'cant say': {
 				species: 'Aegislash', ability: 'Stance Change', item: 'Weakness Policy', gender: 'M',
 				moves: ['Shift Gear', 'Spectral Thief', 'Sacred Sword'],

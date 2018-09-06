@@ -135,6 +135,48 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Bug",
 	},
+	// Brandon
+	blusterywinds: {
+		accuracy: 100,
+		basePower: 60,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		id: "blusterywinds",
+		name: "Blustery Winds",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			// delta stream unable to be done without adding the weather for the move duration then removing it after
+			this.add('-anim', source, "Defog", target);
+		},
+		onHit: function (target, source, move) {
+			/**@type {?boolean | number} */
+			let success = false;
+			if (this.clearWeather()) success = true;
+			if (this.clearTerrain()) success = true;
+			let removeAll = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
+			for (const targetCondition of removeAll) {
+				if (target.side.removeSideCondition(targetCondition)) {
+					if (!removeAll.includes(targetCondition)) continue;
+					this.add('-sideend', target.side, this.getEffect(targetCondition).name, '[from] move: Blustery Winds', '[of] ' + target);
+					success = true;
+				}
+			}
+			for (const sideCondition of removeAll) {
+				if (source.side.removeSideCondition(sideCondition)) {
+					this.add('-sideend', source.side, this.getEffect(sideCondition).name, '[from] move: Blustery Winds', '[of] ' + source);
+					success = true;
+				}
+			}
+			return success;
+		},
+		secondary: null,
+		target: "normal",
+		type: "Flying",
+	},
 	// cant say
 	aesthetislash: {
 		accuracy: 100,
