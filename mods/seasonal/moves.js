@@ -937,7 +937,7 @@ let BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', target, "Power Gem", source);
+			this.add('-anim', source, "Power Gem", target);
 		},
 		secondary: {
 			chance: 50,
@@ -1219,7 +1219,7 @@ let BattleMovedex = {
 		flags: {protect: 1, reflectable: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Toxic", source);
+			this.add('-anim', source, "Toxic", target);
 		},
 		onTryHit: function (target, source, move) {
 			// hacky way of forcing toxic to effect poison / steel types without corrosion usage
