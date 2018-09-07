@@ -120,7 +120,6 @@ let BattleMovedex = {
 			for (const foes of target.side.pokemon) {
 				if (!foes.item) noitem += 40;
 			}
-			console.log(noitem);
 			return move.basePower + noitem;
 		},
 		accuracy: 100,
