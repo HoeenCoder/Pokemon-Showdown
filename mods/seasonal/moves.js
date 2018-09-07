@@ -112,6 +112,33 @@ let BattleMovedex = {
 		target: "self",
 		type: "Ghost",
 	},
+	// Arcticblast
+	trashalanche: {
+		basePower: 40,
+		basePowerCallback: function (pokemon, target, move) {
+			let noitem = 0;
+			for (const foes of target.side.pokemon) {
+				if (!foes.item) noitem += 40;
+			}
+			console.log(noitem);
+			return move.basePower + noitem;
+		},
+		accuracy: 100,
+		category: "Physical",
+		desc: "",
+		shortDesc: "",
+		id: "trashalanche",
+		name: "Trashalanche",
+		pp: 10,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Gunk Shot", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Poison",
+	},
 	// Beowulf
 	buzzingoftheswarm: {
 		accuracy: 100,
