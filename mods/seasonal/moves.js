@@ -149,7 +149,8 @@ let BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			// this.add('-anim', source, '', source);
+			this.add('-anim', source, 'Stockpile', source);
+			this.add('-anim', source, 'Spit Up', source);
 		},
 		forceSwitch: true,
 		secondary: null,
