@@ -306,7 +306,7 @@ let BattleStatuses = {
 			this.add(`c|@Kalalokki|(x_x)`);
 		},
 	},
-	grimAuxillatrix: {
+	grimauxillatrix: {
 		noCopy: true,
 		onStart: function () {
 			this.add(`c|@grimAuxillatrix|${['A BRAWL IS SURELY BREWING!', 'GOOD DAY FOR A SWELL BATTLE!', 'THIS MATCH WILL GET RED HOT!'][this.random(3)]}`);
