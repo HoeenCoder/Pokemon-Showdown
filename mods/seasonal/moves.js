@@ -98,10 +98,11 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {snatch: 1, heal: 1},
 		heal: [1, 2],
-		onPrepareHit: function (target, source, pokemon) {
+		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Ingrain", target);
-			//here so it wont fail when HP is full
+		},
+		onTry: function (pokemon) {
 			if (pokemon.side.faintedLastTurn) {
 				this.boost({atk: 1, def: 1, spd: 1});
 				pokemon.cureStatus();
