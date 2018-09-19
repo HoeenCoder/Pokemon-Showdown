@@ -361,10 +361,10 @@ let BattleMovedex = {
 	},
 	// Cerberax
 	blimpcrash: {
-		accuracy: 80,
-		onModifyAccuracy: function (target) {
+		accuracy: true,
+		onModifyAccuracy: function (accuracy, target, source) {
 			if (target.isGrounded()) return 80;
-			return true;
+			return accuracy;
 		},
 		basePower: 165,
 		category: "Physical",
