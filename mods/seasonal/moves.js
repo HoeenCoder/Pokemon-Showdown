@@ -405,7 +405,7 @@ let BattleMovedex = {
 			target.addVolatile('confusion');
 			target.addVolatile('healblock');
 		},
-		secondary: false,
+		secondary: null,
 		target: "normal",
 		type: "???",
 	},
@@ -1788,7 +1788,7 @@ let BattleMovedex = {
 			this.useMove("defendorder", source);
 			this.useMove("attackorder", source);
 		},
-		secondary: false,
+		secondary: null,
 		target: "self",
 		type: "Bug",
 	},
