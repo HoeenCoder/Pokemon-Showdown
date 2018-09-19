@@ -55,7 +55,7 @@ let BattleMovedex = {
 			if (!(['', 'slp', 'frz'].includes(pokemon.status))) {
 				pokemon.cureStatus();
 			}
-			/** @type {boolean} */
+			/**@type {?boolean | number} */
 			let target = pokemon.side.foe.active[0];
 			let removeTarget = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
 			let removeAll = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
