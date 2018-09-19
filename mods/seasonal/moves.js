@@ -56,21 +56,23 @@ let BattleMovedex = {
 				pokemon.cureStatus();
 			}
 			/**@type {?boolean | number} */
-			let target = pokemon.side.foe.active[0];
+			let success = false;
 			let removeTarget = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
 			let removeAll = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
 			for (const targetCondition of removeTarget) {
-				if (target.side.removeSideCondition(targetCondition)) {
+				if (pokemon.side.foe.side.removeSideCondition(targetCondition)) {
 					if (!removeAll.includes(targetCondition)) continue;
-					this.add('-sideend', target.side, this.getEffect(targetCondition).name, '[from] move: Noble Howl', '[of] ' + target);
+					this.add('-sideend', pokemon.side.foe.side, this.getEffect(targetCondition).name, '[from] move: Defog', '[of] ' + pokemon.side.foe);
+					success = true;
 				}
 			}
 			for (const sideCondition of removeAll) {
 				if (pokemon.side.removeSideCondition(sideCondition)) {
-					this.add('-sideend', pokemon.side, this.getEffect(sideCondition).name, '[from] move: Noble Howl', '[of] ' + pokemon);
+					this.add('-sideend', pokemon.side, this.getEffect(sideCondition).name, '[from] move: Defog', '[of] ' + pokemon);
+					success = true;
 				}
 			}
-			return;
+			return success;
 		},
 		flags: {mirror: 1, snatch: 1},
 		secondary: null,
