@@ -363,7 +363,7 @@ let BattleMovedex = {
 	blimpcrash: {
 		accuracy: 80,
 		onModifyAccuracy: function (target) {
-				if (!target.isGrounded()) continue;
+				if (target.isGrounded()) return 80;
 				return true;
 		},
 		basePower: 165,
