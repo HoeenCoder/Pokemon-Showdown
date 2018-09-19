@@ -55,7 +55,7 @@ let BattleMovedex = {
 			if (!(['', 'slp', 'frz'].includes(pokemon.status))) {
 				pokemon.cureStatus();
 			}
-			/** @type {boolean} */
+			/**@type {?boolean | number} */
 			// @ts-ignore
 			let target = pokemon.side.foe.active[0];
 			let success = false;
