@@ -33,6 +33,50 @@ let BattleMovedex = {
 	},
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
+	// 2xTheTap
+	noblehowl: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "noblehowl",
+		name: "Noble Howl",
+		pp: 3,
+		noPPBoosts: true,
+		priority: 0,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Howl', source);
+			this.add('-anim', source, 'Boomburst', target);
+		},
+		onHit: function (pokemon, move) {
+			this.boost({atk: 2}, pokemon, pokemon, 'move: Noble Howl');
+			if (!(['', 'slp', 'frz'].includes(pokemon.status))) {
+				pokemon.cureStatus();
+			}
+			/** @type {boolean} */
+			let target = pokemon.side.foe.active[0];
+			let removeTarget = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
+			let removeAll = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
+			for (const targetCondition of removeTarget) {
+				if (target.side.removeSideCondition(targetCondition)) {
+					if (!removeAll.includes(targetCondition)) continue;
+					this.add('-sideend', target.side, this.getEffect(targetCondition).name, '[from] move: Noble Howl', '[of] ' + target);
+				}
+			}
+			for (const sideCondition of removeAll) {
+				if (pokemon.side.removeSideCondition(sideCondition)) {
+					this.add('-sideend', pokemon.side, this.getEffect(sideCondition).name, '[from] move: Noble Howl', '[of] ' + pokemon);
+				}
+			}
+			return;
+		},
+		flags: {mirror: 1, snatch: 1},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+	},
 	// Aelita
 	energyfield: {
 		accuracy: 100,
@@ -176,12 +220,54 @@ let BattleMovedex = {
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Stockpile', source);
-			this.add('-anim', source, 'Spit Up', source);
+			this.add('-anim', source, 'Spit Up', target);
 		},
 		forceSwitch: true,
 		secondary: null,
 		target: "normal",
 		type: "Normal",
+	},
+	// Brandon
+	blusterywinds: {
+		accuracy: 100,
+		basePower: 60,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		id: "blusterywinds",
+		name: "Blustery Winds",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			// delta stream unable to be done without adding the weather for the move duration then removing it after
+			this.add('-anim', source, "Defog", target);
+		},
+		onHit: function (target, source, move) {
+			/** @type {boolean} */
+			let success = false;
+			if (this.clearWeather()) success = true;
+			if (this.clearTerrain()) success = true;
+			let removeAll = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
+			for (const targetCondition of removeAll) {
+				if (target.side.removeSideCondition(targetCondition)) {
+					if (!removeAll.includes(targetCondition)) continue;
+					this.add('-sideend', target.side, this.getEffect(targetCondition).name, '[from] move: Blustery Winds', '[of] ' + target);
+					success = true;
+				}
+			}
+			for (const sideCondition of removeAll) {
+				if (source.side.removeSideCondition(sideCondition)) {
+					this.add('-sideend', source.side, this.getEffect(sideCondition).name, '[from] move: Blustery Winds', '[of] ' + source);
+					success = true;
+				}
+			}
+			return success;
+		},
+		secondary: null,
+		target: "normal",
+		type: "Flying",
 	},
 	// cant say
 	aesthetislash: {
@@ -269,9 +355,9 @@ let BattleMovedex = {
 	},
 	// Cerberax
 	blimpcrash: {
-		accuracy: true,
+		accuracy: 80,
 		onModifyAccuracy: function (accuracy, target, source) {
-			if (target.isGrounded()) return 80;
+			if (!target.isGrounded()) return true;
 			return accuracy;
 		},
 		basePower: 165,
@@ -296,6 +382,32 @@ let BattleMovedex = {
 		recoil: [1, 2],
 		target: "normal",
 		type: "Flying",
+	},
+	// chaos
+	forcewin: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		id: "forcewin",
+		name: "Forcewin",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, reflectable: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Entrainment", target);
+			this.add('-anim', source, "Lock On", target);
+		},
+		onHit: function (target) {
+			target.addVolatile('taunt');
+			target.addVolatile('embargo');
+			target.addVolatile('torment');
+			target.addVolatile('confusion');
+			target.addVolatile('healblock');
+		},
+		secondary: false,
+		target: "normal",
+		type: "???",
 	},
 	// Chloe
 	beskyttelsesnet: {
@@ -690,6 +802,27 @@ let BattleMovedex = {
 		target: "self",
 		type: "Psychic",
 	},
+	// imas
+	boi: {
+		accuracy: 100,
+		basePower: 120,
+		category: "Physical",
+		desc: "",
+		shortDesc: "",
+		id: "boi",
+		name: "B O I",
+		pp: 15,
+		priority: 1,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Supersonic Skystrike', target);
+		},
+		recoil: [33, 100],
+		secondary: null,
+		target: "normal",
+		type: "Flying",
+	},
 	// Iyarito
 	vbora: {
 		accuracy: 100,
@@ -944,6 +1077,34 @@ let BattleMovedex = {
 		target: "self",
 		type: "Fairy",
 		zMoveEffect: 'clearnegativeboosts',
+	},
+	// MajorBowman
+	blazeofglory: {
+		accuracy: true,
+		basePower: 0,
+		damageCallback: function (pokemon) {
+			let damage = pokemon.hp;
+			pokemon.faint();
+			return damage;
+		},
+		category: "Physical",
+		desc: "",
+		shortDesc: "",
+		id: "blazeofglory",
+		name: "Blaze of Glory",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Recover", source);
+			this.heal(source.maxhp, source, source, 'Blaze of Glory');
+			this.add('-anim', source, "Final Gambit", target);
+		},
+		isZ: "victiniumz",
+		secondary: null,
+		target: "normal",
+		type: "Fire",
 	},
 	// martha
 	crystalboost: {
@@ -1608,6 +1769,28 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Psychic",
+	},
+	// urkerab
+	holyorders: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		id: "holyorders",
+		name: "Holy Orders",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		onPrepareHit: function () {
+			this.attrLastMove('[still]');
+		},
+		onHit: function (target, source) {
+			this.useMove("healorder", source);
+			this.useMove("defendorder", source);
+			this.useMove("attackorder", source);
+		},
+		secondary: false,
+		target: "self",
+		type: "Bug",
 	},
 	// Yuki
 	cutieescape: {
