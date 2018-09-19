@@ -62,8 +62,10 @@ let BattleMovedex = {
 			let removeTarget = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
 			let removeAll = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
 			for (const targetCondition of removeTarget) {
+				// @ts-ignore
 				if (target.side.removeSideCondition(targetCondition)) {
 					if (!removeAll.includes(targetCondition)) continue;
+					// @ts-ignore
 					this.add('-sideend', target.side, this.getEffect(targetCondition).name, '[from] move: Noble Howl', '[of] ' + target);
 					success = true;
 				}
@@ -360,9 +362,9 @@ let BattleMovedex = {
 	// Cerberax
 	blimpcrash: {
 		accuracy: 80,
-		onModifyAccuracy: function (accuracy, target, source) {
-			if (!target.isGrounded()) return true;
-			return accuracy;
+		onModifyAccuracy: function (target) {
+				if (!target.isGrounded()) continue;
+				return true;
 		},
 		basePower: 165,
 		category: "Physical",
