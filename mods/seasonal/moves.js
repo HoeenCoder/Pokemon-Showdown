@@ -50,13 +50,11 @@ let BattleMovedex = {
 			this.add('-anim', source, 'Howl', source);
 			this.add('-anim', source, 'Boomburst', source);
 		},
-		onTry: function (source) {
+		onHit: function (target, source, move) {
 			this.boost({atk: 2}, source, source, 'move: Noble Howl');
 			if (!(['', 'slp', 'frz'].includes(source.status))) {
 				source.cureStatus();
 			}
-		},
-		onHit: function (target, source, move) {
 			let success = false;
 			let removeTarget = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
 			let removeAll = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
@@ -401,12 +399,12 @@ let BattleMovedex = {
 			this.add('-anim', source, "Entrainment", target);
 			this.add('-anim', source, "Lock On", target);
 		},
-		onHit: function (target) {
-			target.addVolatile('taunt');
-			target.addVolatile('embargo');
-			target.addVolatile('torment');
-			target.addVolatile('confusion');
-			target.addVolatile('healblock');
+		onHit: function (target, source) {
+			target.addVolatile('taunt', source);
+			target.addVolatile('embargo', source);
+			target.addVolatile('torment', source);
+			target.addVolatile('confusion', source);
+			target.addVolatile('healblock', source);
 		},
 		secondary: null,
 		target: "normal",
@@ -1782,14 +1780,14 @@ let BattleMovedex = {
 		name: "Holy Orders",
 		pp: 10,
 		priority: 0,
-		flags: {},
+		flags: {snatch: 1},
 		onPrepareHit: function () {
 			this.attrLastMove('[still]');
 		},
 		onHit: function (target, source) {
-			this.useMove("healorder", source);
-			this.useMove("defendorder", source);
-			this.useMove("attackorder", source);
+			this.useMove("healorder", source, source);
+			this.useMove("defendorder", source, source);
+			this.useMove("attackorder", source, source);
 		},
 		secondary: null,
 		target: "self",
