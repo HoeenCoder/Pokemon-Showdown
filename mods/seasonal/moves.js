@@ -131,8 +131,8 @@ let BattleMovedex = {
 					mefirst: 1,
 				};
 				let move = this.getMoveCopy(decision.move.id);
-				if (move.category === 'Status' && !noMeFirst[move] && move.flags['snatch']) {
-					this.useMove(move, pokemon);
+				if (move.category === 'Status' && !noMeFirst[move]) {
+					this.useMove(move, pokemon, pokemon);
 					this.attrLastMove('[still]');
 					this.add('-anim', pokemon, "Sucker Punch", target);
 					this.add('-anim', pokemon, "Night Slash", target);
@@ -149,7 +149,7 @@ let BattleMovedex = {
 			},
 			onBeforeMovePriority: 3,
 			onBeforeMove: function (pokemon, target, move) {
-				if (move.category === 'Status' && move.flags['snatch']) {
+				if (move.category === 'Status') {
 					this.add('-message', move.name + ' was pilfered and was unable to be used.');
 					return false;
 				}
