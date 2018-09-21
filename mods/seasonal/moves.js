@@ -2005,7 +2005,7 @@ let BattleMovedex = {
 		onHit: function (target, source) {
 			this.useMove("healorder", source, source);
 			this.useMove("defendorder", source, source);
-			this.useMove("attackorder", source); // Move fails otherwise
+			this.useMove("attackorder", source, source.side.foe.active[0]);
 		},
 		secondary: null,
 		target: "self",
