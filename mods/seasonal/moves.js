@@ -688,7 +688,7 @@ let BattleMovedex = {
 			this.add('-anim', source, 'Eruption', target);
 			this.add('-anim', source, 'Sunny Day', source);
 		},
-		weather: 'desolateland',
+		weather: 'sunnyday',
 		secondary: null,
 		target: "normal",
 		type: "Fire",
