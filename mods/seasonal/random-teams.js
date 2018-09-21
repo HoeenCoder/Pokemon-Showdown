@@ -57,7 +57,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Absol', ability: 'Adaptability', item: 'Absolite', gender: 'M',
 				moves: ['Dragon Dance', 'Destiny Bond', 'Sucker Punch'],
 				signatureMove: 'Pilfer',
-				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Adamant',
 			},
 			'ant': {
 				species: 'Durant', ability: 'Flash Fire', item: 'Leftovers', gender: 'F',
