@@ -1401,7 +1401,8 @@ let BattleMovedex = {
 
 			this.add(`c|%Meicoo|cool quiz`);
 
-			this.add('-swapboost', source, target, '[from] move: Heart Swap'); // Gives a message notifying the swapping of boosts
+			this.add('-swapboost', source, target, '[from] move: /scavenges u');
+			this.add('-message', source.name + ' switched stat changes with its target!');
 		},
 		secondary: null,
 		target: "normal",
