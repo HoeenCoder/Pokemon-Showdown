@@ -127,11 +127,8 @@ let BattleMovedex = {
 		onTryHit: function (target, pokemon) {
 			let decision = this.willMove(target);
 			if (decision) {
-				let noMeFirst = {
-					mefirst: 1,
-				};
 				let move = this.getMoveCopy(decision.move.id);
-				if (move.category === 'Status' && !noMeFirst[move]) {
+				if (move.category === 'Status' && move.id !== 'mefirst') {
 					this.useMove(move, pokemon, pokemon);
 					this.attrLastMove('[still]');
 					this.add('-anim', pokemon, "Sucker Punch", target);
