@@ -1375,7 +1375,7 @@ let BattleMovedex = {
 		shortDesc: "",
 		id: "changelingcrash",
 		name: "Changeling Crash",
-		
+		isNonstandard: true,
 		pp: 10,
 		priority: 3,
 		flags: {contact: 1, protect: 1, mirror: 1},
@@ -1403,6 +1403,7 @@ let BattleMovedex = {
 		shortDesc: "All active Pokemon sleep 1 turn, restore HP & status.",
 		id: "naptime",
 		name: "Nap Time",
+		isNonstandard: true,
 		pp: 5,
 		priority: 0,
 		flags: {snatch: 1, heal: 1},
@@ -2361,7 +2362,6 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
 		ignoreImmunity: true,
-		isNonstandard: true,
 		onTryHit: function (target, pokemon) {
 			this.attrLastMove('[still]');
 			let move = pokemon.template.speciesid === 'meloettapirouette' ? 'Brick Break' : 'Relic Song';
