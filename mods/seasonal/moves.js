@@ -1256,6 +1256,7 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 3,
 		flags: {contact: 1, protect: 1, mirror: 1},
+		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Play Rough", target);
