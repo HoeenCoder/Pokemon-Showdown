@@ -451,7 +451,7 @@ let BattleMovedex = {
 	},
 	// cc
 	restartingrouter: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "Boosts the user's spa and spe by 1 stage.",
 		shortDesc: "+1 spa, spe",
@@ -544,7 +544,7 @@ let BattleMovedex = {
 	},
 	// chaos
 	forcewin: {
-		accuracy: 100,
+		accuracy: true,
 		basePower: 0,
 		category: "Status",
 		id: "forcewin",
@@ -776,7 +776,7 @@ let BattleMovedex = {
 	},
 	// eternally
 	quack: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "Boosts the users def, spd, and spe by 1 stage.",
 		shortDesc: "+1 def, spd, spe",
@@ -1141,7 +1141,7 @@ let BattleMovedex = {
 	},
 	// Iyarito
 	vbora: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "Cures the user's party of all status conditions, but poisons the user.",
 		shortDesc: "Cures party's statuses, poisons self.",
@@ -1397,7 +1397,7 @@ let BattleMovedex = {
 	},
 	// MacChaeger
 	naptime: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "The user falls asleep for the next turn and restores 50% of its HP, curing itself of any major status condition. If the user falls asleep in this way, all other active Pokemon that are not asleep or frozen also try to use Nap Time. Fails if the user has full HP, is already asleep, or if another effect is preventing sleep.",
 		shortDesc: "All active Pokemon sleep 1 turn, restore HP & status.",
@@ -1674,7 +1674,7 @@ let BattleMovedex = {
 	},
 	// moo
 	proteinshake: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "The user's Attack, Special Attack, and Speed are boosted by 1. The user also gains 100kg of weight.",
 		shortDesc: "+1 atk, spa, and spe. User gains 100kg.",
@@ -2362,6 +2362,9 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
 		ignoreImmunity: true,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+		},
 		onTryHit: function (target, pokemon) {
 			this.attrLastMove('[still]');
 			let move = pokemon.template.speciesid === 'meloettapirouette' ? 'Brick Break' : 'Relic Song';
