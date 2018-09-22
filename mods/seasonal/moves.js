@@ -1381,6 +1381,14 @@ let BattleMovedex = {
 		flags: {contact: 1, protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
+		},
+		// Balancing Reasons
+		onTry: function (source, target) {
+			if (target.transformed) {
+				this.add('-fail', source);
+				return null;
+			}
+			this.attrLastMove('[still]');
 			this.add('-anim', source, "Play Rough", target);
 		},
 		onHit: function (target, pokemon) {
