@@ -2243,9 +2243,6 @@ let BattleMovedex = {
 		type: "Bug",
 	},
 	// Volco
-	/*
-	Animation: Mind Blown or Fire Blast -> Drain Punch (still deciding)
-	*/
 	explosivedrain: {
 		basePower: 90,
 		accuracy: 100,
@@ -2259,7 +2256,8 @@ let BattleMovedex = {
 		drain: [1, 2],
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Mind Blown", source);
+			this.add('-anim', source, "Fire Blast", target);
+			this.add('-anim', source, "Giga Drain", target);
 		},
 		secondary: null,
 		target: "normal",
