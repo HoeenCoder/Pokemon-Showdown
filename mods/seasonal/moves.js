@@ -521,7 +521,7 @@ let BattleMovedex = {
 		basePower: 165,
 		category: "Physical",
 		desc: "80% Accuracy if target is grounded. The user and the target will be grounded, and the user will take 1/2 of the damage inflicted as recoil.",
-		shortDesc: "80% Acc vs grounded, grounds both sides, 1/2 recoil.",
+		shortDesc: "80 Acc vs grounded, grounds both sides, 1/2 recoil.",
 		id: "blimpcrash",
 		name: "Blimp Crash",
 		isNonstandard: true,
