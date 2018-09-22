@@ -395,6 +395,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Holy Orders',
 				evs: {hp: 248, atk: 100, def: 136, spd: 24}, nature: 'Impish',
 			},
+			'Volco': {
+				species: 'Volcanion', ability: 'Unaware', item: 'Assault Vest', gender: 'M',
+				moves: ["Steam Eruption", "Giga Drain", ["Ice Beam", "Ice Beam", "Earth Power"]],
+				signatureMove: 'Explosive Drain',
+				evs: {hp: 248, spa: 252, spd: 8}, ivs: {atk: 0}, nature: 'Modest',
+			},
 			'Yuki': {
 				species: 'Ninetales-Alola', ability: 'Snow Storm', item: 'Focus Sash', gender: 'F',
 				moves: ['Blizzard', 'Moonblast', 'Aurora Veil'],
@@ -412,10 +418,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 		while (pool.length && team.length < 6) {
 			let name = '';
 			// DEBUG CODE
-			let debug = false; // Programmers - Toggle this to use the code below
+			let debug = true; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'HoeenHero';
+				name = 'Volco';
 				if (pool.indexOf(name) > -1) pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);
