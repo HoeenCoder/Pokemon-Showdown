@@ -1060,7 +1060,7 @@ let BattleMovedex = {
 		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, 'Whirlwind', source);
+			this.add('-anim', source, 'Whirlwind', target);
 		},
 		forceSwitch: true,
 		target: "normal",
