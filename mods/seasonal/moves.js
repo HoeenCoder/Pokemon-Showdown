@@ -1248,7 +1248,7 @@ let BattleMovedex = {
 	// Lycanium Z
 	changelingcrash: {
 		accuracy: 100,
-		basePower: 50,
+		basePower: 40,
 		category: "Special",
 		desc: "",
 		shortDesc: "",
