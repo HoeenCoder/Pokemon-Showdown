@@ -544,7 +544,7 @@ let BattleMovedex = {
 	},
 	// chaos
 	forcewin: {
-		accuracy: true,
+		accuracy: 100,
 		basePower: 0,
 		category: "Status",
 		id: "forcewin",
