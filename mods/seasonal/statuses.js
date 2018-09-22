@@ -220,13 +220,13 @@ let BattleStatuses = {
 	ceteris: {
 		noCopy: true,
 		onStart: function () {
-			this.add(`c|%Ceteris|Your loss is inevitable, you best forfeit the battle if you know what's good for you. ╰(⇀︿⇀)つ-]═───`);
+			this.add(`c|@Ceteris|Your loss is inevitable, you best forfeit the battle if you know what's good for you. ╰(⇀︿⇀)つ-]═───`);
 		},
 		onSwitchOut: function (source) {
-			this.add(`c|%Ceteris|Saving the best for last, ${source.side.name}, a wise choice my friend.`);
+			this.add(`c|@Ceteris|Saving the best for last, ${source.side.name}, a wise choice my friend.`);
 		},
 		onFaint: function () {
-			this.add(`c|%Ceteris|IMPOSSIBLE!! THIS IS AN OUTRAGE!! I WILL EXACT MY REVENGE ON YOU ONE DAY (◣_◢)`);
+			this.add(`c|@Ceteris|IMPOSSIBLE!! THIS IS AN OUTRAGE!! I WILL EXACT MY REVENGE ON YOU ONE DAY (◣_◢)`);
 		},
 	},
 	chaos: {
