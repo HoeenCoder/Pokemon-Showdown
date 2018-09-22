@@ -91,7 +91,6 @@ let BattleMovedex = {
 		desc: "Has a 40% chance to paralyze the target. Lowers the user's spa, spd, and spe by 1 stage.",
 		shortDesc: "40% to paralyze target. Lowers user's spa, spd, spe.",
 		id: "energyfield",
-		isNonstandard: true,
 		name: "Energy Field",
 		pp: 10,
 		priority: 0,
@@ -1284,7 +1283,6 @@ let BattleMovedex = {
 		name: "Nap Time",
 		pp: 5,
 		priority: 0,
-		isNonstandard: true,
 		flags: {snatch: 1, heal: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
