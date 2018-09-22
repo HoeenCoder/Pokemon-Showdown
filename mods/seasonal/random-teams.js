@@ -348,7 +348,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 252, def: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'Scotteh': {
-				species: 'Suicune', ability: 'Leftovers', item: 'Fur Coat', gender: 'M',
+				species: 'Suicune', ability: 'Fur Coat', item: 'Leftovers', gender: 'M',
 				moves: ['Nasty Plot', 'Ice Beam', 'Scald', 'Recover'],
 				signatureMove: 'Geomagnetic Storm',
 				evs: {def: 252, spa: 4, spe: 252}, nature: 'Bold',
