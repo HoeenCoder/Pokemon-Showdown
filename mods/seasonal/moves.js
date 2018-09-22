@@ -50,7 +50,6 @@ let BattleMovedex = {
 		pp: 3,
 		noPPBoosts: true,
 		priority: 0,
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Howl', source);
@@ -97,7 +96,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Electro Ball", target);
@@ -125,7 +123,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 1,
 		flags: {protect: 1, mirror: 1, contact: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 		},
@@ -172,7 +169,6 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 5,
 		flags: {protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Sunsteel Strike', target);
@@ -201,7 +197,6 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {snatch: 1, heal: 1},
 		heal: [1, 2],
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Ingrain", target);
@@ -235,7 +230,6 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 10,
 		flags: {protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Gunk Shot", target);
@@ -255,7 +249,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Anchor Shot", target);
@@ -284,7 +277,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Bug Buzz', source);
@@ -309,7 +301,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: -6,
 		flags: {protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Stockpile', source);
@@ -333,7 +324,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			// delta stream unable to be done without adding the weather for the move duration then removing it after
@@ -377,7 +367,6 @@ let BattleMovedex = {
 		noPPBoosts: true,
 		priority: 0,
 		flags: {},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Amnesia', source);
@@ -448,7 +437,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Geomancy', source);
@@ -473,7 +461,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {mirror: 1, snatch: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Charge', source);
@@ -495,7 +482,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {reflectable: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Dark Void", target);
@@ -528,7 +514,6 @@ let BattleMovedex = {
 	// Cerberax
 	blimpcrash: {
 		accuracy: true,
-		isNonstandard: true,
 		onModifyAccuracy: function (accuracy, target, source) {
 			if (target.isGrounded()) return 80;
 			return accuracy;
@@ -568,7 +553,6 @@ let BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1, reflectable: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Entrainment", target);
@@ -597,7 +581,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {mirror: 1, snatch: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Geomancy', source);
@@ -625,7 +608,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {mirror: 1, snatch: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Dark Void', target);
@@ -658,7 +640,6 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 5,
 		priority: 0,
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Swords Dance', source);
@@ -690,7 +671,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 1,
 		flags: {mirror: 1, protect: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Extreme Speed', target);
@@ -721,7 +701,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {mirror: 1, protect: 1, bite: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Burn Up', target);
@@ -750,7 +729,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {mirror: 1, protect: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Eruption', target);
@@ -773,7 +751,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 		},
@@ -809,7 +786,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {mirror: 1, snatch: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Feather Dance', source);
@@ -833,7 +809,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {mirror: 1, protect: 1},
-		isNonstandard: true,
 		onModifyMove: function (move, pokemon, target) {
 			move.type = pokemon.types[0];
 			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) move.category = 'Physical';
@@ -893,7 +868,6 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		selfdestruct: "ifHit",
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-activate', source, 'move: Celebrate');
@@ -1156,7 +1130,6 @@ let BattleMovedex = {
 		pp: 15,
 		priority: 1,
 		flags: {contact: 1, protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Supersonic Skystrike', target);
@@ -1177,7 +1150,6 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 5,
 		flags: {mirror: 1, snatch: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Acid Armor', source);
@@ -1208,7 +1180,6 @@ let BattleMovedex = {
 		pp: 15,
 		priority: -6,
 		flags: {protect: 1, mirror: 1, sound: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Whirlwind', target);
@@ -1231,7 +1202,6 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		volatileStatus: 'partiallytrapped',
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, 'Dark Void', target);
@@ -1279,7 +1249,6 @@ let BattleMovedex = {
 		category: "Physical",
 		desc: "Lowers the user's Defense, Special Defense and Speed by 1 stage.",
 		shortDesc: "Lowers the user's Def, SpD and Spe by 1.",
-		isNonstandard: true,
 		id: "inkzooka",
 		name: "Inkzooka",
 		isNonstandard: true,
@@ -1336,7 +1305,6 @@ let BattleMovedex = {
 		name: "Next Level Strats",
 		isNonstandard: true,
 		pp: 5,
-		isNonstandard: true,
 		priority: 0,
 		flags: {snatch: 1},
 		onPrepareHit: function (target, source) {
@@ -1407,10 +1375,10 @@ let BattleMovedex = {
 		shortDesc: "",
 		id: "changelingcrash",
 		name: "Changeling Crash",
+		
 		pp: 10,
 		priority: 3,
 		flags: {contact: 1, protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Play Rough", target);
@@ -1435,7 +1403,6 @@ let BattleMovedex = {
 		shortDesc: "All active Pokemon sleep 1 turn, restore HP & status.",
 		id: "naptime",
 		name: "Nap Time",
-		isNonstandard: true,
 		pp: 5,
 		priority: 0,
 		flags: {snatch: 1, heal: 1},
@@ -1486,7 +1453,6 @@ let BattleMovedex = {
 	blazeofglory: {
 		accuracy: true,
 		basePower: 0,
-		isNonstandard: true,
 		damageCallback: function (pokemon) {
 			let damage = pokemon.hp;
 			pokemon.faint();
@@ -1552,7 +1518,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {authentic: 1, protect: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Conversion", source);
@@ -1602,7 +1567,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {mirror: 1, protect: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Imprison", source);
@@ -1648,7 +1612,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Dragon Hammer", target);
@@ -1684,7 +1647,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {mirror: 1, protect: 1, contact: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Rapid Spin", target);
@@ -1725,7 +1687,6 @@ let BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Milk Drink", source);
 		},
-		isNonstandard: true,
 		volatileStatus: 'proteinshake',
 		effect: {
 			onStart: function (pokemon) {
@@ -1761,7 +1722,6 @@ let BattleMovedex = {
 		pp: 20,
 		priority: 0,
 		flags: {mirror: 1, protect: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Freeze Dry", target);
@@ -1800,7 +1760,6 @@ let BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		flags: {mirror: 1, protect: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Fire Lash", target);
@@ -1833,7 +1792,6 @@ let BattleMovedex = {
 			}
 			return move.basePower + faintedmons;
 		},
-		isNonstandard: true,
 		accuracy: 100,
 		category: "Physical",
 		desc: "",
@@ -1865,7 +1823,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, reflectable: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Toxic", target);
@@ -1901,7 +1858,6 @@ let BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Genesis Supernova", source);
 		},
-		isNonstandard: true,
 		terrain: 'literallycheating',
 		effect: {
 			duration: 3,
@@ -1951,7 +1907,6 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 10,
 		priority: 0,
-		isNonstandard: true,
 		flags: {protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -1974,7 +1929,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {snatch: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Swords Dance", source);
@@ -2000,7 +1954,6 @@ let BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Thunder", target);
@@ -2032,7 +1985,6 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {snatch: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Celebrate", target);
@@ -2089,7 +2041,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1, heal: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Dragon Ascent", target);
@@ -2115,7 +2066,6 @@ let BattleMovedex = {
 		pp: 1,
 		priority: 0,
 		flags: {},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Psywave", target);
@@ -2209,7 +2159,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {snatch: 1, mirror: 1},
-		isNonstandard: true,
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Smokescreen", target);
@@ -2260,7 +2209,6 @@ let BattleMovedex = {
 			return 20;
 		},
 		category: "Special",
-		isNonstandard: true,
 		desc: "The heavier the target is, the more damage this move does. The target's item is replaced with an Iron Ball, and the target's weight is doubled.",
 		shortDesc: "Heavier foe = more power. Increases foe's weigth.",
 		id: "minisingularity",
@@ -2317,7 +2265,6 @@ let BattleMovedex = {
 			this.useMove("defendorder", source, source);
 			this.useMove("attackorder", source, source.side.foe.active[0]);
 		},
-		isNonstandard: true,
 		secondary: null,
 		target: "self",
 		type: "Bug",
@@ -2331,6 +2278,7 @@ let BattleMovedex = {
 		shortDesc: "10% chance to raise all stats by 1 (not acc/eva).",
 		id: "blehflame",
 		name: "Bleh Flame",
+		isNonstandard: true,
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
@@ -2351,7 +2299,6 @@ let BattleMovedex = {
 				},
 			},
 		},
-		isNonstandard: true,
 		target: "normal",
 		type: "Fire",
 	},
@@ -2367,7 +2314,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: -6,
 		flags: {snatch: 1, mirror: 1},
-		isNonstandard: true,
 		beforeTurnCallback: function (pokemon) {
 			pokemon.addVolatile('cutieescape');
 			this.add('-message', `${pokemon.name} is preparing to flee!`);
