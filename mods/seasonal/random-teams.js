@@ -263,6 +263,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Bar Fight',
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
 			},
+			'Lycanium Z': {
+				species: 'Keldeo', ability: 'Protean', item: 'Choice Scarf', gender: 'N',
+				moves: ['Steam Eruption', 'Secret Sword', ['Frost Breath', 'Power Gem', 'Discharge']],
+				signatureMove: 'Changeling Crash',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
+			},
 			'MacChaeger': {
 				species: 'Mantyke', ability: 'Water Veil', item: ['Life Orb', 'Normalium Z'], gender: 'M',
 				moves: ['Scald', 'Aeroblast', 'Sleep Talk'],
@@ -401,6 +407,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Cutie Escape',
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
 			},
+			'XpRienzo ☑◡☑': {
+				species: 'Reshiram', ability: 'Turboblaze', item: 'Charcoal', gender: 'M',
+				moves: ['Core Enforcer', 'Volt Switch', 'Psystrike'],
+				signatureMove: 'Bleh Flame',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {hp: 24, def: 25, spd: 20}, nature: 'Timid',
+			},
 			'Zarel': {
 				species: 'Meloetta', ability: 'Serene Grace', item: '', gender: 'M',
 				moves: ['Lunar Dance', 'Fiery Dance', 'Perish Song', 'Petal Dance', 'Quiver Dance'],
@@ -415,7 +427,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let debug = false; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'Zarel';
+				name = '';
 				if (pool.indexOf(name) > -1) pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);

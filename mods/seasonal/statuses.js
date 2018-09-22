@@ -535,6 +535,19 @@ let BattleStatuses = {
 			if (move.aerilateBoosted) return this.chainModify([0x1333, 0x1000]);
 		},
 	},
+	lycaniumz: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c| Lycanium Z|Oh? Is it my turn? Alright, I'll try my best.`);
+		},
+		onSwitchOut: function () {
+			this.add(`c| Lycanium Z|Time to regroup and retreat.`);
+		},
+		onFaint: function () {
+			this.add(`c| Lycanium Z|/me sigh`);
+			this.add(`c| Lycanium Z|Why me?`);
+		},
+	},
 	macchaeger: {
 		noCopy: true,
 		onStart: function () {
@@ -792,6 +805,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`l|%urkerab`);
+		},
+	},
+	xprienzo: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+XpRienzo ☑◡☑|Bleh`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+XpRienzo ☑◡☑|>.>`);
+		},
+		onFaint: function () {
+			this.add(`c|+XpRienzo ☑◡☑|Wait what?`);
 		},
 	},
 	yuki: {
