@@ -1384,7 +1384,7 @@ let BattleMovedex = {
 		},
 		// Balancing Reasons
 		onTry: function (source, target) {
-			if (target.transformed) {
+			if (target.transformed || source.transformed) {
 				this.add('-fail', source);
 				return null;
 			}
