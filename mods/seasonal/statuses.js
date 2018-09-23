@@ -654,6 +654,31 @@ let BattleStatuses = {
 			this.add(`c|@moo|/me moo`);
 		},
 	},
+	morfent: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@Morfent ( _̀> ̀)|──────▀█████▄──────▲`);
+			this.add(`c|@Morfent ( _̀> ̀)|───▄███████████▄──◀█▶`);
+			this.add(`c|@Morfent ( _̀> ̀)|─────▄████▀█▄──────█`);
+			this.add(`c|@Morfent ( _̀> ̀)|───▄█████████████████▄ -I`);
+			this.add(`c|@Morfent ( _̀> ̀)|─▄█████.▼.▼.▼.▼.▼.▼.▼  -cast`);
+			this.add(`c|@Morfent ( _̀> ̀)|▄███████▄.▲.▲.▲.▲.▲.▲  -magic`);
+			this.add(`c|@Morfent ( _̀> ̀)|█████████████████████▀▀-shitpost`);
+		},
+		onFaint: function () {
+			// Morfent returns something so im doing it this way
+			let endquote = this.random(3);
+			if (endquote === 1) {
+				this.add(`c|@Morfent ( _̀> ̀)|Hacking claims the lives of over 2,000 registered laddering alts every day.`);
+			} else if (endquote === 2) {
+				this.add(`c|@Morfent ( _̀> ̀)|Every 60 seconds in Africa, a minute passes. Together we can stop this. Please spread the word.`);
+			} else {
+				this.add(`c|@Morfent ( _̀> ̀)|!dt morfent's husbando`);
+				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col numcol">UU</span> <span class="col iconcol"><span class="picon" style="background: transparent url(&quot;//play.pokemonshowdown.com/sprites/smicons-sheet.png?a4&quot;) no-repeat scroll -400px -210px"></span></span> <span class="col pokemonnamecol" style="white-space: nowrap"><a href="https://pokemonshowdown.com/dex/pokemon/gengar" target="_blank" rel="noopener">Gengar</a></span> <span class="col typecol"><img src="https://play.pokemonshowdown.com/sprites/types/Ghost.png" alt="Ghost" height="14" width="32"><img src="https://play.pokemonshowdown.com/sprites/types/Poison.png" alt="Poison" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">Cursed Body</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>60</span> <span class="col statcol"><em>Atk</em><br>65</span> <span class="col statcol"><em>Def</em><br>60</span> <span class="col statcol"><em>SpA</em><br>130</span> <span class="col statcol"><em>SpD</em><br>75</span> <span class="col statcol"><em>Spe</em><br>110</span> <span class="col bstcol"><em>BST<br>500</em></span> </span></li><li style="clear: both"></li></ul>`);
+				this.add(`raw|<font size="1"><font color="#686868">Dex#:</font> 94&nbsp;|  <font color="#686868">Gen:</font> 1&nbsp;|  <font color="#686868">Height:</font> 1.5 m&nbsp;|  <font color="#686868">Weight:</font> 40.5 kg <em>(60 BP)</em>&nbsp;|  <font color="#686868">Dex Colour:</font> Purple&nbsp;|  <font color="#686868">Egg Group(s):</font> Amorphous&nbsp;|  <font color="#686868">Does Not Evolve</font></font>`);
+			}
+		},
+	},
 	nui: {
 		noCopy: true,
 		onStart: function () {
@@ -748,6 +773,18 @@ let BattleStatuses = {
 		},
 		onSwitchOut: function () {
 			this.add(`c|%Shiba|gotta buy an alt rq brb`);
+		},
+	},
+	teclis: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Teclis|Sometimes you have to fight to get your point across.`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Teclis|You deserve a break.`);
+		},
+		onFaint: function () {
+			this.add(`c|+Teclis|I'm convinced !`);
 		},
 	},
 	tennisace: {
@@ -929,6 +966,22 @@ let BattleStatuses = {
 			if (move.basePower) {
 				move.basePower += 20;
 				this.debug('glitch out base power boost');
+			}
+		},
+	},
+	// Reverse Foresight for Morfent
+	reverseforesight: {
+		id: 'reverseforesight',
+		duration: 0,
+		onStart: function (pokemon) {
+			this.add('-start', pokemon, 'Reverse Foresight');
+			this.add('-message', pokemon.name + ' can hit normal types with ghost type attacks!');
+		},
+		onModifyMovePriority: -5,
+		onModifyMove: function (move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Ghost'] = true;
 			}
 		},
 	},
