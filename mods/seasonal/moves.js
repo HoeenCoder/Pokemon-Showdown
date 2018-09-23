@@ -1779,6 +1779,32 @@ let BattleMovedex = {
 		target: "self",
 		type: "Normal",
 	},
+	// Morfent
+	e: {
+		accuracy: true,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "e",
+		name: "E",
+		isNonstandard: true,
+		pp: 5,
+		priority: 0,
+		flags: {snatch: 1, mirror: 1, heal: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Recover", source);
+			this.add('-anim', source, "Nasty Plot", source);
+		},
+		onHit: function (target, source) {
+			source.addVolatile('confusion', source);
+			source.addVolatile('reverseforesight', source);
+		},
+		heal: [1, 2],
+		secondary: null,
+		target: "self",
+		type: "Ghost",
+	},
 	// nui
 	pyramidingsong: {
 		accuracy: 100,
@@ -2009,6 +2035,31 @@ let BattleMovedex = {
 		},
 		target: "self",
 		type: "Flying",
+	},
+	// Teclis
+	zekken: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "Raises the user's Speed by 1 stage and its Attack by 2 stages.",
+		shortDesc: "Raises the user's Speed by 1 and Attack by 2.",
+		id: "zekken",
+		name: "Zekken",
+		isNonstandard: true,
+		pp: 10,
+		priority: 0,
+		flags: {snatch: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Swords Dance", source);
+		},
+		boosts: {
+			atk: 2,
+			spe: 1,
+		},
+		secondary: null,
+		target: "self",
+		type: "Fairy",
 	},
 	// tennisace
 	groundsurge: {
