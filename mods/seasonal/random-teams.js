@@ -329,6 +329,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Protein Shake',
 				evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful',
 			},
+			'Morfent ( _̀> ̀)': {
+				species: 'Banette', ability: 'Intimidate', item: 'Banettite', gender: 'M',
+				moves: ['Shadow Sneak', 'Destiny Bond', 'Belly Drum'],
+				signatureMove: 'E',
+				evs: {hp: 184, atk: 252, def: 68, spd: 4}, nature: 'Adamant',
+			},
 			'nui': {
 				species: 'Milotic', ability: 'Prismatic Terrain', item: 'Waterium Z', gender: 'N',
 				moves: ['Steam Eruption', 'Toxic', 'Recover'],
@@ -370,6 +376,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Dragon Ascent', 'Sacred Fire', 'Roost'],
 				signatureMove: 'GO INDA',
 				evs: {atk: 252, hp: 248, spe: 8}, nature: 'Adamant',
+			},
+			'Teclis': {
+				species: 'Gallade', ability: 'Intimidate', item: 'Galladite', gender: 'M',
+				moves: ['Sacred Sword', 'Psycho Cut', 'Knock Off'],
+				signatureMove: 'Zekken',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Timid',
 			},
 			'tennisace': {
 				species: 'Raikou', ability: 'Levitate', item: 'Life Orb', gender: 'M',
@@ -439,7 +451,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let debug = false; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'Amaluna';
+				name = '';
 				if (pool.indexOf(name) > -1) pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);
