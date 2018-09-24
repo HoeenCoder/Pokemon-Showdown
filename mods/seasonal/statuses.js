@@ -971,8 +971,6 @@ let BattleStatuses = {
 	},
 	// Reverse Foresight for Morfent
 	reverseforesight: {
-		id: 'reverseforesight',
-		duration: 0,
 		onStart: function (pokemon) {
 			this.add('-start', pokemon, 'Reverse Foresight');
 			this.add('-message', pokemon.name + ' can hit normal types with ghost type attacks!');
