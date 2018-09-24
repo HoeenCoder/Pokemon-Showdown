@@ -1427,14 +1427,14 @@ let BattleMovedex = {
 		type: "Ice",
 	},
 	// Lycanium Z
-	changelingcrash: {
+	ipmerge: {
 		accuracy: 100,
 		basePower: 40,
 		category: "Special",
 		desc: "",
 		shortDesc: "",
-		id: "changelingcrash",
-		name: "Changeling Crash",
+		id: "ipmerge",
+		name: "IP Merge",
 		isNonstandard: true,
 		pp: 10,
 		priority: 3,
