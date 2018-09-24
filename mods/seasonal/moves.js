@@ -1789,7 +1789,7 @@ let BattleMovedex = {
 		name: "E",
 		isNonstandard: true,
 		pp: 5,
-		priority: 0,
+		priority: 1,
 		flags: {snatch: 1, mirror: 1, heal: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
