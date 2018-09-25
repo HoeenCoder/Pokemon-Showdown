@@ -53,6 +53,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Energy Field',
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
+			'Amaluna': {
+				species: 'Octillery', ability: 'Neuroforce', item: 'Expert Belt', gender: 'F',
+				moves: ['Surf', 'Fire Blast', 'Freeze-Dry'],
+				signatureMove: 'Turismo Splash',
+				evs: {hp: 252, spa: 252, spd: 4}, ivs: {atk: 0, spe: 0}, nature: 'Quiet',
+			},
 			'Andy >_>': {
 				species: 'Absol', ability: 'Adaptability', item: 'Absolite', gender: 'M',
 				moves: ['Dragon Dance', 'Destiny Bond', 'Sucker Punch'],
@@ -197,6 +203,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'fr*ck',
 				evs: {atk: 252, spe: 252, def: 4}, nature: 'Jolly', shiny: true,
 			},
+			'FOMG': {
+				species: 'Golem', ability: 'Serene Grace', item: 'Astleyium Z', gender: 'M',
+				moves: ['Earthquake', 'Explosion', 'Iron Head'],
+				signatureMove: 'Rock Slide',
+				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
+			},
 			'grimAuxiliatrix': {
 				species: 'Aggron', ability: 'Sturdy', item: 'Aggronite', gender: '',
 				moves: [['Toxic', 'Thunder Wave'], ['Stone Edge', 'Heat Crash'], 'Earthquake'],
@@ -252,7 +264,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {atk: 252, hp: 4, spe: 252}, nature: 'Jolly',
 			},
 			'Level 51': {
-				species: 'Porygon2', ability: 'Unaware', item: 'Eviolite', gender: 'N',
+				species: 'Porygon2', ability: 'Stamina', item: 'Eviolite', gender: 'N',
 				moves: ['Recover', ['Seismic Toss', 'Night Shade'], ['Cosmic Power', 'Aqua Ring']],
 				signatureMove: 'Next Level Strats',
 				evs: {hp: 236, def: 220, spd: 48, spe: 4}, ivs: {atk: 0}, nature: 'Calm',
@@ -262,6 +274,18 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Ice Shard', 'Return', 'Explosion'],
 				signatureMove: 'Bar Fight',
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
+			},
+			'Lionyx': {
+				species: 'Gardevoir', ability: 'Frozen Skin', item: 'Gardevoirite', gender: 'F',
+				moves: [['Thunder Wave', 'Will-O-Wisp', 'Toxic', 'Sing'], ['Moonblast', 'Psychic'], 'Calm Mind'],
+				signatureMove: 'Let it Go',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
+			},
+			'Lycanium Z': {
+				species: 'Keldeo', ability: 'Protean', item: 'Choice Scarf', gender: 'N',
+				moves: ['Steam Eruption', 'Secret Sword', ['Frost Breath', 'Power Gem', 'Discharge']],
+				signatureMove: 'Changeling Crash',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
 			},
 			'MacChaeger': {
 				species: 'Mantyke', ability: 'Water Veil', item: ['Life Orb', 'Normalium Z'], gender: 'M',
@@ -311,6 +335,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Protein Shake',
 				evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful',
 			},
+			'Morfent ( _̀> ̀)': {
+				species: 'Banette', ability: 'Intimidate', item: 'Banettite', gender: 'M',
+				moves: ['Shadow Sneak', 'Destiny Bond', 'Belly Drum'],
+				signatureMove: 'E',
+				evs: {hp: 184, atk: 252, def: 68, spd: 4}, nature: 'Adamant',
+			},
 			'nui': {
 				species: 'Milotic', ability: 'Prismatic Terrain', item: 'Waterium Z', gender: 'N',
 				moves: ['Steam Eruption', 'Toxic', 'Recover'],
@@ -329,6 +359,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Night March',
 				evs: {hp: 252, atk: 144, spd: 112}, nature: 'Adamant', shiny: true,
 			},
+			'Overneat': {
+				species: 'Sylveon', ability: 'Fairy Aura', item: 'Power Herb', gender: 'F',
+				moves: ['Geomancy', 'Psyshock', 'Earth Power'],
+				signatureMove: 'Total Leech',
+				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+			},
 			'Paradise': {
 				species: 'Muk', ability: 'Unaware', item: 'Black Sludge', gender: '',
 				moves: ['Wish', 'Knock Off', 'Protect'],
@@ -342,7 +378,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 252, def: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'Scotteh': {
-				species: 'Suicune', ability: 'Leftovers', item: 'Fur Coat', gender: 'M',
+				species: 'Suicune', ability: 'Fur Coat', item: 'Leftovers', gender: 'M',
 				moves: ['Nasty Plot', 'Ice Beam', 'Scald', 'Recover'],
 				signatureMove: 'Geomagnetic Storm',
 				evs: {def: 252, spa: 4, spe: 252}, nature: 'Bold',
@@ -352,6 +388,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Dragon Ascent', 'Sacred Fire', 'Roost'],
 				signatureMove: 'GO INDA',
 				evs: {atk: 252, hp: 248, spe: 8}, nature: 'Adamant',
+			},
+			'Teclis': {
+				species: 'Gallade', ability: 'Intimidate', item: 'Galladite', gender: 'M',
+				moves: ['Sacred Sword', 'Psycho Cut', 'Knock Off'],
+				signatureMove: 'Zekken',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', shiny: true,
 			},
 			'tennisace': {
 				species: 'Raikou', ability: 'Levitate', item: 'Life Orb', gender: 'M',
@@ -369,7 +411,13 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Buzzwole', ability: 'Beast Boost 2', item: 'Assault Vest', gender: 'N', // confirm with TI
 				moves: ['Leech Life', 'Plasma Fists', 'Ice Punch'],
 				signatureMove: 'Ultra Succ',
-				evs: {atk: 252, hp: 252, spd: 4}, nature: 'Adamant',
+				evs: {hp: 252, atk: 252, spd: 4}, nature: 'Adamant',
+			},
+			'The Leprechaun': {
+				species: 'Bronzong', ability: 'Steelworker', item: 'Life Orb', gender: 'N',
+				moves: ['Photon Geyser', 'Precipice Blades', 'Diamond Storm'],
+				signatureMove: 'Gyro Ballin\'',
+				evs: {hp: 252, atk: 252, def: 4}, ivs: {spe: 0}, nature: 'Brave', shiny: true,
 			},
 			'Tiksi': {
 				species: 'Cradily', ability: 'Sand Stream', item: 'Tiksium Z', gender: 'M',
@@ -406,6 +454,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Blizzard', 'Moonblast', 'Aurora Veil'],
 				signatureMove: 'Cutie Escape',
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
+			},
+			'XpRienzo ☑◡☑': {
+				species: 'Reshiram', ability: 'Turboblaze', item: 'Charcoal', gender: 'M',
+				moves: ['Core Enforcer', 'Volt Switch', 'Psystrike'],
+				signatureMove: 'Bleh Flame',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {hp: 24, def: 25, spd: 20}, nature: 'Timid',
 			},
 			'Zarel': {
 				species: 'Meloetta', ability: 'Serene Grace', item: '', gender: 'M',

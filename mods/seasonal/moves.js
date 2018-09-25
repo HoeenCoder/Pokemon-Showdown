@@ -110,6 +110,36 @@ let BattleMovedex = {
 		type: "Electric",
 		zMovePower: 200,
 	},
+	// Amaluna
+	turismosplash: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "turismosplash",
+		name: "Turismo Splash",
+		isNonstandard: true,
+		pp: 5,
+		priority: -6,
+		onModifyMove: function (move) {
+			if (!this.pseudoWeather.trickroom) {
+				move.pseudoWeather = 'trickroom';
+			}
+		},
+		flags: {snatch: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Coil", source);
+			this.add('-anim', source, "Extreme Evoboost", source);
+		},
+		boosts: {
+			spa: 1,
+		},
+		secondary: null,
+		target: "self",
+		type: "Water",
+	},
 	// Andy
 	pilfer: {
 		accuracy: 100,
@@ -149,7 +179,7 @@ let BattleMovedex = {
 			onBeforeMovePriority: 3,
 			onBeforeMove: function (pokemon, target, move) {
 				if (move.category === 'Status') {
-					this.add('-message', move.name + ' was pilfered and was unable to be used.');
+					this.add('-message', move.name + ' was pilfered and unable to be used.');
 					return false;
 				}
 			},
@@ -451,7 +481,7 @@ let BattleMovedex = {
 	},
 	// cc
 	restartingrouter: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "Boosts the user's spa and spe by 1 stage.",
 		shortDesc: "+1 spa, spe",
@@ -520,8 +550,8 @@ let BattleMovedex = {
 		},
 		basePower: 165,
 		category: "Physical",
-		desc: "Will always hit a target who isn't grounded. The user and the target will be grounded, and the user will take 1/2 of the damage inflicted as recoil.",
-		shortDesc: "Always hits levitating, grounds both sides, 1/2 recoil.",
+		desc: "80% Accuracy if target is grounded. The user and the target will be grounded, and the user will take 1/2 of the damage inflicted as recoil.",
+		shortDesc: "80 Acc vs grounded, grounds both sides, 1/2 recoil.",
 		id: "blimpcrash",
 		name: "Blimp Crash",
 		isNonstandard: true,
@@ -776,7 +806,7 @@ let BattleMovedex = {
 	},
 	// eternally
 	quack: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "Boosts the users def, spd, and spe by 1 stage.",
 		shortDesc: "+1 def, spd, spe",
@@ -877,6 +907,46 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "???",
+	},
+	// FOMG
+	rickrollout: {
+		accuracy: true,
+		basePower: 140,
+		category: "Physical",
+		desc: "",
+		shortDesc: "",
+		id: "rickrollout",
+		name: "Rickrollout",
+		isNonstandard: true,
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Rock Polish', source);
+			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
+		},
+		onHit: function () {
+			let messages = ["SPL players don't want you to know about this secret",
+				"North American player reveals the concerning secret how to make money with pokemon that will crack you up",
+				"10 amazing facts about Zarel you have never heard of",
+				"Veteran player shared his best team with a beginner - here's what happened after",
+				"Use these 3 simple methods to gain 200+ rating in 10 minutes"][this.random(5)];
+
+			this.add(`raw|<a href = "https://www.youtube.com/watch?v=oHg5SJYRHA0"><b>${messages}</b></a>`);
+		},
+		self: {
+			boosts: {
+				spe: 2,
+			},
+		},
+		secondary: {
+			chance: 30,
+			volatileStatus: 'confusion',
+		},
+		isZ: "astleyiumz",
+		target: "normal",
+		type: "Rock",
 	},
 	// grimAuxiliatrix
 	paintrain: {
@@ -1141,7 +1211,7 @@ let BattleMovedex = {
 	},
 	// Iyarito
 	vbora: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "Cures the user's party of all status conditions, but poisons the user.",
 		shortDesc: "Cures party's statuses, poisons self.",
@@ -1182,7 +1252,7 @@ let BattleMovedex = {
 		flags: {protect: 1, mirror: 1, sound: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, 'Whirlwind', source);
+			this.add('-anim', source, 'Whirlwind', target);
 		},
 		forceSwitch: true,
 		target: "normal",
@@ -1317,8 +1387,8 @@ let BattleMovedex = {
 			pokemon.set.level = pokemon.level;
 			pokemon.formeChange(template);
 			// ability is set to default from formeChange
-			pokemon.setAbility('unaware');
-			this.add('-hint', 'Level 51 still has the Unaware ability.');
+			pokemon.setAbility('stamina');
+			this.add('-hint', 'Level 51 still has the Stamina ability.');
 
 			pokemon.details = template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
 			this.add('detailschange', pokemon, pokemon.details);
@@ -1328,7 +1398,7 @@ let BattleMovedex = {
 			pokemon.maxhp = newHP;
 			this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
 
-			this.add('-message', `${pokemon.name} advanced 10 levels! It is now level ${pokemon.level}!`);
+			this.add('-message', `${pokemon.name} advanced 5 levels! It is now level ${pokemon.level}!`);
 		},
 		secondary: null,
 		target: "self",
@@ -1366,9 +1436,80 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Flying",
 	},
+	// Lionyx
+	letitgo: {
+		accuracy: 95,
+		basePower: 110,
+		category: "Physical",
+		desc: "",
+		shortDesc: "",
+		id: "letitgo",
+		name: "Let it Go",
+		isNonstandard: true,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Ice Beam", target);
+			this.add('-anim', source, "Subzero Slammer", target);
+			this.add('-anim', source, "Hyper Voice", target);
+		},
+		secondaries: [
+			{
+				chance: 5,
+				status: 'frz',
+			}, {
+				chance: 15,
+				boosts: {
+					spd: -1,
+				},
+			},
+		],
+		weather: 'hail',
+		target: "normal",
+		type: "Ice",
+	},
+	// Lycanium Z
+	ipmerge: {
+		accuracy: 100,
+		basePower: 40,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		id: "ipmerge",
+		name: "IP Merge",
+		isNonstandard: true,
+		pp: 10,
+		priority: 3,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+		},
+		// Balancing Reasons
+		onTry: function (source, target) {
+			if (target.transformed || source.transformed) {
+				this.add('-fail', source);
+				return null;
+			}
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Play Rough", target);
+		},
+		onHit: function (target, pokemon) {
+			if (!pokemon.transformInto(target, pokemon)) {
+				return false;
+			}
+		},
+		secondary: {
+			chance: 100,
+			volatileStatus: 'flinch',
+		},
+		target: "normal",
+		type: "Bug",
+	},
 	// MacChaeger
 	naptime: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "The user falls asleep for the next turn and restores 50% of its HP, curing itself of any major status condition. If the user falls asleep in this way, all other active Pokemon that are not asleep or frozen also try to use Nap Time. Fails if the user has full HP, is already asleep, or if another effect is preventing sleep.",
 		shortDesc: "All active Pokemon sleep 1 turn, restore HP & status.",
@@ -1645,7 +1786,7 @@ let BattleMovedex = {
 	},
 	// moo
 	proteinshake: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "The user's Attack, Special Attack, and Speed are boosted by 1. The user also gains 100kg of weight.",
 		shortDesc: "+1 atk, spa, and spe. User gains 100kg.",
@@ -1681,6 +1822,32 @@ let BattleMovedex = {
 		secondary: null,
 		target: "self",
 		type: "Normal",
+	},
+	// Morfent
+	e: {
+		accuracy: true,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "e",
+		name: "E",
+		isNonstandard: true,
+		pp: 5,
+		priority: 1,
+		flags: {snatch: 1, mirror: 1, heal: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Recover", source);
+			this.add('-anim', source, "Nasty Plot", source);
+		},
+		onHit: function (target, source) {
+			source.addVolatile('confusion', source);
+			source.addVolatile('reverseforesight', source);
+		},
+		heal: [1, 2],
+		secondary: null,
+		target: "self",
+		type: "Ghost",
 	},
 	// nui
 	pyramidingsong: {
@@ -1782,6 +1949,27 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Ghost",
+	},
+	// Overneat
+	totalleech: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		id: "totalleech",
+		name: "Total Leech",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, heal: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Leech Life", target);
+		},
+		drain: [1, 2],
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
 	},
 	// Paradise
 	"corrosivetoxic": {
@@ -1913,6 +2101,31 @@ let BattleMovedex = {
 		target: "self",
 		type: "Flying",
 	},
+	// Teclis
+	zekken: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "Raises the user's Speed by 1 stage and its Attack by 2 stages.",
+		shortDesc: "Raises the user's Speed by 1 and Attack by 2.",
+		id: "zekken",
+		name: "Zekken",
+		isNonstandard: true,
+		pp: 10,
+		priority: 0,
+		flags: {snatch: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Swords Dance", source);
+		},
+		boosts: {
+			atk: 2,
+			spe: 1,
+		},
+		secondary: null,
+		target: "self",
+		type: "Fairy",
+	},
 	// tennisace
 	groundsurge: {
 		accuracy: 100,
@@ -1931,7 +2144,6 @@ let BattleMovedex = {
 			this.add('-anim', source, "Thunder", target);
 			this.add('-anim', source, "Fissure", target);
 		},
-		// I tried using Thousand Arrows's code, doesnt work.
 		onModifyMovePriority: -5,
 		onModifyMove: function (move) {
 			if (!move.ignoreImmunity) move.ignoreImmunity = {};
@@ -2025,6 +2237,43 @@ let BattleMovedex = {
 		drain: [1, 2],
 		target: "normal",
 		type: "Fighting",
+	},
+	// The Leprechaun
+	gyroballin: {
+		accuracy: 100,
+		basePower: 0,
+		basePowerCallback: function (pokemon, target) {
+			let power = (Math.floor(25 * target.getStat('spe') / pokemon.getStat('spe')) || 1);
+			if (power > 150) power = 150;
+			this.debug('' + power + ' bp');
+			return power;
+		},
+		onModifyMove: function (move) {
+			if (!this.pseudoWeather.trickroom) {
+				move.pseudoWeather = 'trickroom';
+			}
+		},
+		category: "Physical",
+		desc: "",
+		shortDesc: "",
+		id: "gyroballin",
+		name: "Gyro Ballin'",
+		isNonstandard: true,
+		pp: 5,
+		priority: 0,
+		flags: {bullet: 1, contact: 1, protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Gyro Ball", target);
+		},
+		onHit: function () {
+			this.add('-fieldactivate', 'move: Pay Day'); // Coins are scattered on the ground
+		},
+		secondary: null,
+		target: "normal",
+		type: "Steel",
+		zMovePower: 160,
+		contestType: "Cool",
 	},
 	// Tiksi
 	devolutionwave: {
@@ -2263,6 +2512,39 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
+	// XpRienzo ☑◡☑
+	blehflame: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Special",
+		desc: "Has a 10% chance to raise the user's Attack, Defense, Special Attack, Special Defense, and Speed by 1 stage.",
+		shortDesc: "10% chance to raise all stats by 1 (not acc/eva).",
+		id: "blehflame",
+		name: "Bleh Flame",
+		isNonstandard: true,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Flame Charge", target);
+			this.add('-anim', source, "Overheat", target);
+		},
+		secondary: {
+			chance: 10,
+			self: {
+				boosts: {
+					atk: 1,
+					def: 1,
+					spa: 1,
+					spd: 1,
+					spe: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Fire",
+	},
 	// Yuki
 	cutieescape: {
 		accuracy: true,
@@ -2322,6 +2604,9 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
 		ignoreImmunity: true,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+		},
 		onTryHit: function (target, pokemon) {
 			this.attrLastMove('[still]');
 			let move = pokemon.template.speciesid === 'meloettapirouette' ? 'Brick Break' : 'Relic Song';

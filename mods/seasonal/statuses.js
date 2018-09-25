@@ -43,6 +43,18 @@ let BattleStatuses = {
 			this.add(`c|@Aelita|CODE: LYOKO . Tower deactivated... Return to the past, now!`);
 		},
 	},
+	amaluna: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Amaluna|Please no casual chatting here`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Amaluna|It's not too late, it's never too late`);
+		},
+		onFaint: function () {
+			this.add(`c|+Amaluna|Don't talk to me unless you're famous`);
+		},
+	},
 	andy: {
 		noCopy: true,
 		onStart: function () {
@@ -220,13 +232,13 @@ let BattleStatuses = {
 	ceteris: {
 		noCopy: true,
 		onStart: function () {
-			this.add(`c|%Ceteris|Your loss is inevitable, you best forfeit the battle if you know what's good for you. ╰(⇀︿⇀)つ-]═───`);
+			this.add(`c|@Ceteris|Your loss is inevitable, you best forfeit the battle if you know what's good for you. ╰(⇀︿⇀)つ-]═───`);
 		},
 		onSwitchOut: function (source) {
-			this.add(`c|%Ceteris|Saving the best for last, ${source.side.name}, a wise choice my friend.`);
+			this.add(`c|@Ceteris|Saving the best for last, ${source.side.name}, a wise choice my friend.`);
 		},
 		onFaint: function () {
-			this.add(`c|%Ceteris|IMPOSSIBLE!! THIS IS AN OUTRAGE!! I WILL EXACT MY REVENGE ON YOU ONE DAY (◣_◢)`);
+			this.add(`c|@Ceteris|IMPOSSIBLE!! THIS IS AN OUTRAGE!! I WILL EXACT MY REVENGE ON YOU ONE DAY (◣_◢)`);
 		},
 	},
 	chaos: {
@@ -384,6 +396,18 @@ let BattleStatuses = {
 			this.add(`c|@false|ɢ∞פ⋆ᖙᵒᵝ ٩꒰”̮*ू꒱`);
 		},
 	},
+	fomg: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+FOMG|You got this, my friend!`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+FOMG|/me rolls out`);
+		},
+		onFaint: function () {
+			this.add(`c|+FOMG|Rock in peace...`);
+		},
+	},
 	kalalokki: {
 		noCopy: true,
 		onStart: function () {
@@ -401,10 +425,10 @@ let BattleStatuses = {
 	grimauxiliatrix: {
 		noCopy: true,
 		onStart: function () {
-			this.add(`c|@grimAuxillatrix|${['A BRAWL IS SURELY BREWING!', 'GOOD DAY FOR A SWELL BATTLE!', 'THIS MATCH WILL GET RED HOT!'][this.random(3)]}`);
+			this.add(`c|@grimAuxiliatrix|${['A BRAWL IS SURELY BREWING!', 'GOOD DAY FOR A SWELL BATTLE!', 'THIS MATCH WILL GET RED HOT!'][this.random(3)]}`);
 		},
 		onFaint: function () {
-			this.add(`c|@grimAuxillatrix|**KNOCKOUT!**`);
+			this.add(`c|@grimAuxiliatrix|**KNOCKOUT!**`);
 		},
 	},
 	// Cant use the exact name because its a pokemon's name
@@ -535,6 +559,31 @@ let BattleStatuses = {
 			if (move.aerilateBoosted) return this.chainModify([0x1333, 0x1000]);
 		},
 	},
+	lionyx: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Lionyx|Let the storm rage on... for Arendelle!`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Lionyx|/me turns away and slams the door`);
+		},
+		onFaint: function () {
+			this.add(`c|+Lionyx|Can't hold it back anymore...`);
+		},
+	},
+	lycaniumz: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c| Lycanium Z|Oh? Is it my turn? Alright, I'll try my best.`);
+		},
+		onSwitchOut: function () {
+			this.add(`c| Lycanium Z|Time to regroup and retreat.`);
+		},
+		onFaint: function () {
+			this.add(`c| Lycanium Z|/me sigh`);
+			this.add(`c| Lycanium Z|Why me?`);
+		},
+	},
 	macchaeger: {
 		noCopy: true,
 		onStart: function () {
@@ -617,6 +666,31 @@ let BattleStatuses = {
 			this.add(`c|@moo|/me moo`);
 		},
 	},
+	morfent: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|@Morfent ( _̀> ̀)|──────▀█████▄──────▲`);
+			this.add(`c|@Morfent ( _̀> ̀)|───▄███████████▄──◀█▶`);
+			this.add(`c|@Morfent ( _̀> ̀)|─────▄████▀█▄──────█`);
+			this.add(`c|@Morfent ( _̀> ̀)|───▄█████████████████▄ -I`);
+			this.add(`c|@Morfent ( _̀> ̀)|─▄█████.▼.▼.▼.▼.▼.▼.▼  -cast`);
+			this.add(`c|@Morfent ( _̀> ̀)|▄███████▄.▲.▲.▲.▲.▲.▲  -magic`);
+			this.add(`c|@Morfent ( _̀> ̀)|█████████████████████▀▀-shitpost`);
+		},
+		onFaint: function () {
+			// Morfent returns something so im doing it this way
+			let endquote = this.random(3);
+			if (endquote === 1) {
+				this.add(`c|@Morfent ( _̀> ̀)|Hacking claims the lives of over 2,000 registered laddering alts every day.`);
+			} else if (endquote === 2) {
+				this.add(`c|@Morfent ( _̀> ̀)|Every 60 seconds in Africa, a minute passes. Together we can stop this. Please spread the word.`);
+			} else {
+				this.add(`c|@Morfent ( _̀> ̀)|!dt morfent's husbando`);
+				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col numcol">UU</span> <span class="col iconcol"><span class="picon" style="background: transparent url(&quot;//play.pokemonshowdown.com/sprites/smicons-sheet.png?a4&quot;) no-repeat scroll -400px -210px"></span></span> <span class="col pokemonnamecol" style="white-space: nowrap"><a href="https://pokemonshowdown.com/dex/pokemon/gengar" target="_blank" rel="noopener">Gengar</a></span> <span class="col typecol"><img src="https://play.pokemonshowdown.com/sprites/types/Ghost.png" alt="Ghost" height="14" width="32"><img src="https://play.pokemonshowdown.com/sprites/types/Poison.png" alt="Poison" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">Cursed Body</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>60</span> <span class="col statcol"><em>Atk</em><br>65</span> <span class="col statcol"><em>Def</em><br>60</span> <span class="col statcol"><em>SpA</em><br>130</span> <span class="col statcol"><em>SpD</em><br>75</span> <span class="col statcol"><em>Spe</em><br>110</span> <span class="col bstcol"><em>BST<br>500</em></span> </span></li><li style="clear: both"></li></ul>`);
+				this.add(`raw|<font size="1"><font color="#686868">Dex#:</font> 94&nbsp;|  <font color="#686868">Gen:</font> 1&nbsp;|  <font color="#686868">Height:</font> 1.5 m&nbsp;|  <font color="#686868">Weight:</font> 40.5 kg <em>(60 BP)</em>&nbsp;|  <font color="#686868">Dex Colour:</font> Purple&nbsp;|  <font color="#686868">Egg Group(s):</font> Amorphous&nbsp;|  <font color="#686868">Does Not Evolve</font></font>`);
+			}
+		},
+	},
 	nui: {
 		noCopy: true,
 		onStart: function () {
@@ -653,6 +727,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|%Osiris|I'm getting too old for this x_x`);
+		},
+	},
+	overneat: {
+		noCopy: true,
+		onStart: function (target, source) {
+			this.add(`c|+Overneat|[muffled eurobeat playing in the distance]`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Overneat|Time to take a rest`);
+		},
+		onFaint: function () {
+			this.add(`c|+Overneat|It’s over for me?`);
 		},
 	},
 	paradise: {
@@ -713,6 +799,18 @@ let BattleStatuses = {
 			this.add(`c|%Shiba|gotta buy an alt rq brb`);
 		},
 	},
+	teclis: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Teclis|Sometimes you have to fight to get your point across.`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Teclis|You deserve a break.`);
+		},
+		onFaint: function () {
+			this.add(`c|+Teclis|I'm convinced !`);
+		},
+	},
 	tennisace: {
 		noCopy: true,
 		onStart: function () {
@@ -744,6 +842,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|~The Immortal|zzz`);
+		},
+	},
+	theleprechaun: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+The Leprechaun|Let's get this bread`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+The Leprechaun|I'm out this mutherfucker`);
+		},
+		onFaint: function () {
+			this.add(`c|+The Leprechaun|This ain't it chief`);
 		},
 	},
 	tiksi: {
@@ -804,6 +914,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c| Volco|Well, seems I was got taken down instead.`);
+		},
+	},
+	xprienzo: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+XpRienzo ☑◡☑|Bleh`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+XpRienzo ☑◡☑|>.>`);
+		},
+		onFaint: function () {
+			this.add(`c|+XpRienzo ☑◡☑|Wait what?`);
 		},
 	},
 	yuki: {
@@ -892,6 +1014,20 @@ let BattleStatuses = {
 			if (move.basePower) {
 				move.basePower += 20;
 				this.debug('glitch out base power boost');
+			}
+		},
+	},
+	// Reverse Foresight for Morfent
+	reverseforesight: {
+		onStart: function (pokemon) {
+			this.add('-start', pokemon, 'Reverse Foresight');
+			this.add('-message', pokemon.name + ' can hit normal types with ghost type attacks!');
+		},
+		onModifyMovePriority: -5,
+		onModifyMove: function (move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Ghost'] = true;
 			}
 		},
 	},
