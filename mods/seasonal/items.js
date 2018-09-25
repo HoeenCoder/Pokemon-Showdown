@@ -17,7 +17,7 @@ let BattleItems = {
 	// FOMG
 	astleyiumz: {
 		id: "astleyiumz",
-		name: "Astley Z",
+		name: "Astleyium Z",
 		spritenum: 643,
 		onTakeItem: false,
 		zMove: "Rickrollout",
