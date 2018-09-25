@@ -396,6 +396,18 @@ let BattleStatuses = {
 			this.add(`c|@false|ɢ∞פ⋆ᖙᵒᵝ ٩꒰”̮*ू꒱`);
 		},
 	},
+	fomg: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+FOMG|You got this, my friend!`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+FOMG|/me rolls out`);
+		},
+		onFaint: function () {
+			this.add(`c|+FOMG|Rock in peace...`);
+		},
+	},
 	kalalokki: {
 		noCopy: true,
 		onStart: function () {
@@ -818,6 +830,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|~The Immortal|zzz`);
+		},
+	},
+	theleprechaun: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+The Leprechaun|Let's get this bread`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+The Leprechaun|I'm out this mutherfucker`);
+		},
+		onFaint: function () {
+			this.add(`c|+The Leprechaun|This ain't it chief`);
 		},
 	},
 	tiksi: {

@@ -122,6 +122,11 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 5,
 		priority: -6,
+		onModifyMove: function (move) {
+			if (!this.pseudoWeather.trickroom) {
+				move.pseudoWeather = 'trickroom';
+			}
+		},
 		flags: {snatch: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -131,7 +136,6 @@ let BattleMovedex = {
 		boosts: {
 			spa: 1,
 		},
-		pseudoWeather: 'trickroom',
 		secondary: null,
 		target: "self",
 		type: "Water",
@@ -903,6 +907,47 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "???",
+	},
+	// FOMG
+	rickrollout: {
+		accuracy: true,
+		basePower: 140,
+		category: "Physical",
+		desc: "",
+		shortDesc: "",
+		id: "rickrollout",
+		name: "Rickrollout",
+		isNonstandard: true,
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Rock Polish', source);
+			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
+		},
+		onHit: function () {
+			let messages = ["SPL players don't want you to know about this secret",
+				"A Portuguese RBYer seduces e-girls with this amazing trick",
+				"North American player reveals the concerning secret how to make money with pokemon that will crack you up",
+				"10 amazing facts about Zarel you have never heard of",
+				"Veteran player shared his best team with a beginner - here's what happened after",
+				"Use these 3 simple methods to gain 200+ rating in 10 minutes"][this.random(6)];
+
+			this.add(`raw|<a href = "https://www.youtube.com/watch?v=oHg5SJYRHA0"><b>${messages}</b></a>`);
+		},
+		self: {
+			boosts: {
+				spe: 2,
+			},
+		},
+		secondary: {
+			chance: 30,
+			volatileStatus: 'confusion',
+		},
+		isZ: "astleyiumz",
+		target: "normal",
+		type: "Rock",
 	},
 	// grimAuxiliatrix
 	paintrain: {
@@ -2172,6 +2217,43 @@ let BattleMovedex = {
 		drain: [1, 2],
 		target: "normal",
 		type: "Fighting",
+	},
+	// The Leprechaun
+	gyroballin: {
+		accuracy: 100,
+		basePower: 0,
+		basePowerCallback: function (pokemon, target) {
+			let power = (Math.floor(25 * target.getStat('spe') / pokemon.getStat('spe')) || 1);
+			if (power > 150) power = 150;
+			this.debug('' + power + ' bp');
+			return power;
+		},
+		onModifyMove: function (move) {
+			if (!this.pseudoWeather.trickroom) {
+				move.pseudoWeather = 'trickroom';
+			}
+		},
+		category: "Physical",
+		desc: "",
+		shortDesc: "",
+		id: "gyroballin",
+		name: "Gyro Ballin'",
+		isNonstandard: true,
+		pp: 5,
+		priority: 0,
+		flags: {bullet: 1, contact: 1, protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Gyro Ball", target);
+		},
+		onHit: function () {
+			this.add('-fieldactivate', 'move: Pay Day'); // Coins are scattered on the ground
+		},
+		secondary: null,
+		target: "normal",
+		type: "Steel",
+		zMovePower: 160,
+		contestType: "Cool",
 	},
 	// Tiksi
 	devolutionwave: {

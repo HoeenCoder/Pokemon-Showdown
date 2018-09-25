@@ -203,6 +203,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'fr*ck',
 				evs: {atk: 252, spe: 252, def: 4}, nature: 'Jolly', shiny: true,
 			},
+			'FOMG': {
+				species: 'Golem', ability: 'Serene Grace', item: 'Astleyium Z', gender: 'M',
+				moves: ['Earthquake', 'Explosion', 'Iron Head'],
+				signatureMove: 'Rock Slide',
+				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
+			},
 			'grimAuxiliatrix': {
 				species: 'Aggron', ability: 'Sturdy', item: 'Aggronite', gender: '',
 				moves: [['Toxic', 'Thunder Wave'], ['Stone Edge', 'Heat Crash'], 'Earthquake'],
@@ -258,7 +264,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {atk: 252, hp: 4, spe: 252}, nature: 'Jolly',
 			},
 			'Level 51': {
-				species: 'Porygon2', ability: 'Unaware', item: 'Eviolite', gender: 'N',
+				species: 'Porygon2', ability: 'Stamina', item: 'Eviolite', gender: 'N',
 				moves: ['Recover', ['Seismic Toss', 'Night Shade'], ['Cosmic Power', 'Aqua Ring']],
 				signatureMove: 'Next Level Strats',
 				evs: {hp: 236, def: 220, spd: 48, spe: 4}, ivs: {atk: 0}, nature: 'Calm',
@@ -278,7 +284,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'Lycanium Z': {
 				species: 'Keldeo', ability: 'Protean', item: 'Choice Scarf', gender: 'N',
 				moves: ['Steam Eruption', 'Secret Sword', ['Frost Breath', 'Power Gem', 'Discharge']],
-				signatureMove: 'IP Merge',
+				signatureMove: 'Changeling Crash',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
 			},
 			'MacChaeger': {
@@ -401,6 +407,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Ultra Succ',
 				evs: {atk: 252, hp: 252, spd: 4}, nature: 'Adamant',
 			},
+			'The Leprechaun': {
+				species: 'Bronzong', ability: 'Steelworker', item: 'Life Orb', gender: 'N',
+				moves: ['Photon Geyser', 'Precipice Blades', 'Diamond Storm'],
+				signatureMove: 'Gyro Ballin\'',
+				evs: {atk: 252, hp: 252, spd: 4}, nature: 'Adamant',
+			},
 			'Tiksi': {
 				species: 'Cradily', ability: 'Sand Stream', item: 'Tiksium Z', gender: 'M',
 				moves: ['Shore Up', 'Horn Leech', 'Curse'],
@@ -448,10 +460,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 		while (pool.length && team.length < 6) {
 			let name = '';
 			// DEBUG CODE
-			let debug = false; // Programmers - Toggle this to use the code below
+			let debug = true; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = '';
+				name = 'The Leprechaun';
 				if (pool.indexOf(name) > -1) pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);
