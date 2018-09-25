@@ -1399,7 +1399,7 @@ let BattleMovedex = {
 			pokemon.maxhp = newHP;
 			this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
 
-			this.add('-message', `${pokemon.name} advanced 10 levels! It is now level ${pokemon.level}!`);
+			this.add('-message', `${pokemon.name} advanced 5 levels! It is now level ${pokemon.level}!`);
 		},
 		secondary: null,
 		target: "self",
@@ -1950,6 +1950,27 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Ghost",
+	},
+	// Overneat
+	totalleech: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		id: "totalleech",
+		name: "Total Leech",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, heal: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Leech Life", target);
+		},
+		drain: [1, 2],
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
 	},
 	// Paradise
 	"corrosivetoxic": {

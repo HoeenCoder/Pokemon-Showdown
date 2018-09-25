@@ -359,6 +359,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Night March',
 				evs: {hp: 252, atk: 144, spd: 112}, nature: 'Adamant', shiny: true,
 			},
+			'Overneat': {
+				species: 'Sylveon', ability: 'Fairy Aura', item: 'Power Herb', gender: 'F',
+				moves: ['Geomancy', 'Psyshock', 'Earth Power'],
+				signatureMove: 'Total Leech',
+				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+			},
 			'Paradise': {
 				species: 'Muk', ability: 'Unaware', item: 'Black Sludge', gender: '',
 				moves: ['Wish', 'Knock Off', 'Protect'],
@@ -387,7 +393,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Gallade', ability: 'Intimidate', item: 'Galladite', gender: 'M',
 				moves: ['Sacred Sword', 'Psycho Cut', 'Knock Off'],
 				signatureMove: 'Zekken',
-				evs: {atk: 252, def: 4, spe: 252}, nature: 'Timid',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', shiny: true,
 			},
 			'tennisace': {
 				species: 'Raikou', ability: 'Levitate', item: 'Life Orb', gender: 'M',
@@ -460,10 +466,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 		while (pool.length && team.length < 6) {
 			let name = '';
 			// DEBUG CODE
-			let debug = true; // Programmers - Toggle this to use the code below
+			let debug = false; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'The Leprechaun';
+				name = 'Overneat';
 				if (pool.indexOf(name) > -1) pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);

@@ -729,6 +729,18 @@ let BattleStatuses = {
 			this.add(`c|%Osiris|I'm getting too old for this x_x`);
 		},
 	},
+	overneat: {
+		noCopy: true,
+		onStart: function (target, source) {
+			this.add(`c|+Overneat|[muffled eurobeat playing in the distance]`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Overneat|Time to take a rest`);
+		},
+		onFaint: function () {
+			this.add(`c|+Overneat|It’s over for me?`);
+		},
+	},
 	paradise: {
 		noCopy: true,
 		onStart: function () {
