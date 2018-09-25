@@ -928,11 +928,10 @@ let BattleMovedex = {
 		},
 		onHit: function () {
 			let messages = ["SPL players don't want you to know about this secret",
-				"A Portuguese RBYer seduces e-girls with this amazing trick",
 				"North American player reveals the concerning secret how to make money with pokemon that will crack you up",
 				"10 amazing facts about Zarel you have never heard of",
 				"Veteran player shared his best team with a beginner - here's what happened after",
-				"Use these 3 simple methods to gain 200+ rating in 10 minutes"][this.random(6)];
+				"Use these 3 simple methods to gain 200+ rating in 10 minutes"][this.random(5)];
 
 			this.add(`raw|<a href = "https://www.youtube.com/watch?v=oHg5SJYRHA0"><b>${messages}</b></a>`);
 		},
