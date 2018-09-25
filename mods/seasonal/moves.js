@@ -1960,7 +1960,7 @@ let BattleMovedex = {
 		shortDesc: "",
 		id: "totalleech",
 		name: "Total Leech",
-		pp: 10,
+		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1, heal: 1},
 		onPrepareHit: function (target, source) {
