@@ -411,13 +411,13 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Buzzwole', ability: 'Beast Boost 2', item: 'Assault Vest', gender: 'N', // confirm with TI
 				moves: ['Leech Life', 'Plasma Fists', 'Ice Punch'],
 				signatureMove: 'Ultra Succ',
-				evs: {atk: 252, hp: 252, spd: 4}, nature: 'Adamant',
+				evs: {hp: 252, atk: 252, spd: 4}, nature: 'Adamant',
 			},
 			'The Leprechaun': {
 				species: 'Bronzong', ability: 'Steelworker', item: 'Life Orb', gender: 'N',
 				moves: ['Photon Geyser', 'Precipice Blades', 'Diamond Storm'],
 				signatureMove: 'Gyro Ballin\'',
-				evs: {atk: 252, hp: 252, spd: 4}, nature: 'Adamant',
+				evs: {hp: 252, atk: 252, def: 4}, ivs: {spe: 0}, nature: 'Brave', shiny: true,
 			},
 			'Tiksi': {
 				species: 'Cradily', ability: 'Sand Stream', item: 'Tiksium Z', gender: 'M',
