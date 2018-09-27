@@ -2299,6 +2299,7 @@ let BattleMovedex = {
 			// @ts-ignore Hack for Snaquaza's Z Move
 			source.claimHP = source.hp;
 			source.heal(source.maxhp - source.hp, source, move);
+			this.add('-heal', source, source.getHealth, '[silent]');
 			this.add('message', `${source.name} claims to be a ${set.species}!`);
 		},
 		isZ: "fakeclaimiumz",
