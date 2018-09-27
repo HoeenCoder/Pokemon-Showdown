@@ -657,13 +657,13 @@ let BattleStatuses = {
 	mitsuki: {
 		noCopy: true,
 		onStart: function () {
-			this.add(`c|%Mitsuki|SSSSSSSSSSSSS`);
+			this.add(`c|+Mitsuki|SSSSSSSSSSSSS`);
 		},
 		onSwitchOut: function () {
-			this.add(`c|%Mitsuki|sssssssssssss`);
+			this.add(`c|+Mitsuki|sssssssssssss`);
 		},
 		onFaint: function () {
-			this.add(`c|%Mitsuki|sss`);
+			this.add(`c|+Mitsuki|sss`);
 		},
 	},
 	moo: {
