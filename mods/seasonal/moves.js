@@ -1505,7 +1505,8 @@ let BattleMovedex = {
 				return null;
 			}
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Play Rough", target);
+			this.add('-anim', source, "Memento", target);
+			this.add('-anim', target, "Parabolic Charge", target);
 		},
 		onHit: function (target, pokemon) {
 			if (!pokemon.transformInto(target, pokemon)) {
@@ -1796,6 +1797,35 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fighting",
 	},
+	// Mitsuki
+	pythonivy: {
+		accuracy: 95,
+		basePower: 110,
+		category: "Special",
+		desc: "Lowers the user's spa, spd, and spe by 1 stage.",
+		shortDesc: "Lowers user's spa, spd, spe.",
+		id: "pythonivy",
+		name: "Python Ivy",
+		isNonstandard: true,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Leaf Tornado", target);
+			this.add('-anim', source, "Leaf Storm", target);
+		},
+		self: {
+			boosts: {
+				spa: -1,
+				spd: -1,
+				spe: -1,
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Grass",
+	},
 	// moo
 	proteinshake: {
 		accuracy: true,
@@ -1846,17 +1876,20 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 5,
 		priority: 1,
-		flags: {snatch: 1, mirror: 1, heal: 1},
+		onModifyMove: function (move) {
+			if (!this.pseudoWeather.trickroom) {
+				move.pseudoWeather = 'trickroom';
+			}
+		},
+		flags: {snatch: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Recover", source);
 			this.add('-anim', source, "Nasty Plot", source);
 		},
-		onHit: function (target, source) {
-			source.addVolatile('confusion', source);
-			source.addVolatile('reverseforesight', source);
+		boosts: {
+			atk: 1,
 		},
-		heal: [1, 2],
 		secondary: null,
 		target: "self",
 		type: "Ghost",
@@ -2014,6 +2047,66 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Poison",
+	},
+	// ptoad
+	lilypadshield: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "lilypadshield",
+		name: "Lilypad Shield",
+		isNonstandard: true,
+		pp: 10,
+		priority: 4,
+		flags: {},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Spiky Shield", source);
+		},
+		stallingMove: true,
+		volatileStatus: 'lilypadshield',
+		onTryHit: function (target, source, move) {
+			return !!this.willAct() && this.runEvent('StallMove', target);
+		},
+		onHit: function (pokemon) {
+			pokemon.addVolatile('stall');
+		},
+		effect: {
+			duration: 1,
+			onStart: function (target) {
+				this.add('-singleturn', target, 'move: Protect');
+			},
+			onTryHitPriority: 3,
+			onTryHit: function (target, source, move) {
+				if (!move.flags['protect']) {
+					if (move.isZ) move.zBrokeProtect = true;
+					return;
+				}
+				this.add('-activate', target, 'move: Protect');
+				source.moveThisTurnResult = true;
+				let lockedmove = source.getVolatile('lockedmove');
+				if (lockedmove) {
+					// Outrage counter is reset
+					if (source.volatiles['lockedmove'].duration === 2) {
+						delete source.volatiles['lockedmove'];
+					}
+				}
+				if (move.flags['contact']) {
+					this.heal(target.maxhp / 4, target, target);
+				}
+				return null;
+			},
+			onHit: function (target, source, move) {
+				if (move.zPowered && move.flags['contact']) {
+					this.heal(target.maxhp / 4, target, target);
+				}
+			},
+		},
+		secondary: null,
+		target: "self",
+		type: "Grass",
 	},
 	// Quite Quiet
 	literallycheating: {
@@ -2575,6 +2668,27 @@ let BattleMovedex = {
 		target: "self",
 		type: "Bug",
 	},
+	// Uselesscrab
+	revampedsuspectphilosophy: {
+		basePower: 160,
+		accuracy: true,
+		category: "Physical",
+		id: "revampedsuspectphilosophy",
+		name: "Revamped Suspect Philosophy",
+		isNonstandard: true,
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Subzero Slammer", target);
+			this.add('-anim', source, "Tectonic Rage", target);
+		},
+		secondary: null,
+		isZ: "nichiumz",
+		target: "normal",
+		type: "Ground",
+	},
 	// Volco
 	explosivedrain: {
 		basePower: 90,
@@ -2585,7 +2699,7 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, heal: 1},
 		drain: [1, 2],
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');

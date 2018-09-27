@@ -329,6 +329,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Cyclone Spin',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
+			'Mitsuki': {
+				species: 'Serperior', ability: 'Contrary', item: 'Leftovers', gender: 'M',
+				moves: ['Leech Seed', 'Substitute', ['Earth Power', 'Flamethrower', 'Glare']],
+				signatureMove: 'Python Ivy',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+			},
 			'moo': {
 				species: 'Miltank', ability: 'Scrappy', item: 'Life Orb', gender: 'M',
 				moves: ['Extreme Speed', 'Rapid Spin', 'Close Combat'],
@@ -337,9 +343,9 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Morfent ( _̀> ̀)': {
 				species: 'Banette', ability: 'Intimidate', item: 'Banettite', gender: 'M',
-				moves: ['Shadow Sneak', 'Destiny Bond', 'Belly Drum'],
+				moves: ['Shadow Sneak', 'Spectral Thief', 'Drain Punch'],
 				signatureMove: 'E',
-				evs: {hp: 184, atk: 252, def: 68, spd: 4}, nature: 'Adamant',
+				evs: {hp: 184, atk: 252, def: 68, spd: 4}, ivs: {spe: 0}, nature: 'Brave',
 			},
 			'nui': {
 				species: 'Milotic', ability: 'Prismatic Terrain', item: 'Waterium Z', gender: 'N',
@@ -370,6 +376,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Wish', 'Knock Off', 'Protect'],
 				signatureMove: 'Corrosive Toxic',
 				evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful',
+			},
+			'ptoad': {
+				species: 'Politoed', ability: 'Fat Rain', item: 'Damp Rock', gender: 'M',
+				moves: ['Scald', 'Toxic', 'Ice Beam'],
+				signatureMove: 'Lilypad Shield',
+				evs: {hp: 252, def: 60, spd: 196}, ivs: {atk: 0}, nature: 'Calm',
 			},
 			'Quite Quiet': {
 				species: 'Misdreavus', ability: 'Levitate', item: 'Leftovers', gender: 'F',
@@ -449,6 +461,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Holy Orders',
 				evs: {hp: 248, atk: 100, def: 136, spd: 24}, nature: 'Impish',
 			},
+			'Uselesscrab': {
+				species: 'Kyurem-Black', ability: 'Teravolt', item: 'Nichium Z', gender: 'M',
+				moves: ['Dragon Hammer', 'Plasma Fists', 'Taunt'],
+				signatureMove: 'Icicle Crash',
+				evs: {hp: 252, atk: 252, spe: 4}, nature: 'Adamant', shiny: true,
+			},
 			'Volco': {
 				species: 'Volcanion', ability: 'Unaware', item: 'Assault Vest', gender: 'M',
 				moves: ["Steam Eruption", "Giga Drain", ["Ice Beam", "Ice Beam", "Earth Power"]],
@@ -487,7 +505,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let debug = false; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'Xayah';
+				name = 'Mitsuki';
 				if (pool.indexOf(name) > -1) {
 					pool.splice(pool.indexOf(name), 1);
 				} else {
