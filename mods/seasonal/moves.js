@@ -2060,7 +2060,7 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 10,
 		priority: 4,
-		flags: {},
+		flags: {heal: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Spiky Shield", source);
