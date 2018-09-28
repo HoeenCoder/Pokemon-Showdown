@@ -2739,7 +2739,7 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
-	// Xayah
+	// Xayahh
 	cuttingdance: {
 		accuracy: 95,
 		basePower: 100,
