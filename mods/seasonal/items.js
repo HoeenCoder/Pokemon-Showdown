@@ -71,7 +71,7 @@ let BattleItems = {
 		zMoveFrom: "Icicle Crash",
 		zMoveUser: ["Kyurem-Black"],
 		gen: 7,
-		desc: "",
+		desc: "If held by a Kyurem-Black with Icicle Crash, it can use Revamped Suspect Philosophy.",
 	},
 };
 
