@@ -372,6 +372,7 @@ let BattleMovedex = {
 		shortDesc: "",
 		id: "triviaroom",
 		name: "Trivia Room",
+		isNonstandard: true,
 		pp: 5,
 		priority: -7,
 		flags: {mirror: 1, snatch: 1},
