@@ -40,6 +40,14 @@ let BattleAbilities = {
 			}
 		},
 	},
+	// Bimp
+	learnsomethingnew: {
+		desc: "This Pokemon's Attack is raised by 1 stage when another Pokemon faints.",
+		shortDesc: "This Pokemon's Atk is raised by 1 stage when another Pokemon faints.",
+		onAnyFaint: function () {
+			this.boost({atk: 1}, this.effectData.target);
+		},
+	},
 	// Brandon
 	gracideamastery: {
 		desc: "",
