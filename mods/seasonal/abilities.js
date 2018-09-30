@@ -44,6 +44,8 @@ let BattleAbilities = {
 	learnsomethingnew: {
 		desc: "This Pokemon's Attack is raised by 1 stage when another Pokemon faints.",
 		shortDesc: "This Pokemon's Atk is raised by 1 stage when another Pokemon faints.",
+		id: "learnsomethingnew",
+		name: "Learn Something New!",
 		onAnyFaint: function () {
 			this.boost({atk: 1}, this.effectData.target);
 		},
