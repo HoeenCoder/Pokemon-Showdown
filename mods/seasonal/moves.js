@@ -1359,7 +1359,7 @@ let BattleMovedex = {
 		type: "Poison",
 	},
 	// jdarden
-	"wyvernswail": {
+	wyvernswail: {
 		accuracy: 100,
 		basePower: 60,
 		category: "Special",
@@ -2155,7 +2155,7 @@ let BattleMovedex = {
 		type: "Fairy",
 	},
 	// Paradise
-	"corrosivetoxic": {
+	corrosivetoxic: {
 		accuracy: true,
 		category: "Status",
 		desc: "",
