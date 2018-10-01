@@ -2738,7 +2738,7 @@ let BattleMovedex = {
 			this.add('-anim', source, "Parting Shot", target);
 		},
 		onHit: function (target, source) {
-			const sideConditions = {'spikes': 1, 'toxicspikes': 1, 'burnspikes': 1, 'stealthrock': 1, 'stickyweb': 1};
+			const sideConditions = {'spikes': 1, 'toxicspikes': 1, 'stealthrock': 1, 'stickyweb': 1};
 			for (let i in sideConditions) {
 				let layers = source.side.sideConditions[i] ? (source.side.sideConditions[i].layers || 1) : 1;
 				if (source.side.removeSideCondition(i)) {
@@ -2746,6 +2746,7 @@ let BattleMovedex = {
 					for (layers; layers > 0; layers--) target.side.addSideCondition(i, source);
 				}
 			}
+			target.side.addSideCondition('stealthrock');
 		},
 		selfSwitch: true,
 		secondary: null,
