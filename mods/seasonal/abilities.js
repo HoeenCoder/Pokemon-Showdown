@@ -341,10 +341,17 @@ let BattleAbilities = {
 	},
 	// torkool
 	deflectiveshell: {
-		desc: "Non-contact moves do 33% less damage to this pokemon.",
-		shortDesc: "Non-contact moves do 33% less damage to this pokemon.",
+		desc: "Non-contact moves do 33% less damage to this pokemon. Summons Sunny Day on switch-in.",
+		shortDesc: "Non-contact moves do 33% less damage; summons Sun.",
 		id: "deflectiveshell",
 		name: "Deflective Shell",
+		onStart: function (source) {
+			for (const action of this.queue) {
+				if (action.choice === 'runPrimal' && action.pokemon === source && source.template.speciesid === 'groudon') return;
+				if (action.choice !== 'runSwitch' && action.choice !== 'runPrimal') break;
+			}
+			this.setWeather('sunnyday');
+		},
 		onSourceModifyDamage: function (damage, source, target, move) {
 			let mod = 1;
 			if (!move.flags['contact']) mod = (mod / 3) * 2; // 2/3
