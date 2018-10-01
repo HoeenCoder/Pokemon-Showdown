@@ -223,7 +223,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'grimAuxiliatrix': {
 				species: 'Aggron', ability: 'Sturdy', item: 'Aggronite', gender: '',
-				moves: [['Toxic', 'Thunder Wave'], ['Stone Edge', 'Heat Crash'], 'Earthquake'],
+				moves: [['Toxic', 'Stealth Rock'], ['Stone Edge', 'Heat Crash'], 'Earthquake'],
 				signatureMove: 'Pain Train',
 				evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful',
 			},
