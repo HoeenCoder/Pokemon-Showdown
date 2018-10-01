@@ -111,7 +111,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Stakataka', ability: 'Learn Something New!', item: 'Rockium Z', gender: 'M',
 				moves: ['Gyro Ball', 'Stone Edge', 'Earthquake'],
 				signatureMove: 'Trivia Room',
-				evs: {hp: 252, atk: 252, spd: 4}, ivs: {spe: 0}, nature: 'Brave',
+				evs: {hp: 248, atk: 252, spd: 8}, ivs: {spe: 0}, nature: 'Brave',
 			},
 			'Brandon': {
 				species: 'Shaymin', ability: 'Gracidea Mastery', item: 'Red Card', gender: 'N',
