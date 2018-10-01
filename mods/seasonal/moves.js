@@ -378,11 +378,10 @@ let BattleMovedex = {
 		flags: {mirror: 1, snatch: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Trick Room", target);
+			this.add('-anim', source, "Trick Room", source);
 		},
 		onHit: function (pokemon) {
 			pokemon.addVolatile('magnetrise', pokemon);
-			this.add('-message', `${pokemon.name} twisted the dimensions with its big Trivia brain!`);
 		},
 		pseudoWeather: 'trickroom',
 		secondary: null,
