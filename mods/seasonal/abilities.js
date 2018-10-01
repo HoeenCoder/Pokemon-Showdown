@@ -342,7 +342,7 @@ let BattleAbilities = {
 	// torkool
 	deflectiveshell: {
 		desc: "Non-contact moves do 33% less damage to this pokemon. Summons Sunny Day on switch-in.",
-		shortDesc: "Non-contact moves do 33% less damage; summons Sun.",
+		shortDesc: "Drought + Non-contact does 33% less damage.",
 		id: "deflectiveshell",
 		name: "Deflective Shell",
 		onStart: function (source) {
