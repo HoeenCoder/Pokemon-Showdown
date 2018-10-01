@@ -94,7 +94,7 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 15,
 		priority: 0,
-		flags: {snatch: 1, mirror: 1},
+		flags: {snatch: 1, mirror: 1, dance: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Quiver Dance", source);
