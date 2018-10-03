@@ -755,7 +755,7 @@ function runMovesearch(target, cmd, canAll, message) {
 	let allCategories = ['physical', 'special', 'status'];
 	let allContestTypes = ['beautiful', 'clever', 'cool', 'cute', 'tough'];
 	let allProperties = ['basePower', 'accuracy', 'priority', 'pp'];
-	let allFlags = ['authentic', 'bite', 'bullet', 'contact', 'defrost', 'powder', 'protect', 'pulse', 'punch', 'secondary', 'snatch', 'sound'];
+	let allFlags = ['authentic', 'bite', 'bullet', 'contact', 'dance', 'defrost', 'powder', 'protect', 'pulse', 'punch', 'secondary', 'snatch', 'sound'];
 	let allStatus = ['psn', 'tox', 'brn', 'par', 'frz', 'slp'];
 	let allVolatileStatus = ['flinch', 'confusion', 'partiallytrapped'];
 	let allBoosts = ['hp', 'atk', 'def', 'spa', 'spd', 'spe', 'accuracy', 'evasion'];
@@ -1424,6 +1424,8 @@ function runLearn(target, cmd) {
 			format = Dex.getFormat(targetid);
 			formatid = targetid;
 			formatName = format.name;
+			targets.shift();
+			continue;
 		}
 		if (targetid.startsWith('gen') && parseInt(targetid.charAt(3))) {
 			gen = parseInt(targetid.slice(3));
@@ -1440,12 +1442,14 @@ function runLearn(target, cmd) {
 		}
 		break;
 	}
-	if (!formatid) format = new Dex.Data.Format(format);
-	if (!formatid) formatid = 'gen' + gen + 'ou';
-	if (!formatName) formatName = 'Gen ' + gen;
+	if (!formatName) {
+		format = new Dex.Data.Format(format, {mod: `gen${gen}`});
+		formatName = `Gen ${gen}`;
+		if (format.requirePentagon) formatName += ' Pentagon';
+	}
 	let lsetData = {set: {}, sources: [], sourcesBefore: gen};
 
-	const validator = TeamValidator(formatid);
+	const validator = TeamValidator(format);
 	let template = validator.dex.getTemplate(targets.shift());
 	let move = {};
 	let all = (cmd === 'learnall');

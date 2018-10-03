@@ -83,6 +83,27 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Normal",
 	},
+	// ACakeWearingAHat
+	sparcedance: {
+		accuracy: true,
+		category: "Status",
+		desc: "The user's Attack, Defense, and Speed are boosted by 1.",
+		shortDesc: "+1 atk, def, and spe.",
+		id: "sparcedance",
+		name: "Sparce Dance",
+		isNonstandard: true,
+		pp: 15,
+		priority: 0,
+		flags: {snatch: 1, mirror: 1, dance: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Quiver Dance", source);
+		},
+		boosts: {atk: 1, def: 1, spe: 1},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+	},
 	// Aelita
 	energyfield: {
 		accuracy: 100,
@@ -341,6 +362,31 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Normal",
+	},
+	// Bimp
+	triviaroom: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "triviaroom",
+		name: "Trivia Room",
+		isNonstandard: true,
+		pp: 5,
+		priority: -7,
+		flags: {mirror: 1, snatch: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Trick Room", source);
+		},
+		onHit: function (pokemon) {
+			pokemon.addVolatile('magnetrise', pokemon);
+		},
+		pseudoWeather: 'trickroom',
+		secondary: null,
+		target: "self",
+		type: "Psychic",
 	},
 	// Brandon
 	blusterywinds: {
@@ -1054,6 +1100,37 @@ let BattleMovedex = {
 		type: "Normal",
 		zMoveBoost: {def: 1},
 	},
+	// Hipster Sigilyph
+	mainstreamshock: {
+		accuracy: 100,
+		basePower: 100,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		id: "mainstreamshock",
+		name: "Mainstream Shock",
+		isNonstandard: true,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Psystrike", target);
+		},
+		onModifyMovePriority: -5,
+		onModifyMove: function (move) {
+			if (!move.ignoreImmunity) move.ignoreImmunity = {};
+			if (move.ignoreImmunity !== true) {
+				move.ignoreImmunity['Psychic'] = true;
+			}
+		},
+		onEffectiveness: function (typeMod, type) {
+			if (type === 'Dark') return 1;
+		},
+		secondary: null,
+		target: "normal",
+		type: "Psychic",
+	},
 	//hoeenhero
 	scriptedterrain: {
 		accuracy: 100,
@@ -1199,6 +1276,38 @@ let BattleMovedex = {
 		target: "self",
 		type: "Bug",
 	},
+	// Hubriz
+	flowertornado: {
+		accuracy: 90,
+		basePower: 95,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		id: "flowertornado",
+		name: "Flower Tornado",
+		isNonstandard: true,
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Petal Blizzard", target);
+			this.add('-anim', source, "Leaf Tornado", target);
+		},
+		secondary: {
+			chance: 20,
+			onHit: function (target, source) {
+				let result = this.random(2);
+				if (result === 0) {
+					target.trySetStatus('psn', source);
+				} else {
+					target.trySetStatus('slp', source);
+				}
+			},
+		},
+		target: "normal",
+		type: "Grass",
+	},
 	// imas
 	boi: {
 		accuracy: 100,
@@ -1250,7 +1359,7 @@ let BattleMovedex = {
 		type: "Poison",
 	},
 	// jdarden
-	"wyvernswail": {
+	wyvernswail: {
 		accuracy: 100,
 		basePower: 60,
 		category: "Special",
@@ -1452,7 +1561,7 @@ let BattleMovedex = {
 	letitgo: {
 		accuracy: 95,
 		basePower: 110,
-		category: "Physical",
+		category: "Special",
 		desc: "",
 		shortDesc: "",
 		id: "letitgo",
@@ -1533,7 +1642,8 @@ let BattleMovedex = {
 				return null;
 			}
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Play Rough", target);
+			this.add('-anim', source, "Memento", target);
+			this.add('-anim', target, "Parabolic Charge", target);
 		},
 		onHit: function (target, pokemon) {
 			if (!pokemon.transformInto(target, pokemon)) {
@@ -1824,12 +1934,41 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fighting",
 	},
+	// Mitsuki
+	pythonivy: {
+		accuracy: 95,
+		basePower: 110,
+		category: "Special",
+		desc: "Lowers the user's spa, spd, and spe by 1 stage.",
+		shortDesc: "Lowers user's spa, spd, spe.",
+		id: "pythonivy",
+		name: "Python Ivy",
+		isNonstandard: true,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Leaf Tornado", target);
+			this.add('-anim', source, "Leaf Storm", target);
+		},
+		self: {
+			boosts: {
+				spa: -1,
+				spd: -1,
+				spe: -1,
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Grass",
+	},
 	// moo
 	proteinshake: {
 		accuracy: true,
 		category: "Status",
-		desc: "The user's Attack, Special Attack, and Speed are boosted by 1. The user also gains 100kg of weight.",
-		shortDesc: "+1 atk, spa, and spe. User gains 100kg.",
+		desc: "The user's Attack, Defense, and Speed are boosted by 1. The user also gains 100kg of weight.",
+		shortDesc: "+1 atk, def, and spe. User gains 100kg.",
 		id: "proteinshake",
 		name: "Protein Shake",
 		isNonstandard: true,
@@ -1873,18 +2012,21 @@ let BattleMovedex = {
 		name: "E",
 		isNonstandard: true,
 		pp: 5,
-		priority: 1,
-		flags: {snatch: 1, mirror: 1, heal: 1},
+		priority: -6,
+		onModifyMove: function (move) {
+			if (!this.pseudoWeather.trickroom) {
+				move.pseudoWeather = 'trickroom';
+			}
+		},
+		flags: {snatch: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Recover", source);
 			this.add('-anim', source, "Nasty Plot", source);
 		},
-		onHit: function (target, source) {
-			source.addVolatile('confusion', source);
-			source.addVolatile('reverseforesight', source);
+		boosts: {
+			atk: 1,
 		},
-		heal: [1, 2],
 		secondary: null,
 		target: "self",
 		type: "Ghost",
@@ -2013,7 +2155,7 @@ let BattleMovedex = {
 		type: "Fairy",
 	},
 	// Paradise
-	"corrosivetoxic": {
+	corrosivetoxic: {
 		accuracy: true,
 		category: "Status",
 		desc: "",
@@ -2042,6 +2184,66 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Poison",
+	},
+	// ptoad
+	lilypadshield: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "lilypadshield",
+		name: "Lilypad Shield",
+		isNonstandard: true,
+		pp: 10,
+		priority: 4,
+		flags: {heal: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Spiky Shield", source);
+		},
+		stallingMove: true,
+		volatileStatus: 'lilypadshield',
+		onTryHit: function (target, source, move) {
+			return !!this.willAct() && this.runEvent('StallMove', target);
+		},
+		onHit: function (pokemon) {
+			pokemon.addVolatile('stall');
+		},
+		effect: {
+			duration: 1,
+			onStart: function (target) {
+				this.add('-singleturn', target, 'move: Protect');
+			},
+			onTryHitPriority: 3,
+			onTryHit: function (target, source, move) {
+				if (!move.flags['protect']) {
+					if (move.isZ) move.zBrokeProtect = true;
+					return;
+				}
+				this.add('-activate', target, 'move: Protect');
+				source.moveThisTurnResult = true;
+				let lockedmove = source.getVolatile('lockedmove');
+				if (lockedmove) {
+					// Outrage counter is reset
+					if (source.volatiles['lockedmove'].duration === 2) {
+						delete source.volatiles['lockedmove'];
+					}
+				}
+				if (move.flags['contact']) {
+					this.heal(target.maxhp / 4, target, target);
+				}
+				return null;
+			},
+			onHit: function (target, source, move) {
+				if (move.zPowered && move.flags['contact']) {
+					this.heal(target.maxhp / 4, target, target);
+				}
+			},
+		},
+		secondary: null,
+		target: "self",
+		type: "Grass",
 	},
 	// Quite Quiet
 	literallycheating: {
@@ -2095,6 +2297,42 @@ let BattleMovedex = {
 		secondary: null,
 		target: "all",
 		type: "Ghost",
+	},
+	// Saburo
+	soulbend: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		id: "soulbend",
+		name: "Soulbend",
+		isNonstandard: true,
+		pp: 10,
+		priority: 0,
+		flags: {snatch: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Refresh", source);
+			this.add('-anim', source, "Geomancy", source);
+		},
+		boosts: {
+			atk: 1,
+			spe: 1,
+		},
+		secondary: {
+			chance: 10,
+			onHit: function (target, source) {
+				let result = this.random(2);
+				if (result === 0) {
+					source.side.addSideCondition('reflect', source);
+				} else {
+					source.side.addSideCondition('lightscreen', source);
+				}
+			},
+		},
+		target: "self",
+		type: "Psychic",
 	},
 	// Scotteh
 	geomagneticstorm: {
@@ -2206,6 +2444,7 @@ let BattleMovedex = {
 			// @ts-ignore Hack for Snaquaza's Z Move
 			source.claimHP = source.hp;
 			source.heal(source.maxhp - source.hp, source, move);
+			this.add('-heal', source, source.getHealth, '[silent]');
 			this.add('message', `${source.name} claims to be a ${set.species}!`);
 		},
 		isZ: "fakeclaimiumz",
@@ -2499,7 +2738,7 @@ let BattleMovedex = {
 			this.add('-anim', source, "Parting Shot", target);
 		},
 		onHit: function (target, source) {
-			const sideConditions = {'spikes': 1, 'toxicspikes': 1, 'burnspikes': 1, 'stealthrock': 1, 'stickyweb': 1};
+			const sideConditions = {'spikes': 1, 'toxicspikes': 1, 'stealthrock': 1, 'stickyweb': 1};
 			for (let i in sideConditions) {
 				let layers = source.side.sideConditions[i] ? (source.side.sideConditions[i].layers || 1) : 1;
 				if (source.side.removeSideCondition(i)) {
@@ -2507,6 +2746,7 @@ let BattleMovedex = {
 					for (layers; layers > 0; layers--) target.side.addSideCondition(i, source);
 				}
 			}
+			target.side.addSideCondition('stealthrock');
 		},
 		selfSwitch: true,
 		secondary: null,
@@ -2603,6 +2843,27 @@ let BattleMovedex = {
 		target: "self",
 		type: "Bug",
 	},
+	// Uselesscrab
+	revampedsuspectphilosophy: {
+		basePower: 160,
+		accuracy: true,
+		category: "Physical",
+		id: "revampedsuspectphilosophy",
+		name: "Revamped Suspect Philosophy",
+		isNonstandard: true,
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Subzero Slammer", target);
+			this.add('-anim', source, "Tectonic Rage", target);
+		},
+		secondary: null,
+		isZ: "nichiumz",
+		target: "normal",
+		type: "Ground",
+	},
 	// Volco
 	explosivedrain: {
 		basePower: 90,
@@ -2613,7 +2874,7 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, heal: 1},
 		drain: [1, 2],
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
@@ -2624,7 +2885,7 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
-	// Xayah
+	// Xayahh
 	cuttingdance: {
 		accuracy: 95,
 		basePower: 100,
@@ -2636,10 +2897,11 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, dance: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Revalation Dance", source);
+			this.add('-anim', source, "Revelation Dance", source);
+			this.add('-anim', source, "Air Slash", target);
 			this.add('-anim', source, "Air Slash", target);
 		},
 		secondary: {

@@ -391,8 +391,8 @@ let BattleStatuses = {
 
 				// time's up; time to hit! :D
 				const move = this.getMove(posData.move);
-				if (target.fainted) {
-					this.add('-hint', '' + move.name + ' did not hit because the target is fainted.');
+				if (target.fainted || target === posData.source) {
+					this.add('-hint', '' + move.name + ' did not hit because the target is ' + (target.fainted ? 'fainted' : 'the user') + '.');
 					this.effectData.positions[i] = null;
 					continue;
 				}
@@ -723,13 +723,14 @@ let BattleStatuses = {
 	// Multitype and RKS System, respectively, that changes their type,
 	// but their formes are specified to be their corresponding type
 	// in the Pokedex, so that needs to be overridden.
-	// This is mainly relevant for Hackmons and Balanced Hackmons.
+	// This is mainly relevant for Hackmons Cup and Balanced Hackmons.
 	arceus: {
 		name: 'Arceus',
 		id: 'arceus',
 		num: 493,
 		onTypePriority: 1,
 		onType: function (types, pokemon) {
+			if (pokemon.transformed) return types;
 			/** @type {string | undefined} */
 			let type = 'Normal';
 			if (pokemon.ability === 'multitype') {
@@ -747,6 +748,7 @@ let BattleStatuses = {
 		num: 773,
 		onTypePriority: 1,
 		onType: function (types, pokemon) {
+			if (pokemon.transformed) return types;
 			/** @type {string | undefined} */
 			let type = 'Normal';
 			if (pokemon.ability === 'rkssystem') {

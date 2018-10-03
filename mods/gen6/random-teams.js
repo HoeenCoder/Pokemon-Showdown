@@ -30,7 +30,7 @@ class RandomGen6Teams extends RandomTeams {
 			template = this.getTemplate('unown');
 
 			let err = new Error('Template incompatible with random battles: ' + species);
-			require('../../lib/crashlogger')(err, 'The randbat set generator');
+			require('../../lib/crashlogger')(err, 'The gen 6 randbat set generator');
 		}
 
 		if (template.battleOnly) {
@@ -192,7 +192,7 @@ class RandomGen6Teams extends RandomTeams {
 					if (!!counter['speedsetup'] || hasMove['encore'] || hasMove['raindance'] || hasMove['roar'] || hasMove['whirlwind']) rejected = true;
 					break;
 				case 'defog':
-					if (counter.setupType || hasMove['spikes'] || (hasMove['rest'] && hasMove['sleeptalk']) || teamDetails.hazardClear) rejected = true;
+					if (counter.setupType || hasMove['spikes'] || hasMove['stealthrock'] || (hasMove['rest'] && hasMove['sleeptalk']) || teamDetails.hazardClear) rejected = true;
 					break;
 				case 'fakeout':
 					if (counter.setupType || hasMove['substitute'] || hasMove['switcheroo'] || hasMove['trick']) rejected = true;
@@ -535,7 +535,7 @@ class RandomGen6Teams extends RandomTeams {
 					(hasAbility['Stance Change'] && !counter.setupType && movePool.includes('kingsshield')) ||
 					(movePool.includes('technoblast') || template.requiredMove && movePool.includes(toId(template.requiredMove)))))) {
 					// Reject Status or non-STAB
-					if (!isSetup && !move.weather && moveid !== 'judgment' && moveid !== 'rest' && moveid !== 'sleeptalk') {
+					if (!isSetup && !move.weather && moveid !== 'judgment' && moveid !== 'rest' && moveid !== 'sleeptalk' && moveid !== 'technoblast') {
 						if (move.category === 'Status' || !hasType[move.type] || move.selfSwitch || move.basePower && move.basePower < 40 && !move.multihit) rejected = true;
 					}
 				}
@@ -700,6 +700,8 @@ class RandomGen6Teams extends RandomTeams {
 				ability = 'Klutz';
 			} else if ((template.species === 'Rampardos' && !hasMove['headsmash']) || hasMove['rockclimb']) {
 				ability = 'Sheer Force';
+			} else if (template.species === 'Torterra' && !counter['Grass']) {
+				ability = 'Shell Armor';
 			} else if (template.species === 'Umbreon') {
 				ability = 'Synchronize';
 			} else if (template.id === 'venusaurmega') {

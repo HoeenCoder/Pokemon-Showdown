@@ -271,7 +271,7 @@ let BattleScripts = {
 					lacksTarget = !this.isAdjacent(target, pokemon);
 				}
 			}
-			if (lacksTarget && (!move.flags['charge'] || pokemon.volatiles['twoturnmove'])) {
+			if (lacksTarget && (!move.flags['charge'] || pokemon.volatiles['twoturnmove']) && !move.isFutureMove) {
 				this.attrLastMove('[notarget]');
 				this.add('-notarget');
 				if (move.target === 'normal') pokemon.isStaleCon = 0;
@@ -432,6 +432,7 @@ let BattleScripts = {
 				} else {
 					this.add('-activate', target, 'move: ' + move.name, '[broken]');
 				}
+				if (this.gen >= 6) delete target.volatiles['stall'];
 			}
 		}
 

@@ -31,6 +31,31 @@ let BattleStatuses = {
 			this.add(`c|%2xTheTap|Doin' me the final bamboozle.`);
 		},
 	},
+	acakewearingahat: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+ACakeWearingAHat|h`);
+		},
+		onSwitchOut: function (source) {
+			this.add(`c|+ACakeWearingAHat|${source.side.name} is a nerd`);
+		},
+		onFaint: function () {
+			this.add(`c|+ACakeWearingAHat|According to all known laws of aviation, there is no way that Dunsparce should be able to fly. Its wings are too small to get its fat little body off the ground. Dunsparce, of course, does not learn Fly for this reason. It does learn Roost, though. Cute li'l winged snake thing.`);
+		},
+		// Fat Snake Innate
+		onModifyDefPriority: 6,
+		onModifyDef: function (def, pokemon) {
+			if (!pokemon.transformed) {
+				return this.chainModify(1.5);
+			}
+		},
+		onModifySpDPriority: 6,
+		onModifySpD: function (spd, pokemon) {
+			if (!pokemon.transformed) {
+				return this.chainModify(1.5);
+			}
+		},
+	},
 	aelita: {
 		noCopy: true,
 		onStart: function () {
@@ -163,6 +188,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|@biggie|It was all a dream`);
+		},
+	},
+	bimp: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Bimp|Ew it's Bimp -_-`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Bimp|Brb getting Chick-Fil-A.`);
+		},
+		onFaint: function () {
+			this.add(`c|+Bimp|Well that was uneventful -_-`);
 		},
 	},
 	brandon: {
@@ -444,6 +481,18 @@ let BattleStatuses = {
 			this.add(`c|@Hippopotas|Something broke. If you're seeing this message, please PM a staff member about it.`);
 		},
 	},
+	hipstersigilyph: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Hipster Sigilyph|You got some issues.`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Hipster Sigilyph|Gurl, bye.`);
+		},
+		onFaint: function () {
+			this.add(`c|+Hipster Sigilyph|Back to my cave.`);
+		},
+	},
 	hoeenhero: {
 		noCopy: true,
 		onStart: function () {
@@ -454,6 +503,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|&HoeenHero|There must have been a bug in my script ;-;`);
+		},
+	},
+	hubriz: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Hubriz|Just a harmless flower...`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Hubriz|I'll bloom once more soon enough!`);
+		},
+		onFaint: function () {
+			this.add(`c|+Hubriz|I burn, I pine, I perish.`);
 		},
 	},
 	imas: {
@@ -670,6 +731,18 @@ let BattleStatuses = {
 			this.add(`c|%MicktheSpud|Woah!`);
 		},
 	},
+	mitsuki: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Mitsuki|SSSSSSSSSSSSS`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Mitsuki|sssssssssssss`);
+		},
+		onFaint: function () {
+			this.add(`c|+Mitsuki|sss`);
+		},
+	},
 	moo: {
 		noCopy: true,
 		onStart: function () {
@@ -769,6 +842,18 @@ let BattleStatuses = {
 			this.add(`c|@Paradise|⠠⠽⠕⠥’⠗⠑⠀⠋⠥⠉⠅⠊⠝⠛⠀⠙⠑⠁⠙,⠀⠅⠊⠙⠙⠕.`);
 		},
 	},
+	ptoad: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+ptoad⚬|Make it rain!`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+ptoad⚬|Oh. You're switching me out. No, it's fine, I "toad"ally get it.`);
+		},
+		onFaint: function () {
+			this.add(`c|+ptoad⚬|Wow. Way to rain on my parade.`);
+		},
+	},
 	quitequiet: {
 		noCopy: true,
 		onStart: function () {
@@ -788,6 +873,18 @@ let BattleStatuses = {
 			if (!pokemon.transformed) {
 				return this.chainModify(1.5);
 			}
+		},
+	},
+	saburo: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Saburo|Look beyond what you see`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Saburo|Gotta go teleport somewhere brb`);
+		},
+		onFaint: function () {
+			this.add(`c|+Saburo|...you see too much`);
 		},
 	},
 	scotteh: {
@@ -932,6 +1029,18 @@ let BattleStatuses = {
 			this.add(`l|%urkerab`);
 		},
 	},
+	uselesscrab: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Uselesscrab|/me !`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Uselesscrab|hilarious`);
+		},
+		onFaint: function () {
+			this.add(`c|+Uselesscrab|i love pokemon`);
+		},
+	},
 	volco: {
 		noCopy: true,
 		onStart: function () {
@@ -944,16 +1053,16 @@ let BattleStatuses = {
 			this.add(`c| Volco|Well, seems I was got taken down instead.`);
 		},
 	},
-	xayah: {
+	xayahh: {
 		noCopy: true,
 		onStart: function () {
-			this.add(`c|+Xayah|Let's dance!`);
+			this.add(`c|+Xayahh|Let's dance!`);
 		},
 		onSwitchOut: function () {
-			this.add(`c|+Xayah|Fine, I'll go.`);
+			this.add(`c|+Xayahh|Fine, I'll go.`);
 		},
 		onFaint: function () {
-			this.add(`c|+Xayah|All out of second dances...`);
+			this.add(`c|+Xayahh|All out of second dances...`);
 		},
 	},
 	xprienzo: {
@@ -1057,20 +1166,7 @@ let BattleStatuses = {
 			}
 		},
 	},
-	// Reverse Foresight for Morfent
-	reverseforesight: {
-		onStart: function (pokemon) {
-			this.add('-start', pokemon, 'Reverse Foresight');
-			this.add('-message', pokemon.name + ' can hit normal types with ghost type attacks!');
-		},
-		onModifyMovePriority: -5,
-		onModifyMove: function (move) {
-			if (!move.ignoreImmunity) move.ignoreImmunity = {};
-			if (move.ignoreImmunity !== true) {
-				move.ignoreImmunity['Ghost'] = true;
-			}
-		},
-	},
+
 };
 
 exports.BattleStatuses = BattleStatuses;

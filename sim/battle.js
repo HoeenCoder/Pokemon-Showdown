@@ -214,9 +214,9 @@ class Battle extends Dex.ModdedDex {
 			let result = this.runEvent('SetWeather', source, source, status);
 			if (!result) {
 				if (result === false) {
-					if (source && sourceEffect && sourceEffect.weather) {
+					if (sourceEffect && sourceEffect.weather) {
 						this.add('-fail', source, sourceEffect, '[from]: ' + this.weather);
-					} else if (source && sourceEffect && sourceEffect.effectType === 'Ability') {
+					} else if (sourceEffect && sourceEffect.effectType === 'Ability') {
 						this.add('-ability', source, sourceEffect, '[from] ' + this.weather, '[fail]');
 					}
 				}
@@ -2396,8 +2396,13 @@ class Battle extends Dex.ModdedDex {
 	getTarget(pokemon, move, targetLoc) {
 		move = this.getMove(move);
 		let target;
-		if ((move.target !== 'randomNormal') &&
-				this.validTargetLoc(targetLoc, pokemon, move.target)) {
+		// Fails if the target is the user and the move can't target its own position
+		if (['adjacentAlly', 'any', 'normal'].includes(move.target) && targetLoc === -(pokemon.position + 1) &&
+				!pokemon.volatiles['twoturnmove'] && !pokemon.volatiles['iceball'] && !pokemon.volatiles['rollout']) {
+			if (move.isFutureMove) return pokemon;
+			return false;
+		}
+		if (move.target !== 'randomNormal' && this.validTargetLoc(targetLoc, pokemon, move.target)) {
 			if (targetLoc > 0) {
 				target = pokemon.side.foe.active[targetLoc - 1];
 			} else {

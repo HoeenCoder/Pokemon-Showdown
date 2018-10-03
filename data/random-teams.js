@@ -427,7 +427,7 @@ class RandomTeams extends Dex.ModdedDex {
 
 		// Moves that heal a fixed amount:
 		let RecoveryMove = [
-			'healorder', 'milkdrink', 'recover', 'roost', 'slackoff', 'softboiled',
+			'healorder', 'milkdrink', 'moonlight', 'morningsun', 'recover', 'roost', 'slackoff', 'softboiled', 'synthesis',
 		];
 		// Moves which drop stats:
 		let ContraryMove = [
@@ -678,8 +678,8 @@ class RandomTeams extends Dex.ModdedDex {
 
 				switch (moveid) {
 				// Not very useful without their supporting moves
-				case 'clangingscales':
-					if (teamDetails.zMove) rejected = true;
+				case 'clangingscales': case 'happyhour':
+					if (teamDetails.zMove || hasMove['rest']) rejected = true;
 					break;
 				case 'cottonguard': case 'defendorder':
 					if (!counter['recovery'] && !hasMove['rest']) rejected = true;
@@ -751,7 +751,7 @@ class RandomTeams extends Dex.ModdedDex {
 					if (!!counter['speedsetup'] || hasMove['encore'] || hasMove['raindance'] || hasMove['roar'] || hasMove['whirlwind']) rejected = true;
 					break;
 				case 'defog':
-					if (counter.setupType || hasMove['spikes'] || (hasMove['rest'] && hasMove['sleeptalk']) || teamDetails.hazardClear) rejected = true;
+					if (counter.setupType || hasMove['spikes'] || hasMove['stealthrock'] || (hasMove['rest'] && hasMove['sleeptalk']) || teamDetails.hazardClear) rejected = true;
 					break;
 				case 'fakeout':
 					if (counter.setupType || hasMove['substitute'] || hasMove['switcheroo'] || hasMove['trick']) rejected = true;
@@ -1021,7 +1021,7 @@ class RandomTeams extends Dex.ModdedDex {
 					if (hasMove['ironhead'] || hasMove['meteormash']) rejected = true;
 					break;
 				case 'hydropump':
-					if (hasMove['razorshell'] || hasMove['waterfall'] || (hasMove['rest'] && hasMove['sleeptalk'])) rejected = true;
+					if (hasMove['liquidation'] || hasMove['razorshell'] || hasMove['waterfall'] || (hasMove['rest'] && hasMove['sleeptalk'])) rejected = true;
 					if (hasMove['scald'] && (counter.Special < 4 || template.types.length > 1 && counter.stab < 3)) rejected = true;
 					break;
 				case 'originpulse': case 'surf':
@@ -1131,7 +1131,7 @@ class RandomTeams extends Dex.ModdedDex {
 					(hasAbility['Stance Change'] && !counter.setupType && movePool.includes('kingsshield')) ||
 					(movePool.includes('technoblast') || template.requiredMove && movePool.includes(toId(template.requiredMove)))))) {
 					// Reject Status or non-STAB
-					if (!isSetup && !move.weather && moveid !== 'judgment' && moveid !== 'rest' && moveid !== 'sleeptalk') {
+					if (!isSetup && !move.weather && moveid !== 'judgment' && moveid !== 'rest' && moveid !== 'sleeptalk' && moveid !== 'technoblast') {
 						if (move.category === 'Status' || !hasType[move.type] || move.selfSwitch || move.basePower && move.basePower < 40 && !move.multihit) rejected = true;
 					}
 				}
@@ -1307,6 +1307,8 @@ class RandomTeams extends Dex.ModdedDex {
 				ability = 'Klutz';
 			} else if ((template.species === 'Rampardos' && !hasMove['headsmash']) || hasMove['rockclimb']) {
 				ability = 'Sheer Force';
+			} else if (template.species === 'Torterra' && !counter['Grass']) {
+				ability = 'Shell Armor';
 			} else if (template.species === 'Umbreon') {
 				ability = 'Synchronize';
 			} else if (template.id === 'venusaurmega') {
@@ -1318,7 +1320,7 @@ class RandomTeams extends Dex.ModdedDex {
 
 		item = !isDoubles ? 'Leftovers' : 'Sitrus Berry';
 		if (template.requiredItems) {
-			if (template.baseSpecies === 'Arceus' && hasMove['judgment']) {
+			if (template.baseSpecies === 'Arceus' && (hasMove['judgment'] || !counter[template.types[0]])) {
 				// Judgment doesn't change type with Z-Crystals
 				item = template.requiredItems[0];
 			} else {
@@ -1347,6 +1349,8 @@ class RandomTeams extends Dex.ModdedDex {
 			item = 'Lycanium Z';
 		} else if (template.species === 'Marshadow' && hasMove['spectralthief'] && counter.setupType && !teamDetails.zMove) {
 			item = 'Marshadium Z';
+		} else if (template.species === 'Mimikyu' && hasMove['playrough'] && counter.setupType && !teamDetails.zMove) {
+			item = 'Mimikium Z';
 		} else if ((template.species === 'Necrozma-Dusk-Mane' || template.species === 'Necrozma-Dawn-Wings') && !teamDetails.zMove) {
 			if (hasMove['autotomize'] && hasMove['sunsteelstrike']) {
 				item = 'Solganium Z';
@@ -1394,13 +1398,13 @@ class RandomTeams extends Dex.ModdedDex {
 			} else {
 				item = (counter.Physical > counter.Special) ? 'Choice Band' : 'Choice Specs';
 			}
-		} else if (hasMove['conversion']) {
+		} else if (hasMove['conversion'] || hasMove['happyhour']) {
 			item = 'Normalium Z';
 		} else if (hasMove['dig'] && !teamDetails.zMove) {
 			item = 'Groundium Z';
 		} else if (hasMove['mindblown'] && !!counter['Status'] && !teamDetails.zMove) {
 			item = 'Firium Z';
-		} else if (!teamDetails.zMove && hasMove['fly'] || ((hasMove['bounce'] || (hasAbility['Gale Wings'] && hasMove['bravebird'])) && counter.setupType)) {
+		} else if (!teamDetails.zMove && (hasMove['fly'] || ((hasMove['bounce'] || (hasAbility['Gale Wings'] && hasMove['bravebird'])) && counter.setupType))) {
 			item = 'Flyinium Z';
 		} else if (hasMove['solarbeam'] && !hasAbility['Drought'] && !hasMove['sunnyday'] && !teamDetails['sun']) {
 			item = !teamDetails.zMove ? 'Grassium Z' : 'Power Herb';
@@ -1640,8 +1644,8 @@ class RandomTeams extends Dex.ModdedDex {
 	randomTeam() {
 		let pokemon = [];
 
-		let excludedTiers = ['NFE', 'LC Uber', 'LC'];
-		let allowedNFE = ['Chansey', 'Doublade', 'Gligar', 'Porygon2', 'Scyther', 'Togetic'];
+		const excludedTiers = ['NFE', 'LC Uber', 'LC'];
+		const allowedNFE = ['Chansey', 'Doublade', 'Gligar', 'Porygon2', 'Scyther', 'Togetic'];
 
 		// For Monotype
 		let isMonotype = this.format.id === 'gen7monotyperandombattle';
@@ -1770,6 +1774,13 @@ class RandomTeams extends Dex.ModdedDex {
 			// Okay, the set passes, add it to our team
 			pokemon.push(set);
 
+			if (pokemon.length === 6) {
+				// Set Zoroark's level to be the same as the last Pokemon
+				let illusion = teamDetails['illusion'];
+				if (illusion) pokemon[illusion - 1].level = pokemon[5].level;
+				break;
+			}
+
 			// Now that our Pokemon has passed all checks, we can increment our counters
 			baseFormes[template.baseSpecies] = 1;
 
@@ -1805,6 +1816,9 @@ class RandomTeams extends Dex.ModdedDex {
 			if (set.moves.includes('stealthrock')) teamDetails['stealthRock'] = 1;
 			if (set.moves.includes('toxicspikes')) teamDetails['toxicSpikes'] = 1;
 			if (set.moves.includes('defog') || set.moves.includes('rapidspin')) teamDetails['hazardClear'] = 1;
+
+			// For setting Zoroark's level
+			if (set.ability === 'Illusion') teamDetails['illusion'] = pokemon.length;
 		}
 		return pokemon;
 	}
@@ -1968,13 +1982,17 @@ class RandomTeams extends Dex.ModdedDex {
 			if (teamData.zCount >= 1 && itemData.zMove) continue;
 
 			let types = template.types;
-			// Prevents Mega Evolutions from breaking the type limits
-			if (itemData.megaStone) types = this.getTemplate(itemData.megaStone).types;
 
 			// Enforce Monotype
 			if (chosenTier === 'Mono') {
-				for (const type of types) {
-					if (!template.types.includes(type)) continue;
+				// Prevents Mega Evolutions from breaking the type limits
+				if (itemData.megaStone) {
+					let megaTemplate = this.getTemplate(itemData.megaStone);
+					if (types.length > megaTemplate.types.length) types = [template.types[0]];
+					// Only check the second type because a Mega Evolution should always share the first type with its base forme.
+					if (megaTemplate.types[1] && types[1] && megaTemplate.types[1] !== types[1]) {
+						types = [megaTemplate.types[0]];
+					}
 				}
 				if (!types.includes(type)) continue;
 			} else {
