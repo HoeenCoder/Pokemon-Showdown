@@ -106,6 +106,36 @@ let BattleAbilities = {
 			}
 		},
 	},
+	// Cleo
+	adrenalinerush: {
+		desc: "The opposite of Slow Start. +2 SpA and Speed but is removed after 5 turns.",
+		shortDesc: "On switch-in, this Pokemon's Attack and Speed are doubled for 5 turns.",
+		onStart: function (pokemon) {
+			pokemon.addVolatile('adrenalinerush');
+		},
+		onEnd: function (pokemon) {
+			delete pokemon.volatiles['adrenalinerush'];
+			this.add('-end', pokemon, 'Adrenaline Rush', '[silent]');
+		},
+		effect: {
+			duration: 5,
+			onStart: function (target) {
+				this.add('-start', target, 'ability: Adrenaline Rush');
+			},
+			onModifyAtkPriority: 5,
+			onModifyAtk: function (atk, pokemon) {
+				return this.chainModify(2);
+			},
+			onModifySpe: function (spe, pokemon) {
+				return this.chainModify(2);
+			},
+			onEnd: function (target) {
+				this.add('-end', target, 'Adrenaline Rush');
+			},
+		},
+		id: "adrenalinerush",
+		name: "Adrenaline Rush",
+	},
 	// E4 Flint
 	starkmountain: {
 		desc: "The user summons sunny weather when they switch in. Water-type attack damage against this pokemon is halved.",
