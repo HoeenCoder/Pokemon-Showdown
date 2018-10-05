@@ -441,7 +441,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Mamoswine', ability: 'Thiccer Fat', item: 'Thiccinium Z', gender: '',
 				moves: ['Icicle Crash', 'Precipice Blades', ['Ice Shard', 'Superpower', 'Stone Edge', 'Knock Off']],
 				signatureMove: 'Thicc',
-				evs: {atk: 252, der: 4, spe: 252}, nature: 'Jolly',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
 			'Scotteh': {
 				species: 'Suicune', ability: 'Fur Coat', item: 'Leftovers', gender: 'M',
