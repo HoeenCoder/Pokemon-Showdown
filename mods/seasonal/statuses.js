@@ -580,7 +580,7 @@ let BattleStatuses = {
 		// Kaiju Rage Innate
 		// onUpdate so toxic orb can activate after. Code mainly copied from Power Construct.
 		onUpdate: function (pokemon) {
-			if (pokemon.template.speciesid !== 'gligar' || pokemon.transformed || !pokemon.hp) return;
+			if (pokemon.template.speciesid !== 'gligar' || pokemon.transformed || pokemon.illusion || !pokemon.hp) return;
 			if (pokemon.hp > pokemon.maxhp / 2) return;
 			this.add('-activate', pokemon, 'ability: Kaiju Rage');
 			pokemon.formeChange('Gliscor', this.effect, true);
