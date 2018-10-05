@@ -41,6 +41,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 			// Nature needs to be a valid nature with the first letter capitalized ex: Modest
 			*/
 			// Please keep sets organized alphabetically based on staff member name!
+			'5gen': {
+				species: 'Sawsbuck', ability: 'Season\'s Gift', item: 'Heat Rock', gender: 'M',
+				moves: ['Sunny Day', 'Return', 'High Jump Kick'],
+				signatureMove: 'Too Much Saws',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
+			},
 			'2xTheTap': {
 				species: 'Arcanine', ability: 'Mold Breaker', item: 'Life Orb', gender: 'M',
 				moves: ['Sacred Fire', 'Extreme Speed', 'Morning Sun'],
@@ -564,10 +570,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 		while (pool.length && team.length < 6) {
 			let name = '';
 			// DEBUG CODE
-			let debug = false; // Programmers - Toggle this to use the code below
+			let debug = true; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'Snaquaza';
+				name = '5gen';
 				if (pool.indexOf(name) > -1) {
 					pool.splice(pool.indexOf(name), 1);
 				} else {

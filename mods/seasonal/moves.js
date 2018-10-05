@@ -37,6 +37,32 @@ let BattleMovedex = {
 	},
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
+	// 5gen
+	toomuchsaws: {
+		accuracy: 100,
+		basePower: 85,
+		basePowerCallback: function (pokemon, target, move) {
+			if (target.newlySwitched) {
+				return move.basePower * 2;
+			}
+			return move.basePower;
+		},
+		category: "Physical",
+		desc: "If the opponent switches out the turn this move is used, this move doubles in power.",
+		shortDesc: "Power doubles if foe switches out.",
+		id: "toomuchsaws",
+		name: "Too Much Saws",
+		pp: 10,
+		priority: 0,
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, 'Headbutt', source);
+		},
+		flags: {protect: 1, mirror: 1},
+		secondary: null,
+		target: "normal",
+		type: "Grass",
+	},
 	// 2xTheTap
 	noblehowl: {
 		accuracy: true,

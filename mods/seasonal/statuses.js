@@ -19,6 +19,18 @@ let BattleStatuses = {
 	},
 	*/
 	// Please keep statuses organized alphabetically based on staff member name!
+	'5gen': {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+5gen|Someone asked for extra sauce?`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+5gen|Need to get some from the back.`);
+		},
+		onFaint: function () {
+			this.add(`c|+5gen|I'm not dead yet, just changing formes.`);
+		},
+	},
 	'2xthetap': { // No single quotes causes issues
 		noCopy: true,
 		onStart: function () {
