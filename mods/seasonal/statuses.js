@@ -581,6 +581,8 @@ let BattleStatuses = {
 		// onUpdate so toxic orb can activate after. Code mainly copied from Power Construct.
 		onUpdate: function (pokemon) {
 			if (pokemon.template.speciesid !== 'gligar' || pokemon.transformed || !pokemon.hp) return;
+			// Pokemon evolves so this can return true
+			// @ts-ignore
 			if (pokemon.template.speciesid === 'gliscor' || pokemon.hp > pokemon.maxhp / 2) return;
 			this.add('-activate', pokemon, 'ability: Kaiju Rage');
 			pokemon.formeChange('Gliscor', this.effect, true);
