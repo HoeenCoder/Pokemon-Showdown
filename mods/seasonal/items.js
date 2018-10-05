@@ -18,7 +18,6 @@ let BattleItems = {
 	astleyiumz: {
 		id: "astleyiumz",
 		name: "Astleyium Z",
-		spritenum: 643,
 		onTakeItem: false,
 		zMove: "Rickrollout",
 		zMoveFrom: "Rock Slide",
@@ -64,7 +63,6 @@ let BattleItems = {
 	tiksiumz: {
 		id: "tiksiumz",
 		name: "Tiksium Z",
-		spritenum: 689,
 		onTakeItem: false,
 		zMove: "Devolution Wave",
 		zMoveFrom: "Rock Slide",
@@ -76,7 +74,6 @@ let BattleItems = {
 	nichiumz: {
 		id: "nichiumz",
 		name: "Nichium Z",
-		spritenum: 636,
 		onTakeItem: false,
 		zMove: "Revamped Suspect Philosophy",
 		zMoveFrom: "Icicle Crash",
