@@ -1253,7 +1253,6 @@ let BattleStatuses = {
 			}
 		},
 	},
-
 };
 
 exports.BattleStatuses = BattleStatuses;
