@@ -45,13 +45,13 @@ let BattleStatuses = {
 		// Fat Snake Innate
 		onModifyDefPriority: 6,
 		onModifyDef: function (def, pokemon) {
-			if (!pokemon.transformed) {
+			if (!pokemon.transformed && !pokemon.illusion) {
 				return this.chainModify(1.5);
 			}
 		},
 		onModifySpDPriority: 6,
 		onModifySpD: function (spd, pokemon) {
-			if (!pokemon.transformed) {
+			if (!pokemon.transformed && !pokemon.illusion) {
 				return this.chainModify(1.5);
 			}
 		},
@@ -116,7 +116,7 @@ let BattleStatuses = {
 			this.add(`c|%Akir|too sleepy, c ya`);
 		},
 		onSourceModifyDamage: function (damage, source, target, move) {
-			if (move.typeMod > 0) {
+			if (move.typeMod > 0 && !target.illusion) {
 				this.debug('Solid Rock neutralize');
 				return this.chainModify(0.75);
 			}
@@ -176,6 +176,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|@Beowulf|BUZZ BUZZ BUZZ BUZZ`);
+		},
+	},
+	bhrisbrown: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Bhris Brown|Never send a boy to do a mans job`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Bhris Brown|Goddamit Nappa...`);
+		},
+		onFaint: function () {
+			this.add(`c|+Bhris Brown|There is one thing I'd like to know...tell me. Will I meet that clown Kakarot in the other world?`);
 		},
 	},
 	biggie: {
@@ -331,6 +343,7 @@ let BattleStatuses = {
 		noCopy: true,
 		onStart: function (target, source) {
 			this.add(`c|@E4 Flint|How many Fire-Types do I have now`);
+			if (source.illusion) return;
 			// Mega evo right away and display unique typing
 			this.runMegaEvo(source);
 			this.add('-start', source, 'typeadd', 'Fire');
@@ -372,6 +385,7 @@ let BattleStatuses = {
 	ev: {
 		onStart: function (target) {
 			this.add(`c|~EV|Behold! The power of EVOLUTION!`);
+			if (target.illusion) return;
 
 			let formes = {
 				'flareon': ['Icicle Crash', 'Earthquake', 'Baton Pass', 'Evoblast'],
@@ -409,6 +423,7 @@ let BattleStatuses = {
 			}
 		},
 		onBeforeSwitchOut: function (pokemon) {
+			if (pokemon.illusion) return;
 			// @ts-ignore hacky change for EV's set
 			pokemon.ppPercentages = pokemon.moveSlots.slice().map(m => {
 				return m.pp / m.maxpp;
@@ -421,7 +436,7 @@ let BattleStatuses = {
 			this.add(`c|~EV|If you __say__ EV it sounds like Eevee. It's actually quite simple.`);
 		},
 	},
-	'false': { // no apostrophes causes issues
+	'false': {
 		noCopy: true,
 		onStart: function () {
 			this.add(`c|@false|٩(•̤̀ᵕ•̤́๑)ᵒᵏᵎᵎᵎᵎ`);
@@ -551,6 +566,36 @@ let BattleStatuses = {
 			this.add(`c|%jdarden|Back to my natural state`);
 		},
 	},
+	kaijubunny: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+Kaiju Bunny|Hey there! Good luck!`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Kaiju Bunny|Don't keep her from battling for too long!`);
+		},
+		onFaint: function () {
+			this.add(`c|+Kaiju Bunny|She tried her best... ;;`);
+		},
+		// Kaiju Rage Innate
+		// onUpdate so toxic orb can activate after. Code mainly copied from Power Construct.
+		onUpdate: function (pokemon) {
+			if (pokemon.template.speciesid !== 'gligar' || pokemon.transformed || pokemon.illusion || !pokemon.hp) return;
+			if (pokemon.hp > pokemon.maxhp / 2) return;
+			this.add('-activate', pokemon, 'ability: Kaiju Rage');
+			pokemon.formeChange('Gliscor', this.effect, true);
+			let newHP = Math.floor(Math.floor(2 * pokemon.template.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] / 4) + 100) * pokemon.level / 100 + 10);
+			pokemon.hp = newHP - (pokemon.maxhp - pokemon.hp);
+			pokemon.maxhp = newHP;
+			pokemon.heal(pokemon.maxhp / 4);
+			this.add('-heal', pokemon, pokemon.getHealth);
+			pokemon.takeItem();
+			pokemon.setItem('toxicorb');
+			this.add('-message', pokemon.name + '\'s item is now a Toxic Orb!');
+			this.add('-message', pokemon.name + '\'s ability is now Poison Heal!');
+			this.boost({atk: 2, spe: 1}, pokemon);
+		},
+	},
 	kay: {
 		noCopy: true,
 		onStart: function () {
@@ -564,6 +609,7 @@ let BattleStatuses = {
 		},
 		// Simple Innate
 		onBoost: function (boost, target, source, effect) {
+			if (source.illusion) return;
 			if (effect && effect.id === 'zpower') return;
 			for (let i in boost) {
 				// @ts-ignore
@@ -610,6 +656,7 @@ let BattleStatuses = {
 		// Aerilate innate
 		onModifyMovePriority: -1,
 		onModifyMove: function (move, pokemon) {
+			if (pokemon.illusion) return;
 			if (move.type === 'Normal' && !['judgment', 'multiattack', 'naturalgift', 'revelationdance', 'technoblast', 'weatherball'].includes(move.id) && !(move.isZ && move.category !== 'Status')) {
 				move.type = 'Flying';
 				move.aerilateBoosted = true;
@@ -864,12 +911,14 @@ let BattleStatuses = {
 		},
 		onModifyDefPriority: 6,
 		onModifyDef: function (def, pokemon) {
+			if (pokemon.illusion) return;
 			if (!pokemon.transformed) {
 				return this.chainModify(1.5);
 			}
 		},
 		onModifySpDPriority: 6,
 		onModifySpD: function (spd, pokemon) {
+			if (pokemon.illusion) return;
 			if (!pokemon.transformed) {
 				return this.chainModify(1.5);
 			}
@@ -917,11 +966,25 @@ let BattleStatuses = {
 		onStart: function () {
 			this.add(`c|+Snaquaza|Snaq is baq... with a vengeance!`);
 		},
-		onSwitchOut: function () {
+		onSwitchOut: function (pokemon) {
 			this.add(`c|+Snaquaza|Lynch Hoeen while I'm away...`);
+			// @ts-ignore Hack for Snaquaza's Z move
+			if (pokemon.claimHP) delete pokemon.claimHP;
 		},
 		onFaint: function () {
 			this.add(`c|+Snaquaza|How did you know I was scum?`);
+		},
+	},
+	sungodvolcarona: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+SunGodVolcarona|Praise the Sun and live a happy life.`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+SunGodVolcarona|You dare switch out a god?`);
+		},
+		onFaint: function () {
+			this.add(`c|+SunGodVolcarona|All Suns have to set at one point.`);
 		},
 	},
 	teclis: {
@@ -1015,6 +1078,18 @@ let BattleStatuses = {
 		},
 		onFaint: function () {
 			this.add(`c|@Trickster|(✖﹏✖✿)`);
+		},
+	},
+	unleashourpassion: {
+		noCopy: true,
+		onStart: function () {
+			this.add(`c|+UnleashOurPassion|1v1 me if real`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+UnleashOurPassion|Tfw you remember switching exists`);
+		},
+		onFaint: function () {
+			this.add(`c|+UnleashOurPassion|That's hax! You were supposed to miss`);
 		},
 	},
 	urkerab: {

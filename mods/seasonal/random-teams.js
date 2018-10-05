@@ -101,6 +101,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Buzzing of the Swarm',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
+			'Bhris Brown': {
+				species: 'Swampert', ability: 'Damp', item: 'Swampertite', gender: 'M',
+				moves: ['Waterfall', 'Ice Punch', 'Earthquake'],
+				signatureMove: 'Final Impact',
+				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant', shiny: true,
+			},
 			'biggie': {
 				species: 'Snorlax', ability: 'Fur Coat', item: 'Leftovers', gender: 'M',
 				moves: ['Diamond Storm', 'Knock Off', ['Drain Punch', 'Precipice Blades']],
@@ -180,10 +186,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
 			},
 			'E4 Flint': {
-				species: 'Steelix', ability: 'Sturdy', item: 'Magmarizer', gender: 'M', // Ability is changed on mega evo, which is instant for this set
-				moves: ['Sunsteel Strike', 'Thousand Arrows', ['Dragon Tail', 'Diamond Storm', 'V-create', 'V-create']], // V-create listed twice for 50% chance to get it
+				species: 'Steelix', ability: 'Sturdy', item: 'Magmarizer', gender: 'M',
+				moves: ['Sunsteel Strike', 'Thousand Arrows', ['Dragon Tail', 'Knock Off', 'Fire Lash', 'Fire Lash']], // Fire Lash listed twice for 50% chance to get it
 				signatureMove: 'Fang of the Fire King',
-				evs: {hp: 252, atk: 36, def: 100, spd: 120}, nature: 'Adamant',
+				evs: {hp: 252, atk: 36, def: 100, spd: 120}, ivs: {spe: 0}, nature: 'Brave',
 			},
 			'explodingdaisies': {
 				species: 'Houndoom', ability: 'Flash Fire', item: 'Houndoominite', gender: 'M',
@@ -268,6 +274,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Rest', 'Sleep Talk', 'Quiver Dance'],
 				signatureMove: 'Wyvern\'s Wail',
 				evs: {hp: 248, def: 252, spd: 8}, ivs: {atk: 0}, nature: 'Bold',
+			},
+			'Kaiju Bunny': {
+				species: 'Gligar', ability: 'Immunity', item: 'Eviolite', gender: 'F',
+				moves: ['Earthquake', 'Roost', ['Toxic', 'Stealth Rock']],
+				signatureMove: 'Beastial Strike',
+				evs: {hp: 252, def: 156, spd: 100}, nature: 'Impish',
 			},
 			'Kalalokki': {
 				species: 'Wingull', ability: 'Swift Swim', item: ['Waterium Z', 'Flyinium Z', 'Electrium Z'], gender: 'M',
@@ -443,6 +455,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Brave Bird',
 				nature: 'Serious',
 			},
+			'SunGodVolcarona': {
+				species: 'Volcarona', ability: 'Solar Flare', item: 'Volcaronium Z', gender: 'M',
+				moves: ['Quiver Dance', 'Giga Drain', ['Earth Power', 'Psychic']],
+				signatureMove: 'Fiery Dance',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+			},
 			'Teclis': {
 				species: 'Gallade', ability: 'Intimidate', item: 'Galladite', gender: 'M',
 				moves: ['Sacred Sword', 'Psycho Cut', 'Knock Off'],
@@ -491,6 +509,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Mini Singularity',
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'UnleashOurPassion': {
+				species: 'Stunfisk', ability: 'Teravolt', item: 'Lum Berry', gender: 'M',
+				moves: ['Earth Power', 'Shore Up', ['Surf', 'Giga Drain', 'Stealth Rock']],
+				signatureMove: 'Continuous 1v1',
+				evs: {hp: 252, spa: 200, spd: 56}, ivs: {atk: 0}, nature: 'Modest',
+			},
 			'urkerab': {
 				species: 'Muk-Alola', ability: 'Focus Energy', item: 'Air Balloon', gender: 'M',
 				moves: ['Night Slash', 'Drill Run', 'Cross Poison'],
@@ -535,13 +559,15 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 		};
 		let pool = Object.keys(sets);
+		/** @type {{[type: string]: number}} */
+		let typePool = {};
 		while (pool.length && team.length < 6) {
 			let name = '';
 			// DEBUG CODE
 			let debug = false; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'Bimp';
+				name = 'Snaquaza';
 				if (pool.indexOf(name) > -1) {
 					pool.splice(pool.indexOf(name), 1);
 				} else {
@@ -552,6 +578,24 @@ class RandomStaffBrosTeams extends RandomTeams {
 				name = this.sampleNoReplace(pool);
 			}
 			let ssbSet = sets[name];
+			// Enforce typing limits
+			let types = this.getTemplate(ssbSet.species).types;
+			if (name === 'E4 Flint') types = ["Steel", "Ground", "Fire"];
+			if (name === 'OM') types = ["Fire", "Fairy"];
+			let rejected = false;
+			for (let type of types) {
+				if (typePool[type] === undefined) typePool[type] = 0;
+				if (typePool[type] >= 3) {
+					// Reject
+					rejected = true;
+					break;
+				}
+			}
+			if (rejected) continue;
+			// Update type counts
+			for (let type of types) {
+				typePool[type]++;
+			}
 			/** @type {PokemonSet} */
 			let set = {
 				name: name,

@@ -18,7 +18,6 @@ let BattleItems = {
 	astleyiumz: {
 		id: "astleyiumz",
 		name: "Astleyium Z",
-		spritenum: 643,
 		onTakeItem: false,
 		zMove: "Rickrollout",
 		zMoveFrom: "Rock Slide",
@@ -49,11 +48,21 @@ let BattleItems = {
 		gen: 7,
 		desc: "If held by a Honchkrow, it can use Fake Claim.",
 	},
+	// SunGodVolcarona
+	volcaroniumz: {
+		id: "volcaroniumz",
+		name: "Volcaronium Z",
+		onTakeItem: false,
+		zMove: "Scorching Global Vortex",
+		zMoveFrom: "Fiery Dance",
+		zMoveUser: ["Volcarona"],
+		gen: 7,
+		desc: "If held by a Volcarona with Fiery Dance, it can use Scorching Global Vortex.",
+	},
 	// Tiksi
 	tiksiumz: {
 		id: "tiksiumz",
 		name: "Tiksium Z",
-		spritenum: 689,
 		onTakeItem: false,
 		zMove: "Devolution Wave",
 		zMoveFrom: "Rock Slide",
@@ -65,7 +74,6 @@ let BattleItems = {
 	nichiumz: {
 		id: "nichiumz",
 		name: "Nichium Z",
-		spritenum: 636,
 		onTakeItem: false,
 		zMove: "Revamped Suspect Philosophy",
 		zMoveFrom: "Icicle Crash",
