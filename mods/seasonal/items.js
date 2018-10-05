@@ -38,7 +38,7 @@ let BattleItems = {
 	},
 	// SamJo
 	thicciniumz: {
-		id: "nichiumz",
+		id: "thicciniumz",
 		name: "Thiccinium Z",
 		onTakeItem: false,
 		zMove: "Extra T h i c c",
