@@ -41,17 +41,17 @@ class RandomStaffBrosTeams extends RandomTeams {
 			// Nature needs to be a valid nature with the first letter capitalized ex: Modest
 			*/
 			// Please keep sets organized alphabetically based on staff member name!
-			'5gen': {
-				species: 'Sawsbuck', ability: 'Season\'s Gift', item: 'Heat Rock', gender: 'M',
-				moves: ['Sunny Day', 'Return', 'High Jump Kick'],
-				signatureMove: 'Too Much Saws',
-				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
-			},
 			'2xTheTap': {
 				species: 'Arcanine', ability: 'Mold Breaker', item: 'Life Orb', gender: 'M',
 				moves: ['Sacred Fire', 'Extreme Speed', 'Morning Sun'],
 				signatureMove: 'Noble Howl',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Adamant', shiny: true,
+			},
+			'5gen': {
+				species: 'Sawsbuck', ability: 'Season\'s Gift', item: 'Heat Rock', gender: 'M',
+				moves: ['Sunny Day', 'Return', 'High Jump Kick'],
+				signatureMove: 'Too Much Saws',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
 			'ACakeWearingAHat': {
 				species: 'Dunsparce', ability: 'Serene Grace', item: 'Leftovers', gender: 'M',
