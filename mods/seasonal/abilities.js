@@ -122,8 +122,8 @@ let BattleAbilities = {
 			onStart: function (target) {
 				this.add('-start', target, 'ability: Adrenaline Rush');
 			},
-			onModifySpaPriority: 5,
-			onModifySpa: function (atk, pokemon) {
+			onModifySpAPriority: 5,
+			onModifySpA: function (spa, pokemon) {
 				return this.chainModify(2);
 			},
 			onModifySpe: function (spe, pokemon) {
