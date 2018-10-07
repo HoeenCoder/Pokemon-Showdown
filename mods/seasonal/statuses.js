@@ -1363,6 +1363,11 @@ let BattleStatuses = {
 		onNegateImmunity: function (pokemon, type) {
 			if (pokemon.hasType('Dark') && type === 'Psychic') return false;
 		},
+		onUpdate: function () {
+			if (!this.pseudoWeather.trickroom) {
+				this.removePseudoWeather('alienwave');
+			}
+		},
 		onResidualOrder: 23,
 		onEnd: function () {
 			this.add('-fieldend', 'move: Alien Wave');
