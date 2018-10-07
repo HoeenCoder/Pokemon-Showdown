@@ -282,7 +282,7 @@ let BattleMovedex = {
 			if (side.faintedLastTurn) {
 				this.add('-anim', source, "Wish", target);
 				side.addSideCondition('wish', source);
-				this.add('-message', `${source.name} sent a wish!`);
+				this.add('-message', `${source.name} made a wish!`);
 			}
 			for (const ally of side.pokemon) {
 				if (ally.hasAbility('soundproof')) continue;
