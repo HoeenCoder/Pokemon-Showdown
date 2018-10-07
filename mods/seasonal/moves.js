@@ -278,11 +278,15 @@ let BattleMovedex = {
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Ingrain", target);
-		},
-		onTry: function (pokemon) {
-			if (pokemon.side.faintedLastTurn) {
-				this.boost({atk: 1, def: 1, spd: 1});
-				pokemon.cureStatus();
+			let side = source.side;
+			if (side.faintedLastTurn) {
+				this.add('-anim', source, "Wish", target);
+				side.addSideCondition('wish', source);
+				this.add('-message', `${source.name} sent a wish!`);
+			}
+			for (const ally of side.pokemon) {
+				if (ally.hasAbility('soundproof')) continue;
+				if (ally.cureStatus());
 			}
 		},
 		secondary: null,
