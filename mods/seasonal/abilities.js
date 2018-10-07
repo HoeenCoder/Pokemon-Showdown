@@ -16,8 +16,8 @@ let BattleAbilities = {
 	// Please keep abilites organized alphabetically based on staff member name!
 	// 5gen
 	seasonsgift: {
-		desc: "If the weather is sunnyday this pokemon has +1 atk and +2 spe.",
-		shortDesc: "If sunnyday is active, +1 atk & +2 spe.",
+		desc: "If the weather is sunnyday this pokemon has 1.5x atk and 2x spe.",
+		shortDesc: "If sunnyday is active, 1.5x atk & 2x spe.",
 		id: "seasonsgift",
 		name: "Season's Gift",
 		onModifyAtk: function (atk) {
