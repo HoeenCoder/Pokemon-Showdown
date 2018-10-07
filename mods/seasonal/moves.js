@@ -266,8 +266,8 @@ let BattleMovedex = {
 	compost: {
 		accuracy: true,
 		category: "Status",
-		desc: "If any ally of the user fainted last turn, the user's Atk, Def, and Spd are boosted by 1 stage, and the user's burn, paralysis, or poison is cured.",
-		shortDesc: "If ally fainted last turn; boosts stats, cures status.",
+		desc: "If any ally of the user fainted last turn, this move heals the active Pokemon by 50% of Parasect's HP next turn, Cures the user's party of all status conditions.",
+		shortDesc: "If ally fainted last turn, uses wish; cures party status.",
 		id: "compost",
 		name: "Compost",
 		isNonstandard: true,
@@ -286,7 +286,7 @@ let BattleMovedex = {
 			}
 			for (const ally of side.pokemon) {
 				if (ally.hasAbility('soundproof')) continue;
-				if (ally.cureStatus());
+				ally.cureStatus();
 			}
 		},
 		secondary: null,
