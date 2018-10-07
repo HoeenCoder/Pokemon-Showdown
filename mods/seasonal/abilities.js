@@ -31,6 +31,20 @@ let BattleAbilities = {
 			}
 		},
 	},
+	// Akir
+	regrowth: {
+		desc: "+1 priority healing moves; heal 25% HP on switchout.",
+		shortDesc: "+1 priority healing moves; heal 25% HP on switchout.",
+		id: "regrowth",
+		name: "Regrowth",
+		isNonstandard: true,
+		onModifyPriority: function (priority, pokemon, target, move) {
+			if (move && move.flags['heal']) return priority + 1;
+		},
+		onSwitchOut: function (pokemon) {
+			pokemon.heal(pokemon.maxhp / 4);
+		},
+	},
 	// Arrested
 	shellshocker: {
 		desc: "This Pokemon's Normal-type moves become Electric type and have 1.2x power. In addition, this Pokemon heals 1/4 of its max HP when hit by Electric moves and is immune to Electric type moves.",
