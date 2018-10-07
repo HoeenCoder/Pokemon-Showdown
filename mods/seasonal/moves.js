@@ -2409,6 +2409,30 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Poison",
 	},
+	// pluviometer
+	grammarhammer: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		desc: "100% chance to burn the target.",
+		shortDesc: "100% chance to burn the target.",
+		id: "grammarhammer",
+		name: "Grammar Hammer",
+		isNonstandard: true,
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hammer Arm", target);
+		},
+		secondary: {
+			chance: 100,
+			status: 'brn',
+		},
+		target: "normal",
+		type: "Ghost",
+	},
 	// ptoad
 	lilypadshield: {
 		accuracy: true,
@@ -2692,6 +2716,32 @@ let BattleMovedex = {
 		target: "self",
 		type: "Flying",
 	},
+	// Slowbroth
+	alienwave: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "",
+		shortDesc: "5 turns: slower Pokemon move first, Psychic hits Dark.",
+		id: "alienwave",
+		name: "Alien Wave",
+		isNonstandard: true,
+		pp: 10,
+		priority: -7,
+		flags: {mirror: 1, snatch: 1},
+		onPrepareHit: function (target, source) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Telekinesis", source);
+			this.add('-anim', source, "Trick Room", source);
+		},
+		onHit: function (pokemon) {
+			this.addPseudoWeather('alienwave');
+		},
+		pseudoWeather: 'trickroom',
+		secondary: null,
+		target: "self",
+		type: "Normal",
+	},
 	// Snaquaza
 	fakeclaim: {
 		accuracy: true,
@@ -2769,8 +2819,8 @@ let BattleMovedex = {
 		accuracy: true,
 		basePower: 200,
 		category: "Special",
-		desc: "Has a 100% chance to burn the target. Ignores abilities.",
-		shortDesc: "100% to burn. Ignores abilities.",
+		desc: "Burns the target. Ignores abilities.",
+		shortDesc: "Burns the target. Ignores abilities.",
 		id: "scorchingglobalvortex",
 		name: "Scorching Global Vortex",
 		isNonstandard: true,
@@ -2781,11 +2831,10 @@ let BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Searing Sunraze Smash", target);
 		},
-		ignoreAbility: true,
-		secondary: {
-			chance: 100,
-			status: 'brn',
+		onHit: function (target, source) {
+			target.trySetStatus('brn', source);
 		},
+		ignoreAbility: true,
 		isZ: "volcaroniumz",
 		target: "normal",
 		type: "Fire",
