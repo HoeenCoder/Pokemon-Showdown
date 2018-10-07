@@ -33,7 +33,7 @@ let BattleAbilities = {
 	},
 	// Akir
 	regrowth: {
-		desc: "+1 priority healing moves; heal 25% HP on switchout.",
+		desc: "This Pokemon's healing moves have their priority increased by 1. When switching out, this pokemon restores 1/4 of its maximum HP.",
 		shortDesc: "+1 priority healing moves; heal 25% HP on switchout.",
 		id: "regrowth",
 		name: "Regrowth",
