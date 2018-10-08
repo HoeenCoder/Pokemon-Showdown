@@ -2591,7 +2591,7 @@ let BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Genesis Supernova", source);
 		},
-		terrain: 'literallycheating',
+		pseudoWeather: 'literallycheating',
 		effect: {
 			duration: 3,
 			durationCallback: function (source, effect) {
@@ -2611,7 +2611,7 @@ let BattleMovedex = {
 					}
 				}
 				if (!positiveBoost || !target.lastMove) return;
-				target.deductPP(target.lastMove.id, target.lastMove.pp);
+				target.lastMove.pp = 0;
 				this.add('-activate', target, 'move: Literally Cheating', target.lastMove.name, target.lastMove.pp);
 				this.add('-message', `${target.name} lost PP!`);
 			},
