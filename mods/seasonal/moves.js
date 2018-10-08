@@ -1869,7 +1869,7 @@ let BattleMovedex = {
 			noCopy: true,
 			onStart: function (pokemon) {
 				this.add('-start', pokemon, 'Purple Pills', '[silent]');
-				this.add('-message', `${pokemon.name} downed some pills!`);
+				this.add('-message', `${pokemon.name} swallowed some pills!`);
 				const allTypes = ['Normal', 'Fire', 'Fighting', 'Water', 'Flying', 'Grass', 'Poison', 'Electric', 'Ground', 'Psychic', 'Rock', 'Ice', 'Bug', 'Dragon', 'Ghost', 'Dark', 'Steel', 'Fairy'];
 				let type1 = allTypes[this.random(18)];
 				let type2 = allTypes[this.random(18)];
@@ -1880,44 +1880,31 @@ let BattleMovedex = {
 					pokemon.types = [type1, type2];
 					this.add('-start', pokemon, 'typechange', `${type1}/${type2}`);
 				}
-				// @ts-ignoretrack percentages to keep purple pills from resetting pp
+				// @ts-ignore track percentages to keep purple pills from resetting pp
 				pokemon.ppPercentages = pokemon.moveSlots.slice().map(m => {
 					return m.pp / m.maxpp;
 				});
-				// 3 moves with different requirements so no for statement
+				// Get all possible moves sorted for convience in coding
 				let newMovep = [];
-				let randMoves = [];
+				let statMove = []; let offMove1 = []; let offMove2 = [];
 				for (let i in exports.BattleMovedex) {
 					let move = exports.BattleMovedex[i];
 					if (i !== move.id) continue;
 					if (move.isZ || move.isNonstandard || !move.isViable) continue;
-					if (move.category !== 'Special') continue;
-					if (move.type !== type1) continue;
-					randMoves.push(move);
+					if (!pokemon.types.includes(move.type)) continue;
+					// Time to sort!
+					if (move.category === 'Status') statMove.push(move);
+					if (move.category === 'Special') {
+						if (move.type === type1) offMove1.push(move);
+						if (move.type === type2) offMove2.push(move);
+					}
+					console.log(move.id);
 				}
-				newMovep.push(toId(randMoves[this.random(randMoves.length)]));
-				randMoves = [];
-				for (let i in exports.BattleMovedex) {
-					let move = exports.BattleMovedex[i];
-					if (i !== move.id) continue;
-					if (move.isZ || move.isNonstandard || !move.isViable) continue;
-					if (move.category !== 'Special') continue;
-					if (move.type !== type2) continue;
-					randMoves.push(move);
-				}
-				newMovep.push(toId(randMoves[this.random(randMoves.length)]));
-				randMoves = [];
-				for (let i in exports.BattleMovedex) {
-					let move = exports.BattleMovedex[i];
-					if (i !== move.id) continue;
-					if (move.isZ || move.isNonstandard || !move.isViable) continue;
-					if (move.category !== 'Status') continue;
-					if (move.type !== type1 && move.type !== type2) continue;
-					randMoves.push(move);
-				}
-				newMovep.push(toId(randMoves[this.random(randMoves.length)]));
+				newMovep.push(toId(offMove1[this.random(offMove1.length)]));
+				newMovep.push(toId(offMove2[this.random(offMove2.length)]));
+				newMovep.push(toId(statMove[this.random(statMove.length)]));
 				newMovep.push('purplepills');
-				// Update movepool
+				// Replace Moveset
 				pokemon.moveSlots = [];
 				for (let i = 0; i < newMovep.length; i++) {
 					let moveid = newMovep[i];
@@ -1927,7 +1914,7 @@ let BattleMovedex = {
 						move: move.name,
 						id: move.id,
 						// @ts-ignore hacky way to reduce purple pill's PP
-						pp: Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.ppPercentages && move.id === 'purplepills' ? pokemon.ppPercentages[i] : 1)),
+						pp: Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.ppPercentages ? pokemon.ppPercentages[i] : 1)),
 						maxpp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
 						target: move.target,
 						disabled: false,
@@ -1942,7 +1929,7 @@ let BattleMovedex = {
 				return pokemon.getStat('spd');
 			},
 			onRestart: function (pokemon) {
-				this.add('-message', `${pokemon.name} felt better!`);
+				this.add('-message', `${pokemon.name} feels better!`);
 				delete pokemon.volatiles['purplepills'];
 				this.add('-end', pokemon, 'Purple Pills', '[silent]');
 				pokemon.types = ['Psychic'];
@@ -1962,7 +1949,7 @@ let BattleMovedex = {
 						move: move.name,
 						id: move.id,
 						// @ts-ignore hacky way to reduce purple pill's PP
-						pp: Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.ppPercentages && move.id === 'purplepills' ? pokemon.ppPercentages[i] : 1)),
+						pp: Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.ppPercentages ? pokemon.ppPercentages[i] : 1)),
 						maxpp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
 						target: move.target,
 						disabled: false,
