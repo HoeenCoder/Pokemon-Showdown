@@ -1898,7 +1898,6 @@ let BattleMovedex = {
 						if (move.type === type1) offMove1.push(move);
 						if (move.type === type2) offMove2.push(move);
 					}
-					console.log(move.id);
 				}
 				newMovep.push(toId(offMove1[this.random(offMove1.length)]));
 				newMovep.push(toId(offMove2[this.random(offMove2.length)]));
