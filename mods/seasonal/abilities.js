@@ -124,8 +124,8 @@ let BattleAbilities = {
 		},
 		effect: {
 			duration: 5,
-			onStart: function (target) {
-				this.add('-message', target.active[0] +'\'s Adrenaline Rush has begun.');
+			onStart: function (pokemon) {
+				this.add('-message', `${pokemon}'s Adrenaline Rush has begun.`);
 			},
 			onModifySpAPriority: 5,
 			onModifySpA: function (spa, pokemon) {
@@ -134,8 +134,8 @@ let BattleAbilities = {
 			onModifySpe: function (spe, pokemon) {
 				return this.chainModify(2);
 			},
-			onEnd: function (target) {
-				this.add('-message', target.active[0] + '\'s Adrenaline Rush has ended.');
+			onEnd: function (pokemon) {
+				this.add('-message', `${pokemon}'s Adrenaline Rush has ended.`);
 			},
 		},
 		id: "adrenalinerush",
