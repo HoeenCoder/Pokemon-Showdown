@@ -352,7 +352,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Cresselia', ability: 'Wonder Skin', item: 'Leftovers', gender: 'N',
 				moves: ['Moonlight', 'Heart Swap', 'Baton Pass'],
 				signatureMove: 'Purple Pills',
-				evs: {hp: 248, def: 8, spd: 252}, ivs: {atk: 0}, nature: 'Calm',
+				evs: {hp: 176, def: 80, spd: 252}, ivs: {atk: 0}, nature: 'Calm',
 			},
 			'MacChaeger': {
 				species: 'Mantyke', ability: 'Water Veil', item: ['Life Orb', 'Normalium Z'], gender: 'M',
