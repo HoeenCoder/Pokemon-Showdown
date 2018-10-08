@@ -1891,7 +1891,7 @@ let BattleMovedex = {
 					let move = exports.BattleMovedex[i];
 					if (i !== move.id) continue;
 					if (move.isZ || move.isNonstandard || !move.isViable) continue;
-					if (!pokemon.types.includes(move.type)) continue;
+					if (move.type && !pokemon.types.includes(move.type)) continue;
 					// Time to sort!
 					if (move.category === 'Status') statMove.push(move);
 					if (move.category === 'Special') {
