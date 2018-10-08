@@ -349,7 +349,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
 			},
 			'Lycanium Z': {
-				species: 'Cresselia', ability: 'Pressure', item: 'Leftovers', gender: 'N',
+				species: 'Cresselia', ability: 'Wonder Skin', item: 'Leftovers', gender: 'N',
 				moves: ['Moonlight', 'Heart Swap', 'Baton Pass'],
 				signatureMove: 'Purple Pills',
 				evs: {hp: 248, def: 8, spd: 252}, ivs: {atk: 0}, nature: 'Calm',
