@@ -2115,7 +2115,7 @@ let BattleMovedex = {
 			let template = this.getTemplate('Silvally-' + randomType);
 			source.formeChange(template, this.getAbility('rkssystem'), true);
 			let move = this.getMoveCopy('multiattack');
-			move.ignoreAbility = true;
+			move.basePower = 80;
 			this.useMove(move, source, target);
 		},
 		secondary: null,
