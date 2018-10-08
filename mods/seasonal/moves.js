@@ -3557,6 +3557,39 @@ let BattleMovedex = {
 		target: "allAdjacentFoes",
 		type: "Psychic",
 	},
+	// Modified Moves \\
+	// Purple Pills is immune to taunt
+	"taunt": {
+		inherit: true,
+		volatileStatus: 'taunt',
+		effect: {
+			duration: 3,
+			onStart: function (target) {
+				if (target.activeTurns && !this.willMove(target)) {
+					this.effectData.duration++;
+				}
+				this.add('-start', target, 'move: Taunt');
+			},
+			onResidualOrder: 12,
+			onEnd: function (target) {
+				this.add('-end', target, 'move: Taunt');
+			},
+			onDisableMove: function (pokemon) {
+				for (const moveSlot of pokemon.moveSlots) {
+					if (this.getMove(moveSlot.id).category === 'Status' && this.getMove(moveSlot.id).id !== 'purplepills') {
+						pokemon.disableMove(moveSlot.id);
+					}
+				}
+			},
+			onBeforeMovePriority: 5,
+			onBeforeMove: function (attacker, defender, move) {
+				if (!move.isZ && move.category === 'Status' && move.id !== 'purplepills') {
+					this.add('cant', attacker, 'move: Taunt', move);
+					return false;
+				}
+			},
+		},
+	},
 };
 
 exports.BattleMovedex = BattleMovedex;
