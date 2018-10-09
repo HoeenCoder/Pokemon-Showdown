@@ -2611,12 +2611,10 @@ let BattleMovedex = {
 					}
 				}
 				if (!positiveBoost || !target.lastMove) return;
-				/*target.lastMove.pp = 0;
-				this.add('-activate', target, 'move: Literally Cheating', target.lastMove.name, target.lastMove.pp);*/
+				this.add('-activate', target, 'move: Literally Cheating', target.lastMove.name, target.lastMove.pp);
 				for (const moveSlot of target.moveSlots) {
 					if (moveSlot.id === target.lastMove.id) {
-						moveSlot.pp = 0;
-						this.add('-activate', source, 'move: Literally Cheating', this.getMove(target.lastMove.id).name);
+						target.deductPP(moveSlot.id, moveSlot.pp);
 					}
 				}
 				this.add('-message', `${target.name} lost PP!`);
