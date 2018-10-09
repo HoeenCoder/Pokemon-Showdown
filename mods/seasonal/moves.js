@@ -2698,17 +2698,10 @@ let BattleMovedex = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Genesis Supernova", source);
 		},
-		terrain: 'literallycheating',
+		pseudoWeather: 'literallycheating',
 		effect: {
 			duration: 3,
-			durationCallback: function (source, effect) {
-				if (source && source.hasItem('terrainextender')) {
-					return 5;
-				}
-				return 3;
-			},
 			onBoost: function (boost, target, source, effect) {
-				if (!target.isGrounded() || target.isSemiInvulnerable()) return;
 				let positiveBoost = false;
 				let values = Object.values(boost);
 				for (let i of values) {
