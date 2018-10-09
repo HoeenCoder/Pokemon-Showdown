@@ -786,11 +786,6 @@ let BattleStatuses = {
 		},
 		onSwitchOut: function (pokemon) {
 			this.add(`c| Lycanium Z|What I gotta do to get it through to you? I'm superhuman.`);
-			if (pokemon.illusion) return;
-			// @ts-ignore hacky change for Lycanium Z's move
-			pokemon.ppPercentages = pokemon.moveSlots.slice().map(m => {
-				return m.pp / m.maxpp;
-			});
 		},
 		onFaint: function () {
 			this.add(`c| Lycanium Z|How can I find you?`);
