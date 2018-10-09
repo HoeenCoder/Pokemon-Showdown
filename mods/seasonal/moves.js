@@ -2076,7 +2076,7 @@ let BattleMovedex = {
 		type: "Rock",
 	},
 	// Marty
-	"typeanalysis": {
+	typeanalysis: {
 		accuracy: true,
 		category: "Status",
 		desc: "If the user is a Silvally, its item becomes a random Memory whose type matches one of the target's weaknesses, it changes form, and it uses Multi-Attack. This move and its effects ignore the Abilities of other Pokemon. Fails if the target has no weaknesses or if the user's form is not Silvally.",
@@ -2611,8 +2611,14 @@ let BattleMovedex = {
 					}
 				}
 				if (!positiveBoost || !target.lastMove) return;
-				target.lastMove.pp = 0;
-				this.add('-activate', target, 'move: Literally Cheating', target.lastMove.name, target.lastMove.pp);
+				/*target.lastMove.pp = 0;
+				this.add('-activate', target, 'move: Literally Cheating', target.lastMove.name, target.lastMove.pp);*/
+				for (const moveSlot of target.moveSlots) {
+					if (moveSlot.id === target.lastMove.id) {
+						moveSlot.pp = 0;
+						this.add('-activate', source, 'move: Literally Cheating', this.getMove(target.lastMove.id).name);
+					}
+				}
 				this.add('-message', `${target.name} lost PP!`);
 			},
 			onStart: function (battle, source, effect) {
