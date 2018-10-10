@@ -98,7 +98,7 @@ let BattleAbilities = {
 			for (const target of pokemon.side.foe.active) {
 				if (!target || !this.isAdjacent(target, pokemon)) continue;
 				if (!activated) {
-					this.add('-ability', pokemon, 'Stimulated Pride', 'boost');
+					this.add('-ability', pokemon, 'Stimulated Pride');
 					activated = true;
 				}
 				if (target.volatiles['substitute']) {
@@ -139,8 +139,8 @@ let BattleAbilities = {
 				source.formeChange('Shaymin-Sky', this.effect);
 			}
 		},
-		onAfterMove: function (target, source, move) {
-			source.formeChange('Shaymin', this.effect);
+		onAfterMove: function (pokemon, move) {
+			pokemon.formeChange('Shaymin', this.effect);
 		},
 	},
 	// cc
@@ -170,7 +170,7 @@ let BattleAbilities = {
 		effect: {
 			duration: 5,
 			onStart: function (pokemon) {
-				this.add('-message', `${pokemon}'s Adrenaline Rush has begun.`);
+				this.add('-message', `${pokemon.name}'s Adrenaline Rush has begun.`);
 			},
 			onModifySpAPriority: 5,
 			onModifySpA: function (spa, pokemon) {
@@ -180,7 +180,7 @@ let BattleAbilities = {
 				return this.chainModify(2);
 			},
 			onEnd: function (pokemon) {
-				this.add('-message', `${pokemon}'s Adrenaline Rush has ended.`);
+				this.add('-message', `${pokemon.name}'s Adrenaline Rush has ended.`);
 			},
 		},
 		id: "adrenalinerush",
