@@ -784,10 +784,12 @@ let BattleStatuses = {
 		onStart: function (pokemon) {
 			this.add(`c| Lycanium Z|It's either I win or you lose, 'cause I won't accept defeat.`);
 			if (pokemon.illusion) return;
+			let i = 0;
 			for (const moveSlot of pokemon.moveSlots) {
 				let move = this.getMove(moveSlot.id);
 				// @ts-ignore hacky way to reduce purple pill's PP
 				moveSlot.pp = Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.ppPercentages ? pokemon.ppPercentages[i] : 1));
+				i++;
 			}
 		},
 		onBeforeSwitchOut: function (pokemon) {
