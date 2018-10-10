@@ -784,21 +784,21 @@ let BattleStatuses = {
 		onStart: function (pokemon) {
 			this.add(`c| Lycanium Z|It's either I win or you lose, 'cause I won't accept defeat.`);
 			if (pokemon.illusion) return;
-			let i = 0;
 			for (const moveSlot of pokemon.moveSlots) {
-				let move = this.getMove(pokemon.moveSlots[i].id);
+				let move = this.getMove(moveSlot.id);
 				// @ts-ignore hacky way to reduce purple pill's PP
 				moveSlot.pp = Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.ppPercentages ? pokemon.ppPercentages[i] : 1));
-				i++;
 			}
 		},
-		onSwitchOut: function (pokemon) {
-			this.add(`c| Lycanium Z|What I gotta do to get it through to you? I'm superhuman.`);
+		onBeforeSwitchOut: function (pokemon) {
 			if (pokemon.illusion) return;
 			// @ts-ignore track percentages to keep purple pills from resetting pp
 			pokemon.ppPercentages = pokemon.moveSlots.slice().map(m => {
 				return m.pp / m.maxpp;
 			});
+		},
+		onSwitchOut: function (pokemon) {
+			this.add(`c| Lycanium Z|What I gotta do to get it through to you? I'm superhuman.`);
 		},
 		onFaint: function () {
 			this.add(`c| Lycanium Z|How can I find you?`);
