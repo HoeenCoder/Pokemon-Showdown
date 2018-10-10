@@ -98,7 +98,7 @@ let BattleAbilities = {
 			for (const target of pokemon.side.foe.active) {
 				if (!target || !this.isAdjacent(target, pokemon)) continue;
 				if (!activated) {
-					this.add('-ability', pokemon, 'Stimulated Pride');
+					this.add('-ability', pokemon, 'Stimulated Pride', 'boost');
 					activated = true;
 				}
 				if (target.volatiles['substitute']) {
