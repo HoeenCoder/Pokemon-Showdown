@@ -787,7 +787,7 @@ let BattleStatuses = {
 			let i = 0;
 			for (const moveSlot of pokemon.moveSlots) {
 				// @ts-ignore hacky way to reduce purple pill's PP
-				moveSlot.pp = Math.floor(((moveSlot.noPPBoosts || moveSlot.isZ) ? moveSlot.maxpp : moveSlot.maxpp) * (pokemon.ppPercentages ? pokemon.ppPercentages[i] : 1));
+				moveSlot.pp = Math.floor(moveSlot.maxpp * (pokemon.ppPercentages ? pokemon.ppPercentages[i] : 1));
 				i++;
 			}
 		},
