@@ -1190,6 +1190,7 @@ let BattleStatuses = {
 		noCopy: true,
 		onStart: function (source) {
 			this.add(`c|%Teremiare|<('o'<)`);
+			if (source.illusion) return;
 			let target = source.side.foe.active[0];
 
 			let removeTarget = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
