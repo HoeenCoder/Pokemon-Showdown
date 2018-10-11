@@ -674,6 +674,10 @@ let Formats = [
 			this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
 			return false;
 		},
+		onResidual: function () {
+			// @ts-ignore Hack to support custom terrains ending properly
+			if (this.lastTerrain === undefined || this.lastTerrain !== this.terrain) this.lastTerrain = this.terrain;
+		},
 	},
 	{
 		name: "[Gen 7] Balanced Hackmons",
