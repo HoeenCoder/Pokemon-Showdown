@@ -3126,8 +3126,8 @@ let BattleMovedex = {
 		},
 		selfSwitch: true,
 		secondary: null,
-		target: "foe",
-		type: "Self",
+		target: "self",
+		type: "Normal",
 	},
 	// The Immortal
 	ultrasucc: {
