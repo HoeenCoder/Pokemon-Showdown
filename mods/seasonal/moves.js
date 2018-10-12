@@ -349,18 +349,18 @@ let BattleMovedex = {
 	},
 	// Arcticblast
 	trashalanche: {
-		basePower: 40,
+		basePower: 80,
 		basePowerCallback: function (pokemon, target, move) {
 			let noitem = 0;
 			for (const foes of target.side.pokemon) {
-				if (!foes.item) noitem += 40;
+				if (!foes.item) noitem += 20;
 			}
 			return move.basePower + noitem;
 		},
 		accuracy: 100,
 		category: "Physical",
-		desc: "Power rises by 40 for every non-fainted opponent that is not holding an item.",
-		shortDesc: "+ 40 power for each item-less opponent.",
+		desc: "Power rises by 20 for every non-fainted opponent that is not holding an item.",
+		shortDesc: "+ 20 power for each item-less opponent.",
 		id: "trashalanche",
 		name: "Trashalanche",
 		isNonstandard: true,
