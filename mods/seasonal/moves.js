@@ -220,10 +220,10 @@ let BattleMovedex = {
 			if (decision) {
 				let move = this.getActiveMove(decision.move.id);
 				if (move.category === 'Status' && move.id !== 'mefirst' && move.target) {
-					if (move.target === 'normal') {
-						 this.useMove(move, source, target);
-					} else {
+					if (move.target === 'self') {
 						 this.useMove(move, source, source);
+					} else {
+						 this.useMove(move, source, target);
 					}
 					this.add('-anim', source, "Sucker Punch", target);
 					this.add('-anim', source, "Night Slash", target);
