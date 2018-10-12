@@ -222,7 +222,8 @@ let BattleMovedex = {
 					return;
 				}
 			}
-			return false;
+			this.add('-fail', pokemon);
+			return null;
 		},
 		onPrepareHit: function (target, source) {
 			this.add('-anim', source, "Sucker Punch", target);
@@ -567,6 +568,7 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 5,
 		priority: -7,
+		flags: {snatch: 1, mirror: 1},
 		onTryMovePriority: 100,
 		onTryMove: function () {
 			this.attrLastMove('[still]');
@@ -3184,7 +3186,7 @@ let BattleMovedex = {
 		onTryMove: function () {
 			this.attrLastMove('[still]');
 		},
-		onPrepareHit: function (target, source) {
+		onPrepareHit: function (target, source, move) {
 			let zmove = this.getMove(this.zMoveTable[move.type]);
 			this.add('-anim', source, zmove.name, target);
 			this.add('-anim', source, "Transform", source);
