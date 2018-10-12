@@ -1770,7 +1770,7 @@ let BattleMovedex = {
 			for (const ally of pokemon.side.pokemon) {
 				if (ally.cureStatus()) success = true;
 			}
-			pokemon.setStatus('psn', pokemon);
+			if (pokemon.setStatus('psn', pokemon)) success = true;
 			return success;
 		},
 		secondary: null,
