@@ -3104,8 +3104,8 @@ let BattleMovedex = {
 	rotate: {
 		accuracy: 100,
 		category: "Status",
-		desc: "",
-		shortDesc: "",
+		desc: "The next Pokemon will switch out after using their move.",
+		shortDesc: "The next Pokemon will switch out after using their move.",
 		id: "rotate",
 		name: "Rotate",
 		isNonstandard: true,
@@ -3119,9 +3119,14 @@ let BattleMovedex = {
 		sideCondition: "rotate",
 		effect: {
 			duration: 2,
-			onStart: function () {},
+			onStart: function () {
+				this.add('-message', `The next pokemon is going to rotate!`);
+			},
 			onModifyMove: function (move) {
 				move.selfSwitch = true;
+			},
+			onBeforeHit: function (source, move) {
+				this.add('-message', `${source.name} is preparing to rotate!`);
 			},
 		},
 		selfSwitch: true,
