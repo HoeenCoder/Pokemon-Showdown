@@ -3105,7 +3105,7 @@ let BattleMovedex = {
 		accuracy: 100,
 		category: "Status",
 		desc: "The next Pokemon will switch out after using their move.",
-		shortDesc: "The next Pokemon will switch out after using their move.",
+		shortDesc: "Next Pokemon will switch after using their move.",
 		id: "rotate",
 		name: "Rotate",
 		isNonstandard: true,
