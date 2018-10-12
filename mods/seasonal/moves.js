@@ -212,22 +212,25 @@ let BattleMovedex = {
 		priority: 1,
 		flags: {protect: 1, mirror: 1, contact: 1},
 		onTryMovePriority: 100,
-		onTryMove: function (target, pokemon) {
+		onTryMove: function () {
 			this.attrLastMove('[still]');
+		},
+		onTryHit: function (target, source) {
 			let decision = this.willMove(target);
 			if (decision) {
 				let move = this.getActiveMove(decision.move.id);
-				if (move.category === 'Status' && move.id !== 'mefirst') {
-					this.useMove(move, pokemon, move.target);
+				if (move.category === 'Status' && move.id !== 'mefirst' && move.target) {
+					if (move.target === 'normal') {
+						 this.useMove(move, source, target);
+					} else {
+						 this.useMove(move, source, source);
+					}
+					this.add('-anim', source, "Sucker Punch", target);
+					this.add('-anim', source, "Night Slash", target);
 					return;
 				}
 			}
-			this.add('-fail', pokemon);
-			return null;
-		},
-		onPrepareHit: function (target, source) {
-			this.add('-anim', source, "Sucker Punch", target);
-			this.add('-anim', source, "Night Slash", target);
+			return false;
 		},
 		volatileStatus: 'pilfer',
 		effect: {
