@@ -3125,7 +3125,7 @@ let BattleMovedex = {
 			onModifyMove: function (move) {
 				move.selfSwitch = true;
 			},
-			onBeforeHit: function (source, move) {
+			onBeforeMove: function (source, move) {
 				this.add('-message', `${source.name} is preparing to rotate!`);
 			},
 		},
