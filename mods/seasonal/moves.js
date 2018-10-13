@@ -824,7 +824,7 @@ let BattleMovedex = {
 		accuracy: true,
 		category: "Status",
 		desc: "Has a 50% chance to cause the target to fall asleep. Sets one layer of Spikes on the opponent's side of the field and boosts a random stat of the user by one stage, excluding Accuracy and Evasion, that is not already at maximum.",
-		shortDesc: "10% chance to sleep. Sets 1 Spike. Boosts a stat.",
+		shortDesc: "50% chance to sleep. Sets 1 Spike. Boosts a stat.",
 		id: "bringerofdarkness",
 		name: "Bringer of Darkness",
 		isNonstandard: true,
@@ -1770,7 +1770,7 @@ let BattleMovedex = {
 			for (const ally of pokemon.side.pokemon) {
 				if (ally.cureStatus()) success = true;
 			}
-			pokemon.setStatus('psn', pokemon);
+			if (pokemon.setStatus('psn', pokemon)) success = true;
 			return success;
 		},
 		secondary: null,
