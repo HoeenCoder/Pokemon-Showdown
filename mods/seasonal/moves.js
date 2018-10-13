@@ -595,11 +595,6 @@ let BattleMovedex = {
 			onRestart: function (target, source) {
 				this.removePseudoWeather('triviaroom');
 			},
-			onUpdate: function () {
-				if (this.pseudoWeather.trickroom) {
-					this.removePseudoWeather('triviaroom');
-				}
-			},
 			// Speed modification is changed in Pokemon.getActionSpeed() in mods/seasonal/scripts.js
 			// Levitation is handled in Pokemon.isGrounded in mods/seasonal/scripts.js
 			onResidualOrder: 23,
