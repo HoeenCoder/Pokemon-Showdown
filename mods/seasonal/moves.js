@@ -3559,7 +3559,7 @@ let BattleMovedex = {
 	},
 	// torkool
 	smokebomb: {
-		accuracy: 100,
+		accuracy: true,
 		category: "Status",
 		desc: "Moves all hazards that are on the user's side of the field to the foe's side of the field. Sets Stealth Rock on the foes side. The user then switches out.",
 		shortDesc: "Moves hazards to foe's side. Switches out.",
@@ -3568,7 +3568,7 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 10,
 		priority: 0,
-		flags: {snatch: 1, mirror: 1, reflectable: 1},
+		flags: {snatch: 1, mirror: 1, reflectable: 1, authentic: 1},
 		onTryMovePriority: 100,
 		onTryMove: function () {
 			this.attrLastMove('[still]');
