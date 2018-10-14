@@ -170,6 +170,7 @@ let BattleAbilities = {
 		effect: {
 			duration: 5,
 			onStart: function (pokemon) {
+				this.add('-start', pokemon, 'Adrenaline Rush', '[silent]');
 				this.add('-message', `${pokemon.name}'s Adrenaline Rush has begun.`);
 			},
 			onModifySpAPriority: 5,
@@ -180,6 +181,7 @@ let BattleAbilities = {
 				return this.chainModify(2);
 			},
 			onEnd: function (pokemon) {
+				this.add('-end', pokemon, 'Adrenaline Rush', '[silent]');
 				this.add('-message', `${pokemon.name}'s Adrenaline Rush has ended.`);
 			},
 		},
