@@ -192,8 +192,17 @@ let BattleStatuses = {
 	},
 	arsenal: {
 		noCopy: true,
-		onStart: function () {
+		onStart: function (pokemon) {
 			this.add(`c|+Arsenal|Wenger In`);
+			// Type Change
+			if (pokemon.illusion) return;
+			/** @type {string | undefined} */
+			let type = 'Normal';
+			if ((pokemon.ability === 'multitype' || pokemon.ability === 'logia') && pokemon.getItem().onPlate) {
+				type = pokemon.getItem().onPlate;
+			}
+			pokemon.types = [type];
+			this.add('-start', pokemon, 'typechange', type);
 		},
 		onSwitchOut: function () {
 			this.add(`c|+Arsenal|Time to watch anime`);
@@ -1477,22 +1486,8 @@ let BattleStatuses = {
 			}
 		},
 	},
-	// Modified type setup for arceus
-	arceus: {
-		inherit: true,
-		onType: function (types, pokemon) {
-			if (pokemon.transformed) return types;
-			/** @type {string | undefined} */
-			let type = 'Normal';
-			if (pokemon.ability === 'multitype' || pokemon.ability === 'logia') {
-				type = pokemon.getItem().onPlate;
-				if (!type) {
-					type = 'Normal';
-				}
-			}
-			return [type];
-		},
-	},
+	// Arceus Type Setup in Arsenal's status
+	arceus: {},
 	// Slowbroth's Alien wave. This is here so Trick Room can be in the move's PseudoWeather.
 	alienwave: {
 		duration: 5,
