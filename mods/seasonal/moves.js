@@ -591,7 +591,7 @@ let BattleMovedex = {
 			},
 			onStart: function (target, source) {
 				this.add('-fieldstart', 'move: Trivia Room', '[of] ' + source);
-				this.add('-message', `Bimp is levitating due to its big trivia brain!`); // Bimp is the only one levitating in trivia room
+				this.add('-message', `${source.side.name} is levitating due to its big trivia brain!`);
 			},
 			onRestart: function (target, source) {
 				this.removePseudoWeather('triviaroom');
@@ -599,9 +599,9 @@ let BattleMovedex = {
 			// Speed modification is changed in Pokemon.getActionSpeed() in mods/seasonal/scripts.js
 			// Levitation is handled in Pokemon.isGrounded in mods/seasonal/scripts.js
 			onResidualOrder: 23,
-			onEnd: function () {
+			onEnd: function (target, source) {
 				this.add('-fieldend', 'move: Trivia Room');
-				this.add('-message', `Bimp is no longer levitating.`);
+				this.add('-message', `${source.side.name} is no longer levitating.`);
 			},
 		},
 		secondary: null,
