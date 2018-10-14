@@ -599,9 +599,9 @@ let BattleMovedex = {
 			// Speed modification is changed in Pokemon.getActionSpeed() in mods/seasonal/scripts.js
 			// Levitation is handled in Pokemon.isGrounded in mods/seasonal/scripts.js
 			onResidualOrder: 23,
-			onEnd: function (target, source) {
+			onEnd: function () {
 				this.add('-fieldend', 'move: Trivia Room');
-				this.add('-message', `${source.side.name} is no longer levitating.`);
+				this.add('-message', `Certain Pokemon are no longer levitating.`);
 			},
 		},
 		secondary: null,
