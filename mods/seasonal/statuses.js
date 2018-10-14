@@ -198,9 +198,10 @@ let BattleStatuses = {
 			if (pokemon.illusion) return;
 			/** @type {string | undefined} */
 			let type = 'Normal';
-			if ((pokemon.ability === 'multitype' || pokemon.ability === 'logia') && pokemon.getItem().onPlate) {
+			if (pokemon.ability === 'multitype' || pokemon.ability === 'logia') {
 				type = pokemon.getItem().onPlate;
 			}
+			if (!type) type = 'Normal';
 			pokemon.types = [type];
 			this.add('-start', pokemon, 'typechange', type);
 		},
