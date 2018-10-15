@@ -108,6 +108,11 @@ let BattleAbilities = {
 					this.boost({atk: -1}, target, pokemon, this.getAbility('intimidate'));
 				}
 			}
+			for (const action of this.queue) {
+				if (action.choice === 'runPrimal' && action.pokemon === pokemon && pokemon.template.speciesid === 'kyogre') return;
+				if (action.choice !== 'runSwitch' && action.choice !== 'runPrimal') break;
+			}
+			this.setWeather('raindance');
 		},
 		onModifySpe: function (spe, pokemon) {
 			if (this.isWeather(['raindance', 'primordialsea'])) {

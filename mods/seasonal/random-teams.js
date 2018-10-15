@@ -709,7 +709,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 					set.evs[ev] = ssbSet.evs[ev];
 				}
 			} else {
-				set.evs = {hp: 82, atk: 82, def: 82, spa: 82, spd: 82, spe: 82};
+				set.evs = {hp: 84, atk: 84, def: 84, spa: 84, spd: 84, spe: 84};
 			}
 			while (set.moves.length < 3 && ssbSet.moves.length > 0) {
 				let move = this.sampleNoReplace(ssbSet.moves);
