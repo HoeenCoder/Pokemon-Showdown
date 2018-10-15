@@ -26,11 +26,14 @@ To reload chat commands:
 'use strict';
 /** @typedef {GlobalRoom | GameRoom | ChatRoom} Room */
 
-/** @typedef {(query: string[], user: User, connection?: Connection) => (string | null | void)} PageHandler */
-/** @typedef {{[k: string]: PageHandler}} PageTable */
+/** @typedef {(query: string[], user: User, connection: Connection) => (string | null | void)} PageHandler */
+/** @typedef {{[k: string]: PageHandler | PageTable}} PageTable */
 
 /** @typedef {(this: CommandContext, target: string, room: ChatRoom | GameRoom, user: User, connection: Connection, cmd: string, message: string) => (void)} ChatHandler */
 /** @typedef {{[k: string]: ChatHandler | string | true | string[] | ChatCommands}} ChatCommands */
+
+/** @typedef {(this: CommandContext, message: string, user: User, room: ChatRoom?, connection: Connection, targetUser: User?) => (string | boolean)} ChatFilter */
+/** @typedef {(name: string, user: User) => (string)} NameFilter */
 
 const LINK_WHITELIST = ['*.pokemonshowdown.com', 'psim.us', 'smogtours.psim.us', '*.smogon.com', '*.pastebin.com', '*.hastebin.com'];
 
@@ -45,6 +48,10 @@ const VALID_COMMAND_TOKENS = '/!';
 const BROADCAST_TOKEN = '!';
 
 const FS = require('./lib/fs');
+
+/** @type {(url: string) => Promise<{width: number, height: number}>} */
+// @ts-ignore ignoring until there is a ts typedef available for this module.
+const probe = require('probe-image-size');
 
 let Chat = module.exports;
 
@@ -109,15 +116,22 @@ Chat.multiLinePattern = new PatternTester();
  *********************************************************/
 
 /** @type {ChatCommands} */
+// @ts-ignore
 Chat.baseCommands = undefined;
 /** @type {ChatCommands} */
+// @ts-ignore
 Chat.commands = undefined;
 /** @type {PageTable} */
+// @ts-ignore
+Chat.basePages = undefined;
+/** @type {PageTable} */
+// @ts-ignore
 Chat.pages = undefined;
 
 /*********************************************************
  * Load chat filters
  *********************************************************/
+/**@type {ChatFilter[]} */
 Chat.filters = [];
 /**
  * @param {string} message
@@ -140,6 +154,7 @@ Chat.filter = function (message, user, room, connection, targetUser = null) {
 
 	return message;
 };
+/**@type {NameFilter[]} */
 Chat.namefilters = [];
 /**
  * @param {string} name
@@ -193,6 +208,7 @@ Chat.namefilter = function (name, user) {
 	}
 	return name;
 };
+/**@type {((host: string, user: User, connection: Connection) => void)[]} */
 Chat.hostfilters = [];
 /**
  * @param {string} host
@@ -204,6 +220,7 @@ Chat.hostfilter = function (host, user, connection) {
 		filter(host, user, connection);
 	}
 };
+/**@type {((user: User, oldUser: User | null, usertype: string) => void)[]} */
 Chat.loginfilters = [];
 /**
  * @param {User} user
@@ -214,6 +231,20 @@ Chat.loginfilter = function (user, oldUser, usertype) {
 	for (const filter of Chat.loginfilters) {
 		filter(user, oldUser, usertype);
 	}
+};
+
+/**@type {NameFilter[]} */
+Chat.nicknamefilters = [];
+/**
+ * @param {string} nickname
+ * @param {User} user
+ */
+Chat.nicknamefilter = function (nickname, user) {
+	for (const filter of Chat.nicknamefilters) {
+		nickname = filter(nickname, user);
+		if (!nickname) return '';
+	}
+	return nickname;
 };
 
 /*********************************************************
@@ -381,6 +412,7 @@ class CommandContext {
 				}
 
 				fullCmd += ' ' + cmd;
+				// @ts-ignore
 				curCommands = commandHandler;
 			}
 		} while (commandHandler && typeof commandHandler === 'object');
@@ -395,17 +427,17 @@ class CommandContext {
 		if (!commandHandler && !recursing) {
 			for (let g in Config.groups) {
 				let groupid = Config.groups[g].id;
-				if (cmd === groupid) {
+				if (fullCmd === groupid) {
 					return this.splitCommand(`/promote ${target}, ${g}`, true);
-				} else if (cmd === 'global' + groupid) {
+				} else if (fullCmd === 'global' + groupid) {
 					return this.splitCommand(`/globalpromote ${target}, ${g}`, true);
-				} else if (cmd === 'de' + groupid || cmd === 'un' + groupid || cmd === 'globalde' + groupid || cmd === 'deglobal' + groupid) {
+				} else if (fullCmd === 'de' + groupid || fullCmd === 'un' + groupid || fullCmd === 'globalde' + groupid || fullCmd === 'deglobal' + groupid) {
 					return this.splitCommand(`/demote ${target}`, true);
-				} else if (cmd === 'room' + groupid) {
+				} else if (fullCmd === 'room' + groupid) {
 					return this.splitCommand(`/roompromote ${target}, ${g}`, true);
-				} else if (cmd === 'forceroom' + groupid) {
+				} else if (fullCmd === 'forceroom' + groupid) {
 					return this.splitCommand(`/roompromote !!!${target}, ${g}`, true);
-				} else if (cmd === 'roomde' + groupid || cmd === 'deroom' + groupid || cmd === 'roomun' + groupid) {
+				} else if (fullCmd === 'roomde' + groupid || fullCmd === 'deroom' + groupid || fullCmd === 'roomun' + groupid) {
 					return this.splitCommand(`/roomdemote ${target}`, true);
 				}
 			}
@@ -429,12 +461,14 @@ class CommandContext {
 			}
 		}
 
+		// @ts-ignore
 		return commandHandler;
 	}
 	/**
 	 * @param {string | {call: Function}} commandHandler
 	 */
 	run(commandHandler) {
+		// @ts-ignore
 		if (typeof commandHandler === 'string') commandHandler = Chat.commands[commandHandler];
 		let result;
 		try {
@@ -456,7 +490,7 @@ class CommandContext {
 	}
 
 	/**
-	 * @param {BasicChatRoom?} room
+	 * @param {BasicChatRoom | undefined?} room
 	 * @param {User} user
 	 * @param {string} message
 	 */
@@ -491,7 +525,7 @@ class CommandContext {
 	}
 
 	/**
-	 * @param {BasicChatRoom?} room
+	 * @param {BasicChatRoom | undefined?} room
 	 * @param {User} user
 	 */
 	checkSlowchat(room, user) {
@@ -503,7 +537,7 @@ class CommandContext {
 	}
 
 	/**
-	 * @param {BasicChatRoom?} room
+	 * @param {BasicChatRoom | undefined?} room
 	 * @param {string} message
 	 */
 	checkBanwords(room, message) {
@@ -645,7 +679,7 @@ class CommandContext {
 				let userid = user.getLastId();
 				buf += `[${userid}]`;
 				if (user.autoconfirmed && user.autoconfirmed !== userid) buf += ` ac:[${user.autoconfirmed}]`;
-				const alts = user.getAltUsers(false, true).map(user => user.getLastId()).join('], [');
+				const alts = user.getAltUsers(false, true).slice(1).map(user => user.getLastId()).join('], [');
 				if (alts.length) buf += ` alts:[${alts}]`;
 				buf += ` [${user.latestIp}]`;
 			}
@@ -671,7 +705,7 @@ class CommandContext {
 				buf += `[${userid}]`;
 				if (!options.noalts) {
 					if (user.autoconfirmed && user.autoconfirmed !== userid) buf += ` ac:[${user.autoconfirmed}]`;
-					const alts = user.getAltUsers(false, true).map(user => user.getLastId()).join('], [');
+					const alts = user.getAltUsers(false, true).slice(1).map(user => user.getLastId()).join('], [');
 					if (alts.length) buf += ` alts:[${alts}]`;
 				}
 				if (!options.noip) buf += ` [${user.latestIp}]`;
@@ -1234,6 +1268,7 @@ Chat.loadPlugins = function () {
 	if (Config.namefilter) Chat.namefilters.push(Config.namefilter);
 	if (Config.hostfilter) Chat.hostfilters.push(Config.hostfilter);
 	if (Config.loginfilter) Chat.loginfilters.push(Config.loginfilter);
+	if (Config.nicknamefilter) Chat.nicknamefilters.push(Config.nicknamefilter);
 
 	// Install plug-in commands and chat filters
 
@@ -1253,6 +1288,7 @@ Chat.loadPlugins = function () {
 		if (plugin.namefilter) Chat.namefilters.push(plugin.namefilter);
 		if (plugin.hostfilter) Chat.hostfilters.push(plugin.hostfilter);
 		if (plugin.loginfilter) Chat.loginfilters.push(plugin.loginfilter);
+		if (plugin.nicknamefilter) Chat.nicknamefilters.push(plugin.nicknamefilter);
 	}
 };
 
@@ -1543,6 +1579,7 @@ Chat.getDataItemHTML = function (item) {
 /**
  * Visualizes eval output in a slightly more readable form
  * @param {any} value
+ * @return {string}
  */
 Chat.stringify = function (value, depth = 0) {
 	if (value === undefined) return `undefined`;
@@ -1599,10 +1636,45 @@ Chat.formatText = require('./chat-formatter').formatText;
 Chat.linkRegex = require('./chat-formatter').linkRegex;
 Chat.updateServerLock = false;
 
+/**
+ * Gets the dimension of the image at url. Returns 0x0 if the image isn't found, as well as the relevant error.
+ * @param {string} url
+ * @return {Promise<AnyObject>}
+ */
+Chat.getImageDimensions = function (url) {
+	return new Promise(resolve => {
+		probe(url).then(dimensions => resolve(dimensions), (err) => resolve({height: 0, width: 0, err: err}));
+	});
+};
+
+/**
+ * Generates dimensions to fit an image at url into a maximum size of maxWidth x maxHeight,
+ * preserving aspect ratio.
+ * @param {string} url
+ * @param {number} [maxHeight]
+ * @param {number} [maxWidth]
+ * @return {Promise<[number, number]>}
+ */
+Chat.fitImage = async function (url, maxHeight = 300, maxWidth = 300) {
+	let {height, width} = await Chat.getImageDimensions(url);
+
+	let ratio = 1;
+
+	if (width <= maxWidth && height <= maxHeight) return [width, height];
+
+	if (height * (maxWidth / maxHeight) > width) {
+		ratio = maxHeight / height;
+	} else {
+		ratio = maxWidth / width;
+	}
+
+	return [Math.round(width * ratio), Math.round(height * ratio)];
+};
+
 // Used (and populated) by ChatMonitor.
 /** @type {{[k: string]: string[]}} */
 Chat.filterKeys = {};
-/** @type {{[k: string]: string[]}} */
+/** @type {{[k: string]: [(string | RegExp), string, string?, number][]}} */
 Chat.filterWords = {};
 /** @type {Map<string, string>} */
 Chat.namefilterwhitelist = new Map();

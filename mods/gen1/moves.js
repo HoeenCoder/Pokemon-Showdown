@@ -106,7 +106,7 @@ let BattleMovedex = {
 					}
 					this.add('-end', pokemon, 'Bide');
 					let target = this.effectData.sourceSide.active[this.effectData.sourcePosition];
-					this.moveHit(target, pokemon, 'bide', /** @type {Move} */ ({damage: this.effectData.totalDamage * 2}));
+					this.moveHit(target, pokemon, 'bide', /** @type {ActiveMove} */ ({damage: this.effectData.totalDamage * 2}));
 					return false;
 				}
 				this.add('-activate', pokemon, 'Bide');
@@ -967,11 +967,12 @@ let BattleMovedex = {
 				}
 				this.runEvent('AfterSubDamage', target, source, move, damage);
 				// Add here counter damage
-				if (!target.lastAttackedBy) {
-					target.lastAttackedBy = {pokemon: source, move: move.id, thisTurn: true, damage: damage};
+				let lastHurtBy = target.getLastHurtBy();
+				if (!lastHurtBy) {
+					target.hurtBy.push({source: source, move: move.id, damage: damage, thisTurn: true});
 				} else {
-					target.lastAttackedBy.move = move.id;
-					target.lastAttackedBy.damage = damage;
+					lastHurtBy.move = move.id;
+					lastHurtBy.damage = damage;
 				}
 				return 0;
 			},

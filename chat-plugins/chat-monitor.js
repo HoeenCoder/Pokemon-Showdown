@@ -7,7 +7,7 @@ const WRITE_THROTTLE_TIME = 5 * 60 * 1000;
 
 /** @type {{[k: string]: string[]}} */
 let filterKeys = Chat.filterKeys = Object.assign(Chat.filterKeys, {publicwarn: ['PUBLIC', 'WARN', 'Filtered in public'], warn: ['EVERYWHERE', 'WARN', 'Filtered'], autolock: ['EVERYWHERE', 'AUTOLOCK', 'Autolock'], namefilter: ['NAMES', 'WARN', 'Filtered in usernames'], wordfilter: ['EVERYWHERE', 'FILTERTO', 'Filtered to a different phrase']});
-/** @type {{[k: string]: ([(string | RegExp), string, string?, number][])}} */
+/** @type {{[k: string]: [(string | RegExp), string, string?, number][]}} */
 let filterWords = Chat.filterWords;
 
 setImmediate(() => {
@@ -68,11 +68,6 @@ function saveFilters(force = false) {
 		return buf;
 	}, {throttle: force ? 0 : WRITE_THROTTLE_TIME});
 }
-
-/** @typedef {(this: CommandContext, target: string, room: ChatRoom, user: User, connection: Connection, cmd: string, message: string) => (void)} ChatHandler */
-/** @typedef {(this: CommandContext, message: string, user: User, room: ChatRoom?, connection: Connection, targetUser: User?) => (string | boolean)} ChatFilter */
-/** @typedef {(name: string, user: User) => (string)} NameFilter */
-/** @typedef {{[k: string]: ChatHandler | string | true | string[] | ChatCommands}} ChatCommands */
 
 /** @type {ChatFilter} */
 let chatfilter = function (message, user, room) {
@@ -211,6 +206,51 @@ let namefilter = function (name, user) {
 	return name;
 };
 
+/** @type {NameFilter} */
+let nicknamefilter = function (name, user) {
+	let lcName = name.replace(/\u039d/g, 'N').toLowerCase().replace(/[\u200b\u007F\u00AD]/g, '').replace(/\u03bf/g, 'o').replace(/\u043e/g, 'o').replace(/\u0430/g, 'a').replace(/\u0435/g, 'e').replace(/\u039d/g, 'e');
+	// Remove false positives.
+	lcName = lcName.replace('herapist', '').replace('grape', '').replace('scrape', '');
+
+	for (let [line] of filterWords.autolock) {
+		if (typeof line !== 'string') continue; // Failsafe to appease typescript.
+		if (lcName.includes(line)) {
+			Punishments.autolock(user, Rooms('staff'), `NicknameMonitor`, `inappropriate Pokémon nickname: ${name}`, `${toId(user)}: using an inappropriate Pokémon nickname: ${name}`, false);
+			return '';
+		}
+	}
+	for (let [line] of filterWords.warn) {
+		if (typeof line !== 'string') continue; // Failsafe to appease typescript.
+		if (lcName.includes(line)) {
+			return '';
+		}
+	}
+	for (let [line] of filterWords.publicwarn) {
+		if (typeof line !== 'string') continue; // Failsafe to appease typescript.
+		if (lcName.includes(line)) {
+			return '';
+		}
+	}
+	for (let line of filterWords.namefilter) {
+		const word = String(line[0]);
+		let matched;
+		if (word.startsWith('\\b') || word.endsWith('\\b')) {
+			matched = new RegExp(word).test(lcName);
+		} else {
+			matched = lcName.includes(word);
+		}
+		if (matched) return '';
+	}
+
+	for (let line of filterWords.wordfilter) {
+		const regex = line[0];
+		if (typeof regex === 'string') continue;
+		if (regex.test(lcName)) return '';
+	}
+
+	return name;
+};
+
 /** @typedef {(query: string[], user: User, connection: Connection) => (string | null | void)} PageHandler */
 /** @typedef {{[k: string]: PageHandler | PageTable}} PageTable */
 
@@ -324,14 +364,20 @@ let commands = {
 				return this.sendReply(`'${words.join(', ')}' ${Chat.plural(words, "were", "was")} removed from the ${list} list.`);
 			}
 		},
+		'': 'view',
 		list: 'view',
 		view: function (target, room, user) {
 			this.parse(`/join view-filters`);
 		},
+		help: function (target, room, user) {
+			this.parse(`/help filter`);
+		},
 	},
-	filterhelp: [`- /filter add list, word, reason - Adds a word to the given filter list. Requires: ~`,
+	filterhelp: [
+		`- /filter add list, word, reason - Adds a word to the given filter list. Requires: ~`,
 		`- /filter remove list, words - Removes words from the given filter list. Requires: ~`,
-		`- /filter view - Opens the list of filtered words. Requires: % @ * & ~`],
+		`- /filter view - Opens the list of filtered words. Requires: % @ * & ~`,
+	],
 	allowname: function (target, room, user) {
 		if (!this.can('forcerename')) return false;
 		target = toId(target);
@@ -349,3 +395,4 @@ let commands = {
 exports.commands = commands;
 exports.chatfilter = chatfilter;
 exports.namefilter = namefilter;
+exports.nicknamefilter = nicknamefilter;
