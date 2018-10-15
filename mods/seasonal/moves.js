@@ -2462,6 +2462,7 @@ let BattleMovedex = {
 		onTry: function (pokemon) {
 			if (!pokemon.volatiles['stockpile']) {
 				this.add('-fail', pokemon);
+				this.add('-hint', "Stockpile is needed to be used first before using this move.");
 				return false;
 			}
 		},
