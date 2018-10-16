@@ -91,8 +91,8 @@ let BattleAbilities = {
 	stimulatedpride: {
 		id: "stimulatedpride",
 		name: "Stimulated Pride",
-		desc: "On switch-in, this Pokemon summons Rain Dance, and it lowers the Attack of adjacent foes not behind a Substitute by one stage.",
-		shortDesc: "On switch-in, summons Rain Dance and lowers the Attack of adjacent foes by 1.",
+		desc: "On switch-in, this Pokemon lowers the Attack of adjacent foes not behind a Substitute by one stage. If Rain Dance is active, this Pokemon's Speed is doubled.",
+		shortDesc: "Switch-in: lowers Atk of adjacent foes by 1. 2x Speed in rain.",
 		isNonstandard: true,
 		onStart: function (pokemon) {
 			let activated = false;
@@ -108,11 +108,6 @@ let BattleAbilities = {
 					this.boost({atk: -1}, target, pokemon, this.getAbility('intimidate'));
 				}
 			}
-			for (const action of this.queue) {
-				if (action.choice === 'runPrimal' && action.pokemon === pokemon && pokemon.template.speciesid === 'kyogre') return;
-				if (action.choice !== 'runSwitch' && action.choice !== 'runPrimal') break;
-			}
-			this.setWeather('raindance');
 		},
 		onModifySpe: function (spe, pokemon) {
 			if (this.isWeather(['raindance', 'primordialsea'])) {
@@ -231,8 +226,8 @@ let BattleAbilities = {
 	},
 	// KingSwordYT
 	kungfupanda: {
-		desc: "This Pokemon's punch-based attacks have their power multiplied by 1.2, and this Pokemon's Speed is raised by 1 stage after it is damaged by an attack.",
-		shortDesc: "This Pokemon's punch-based attacks have 1.2x power. +1 Spe when attacked.",
+		desc: "This Pokemon's punch-based attacks have their power multiplied by 1.2, and this Pokemon's Speed is raised by 1 stage after it is damaged by a contact move.",
+		shortDesc: "This Pokemon's punch-based moves have 1.2x power. +1 Spe when a foe makes contact.",
 		id: "kungfupanda",
 		name: "Kung Fu Panda",
 		isNonstandard: true,

@@ -141,7 +141,7 @@ let BattleMovedex = {
 		basePower: 140,
 		category: "Special",
 		desc: "Has a 40% chance to paralyze the target. Lowers the user's Special Attack, Special Defense, and Speed by one stage.",
-		shortDesc: "40% chance to paralyze. Lowers user's SpA, SpD, Spe.",
+		shortDesc: "40% to paralyze. Lowers user's SpA, SpD, Spe.",
 		id: "energyfield",
 		name: "Energy Field",
 		isNonstandard: true,
@@ -742,8 +742,8 @@ let BattleMovedex = {
 			let generator = new RandomStaffBrosTeams(this.format, this.prng);
 			let team = generator.generateTeam();
 			// Overwrite un-fainted pokemon other than the user
-			for (let [i, teamMember] of currentTeam.entries()) {
-				if (teamMember.fainted || !teamMember.hp || teamMember.position === source.position) continue;
+			for (let i = 0; i < currentTeam.length; i++) {
+				if (currentTeam[i].fainted || !currentTeam[i].hp || currentTeam[i].position === source.position) continue;
 				let set = team.shift();
 				let oldSet = carryOver[i];
 				if (set.name === 'bumbadadabum') {
@@ -762,8 +762,8 @@ let BattleMovedex = {
 				for (const [j, moveSlot] of pokemon.moveSlots.entries()) {
 					moveSlot.pp = Math.floor(moveSlot.maxpp * oldSet.pp[j]);
 				}
-				pokemon.position = teamMember.position;
-				teamMember = pokemon;
+				pokemon.position = currentTeam[i].position;
+				currentTeam[i] = pokemon;
 			}
 			this.add('message', `${source.name} wonder traded ${source.side.name}'s team away!`);
 		},
@@ -1698,7 +1698,7 @@ let BattleMovedex = {
 		basePower: 0,
 		category: "Status",
 		desc: "This move bypasses Baneful Bunker, Crafty Shield, Detect, King's Shield, Mat Block, Protect, Quick Guard, Substitute, Spiky Shield, and Wide Guard. The target's stat stages are set to 0, and the target's speed is lowered by 1 after stats are reset. 75% chance to put the target to sleep.",
-		shortDesc: "Resets foe's stats; lowers Spe 1 stage; 75% chance to sleep foe.",
+		shortDesc: "Foe: Resets stats; -1 Speed; 75% chance to sleep.",
 		id: "delayedpromise",
 		name: "Delayed Promise",
 		isNonstandard: true,

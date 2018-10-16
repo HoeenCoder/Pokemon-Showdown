@@ -1,7 +1,6 @@
 'use strict';
 
 /**@type {{[k: string]: ModdedItemData}} */
-// @ts-ignore Hack for Snaquaza's Z-Move
 let BattleItems = {
 	// E4 Flint
 	magmarizer: {
