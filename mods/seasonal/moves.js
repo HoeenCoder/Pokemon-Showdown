@@ -2465,8 +2465,8 @@ let BattleMovedex = {
 		onHit: function (target, source, move) {
 			let stockpileLayers = source.volatiles['stockpile'].layers;
 			let boosts = {};
-			boosts.def = (source.boosts.def - stockpileLayers) * -1;
-			boosts.spd = (source.boosts.spd - stockpileLayers) * -1;
+			boosts.def = (source.boosts.def - stockpileLayers < 0 ? 0 : source.boosts.def - stockpileLayers) * -1;
+			boosts.spd = (source.boosts.spd - stockpileLayers < 0 ? 0 : source.boosts.spd - stockpileLayers) * -1;
 			this.boost(boosts, source, source, move);
 		},
 		secondary: null,
