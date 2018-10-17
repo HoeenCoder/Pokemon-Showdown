@@ -92,7 +92,7 @@ let BattleAbilities = {
 		id: "stimulatedpride",
 		name: "Stimulated Pride",
 		desc: "On switch-in, this Pokemon lowers the Attack of adjacent foes not behind a Substitute by one stage. If Rain Dance is active, this Pokemon's Speed is doubled.",
-		shortDesc: "Switch-in: lowers Atk of adjacent foes by 1. 2x Speed in rain.",
+		shortDesc: "On Switch-in, adjacent foes' Atk is lowered by by 1. Speed is Doubled in rain.",
 		isNonstandard: true,
 		onStart: function (pokemon) {
 			let activated = false;
@@ -316,7 +316,7 @@ let BattleAbilities = {
 		id: "prismaticterrain",
 		name: "Prismatic Terrain",
 		isNonstandard: true,
-		onStart: function (source) {
+		onStart: function () {
 			this.setTerrain('prismaticterrain');
 		},
 		effect: {
