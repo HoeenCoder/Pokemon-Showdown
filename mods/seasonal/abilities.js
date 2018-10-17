@@ -92,7 +92,7 @@ let BattleAbilities = {
 		id: "stimulatedpride",
 		name: "Stimulated Pride",
 		desc: "On switch-in, this Pokemon lowers the Attack of adjacent foes not behind a Substitute by one stage. If Rain Dance is active, this Pokemon's Speed is doubled.",
-		shortDesc: "On Switch-in, adjacent foes' Atk is lowered by by 1. Speed is Doubled in rain.",
+		shortDesc: "On switch-in, adjacent foes' Atk is lowered by by 1. Speed is doubled in rain.",
 		isNonstandard: true,
 		onStart: function (pokemon) {
 			let activated = false;
