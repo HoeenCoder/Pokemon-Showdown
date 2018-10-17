@@ -359,7 +359,7 @@ let BattleStatuses = {
 	},
 	cleo: {
 		noCopy: true,
-		onSwitchIn: function () {
+		onStart: function () {
 			this.add(`c|+Cleo|Cleo! Cleo! Your friendly neighborhood Sea Leo!`);
 		},
 		onSwitchOut: function () {
