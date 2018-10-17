@@ -1069,7 +1069,7 @@ let BattleMovedex = {
 	// duck
 	holyduck: {
 		accuracy: 95,
-		basePower: 95,
+		basePower: 75,
 		category: "Physical",
 		desc: "If this attack hits, Reflect, Light Screen, and Aurora Veil end on the target's side of the field before damage is calculated.",
 		shortDesc: "Destroys screens, unless the target is immune.",
@@ -3255,8 +3255,8 @@ let BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Before the turn starts, this Pokemon boosts it's Special Defense and Defense by 1 stage. When this move hits, this Pokemon uses Sleep Powder, Leech Seed, and Powder. This move's priority is 1 and cannot be affected by Prankster.",
-		shortDesc: "+1 Def, Spd + Sleep Powder, Leech Seed, & Powder.",
+		desc: "Before the turn starts, this Pokemon boosts its Defense and Special Defense by one stage and uses Powder on the target. When this move hits, this Pokemon uses Sleep Powder and Leech Seed. This move's priority is 1 and cannot be affected by Prankster.",
+		shortDesc: "+1 Def/SpD, Powder, Leech Seed, Sleep Powder.",
 		id: "armyofmushrooms",
 		name: "Army of Mushrooms",
 		isNonstandard: true,
@@ -3269,11 +3269,11 @@ let BattleMovedex = {
 		},
 		beforeTurnCallback: function (pokemon) {
 			this.boost({def: 1, spd: 1}, pokemon, pokemon, 'mushroom army');
+			this.useMove("powder", pokemon);
 		},
 		onHit: function (pokemon) {
 			this.useMove("sleeppowder", pokemon);
 			this.useMove("leechseed", pokemon);
-			this.useMove("powder", pokemon);
 		},
 		secondary: null,
 		target: "self",
@@ -3403,11 +3403,11 @@ let BattleMovedex = {
 	},
 	// The Immortal
 	ultrasucc: {
-		accuracy: 95,
+		accuracy: 100,
 		basePower: 90,
 		category: "Physical",
-		desc: "The user boosts its Speed by 1 stage and recovers half the HP lost by the target, rounded half up. If Big Root is held, the user recovers 1.3x the normal amount of HP, rounded half down.",
-		shortDesc: "+1 Spe, user heals 50% of the damage dealt.",
+		desc: "The user boosts its Speed by 1 stage and recovers half the HP lost by the target, rounded half up. This move has a 50% chance to boost the users Speed by 1 stage. If Big Root is held, the user recovers 1.3x the normal amount of HP, rounded half down.",
+		shortDesc: "User heals 50% of the damage dealt, 50% chance boost Spe.",
 		id: "ultrasucc",
 		name: "Ultra Succ",
 		isNonstandard: true,
@@ -3422,8 +3422,9 @@ let BattleMovedex = {
 			this.add('-anim', source, "Dragon Ascent", target);
 			this.add('-anim', source, "Draining Kiss", target);
 		},
-		self: {
-			boosts: {spe: 1},
+		secondary: {
+			chance: 50,
+			self: {boosts: {spe: 1}},
 		},
 		drain: [1, 2],
 		target: "normal",
@@ -3777,14 +3778,14 @@ let BattleMovedex = {
 		type: "Fire",
 	},
 	// Xayahh
-	cuttingdance: {
+	stunningdance: {
 		accuracy: 100,
 		basePower: 95,
 		category: "Special",
-		desc: "Has a 20% chance to make the target flinch.",
-		shortDesc: "Has a 20% chance to make the target flinch.",
-		id: "cuttingdance",
-		name: "Cutting Dance",
+		desc: "Has a 20% chance to make the target flinch and a 100% chance to paralyze the target.",
+		shortDesc: "20% to make target flinch; 100% to paralyze.",
+		id: "stunningdance",
+		name: "Stunning Dance",
 		isNonstandard: true,
 		pp: 10,
 		priority: 0,
@@ -3798,6 +3799,16 @@ let BattleMovedex = {
 			this.add('-anim', source, "Air Slash", target);
 			this.add('-anim', source, "Air Slash", target);
 		},
+		secondaries: [
+			{
+				chance: 20,
+				volatileStatus: 'flinch',
+			},
+			{
+				chance: 100,
+				status: 'par',
+			},
+		],
 		secondary: {
 			chance: 20,
 			volatileStatus: 'flinch',

@@ -241,7 +241,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'EV': {
-				species: 'Eevee', ability: 'Anticipation', item: 'Leftovers', gender: 'M',
+				species: 'Eevee', ability: 'Adaptability', item: 'Leftovers', gender: 'M',
 				moves: ['Baton Pass', 'Wish', 'Protect'],
 				signatureMove: 'Evoblast',
 				evs: {hp: 252, spe: 252}, nature: 'Serious',
@@ -313,7 +313,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 252, def: 220, spd: 36}, nature: 'Bold', shiny: true,
 			},
 			'jdarden': {
-				species: 'Dragonair', ability: 'Fur Coat', item: 'Eviolite', gender: 'M',
+				species: 'Dragonair', ability: 'Fur Coat', item: 'Leftovers', gender: 'M',
 				moves: ['Rest', 'Sleep Talk', 'Quiver Dance'],
 				signatureMove: 'Wyvern\'s Wail',
 				evs: {hp: 248, def: 252, spd: 8}, ivs: {atk: 0}, nature: 'Bold',
@@ -620,8 +620,8 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Xayahh': {
 				species: 'Noivern', ability: 'Dancer', item: 'Flyinium Z', gender: 'F',
-				moves: ['Clanging Scales', 'Roost', 'Glare'],
-				signatureMove: 'Cutting Dance',
+				moves: ['Clanging Scales', 'Roost', 'Fiery Dance'],
+				signatureMove: 'Stunning Dance',
 				evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
 			},
 			'XpRienzo ☑◡☑': {
