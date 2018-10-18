@@ -464,8 +464,8 @@ let BattleStatuses = {
 			let forme = Object.keys(formes)[this.random(8)];
 			this.add(`-anim`, target, 'Geomancy', target);
 			target.formeChange(forme);
-			target.setAbility('Anticipation');
-			this.add('-hint', 'EV still has the Anticipation ability.');
+			target.setAbility('Adaptability');
+			this.add('-hint', 'EV still has the Adaptability ability.');
 			// Update movepool
 			target.moveSlots = [];
 			if (!formes[forme]) return; // should never happen
