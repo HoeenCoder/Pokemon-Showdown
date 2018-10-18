@@ -2122,6 +2122,13 @@ let BattleMovedex = {
 		onPrepareHit: function (target, source) {
 			this.add('-anim', source, "Swallow", source);
 		},
+		onTryHit: function (target, source) {
+			if (source.name !== 'Lycanium Z') {
+				this.add('-fail', source);
+				this.add('-hint', 'Only Lycanium Z can use Purple Pills.');
+				return null;
+			}
+		},
 		volatileStatus: 'purplepills',
 		effect: {
 			noCopy: true,
