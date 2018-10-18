@@ -433,7 +433,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 184, atk: 252, def: 68, spd: 4}, ivs: {spe: 0}, nature: 'Brave',
 			},
 			'nui': {
-				species: 'Milotic', ability: 'Prismatic Terrain', item: 'Waterium Z', gender: 'N',
+				species: 'Milotic', ability: 'Prismatic Surge', item: 'Waterium Z', gender: 'N',
 				moves: ['Steam Eruption', 'Toxic', 'Recover'],
 				signatureMove: 'Pyramiding Song',
 				evs: {hp: 252, def: 252, spd: 4}, ivs: {atk: 0}, nature: 'Bold', shiny: true,
@@ -649,10 +649,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 		while (pool.length && team.length < 6) {
 			let name = '';
 			// DEBUG CODE
-			let debug = false; // Programmers - Toggle this to use the code below
+			let debug = true; // Programmers - Toggle this to use the code below
 			if (team.length === 1 && debug) {
 				// Force a specific set to appear for testing
-				name = 'ptoad';
+				name = 'urkerab';
 				if (pool.indexOf(name) > -1) {
 					pool.splice(pool.indexOf(name), 1);
 				} else {
