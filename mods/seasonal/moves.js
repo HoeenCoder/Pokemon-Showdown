@@ -1520,13 +1520,14 @@ let BattleMovedex = {
 				return 5;
 			},
 			onBasePower: function (basePower, attacker, defender, move) {
-				if (move.type === 'Bug') {
+				if (move.type === 'Bug' && attacker.isGrounded() && !attacker.isSemiInvulnerable()) {
 					this.debug('scripted terrain boost');
 					return this.chainModify(1.5);
 				}
 			},
 			onTryHitPriority: 4,
 			onTryHit: function (target, source, effect) {
+				if (!target.isGrounded() || target.isSemiInvulnerable()) return;
 				if (!effect || effect.id === 'glitchout' || source.volatiles['glitchout']) return;
 				if (this.random(20) === 1) {
 					this.add('message', `${source.name}'s move was glitched by the Scripted Terrain!`);
@@ -1548,6 +1549,7 @@ let BattleMovedex = {
 				this.eachEvent('Terrain');
 			},
 			onTerrain: function (pokemon) {
+				if (!pokemon.isGrounded() || pokemon.isSemiInvulnerable()) return;
 				if (pokemon.template.id === 'missingno') return;
 				if (this.random(20) === 1) {
 					this.debug('Scripted terrain corrupt');
@@ -2649,14 +2651,15 @@ let BattleMovedex = {
 			},
 			onBeforeMovePriority: 2,
 			onBeforeMove: function (pokemon, target, move) {
-				let hazards = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'hazardpass', 'beskyttelsesnet', 'bringerofdarkness'];
-				if (hazards.includes(move.id)) {
+				if (!target.isGrounded() || target.isSemiInvulnerable()) return;
+				let hazardMoves = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'hazardpass', 'beskyttelsesnet', 'bringerofdarkness', 'soulbend', 'smokebomb', 'hurl'];
+				if (hazardMoves.includes(move.id)) {
 					this.add('-activate', target, 'move: Prismatic Terrain');
 					return false;
 				}
 			},
 			onBasePower: function (basePower, attacker, defender, move) {
-				if (move.type === 'Ice') {
+				if (move.type === 'Ice' && defender.isGrounded() && !defender.isSemiInvulnerable()) {
 					this.debug('prismatic terrain weaken');
 					return this.chainModify(0.5);
 				}
