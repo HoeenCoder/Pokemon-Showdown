@@ -1551,6 +1551,7 @@ let BattleMovedex = {
 			onTerrain: function (pokemon) {
 				if (!pokemon.isGrounded() || pokemon.isSemiInvulnerable()) return;
 				if (pokemon.template.id === 'missingno') return;
+				if (pokemon.fainted || !pokemon.hp) return;
 				if (this.random(20) === 1) {
 					this.debug('Scripted terrain corrupt');
 					this.add('message', `${pokemon.name} was corrupted by a bug in the scripted terrain!`);
