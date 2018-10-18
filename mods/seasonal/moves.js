@@ -2452,7 +2452,7 @@ let BattleMovedex = {
 			return move.basePower + 20 * pokemon.positiveBoosts();
 		},
 		category: "Physical",
-		desc: "Power rises by 20 for each of the user's positive stat stage changes. The user loses any Stockpile layers as well as defensive boosts from them.",
+		desc: "Power rises by 20 for each of the user's positive stat stage changes. The user loses any defensive boosts from Stockpile.",
 		shortDesc: "+20 power per boost. Removes Stockpile boosts.",
 		id: "tippingover",
 		name: "Tipping Over",
@@ -2467,13 +2467,6 @@ let BattleMovedex = {
 		onPrepareHit: function (target, source) {
 			this.add('-anim', source, "Dragon Hammer", target);
 			this.add('-anim', target, "Earthquake", target);
-		},
-		onTry: function (pokemon) {
-			if (!pokemon.volatiles['stockpile']) {
-				this.add('-fail', pokemon);
-				this.add('-hint', "Stockpile needs to be used before this move.");
-				return false;
-			}
 		},
 		onHit: function (target, source, move) {
 			let stockpileLayers = source.volatiles['stockpile'].layers;
