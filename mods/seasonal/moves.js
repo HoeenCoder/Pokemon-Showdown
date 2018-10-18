@@ -3407,7 +3407,7 @@ let BattleMovedex = {
 		basePower: 90,
 		category: "Physical",
 		desc: "The user boosts its Speed by 1 stage and recovers half the HP lost by the target, rounded half up. This move has a 50% chance to boost the users Speed by 1 stage. If Big Root is held, the user recovers 1.3x the normal amount of HP, rounded half down.",
-		shortDesc: "User heals 50% of the damage dealt, 50% chance boost Spe.",
+		shortDesc: "Heals 50% of the damage dealt, 50% boost Spe.",
 		id: "ultrasucc",
 		name: "Ultra Succ",
 		isNonstandard: true,
