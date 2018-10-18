@@ -1527,8 +1527,6 @@ let BattleMovedex = {
 				}
 			},
 			onStart: function (battle, source, effect) {
-				// @ts-ignore Hack to support custom terrains ending properly
-				if (this.lastTerrain) this.add('-fieldend', `move: ${this.getEffect(this.lastTerrain).name}`);
 				if (effect && effect.effectType === 'Ability') {
 					this.add('-fieldstart', 'move: Scripted Terrain', '[from] ability: ' + effect, '[of] ' + source);
 				} else {
@@ -2655,8 +2653,6 @@ let BattleMovedex = {
 				}
 			},
 			onStart: function (battle, source, effect) {
-				// @ts-ignore Hack to support custom terrains ending properly
-				if (this.lastTerrain) this.add('-fieldend', `move: ${this.getEffect(this.lastTerrain).name}`);
 				if (effect && effect.effectType === 'Ability') {
 					this.add('-fieldstart', 'move: Prismatic Terrain', '[from] ability: ' + effect, '[of] ' + source);
 				} else {
