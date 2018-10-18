@@ -3444,7 +3444,7 @@ let BattleMovedex = {
 	rotate: {
 		accuracy: 100,
 		category: "Status",
-		desc: "The next Pokemon will switch out after using its move.",
+		desc: "The next Pokemon will switch out after using its move, if the move is successful.",
 		shortDesc: "Next Pokemon will switch after using its move.",
 		id: "rotate",
 		name: "Rotate",
