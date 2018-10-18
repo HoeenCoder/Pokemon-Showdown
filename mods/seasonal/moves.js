@@ -2155,7 +2155,7 @@ let BattleMovedex = {
 				for (let i in exports.BattleMovedex) {
 					let move = exports.BattleMovedex[i];
 					if (i !== move.id) continue;
-					if (move.isZ || move.isNonstandard || !move.isViable) continue;
+					if (move.isZ || move.isNonstandard || !move.isViable || move.id === 'batonpass') continue;
 					if (move.type && !pokemon.types.includes(move.type)) continue;
 					// Time to sort!
 					if (move.category === 'Status') statMove.push(move);
