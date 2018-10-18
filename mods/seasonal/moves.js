@@ -1492,7 +1492,7 @@ let BattleMovedex = {
 		isNonstandard: true,
 		pp: 5,
 		priority: 0,
-		flags: {nosky: 1},
+		flags: {nonsky: 1},
 		onTryMovePriority: 100,
 		onTryMove: function () {
 			this.attrLastMove('[still]');
@@ -2631,7 +2631,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {},
-		onTryMovePriority: 100,
 		terrain: 'prismaticterrain',
 		effect: {
 			duration: 5,
