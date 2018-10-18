@@ -3324,13 +3324,13 @@ let BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Before the turn starts, this Pokemon boosts its Defense and Special Defense by one stage and uses Powder on the target. When this move hits, this Pokemon uses Sleep Powder and Leech Seed. This move's priority is 1 and cannot be affected by Prankster.",
+		desc: "Before the turn starts, this Pokemon boosts its Defense and Special Defense by one stage and uses Powder on the target. When this move hits, this Pokemon uses Sleep Powder and Leech Seed. This move's priority is -1 and cannot be boosted by Prankster.",
 		shortDesc: "+1 Def/SpD, Powder, Leech Seed, Sleep Powder.",
 		id: "armyofmushrooms",
 		name: "Army of Mushrooms",
 		isNonstandard: true,
 		pp: 10,
-		priority: 1,
+		priority: -1,
 		flags: {snatch: 1},
 		onTryMovePriority: 100,
 		onTryMove: function () {
@@ -3872,6 +3872,7 @@ let BattleMovedex = {
 			this.add('-anim', source, "Air Slash", target);
 			this.add('-anim', source, "Air Slash", target);
 		},
+		volatileStatus: 'partiallytrapped',
 		secondaries: [
 			{
 				chance: 20,
@@ -3882,10 +3883,6 @@ let BattleMovedex = {
 				status: 'par',
 			},
 		],
-		secondary: {
-			chance: 20,
-			volatileStatus: 'flinch',
-		},
 		zMovePower: 175,
 		target: "normal",
 		type: "Flying",
