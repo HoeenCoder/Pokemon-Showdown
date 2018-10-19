@@ -2454,8 +2454,8 @@ let BattleMovedex = {
 			return move.basePower + 20 * pokemon.positiveBoosts();
 		},
 		category: "Physical",
-		desc: "Power rises by 20 for each of the user's positive stat stage changes. The user loses any defensive boosts from Stockpile.",
-		shortDesc: "+20 power per boost. Removes Stockpile boosts.",
+		desc: "Power rises by 20 for each of the user's positive stat stage changes. The user loses any defensive boosts not from Stockpile.",
+		shortDesc: "+20 power per boost. Removes Non-Stockpile boosts.",
 		id: "tippingover",
 		name: "Tipping Over",
 		isNonstandard: true,
