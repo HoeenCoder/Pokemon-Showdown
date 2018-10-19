@@ -2652,7 +2652,7 @@ let BattleMovedex = {
 			onTryHit: function (target, source, move) {
 				let hazardMoves = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'hazardpass', 'beskyttelsesnet', 'bringerofdarkness', 'soulbend', 'smokebomb', 'hurl'];
 				if (hazardMoves.includes(move.id)) {
-					this.add('-activate', source, 'move: Prismatic Terrain');
+					this.add('-message', `${source.name} couldn't use ${move.name} because of the prismatic terrain!`);
 					return false;
 				}
 			},
