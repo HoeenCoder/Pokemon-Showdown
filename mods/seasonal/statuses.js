@@ -465,7 +465,6 @@ let BattleStatuses = {
 			this.add(`-anim`, target, 'Geomancy', target);
 			target.formeChange(forme);
 			target.setAbility('Adaptability');
-			this.add('-hint', 'EV still has the Adaptability ability.');
 			// Update movepool
 			target.moveSlots = [];
 			if (!formes[forme]) throw new Error(`SSB: Can't find moveset for EV's forme: "${forme}".`); // should never happen
