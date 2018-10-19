@@ -959,13 +959,13 @@ let BattleStatuses = {
 	osiris: {
 		noCopy: true,
 		onStart: function () {
-			this.add(`c|%Osiris|THE SECRET INGREDIENT IS`);
+			this.add(`c|+Osiris|THE SECRET INGREDIENT IS`);
 		},
 		onSwitchOut: function () {
-			this.add(`c|%Osiris|god's plan`);
+			this.add(`c|+Osiris|god's plan`);
 		},
 		onFaint: function () {
-			this.add(`c|%Osiris|I'm getting too old for this x_x`);
+			this.add(`c|+Osiris|I'm getting too old for this x_x`);
 		},
 	},
 	overneat: {
