@@ -874,6 +874,20 @@ let BattleStatuses = {
 			}
 		},
 	},
+	rach: {
+		noCopy: true,
+		onStart(target, source) {
+			source.types = ["Electric", "Fighting"];
+			this.add(`c|%Rach|BURN IT DOWN!`);
+			this.add('-start', source, 'typeadd', 'Fighting');
+		},
+		onSwitchOut() {
+			this.add(`c|%Rach|Tag!`);
+		},
+		onFaint() {
+			this.add(`c|%Rach|I oversold your move`);
+		},
+	},
 	rorymercury: {
 		noCopy: true,
 		onStart(pokemon) {

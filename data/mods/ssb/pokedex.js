@@ -76,6 +76,11 @@ let BattlePokedex = {
 		inherit: true,
 		abilities: {0: 'Wrath'},
 	},
+	// Rach
+	pikachulibre: {
+		inherit: true,
+		baseStats: {hp: 75, atk: 125, def: 90, spa: 50, spd: 90, spe: 90},
+	},
 	// Saburo
 	metagrossmega: {
 		inherit: true,

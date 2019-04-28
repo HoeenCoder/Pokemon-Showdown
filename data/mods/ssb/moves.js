@@ -659,7 +659,7 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Steel",
 	},
-	// Ceteris
+	// 
 	bringerofdarkness: {
 		accuracy: true,
 		category: "Status",
@@ -2503,8 +2503,10 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {},
-		onPrepareHit(target, source) {
+		onTryMove() {
 			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
 			this.add('-anim', source, "Genesis Supernova", source);
 		},
 		pseudoWeather: 'literallycheating',
@@ -2540,6 +2542,37 @@ let BattleMovedex = {
 		secondary: null,
 		target: "all",
 		type: "Ghost",
+	},
+	// Rach
+	stunner: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		desc: "Has a 70% chance to raise the user's Attack and Defense by 1 stage.",
+		shortDesc: "70% chance to raise the user's Atk & Def by 1.",
+		id: "stunner",
+		name: "Stunner",
+		pp: 10,
+		priority: 0,
+		isNonstandard: "Custom",
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Zen Headbutt", target);
+		},
+		flags: {protect: 1, mirror: 1, contact: 1},
+		secondary: {
+			chance: 70,
+			self: {
+				boosts: {
+					atk: 1,
+					def: 1,
+				},
+			},
+		},
+		target: "normal",
+		type: "Electric",
 	},
 	// Rory Mercury
 	switchoff: {

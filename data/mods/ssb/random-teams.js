@@ -414,6 +414,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Literally Cheating',
 				evs: {hp: 252, def: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'Rach': {
+				species: 'Pikachu-Libre', ability: 'Motor Drive', item: 'Fightinium Z', gender: 'F',
+				moves: ['Flying Press', 'Extreme Speed', 'Thousand Arrows'],
+				signatureMove: 'Stunner',
+				evs: {hp: 4, atk: 252, def: 252}, nature: 'Jolly',
+			},
 			'Rory Mercury': {
 				species: 'Charjabug', ability: 'Recharge', item: 'Eviolite', gender: 'M',
 				moves: ['Spikes', 'Leech Life', ['Poison Fang', 'Nuzzle']],
@@ -557,6 +563,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let types = this.getTemplate(ssbSet.species).types;
 			if (name === 'E4 Flint') types = ["Steel", "Ground", "Fire"];
 			if (name === 'OM') types = ["Fire", "Fairy"];
+			if (name === 'Rach') types = ["Electric", "Fighting"];
 			let rejected = false;
 			for (let type of types) {
 				if (typePool[type] === undefined) typePool[type] = 0;
