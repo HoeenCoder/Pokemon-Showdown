@@ -659,7 +659,7 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Steel",
 	},
-	// 
+	// Ceteris
 	bringerofdarkness: {
 		accuracy: true,
 		category: "Status",
