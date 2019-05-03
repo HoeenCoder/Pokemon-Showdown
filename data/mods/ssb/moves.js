@@ -163,6 +163,36 @@ let BattleMovedex = {
 		type: "Electric",
 		zMovePower: 200,
 	},
+	// Aethernum
+	cataclysm: {
+		accuracy: 90,
+		basePower: 140,
+		category: "Physical",
+		desc: "Resets all of the user's boosts to 0, then Atk, Def and Speed get lowered by 1",
+		shortDesc: "Clears user's boosts; lowers Atk, Def and Spe.",
+		id: "cataclysm",
+		name: "Cataclysm",
+		isNonstandard: "Custom",
+		pp: 5,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Earth Power", target);
+			this.add('-anim', source, "Continental Crush", target);
+			this.add('-anim', source, "Giga Impact", target);
+		},
+		onAfterMoveSecondarySelf(pokemon) {
+			pokemon.clearBoosts();
+			this.add('-clearboost', pokemon);
+			this.boost({atk: -1, def: -1, spe: -1}, pokemon, pokemon, this.getActiveMove('Cataclysm'));
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+	},
 	// Akir
 	compost: {
 		accuracy: true,
@@ -659,7 +689,7 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Steel",
 	},
-	// 
+	// Ceteris
 	bringerofdarkness: {
 		accuracy: true,
 		category: "Status",
@@ -694,11 +724,9 @@ let BattleMovedex = {
 				boost[randomStat] = 1;
 				this.boost(boost, source);
 			}
+			if (this.random(2) === 0) target.trySetStatus('slp', source);
 		},
-		secondary: {
-			chance: 50,
-			status: 'slp',
-		},
+		secondary: null,
 		target: "normal",
 		type: "Dark",
 	},
@@ -798,6 +826,35 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Water",
 	},
+	// DaWoblefet
+	superegoinflation: {
+		accuracy: true,
+		category: "Status",
+		desc: "User heals 25% HP. Target gains +2 Attack and +2 Special Attack, and target becomes Taunted.",
+		shortDesc: "User heals 25% HP; target +2 Atk & SpA; Taunted.",
+		id: "superegoinflation",
+		name: "Super Ego Inflation",
+		isNonstandard: "Custom",
+		pp: 5,
+		priority: -7,
+		flags: {mirror: 1, authentic: 1, protect: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Follow Me', source);
+			this.add('-anim', target, 'Swords Dance', target);
+			this.add('-anim', target, 'Nasty Plot', target);
+		},
+		onHit(target, source, move) {
+			this.heal(source.maxhp / 4, source, source, this.getActiveMove('Super Ego Inflation'));
+			this.boost({atk: 2, spa: 2}, target, source, this.getActiveMove('Super Ego Inflation'));
+			target.addVolatile('taunt', source, this.getActiveMove('Super Ego Inflation'));
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+	},
 	// deg
 	luciddreams: {
 		accuracy: 75,
@@ -809,7 +866,7 @@ let BattleMovedex = {
 		isNonstandard: "Custom",
 		pp: 5,
 		priority: 0,
-		flags: {mirror: 1, snatch: 1, reflectable: 1},
+		flags: {mirror: 1, reflectable: 1, protect: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},

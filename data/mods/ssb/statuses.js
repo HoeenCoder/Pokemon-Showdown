@@ -45,8 +45,10 @@ let BattleStatuses = {
 	},
 	acakewearingahat: {
 		noCopy: true,
-		onStart() {
+		onStart(source) {
+			source.types = ["Normal", "Ghost"];
 			this.add(`c|+ACakeWearingAHat|h`);
+			this.add('-start', source, 'typeadd', 'Ghost');
 		},
 		onSwitchOut(source) {
 			this.add(`c|+ACakeWearingAHat|${source.side.name} is a nerd`);
@@ -78,6 +80,18 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|@Aelita|CODE: LYOKO . Tower deactivated... Return to the past, now!`);
+		},
+	},
+	aethernum: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|%Aethernum|I am __Eterno__, fear me! ...or not...but you should! ...or not...`);
+		},
+		onSwitchOut() {
+			this.add(`c|%Aethernum|I'm not defeated, i'm just afk :^)`);
+		},
+		onFaint() {
+			this.add(`c|%Aethernum| Has been fun! But i'm too lazy to keep fighting ^_^'`);
 		},
 	},
 	akir: {
@@ -302,6 +316,18 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|%Cleo|n.n`);
+		},
+	},
+	dawoblefet: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|@DaWoblefet|What's going on guys? This is DaWoblefet, and welcome to Mechanics Monday.`);
+		},
+		onSwitchOut() {
+			this.add(`c|@DaWoblefet|Until next time, have a good one.`);
+		},
+		onFaint() {
+			this.add(`c|@DaWoblefet|mished`);
 		},
 	},
 	deg: {

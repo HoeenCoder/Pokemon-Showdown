@@ -65,6 +65,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Energy Field',
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
+			'Aethernum': {
+				species: 'Regigigas', ability: 'Awakening', item: 'Leftovers', gender: 'F',
+				moves: ['Knock Off', 'Confuse Ray', 'Drain Punch'],
+				signatureMove: 'Cataclysm',
+				evs: {hp: 252, atk: 252, spe: 4}, ivs: {spa: 0}, nature: 'Adamant',
+			},
 			'Akir': {
 				species: 'Parasect', ability: 'Regrowth', item: 'Leftovers', gender: 'M',
 				moves: ['Spore', 'Leech Life', ['Toxic', 'Healing Wish', 'Parting Shot']],
@@ -167,6 +173,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Icy Wind', 'Ice Beam', 'Wrap'],
 				signatureMove: 'Loving Embrace',
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', shiny: true,
+			},
+			'DaWoblefet': {
+				species: 'Wobbuffet', ability: 'Shadow Artifice', item: 'Iapapa Berry', gender: 'M',
+				moves: ['Counter', 'Mirror Coat', 'Encore'],
+				signatureMove: 'Super Ego Inflation',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {spe: 0}, nature: 'Relaxed',
 			},
 			'deg': {
 				species: 'Gengar', ability: 'Bad Dreams', item: 'Gengarite', gender: 'M',
@@ -422,7 +434,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Rory Mercury': {
 				species: 'Charjabug', ability: 'Recharge', item: 'Eviolite', gender: 'M',
-				moves: ['Spikes', 'Leech Life', ['Poison Fang', 'Nuzzle']],
+				moves: ['First Impression', 'Leech Life', 'Bolt Strike'],
 				signatureMove: 'Switch Off',
 				evs: {hp: 252, atk: 252, def: 4}, ivs: {spe: 0}, nature: 'Brave',
 			},
@@ -564,6 +576,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			if (name === 'E4 Flint') types = ["Steel", "Ground", "Fire"];
 			if (name === 'OM') types = ["Fire", "Fairy"];
 			if (name === 'Rach') types = ["Electric", "Fighting"];
+			if (name === 'ACakeWearingAHat') types = ["Normal", "Ghost"];
 			let rejected = false;
 			for (let type of types) {
 				if (typePool[type] === undefined) typePool[type] = 0;
