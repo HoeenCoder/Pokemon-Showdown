@@ -66,7 +66,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
 			'Aethernum': {
-				species: 'Regigigas', ability: 'Awakening', item: 'Leftovers', gender: 'F',
+				species: 'Regigigas', ability: 'Awakening', item: 'Leftovers', gender: 'N',
 				moves: ['Knock Off', 'Confuse Ray', 'Drain Punch'],
 				signatureMove: 'Cataclysm',
 				evs: {hp: 252, atk: 252, spe: 4}, ivs: {spa: 0}, nature: 'Adamant',
