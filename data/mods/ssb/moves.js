@@ -1144,6 +1144,7 @@ let BattleMovedex = {
 			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) move.category = 'Physical';
 		},
 		onEffectiveness(typeMod, target, type) {
+			if (!target) return;
 			let source = target.side.foe.active[0];
 			for (const moveSlot of target.moveSlots) {
 				const move = this.getMove(moveSlot.move);
@@ -2904,6 +2905,7 @@ let BattleMovedex = {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
+			this.add('-anim', source, "Explosion", target);
 			this.add('-anim', source, "Searing Shot", target);
 			this.add('-anim', target, "Poison Gas", target);
 		},
