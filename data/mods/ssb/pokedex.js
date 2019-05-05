@@ -36,6 +36,15 @@ let BattlePokedex = {
 		// Doubled spa and spe
 		baseStats: {hp: 62, atk: 44, def: 50, spa: 88, spd: 50, spe: 110},
 	},
+	// Forrce
+	charizardmegax: {
+		inherit: true,
+		abilities: {0: 'Moxie'},
+	},
+	charizardmegay: {
+		inherit: true,
+		abilities: {0: 'Soul Heart'},
+	},
 	// grimAuxiliatrix
 	aggronmega: {
 		inherit: true,
@@ -75,11 +84,6 @@ let BattlePokedex = {
 	blazikenmega: {
 		inherit: true,
 		abilities: {0: 'Wrath'},
-	},
-	// Rach
-	pikachulibre: {
-		inherit: true,
-		baseStats: {hp: 75, atk: 125, def: 90, spa: 50, spd: 90, spe: 90},
 	},
 	// Saburo
 	metagrossmega: {

@@ -1117,137 +1117,45 @@ let BattleMovedex = {
 		type: "Rock",
 	},
 	// Forrce
-	purplepills: {
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		desc: "The user gains a random typing and 3 moves based on that typing (2 special moves and 1 status move). The user's attacks deal damage based off the user's Special Defense. If used again, returns the user to its original moveset and typing. This move fails if the user is not Forrce.",
-		shortDesc: "Forrce: Gains 3 random moves and typing.",
-		id: "purplepills",
-		name: "Purple Pills",
+	allduerespect: {
+		accuracy: 99,
+		basePower: 80,
+		category: "Special",
 		isNonstandard: "Custom",
-		pp: 15,
+		desc: "This attack is super effective if the foe has any attacks that are supper effective against the user. This move becomes a physical attack if the user's Attack is greater than its Special Attack, including stat stage changes.",
+		shortDesc: "SE if foe has SE moves. Physical if Atk > Sp. Atk.",
+		id: "allduerespect",
+		name: "All Due Respect",
+		pp: 5,
 		priority: 0,
-		flags: {},
+		flags: {protect: 1, mirror: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, "Swallow", source);
+			this.add('-anim', source, 'Fusion Flare', target);
 		},
-		onTryHit(target, source) {
-			if (source.name !== 'Forrce') {
-				this.add('-fail', source);
-				this.hint("Only Forrce can use Purple Pills.");
-				return null;
+		hasCustomRecoil: true,
+		onMoveFail(target, source, move) {
+			// Secret ;)
+			this.damage(source.maxhp, source, source, this.getEffect('High Jump Kick'));
+		},
+		onModifyMove(move, pokemon) {
+			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) move.category = 'Physical';
+		},
+		onEffectiveness(typeMod, target, type) {
+			let source = target.side.foe.active[0];
+			for (const moveSlot of target.moveSlots) {
+				const move = this.getMove(moveSlot.move);
+				const moveType = move.id === 'hiddenpower' ? target.hpType : move.type;
+				if (move.category !== 'Status' && (this.getImmunity(moveType, source) && this.getEffectiveness(moveType, source) > 0)) {
+					return 1;
+				}
 			}
 		},
-		volatileStatus: 'purplepills',
-		effect: {
-			noCopy: true,
-			onStart(pokemon) {
-				this.add('-start', pokemon, 'Purple Pills', '[silent]');
-				this.add('-message', `${pokemon.name} swallowed some pills!`);
-				const allTypes = ['Normal', 'Fire', 'Fighting', 'Water', 'Flying', 'Grass', 'Poison', 'Electric', 'Ground', 'Psychic', 'Rock', 'Ice', 'Bug', 'Dragon', 'Ghost', 'Dark', 'Steel', 'Fairy'];
-				const type1 = allTypes[this.random(18)];
-				const type2 = allTypes[this.random(18)];
-				if (type1 === type2) {
-					pokemon.types = [type1];
-					this.add('-start', pokemon, 'typechange', `${type1}`);
-				} else {
-					pokemon.types = [type1, type2];
-					this.add('-start', pokemon, 'typechange', `${type1}/${type2}`);
-				}
-				// track percentages to keep purple pills from resetting pp
-				pokemon.m.ppPercentages = pokemon.moveSlots.map(m =>
-					m.pp / m.maxpp
-				);
-				// Get all possible moves sorted for convience in coding
-				let newMovep = [];
-				let statMove = [], offMove1 = [], offMove2 = [];
-				for (const id in this.data.Movedex) {
-					const move = this.data.Movedex[id];
-					if (id !== move.id) continue;
-					if (move.isZ || move.isNonstandard || !move.isViable || move.id === 'batonpass') continue;
-					if (move.type && !pokemon.types.includes(move.type)) continue;
-					// Time to sort!
-					if (move.category === 'Status') statMove.push(move.id);
-					if (move.category === 'Special') {
-						if (type1 === type2) {
-							offMove1.push(move.id);
-							offMove2.push(move.id);
-						} else {
-							if (move.type === type1) {
-								offMove1.push(move.id);
-							} else if (move.type === type2) {
-								offMove2.push(move.id);
-							}
-						}
-					}
-				}
-				const move1 = offMove1[this.random(offMove1.length)];
-				offMove2 = offMove2.filter(move => move !== move1);
-				if (!offMove2.length) offMove2 = ['revelationdance'];
-				const move2 = offMove2[this.random(offMove2.length)];
-				newMovep.push(move1);
-				newMovep.push(move2);
-				newMovep.push(!statMove.length ? 'moonlight' : statMove[this.random(statMove.length)]);
-				newMovep.push('purplepills');
-				// Replace Moveset
-				pokemon.moveSlots = [];
-				for (const [i, moveid] of newMovep.entries()) {
-					const move = this.getMove(moveid);
-					if (!move.id) continue;
-					pokemon.moveSlots.push({
-						move: move.name,
-						id: move.id,
-						// hacky way to reduce purple pill's PP
-						pp: Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.m.ppPercentages ? pokemon.m.ppPercentages[i] : 1)),
-						maxpp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
-						target: move.target,
-						disabled: false,
-						used: false,
-						virtual: true,
-					});
-				}
-			},
-			onModifySpAPriority: 1,
-			onModifySpA(spa, pokemon) {
-				return pokemon.getStat('spd');
-			},
-			onRestart(pokemon) {
-				this.add('-message', `${pokemon.name} feels better!`);
-				delete pokemon.volatiles['purplepills'];
-				this.add('-end', pokemon, 'Purple Pills', '[silent]');
-				pokemon.types = ['Psychic'];
-				this.add('-start', pokemon, 'typechange', 'Psychic');
-				// track percentages to keep purple pills from resetting pp
-				pokemon.m.ppPercentages = pokemon.moveSlots.slice().map(m => {
-					return m.pp / m.maxpp;
-				});
-				// Update movepool
-				let newMovep = ['moonlight', 'heartswap', 'batonpass', 'purplepills'];
-				pokemon.moveSlots = [];
-				for (const [i, moveid] of newMovep.entries()) {
-					let move = this.getMove(moveid);
-					if (!move.id) continue;
-					pokemon.moveSlots.push({
-						move: move.name,
-						id: move.id,
-						// hacky way to reduce purple pill's PP
-						pp: Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.m.ppPercentages ? pokemon.m.ppPercentages[i] : 1)),
-						maxpp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
-						target: move.target,
-						disabled: false,
-						used: false,
-						virtual: true,
-					});
-				}
-			},
-		},
 		secondary: null,
-		target: "self",
-		type: "Poison",
+		target: "normal",
+		type: "Fire",
 	},
 	// grimAuxiliatrix
 	paintrain: {
@@ -2602,11 +2510,11 @@ let BattleMovedex = {
 	},
 	// Rach
 	stunner: {
-		accuracy: 100,
-		basePower: 80,
+		accuracy: 85,
+		basePower: 110,
 		category: "Physical",
-		desc: "Has a 70% chance to raise the user's Attack and Defense by 1 stage.",
-		shortDesc: "70% chance to raise the user's Atk & Def by 1.",
+		desc: "Has a 70% chance to raise the user's Attack by 1 stage. 30% chance to flinch or paralyze the opponent.",
+		shortDesc: "70% raise the user's Atk by 1. 30% flinch or par foe.",
 		id: "stunner",
 		name: "Stunner",
 		pp: 10,
@@ -2619,15 +2527,26 @@ let BattleMovedex = {
 			this.add('-anim', source, "Zen Headbutt", target);
 		},
 		flags: {protect: 1, mirror: 1, contact: 1},
-		secondary: {
-			chance: 70,
-			self: {
-				boosts: {
-					atk: 1,
-					def: 1,
+		secondaries: [
+			{
+				chance: 70,
+				self: {
+					boosts: {
+						atk: 1,
+					},
+				},
+			}, {
+				chance: 30,
+				onHit(target, source) {
+					let result = this.random(2);
+					if (result === 0) {
+						target.trySetStatus('par', source);
+					} else {
+						target.addVolatile('flinch', source);
+					}
 				},
 			},
-		},
+		],
 		target: "normal",
 		type: "Electric",
 	},
@@ -2967,6 +2886,34 @@ let BattleMovedex = {
 		secondary: null,
 		target: "self",
 		type: "Grass",
+	},
+	// SparksBlade
+	kratosmana: {
+		accuracy: 100,
+		basePower: 250,
+		category: "Physical",
+		desc: "The user faints after using this move, even if this move fails for having no target. Has a 10% chance to paralyze the target.",
+		shortDesc: "The user faints. 10% chance to paralyze target.",
+		id: "kratosmana",
+		name: "Kratosmana",
+		isNonstandard: "Custom",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Searing Shot", target);
+			this.add('-anim', target, "Poison Gas", target);
+		},
+		selfdestruct: "always",
+		secondary: {
+			chance: 10,
+			status: 'par',
+		},
+		target: "Normal",
+		type: "Fire",
 	},
 	// SunGodVolcarona
 	scorchingglobalvortex: {
