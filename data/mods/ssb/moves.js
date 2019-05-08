@@ -1117,15 +1117,15 @@ let BattleMovedex = {
 		type: "Rock",
 	},
 	// Forrce
-	allduerespect: {
+	afterhoursspooks1207diss: {
 		accuracy: 99,
 		basePower: 80,
 		category: "Special",
 		isNonstandard: "Custom",
-		desc: "This attack is super effective if the foe has any attacks that are supper effective against the user. This move becomes a physical attack if the user's Attack is greater than its Special Attack, including stat stage changes.",
-		shortDesc: "SE if foe has SE moves. Physical if Atk > Sp. Atk.",
-		id: "allduerespect",
-		name: "All Due Respect",
+		desc: "This attack is super effective if the foe has any attacks that are supper effective against the user. This move becomes a physical attack if the user's Attack is greater than its Special Attack, including stat stage changes. If this attack is not successful, the user loses all of its HP as crash damage. Pokemon with the Magic Guard Ability are unaffected by crash damage.",
+		shortDesc: "SE if foe has SE moves. Physical if Atk > SpA.",
+		id: "afterhoursspooks1207diss",
+		name: "After Hours (Spooks 1207 Diss)",
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
@@ -1137,7 +1137,6 @@ let BattleMovedex = {
 		},
 		hasCustomRecoil: true,
 		onMoveFail(target, source, move) {
-			// Secret ;)
 			this.damage(source.maxhp, source, source, this.getEffect('High Jump Kick'));
 		},
 		onModifyMove(move, pokemon) {

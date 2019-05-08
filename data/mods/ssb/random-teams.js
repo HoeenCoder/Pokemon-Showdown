@@ -231,7 +231,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'Forrce': {
 				species: 'Charizard', ability: 'Magic Guard', item: ['Charizardite Y', 'Charizardite X'][whatMega], gender: '',
 				moves: [['Aeroblast', 'Dragon Hammer'][whatMega], 'Agility', 'Slack Off'],
-				signatureMove: 'All Due Respect',
+				signatureMove: 'After Hours (Spooks 1207 Diss)',
 				evs: [{def: 4, spa: 252, spe: 252}, {atk: 252, spd: 4, spe: 252}][whatMega], nature: ['Timid', 'Jolly'][whatMega], shiny: true,
 			},
 			'grimAuxiliatrix': {

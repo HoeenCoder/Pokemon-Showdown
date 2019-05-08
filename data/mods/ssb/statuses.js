@@ -429,7 +429,7 @@ let BattleStatuses = {
 	forrce: {
 		noCopy: true,
 		onStart() {
-			let messages = [`This will be fun :p`, `Esketit`, `Well then...`, `Uh, what now?`, `Swagn check Z Room`, `I'm busy ${['coding', 'writing'][this.random(2)]} right now, but if it is your command then so be it...`, `guess im needed, thats a first`, `OwO whats this?`, `You interrupted my demon ritual for a stupid game?`, `No limit to where I can take it`][this.random(11)];
+			let messages = [`This will be fun :p`, `Esketit`, `Well then...`, `Uh, what now?`, `Swagn check Z Room`, `I'm busy ${['coding', 'writing'][this.random(2)]} right now, but if it is your command then so be it...`, `guess im needed, thats a first`, `OwO whats this?`, `You interrupted my demon ritual for a stupid game?`, `No limit to where I can take it`][this.random(10)];
 			this.add(`c|+Forrce|${messages}`);
 		},
 		onSwitchOut() {
@@ -442,13 +442,40 @@ let BattleStatuses = {
 			}
 		},
 		onFaint() {
-			let messages = [`This is all ${['i want a lamp', 'platinumCheesecake', 'frostyicelad', 'RustySherrifBadge', 'not a racist', 'Roginald', 'Awesome96Birdy', 'Freddy Kyogre', 'Fragments', 'Irpachuza', 'p90king'][this.random(11)]}'s fault anyways`, `Dude quit being so edgy on a pokemon sim lmfao`, `Why be a king when you can be a God?`, `Back to the shadows I go...`, `Eh, whatever at this point lol`, `luc`, `c7`][this.random(7)];
+			let messages = [`jesus fuck lol`, `Dude quit being so edgy on a pokemon sim lmfao`, `Why be a king when you can be a God?`, `Back to the shadows I go...`, `Eh, whatever at this point lol`, `luc`, `c7`, `p90king`, `iwantalamp`, `roginald`, `fragments`, `rustysherrifbadge`, `frostyicelad`, `notaracist`, `platinumcheesecake`, `awesome96birdy`][this.random(16)];
 			if (messages === 'luc') {
 				this.add(`c| Lucario•1582|/w Lycanium Z, Lol Lyc you died`);
 				this.add(`c|+Forrce|~~Who is this Lycanium Z person you speak of? :^~~`);
 			} else if (messages === 'c7') {
 				this.add(`c| C733937 123|Hey now that you're done, wanna battle me?`);
 				this.add(`c|+Forrce|Sure, sounds like fun c7 :D`);
+			} else if (messages === 'p90king') {
+				this.add(`c| p90king|Pokeball is the best pokemon, prove me wrong`);
+				this.add(`c|+Forrce|smh p90king ur bad`);
+			} else if (messages === 'iwantalamp') {
+				this.add(`c| i want a lamp|bring back Lycanium Z!`);
+				this.add(`c|+Forrce|shush nerd I'm not changing back to that smh`);
+			} else if (messages === 'roginald') {
+				this.add(`c| Roginald|Forrce I thought we talked about this`);
+				this.add(`c|+Forrce|s-sorry`);
+			} else if (messages === 'fragments') {
+				this.add(`c| Fragments|Looks like you're gonna have to name change again`);
+				this.add(`c|+Forrce|HH won't let me D:`);
+			} else if (messages === 'rustysherrifbadge') {
+				this.add(`c| RustySheriffBadge|I saw this coming.`);
+				this.add(`c|+Forrce|:[`);
+			} else if (messages === 'frostyicelad') {
+				this.add(`c| frostyicelad|press f in chat`);
+				this.add(`c|+Forrce|f`);
+			} else if (messages === 'notaracist') {
+				this.add(`c| not a racist|Shouldn't you be a Lycanroc?`);
+				this.add(`c|+Forrce|That doesn't even make sense anymore since i changed names`);
+			} else if (messages === 'platinumCheesecake') {
+				this.add(`c| platinumCheesecake|Forrce if this was a lotad, maybe this wouldnt've happened`);
+				this.add(`c|+Forrce|f off >:I`);
+			} else if (messages === 'awesome96birdy') {
+				this.add(`c|+Awesome96Birdy|Roses are red, violets are blue, Forrce just lost and so will you!`);
+				this.add(`c|+Forrce|uh... ok lol`);
 			} else {
 				this.add(`c|+Forrce|${messages}`);
 			}
