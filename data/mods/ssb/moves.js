@@ -1122,15 +1122,15 @@ let BattleMovedex = {
 		type: "Rock",
 	},
 	// Forrce
-	afterhoursspooks1207diss: {
+	g14: {
 		accuracy: 99,
 		basePower: 80,
 		category: "Special",
 		isNonstandard: "Custom",
 		desc: "This attack is super effective if the foe has any attacks that are supper effective against the user. This move becomes a physical attack if the user's Attack is greater than its Special Attack, including stat stage changes. If this attack is not successful, the user loses all of its HP as crash damage. Pokemon with the Magic Guard Ability are unaffected by crash damage.",
 		shortDesc: "SE if foe has SE moves. Physical if Atk > SpA.",
-		id: "afterhoursspooks1207diss",
-		name: "After Hours (Spooks 1207 Diss)",
+		id: "g14",
+		name: "G-14",
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
@@ -2548,9 +2548,7 @@ let BattleMovedex = {
 			{
 				chance: 70,
 				self: {
-					boosts: {
-						atk: 1,
-					},
+					boosts: {atk: 1},
 				},
 			}, {
 				chance: 30,

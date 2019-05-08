@@ -178,7 +178,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Wobbuffet', ability: 'Shadow Artifice', item: 'Iapapa Berry', gender: 'M',
 				moves: ['Counter', 'Mirror Coat', 'Encore'],
 				signatureMove: 'Super Ego Inflation',
-				evs: {spa: 252, spd: 4, spe: 252}, ivs: {spe: 0}, nature: 'Relaxed',
+				evs: {hp: 252, def: 252, spd: 4}, ivs: {spe: 0}, nature: 'Relaxed',
 			},
 			'deg': {
 				species: 'Gengar', ability: 'Bad Dreams', item: 'Gengarite', gender: 'M',
@@ -231,7 +231,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'Forrce': {
 				species: 'Charizard', ability: 'Magic Guard', item: ['Charizardite Y', 'Charizardite X'][whatMega], gender: '',
 				moves: [['Aeroblast', 'Dragon Hammer'][whatMega], 'Agility', 'Slack Off'],
-				signatureMove: 'After Hours (Spooks 1207 Diss)',
+				signatureMove: 'G-14',
 				evs: [{def: 4, spa: 252, spe: 252}, {atk: 252, spd: 4, spe: 252}][whatMega], nature: ['Timid', 'Jolly'][whatMega], shiny: true,
 			},
 			'grimAuxiliatrix': {

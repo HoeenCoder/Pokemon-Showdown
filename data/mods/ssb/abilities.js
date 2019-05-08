@@ -177,7 +177,6 @@ let BattleAbilities = {
 		shortDesc: "Prevents adjacent foes from switching. If KOed, that move's user loses equal HP.",
 		id: "shadowartifice",
 		name: "Shadow Artifice",
-		// For the good of all things holy there is no way in hell I am letting this mon trap itself
 		onFoeTrapPokemon(pokemon) {
 			if (!pokemon.hasAbility('shadowartifice') && !pokemon.hasAbility('shadowtag') && this.isAdjacent(pokemon, this.effectData.target)) {
 				pokemon.tryTrap(true);
