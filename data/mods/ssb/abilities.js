@@ -299,26 +299,6 @@ let BattleAbilities = {
 			}
 		},
 	},
-	// ptoad
-	fatrain: {
-		desc: "This Pokemon summons Rain Dance when it switches in, and its Defense is 1.5x when Rain is active.",
-		shortDesc: "On switch-in, summons Rain Dance. This Pokemon's Defense is 1.5x during Rain.",
-		id: "fatrain",
-		name: "Fat Rain",
-		isNonstandard: "Custom",
-		onStart(source) {
-			for (const action of this.queue) {
-				if (action.choice === 'runPrimal' && action.pokemon === source && source.template.speciesid === 'kyogre') return;
-				if (action.choice !== 'runSwitch' && action.choice !== 'runPrimal') break;
-			}
-			this.field.setWeather('raindance');
-		},
-		onModifyDef(def, pokemon) {
-			if (this.field.isWeather(['raindance', 'primordialsea'])) {
-				return this.chainModify(1.5);
-			}
-		},
-	},
 	// pre
 	optimize: {
 		desc: "This Pokemon changes forme and sets depending on which attack it uses, before the attack takes place. If this Pokemon uses Psycho Boost, it first changes to Deoxys-Attack. If this Pokemon uses Recover, it first changes to Deoxys-Defense. If this Pokemon uses Extreme Speed, it first changes to Deoxys-Speed. If this Pokemon uses Refactor, it first changes to Deoxys.",
@@ -360,6 +340,26 @@ let BattleAbilities = {
 				pokemon.setItem('Rocky Helmet');
 				pokemon.formeChange('Deoxys', this.effect);
 				break;
+			}
+		},
+	},
+	// ptoad
+	fatrain: {
+		desc: "This Pokemon summons Rain Dance when it switches in, and its Defense is 1.5x when Rain is active.",
+		shortDesc: "On switch-in, summons Rain Dance. This Pokemon's Defense is 1.5x during Rain.",
+		id: "fatrain",
+		name: "Fat Rain",
+		isNonstandard: "Custom",
+		onStart(source) {
+			for (const action of this.queue) {
+				if (action.choice === 'runPrimal' && action.pokemon === source && source.template.speciesid === 'kyogre') return;
+				if (action.choice !== 'runSwitch' && action.choice !== 'runPrimal') break;
+			}
+			this.field.setWeather('raindance');
+		},
+		onModifyDef(def, pokemon) {
+			if (this.field.isWeather(['raindance', 'primordialsea'])) {
+				return this.chainModify(1.5);
 			}
 		},
 	},

@@ -827,18 +827,6 @@ let BattleStatuses = {
 			this.add(`c|@pluviometer|${["Follow SmogonU on Facebook! https://www.facebook.com/SmogonU", "Follow SmogonU on Twitter! https://twitter.com/SmogonU"][this.random(2)]}`);
 		},
 	},
-	ptoad: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+ptoad⚬|Make it rain!`);
-		},
-		onSwitchOut() {
-			this.add(`c|+ptoad⚬|Oh. You're switching me out. No, it's fine, I "toad"ally get it.`);
-		},
-		onFaint() {
-			this.add(`c|+ptoad⚬|Wow. Way to rain on my parade.`);
-		},
-	},
 	pre: {
 		noCopy: true,
 		onStart() {
@@ -849,6 +837,18 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|%pre|LAMBS TO THE COSMIC SLAUGHTER!!`);
+		},
+	},
+	ptoad: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+ptoad⚬|Make it rain!`);
+		},
+		onSwitchOut() {
+			this.add(`c|+ptoad⚬|Oh. You're switching me out. No, it's fine, I "toad"ally get it.`);
+		},
+		onFaint() {
+			this.add(`c|+ptoad⚬|Wow. Way to rain on my parade.`);
 		},
 	},
 	psynergy: {

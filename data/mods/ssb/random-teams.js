@@ -396,17 +396,17 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Grammar Hammer',
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'pre': {
+				species: 'Deoxys', ability: 'Optimize', item: 'Rocky Helmet', gender: 'N',
+				moves: ['Psycho Boost', 'Recover', 'Extreme Speed'],
+				signatureMove: 'Refactor',
+				evs: {hp: 252, def: 4, spd: 252}, ivs: {atk: 0}, nature: 'Bold', shiny: 64,
+			},
 			'ptoad': {
 				species: 'Politoed', ability: 'Fat Rain', item: 'Damp Rock', gender: 'M',
 				moves: ['Scald', 'Toxic', 'Ice Beam'],
 				signatureMove: 'Lilypad Shield',
 				evs: {hp: 252, def: 60, spd: 196}, ivs: {atk: 0}, nature: 'Calm',
-			},
-			'pre': {
-				species: 'Deoxys', ability: 'Optimize', item: 'Rocky Helmet', gender: '',
-				moves: ['Psycho Boost', 'Recover', 'Extreme Speed'],
-				signatureMove: 'Refactor',
-				evs: {hp: 252, def: 4, spd: 252}, ivs: {atk: 0}, nature: 'Bold', shiny: 64,
 			},
 			'Psynergy': {
 				species: 'Blaziken', ability: 'Wrath', item: 'Blazikenite', gender: 'M',
