@@ -1127,7 +1127,7 @@ let BattleMovedex = {
 		basePower: 80,
 		category: "Special",
 		isNonstandard: "Custom",
-		desc: "This attack is super effective if the foe has any attacks that are supper effective against the user. This move becomes a physical attack if the user's Attack is greater than its Special Attack, including stat stage changes. If this attack is not successful, the user loses all of its HP as crash damage. Pokemon with the Magic Guard Ability are unaffected by crash damage.",
+		desc: "This attack is super effective if the foe has any attacks that are super effective against the user. This move becomes a physical attack if the user's Attack is greater than its Special Attack, including stat stage changes. If this attack is not successful, the user loses all of its HP as crash damage. Pokemon with the Magic Guard Ability are unaffected by crash damage.",
 		shortDesc: "SE if foe has SE moves. Physical if Atk > SpA.",
 		id: "g14",
 		name: "G-14",
