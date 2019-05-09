@@ -85,7 +85,7 @@ let BattlePokedex = {
 		inherit: true,
 		abilities: {0: 'Comatose'},
 	},
-  // OM
+	// OM
 	flareon: {
 		inherit: true,
 		types: ['Fire', 'Fairy'],
@@ -106,7 +106,7 @@ let BattlePokedex = {
 	deoxysspeed: {
 		inherit: true,
 		abilities: {0: 'Optimize'},
-  },
+	},
 	// Psynergy
 	blazikenmega: {
 		inherit: true,
