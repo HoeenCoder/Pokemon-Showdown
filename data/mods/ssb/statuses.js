@@ -45,8 +45,10 @@ let BattleStatuses = {
 	},
 	acakewearingahat: {
 		noCopy: true,
-		onStart() {
+		onStart(source) {
 			this.add(`c|+ACakeWearingAHat|h`);
+			if (source.illusion) return;
+			this.add('-start', source, 'typeadd', 'Ghost');
 		},
 		onSwitchOut(source) {
 			this.add(`c|+ACakeWearingAHat|${source.side.name} is a nerd`);
@@ -80,6 +82,18 @@ let BattleStatuses = {
 			this.add(`c|@Aelita|CODE: LYOKO . Tower deactivated... Return to the past, now!`);
 		},
 	},
+	aethernum: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|%Aethernum|I am __Eterno__, fear me! ...or not...but you should! ...or not...`);
+		},
+		onSwitchOut() {
+			this.add(`c|%Aethernum|I'm not defeated, i'm just afk :^)`);
+		},
+		onFaint() {
+			this.add(`c|%Aethernum| Has been fun! But i'm too lazy to keep fighting ^_^'`);
+		},
+	},
 	akir: {
 		noCopy: true,
 		onStart() {
@@ -98,6 +112,18 @@ let BattleStatuses = {
 			}
 		},
 	},
+	alphawittem: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|@AlphaWittem|MAMMA MIA! It's me, ALPHA!`);
+		},
+		onSwitchOut() {
+			this.add(`c|@AlphaWittem|brb gonna eat some pizza`);
+		},
+		onFaint() {
+			this.add(`c|@AlphaWittem|PER LA PATRIA!`);
+		},
+	},
 	amaluna: {
 		noCopy: true,
 		onStart() {
@@ -108,18 +134,6 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|+Amaluna|Don't talk to me unless you're famous`);
-		},
-	},
-	ant: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|@ant|the superior ant is here`);
-		},
-		onSwitchOut() {
-			this.add(`c|@ant|hasta la vista baby`);
-		},
-		onFaint() {
-			this.add(`c|@ant|I'M NOT ANTEMORTEM`);
 		},
 	},
 	aquagtothepast: {
@@ -304,6 +318,18 @@ let BattleStatuses = {
 			this.add(`c|%Cleo|n.n`);
 		},
 	},
+	dawoblefet: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|@DaWoblefet|What's going on guys? This is DaWoblefet, and welcome to Mechanics Monday.`);
+		},
+		onSwitchOut() {
+			this.add(`c|@DaWoblefet|Until next time, have a good one.`);
+		},
+		onFaint() {
+			this.add(`c|@DaWoblefet|mished`);
+		},
+	},
 	deg: {
 		noCopy: true,
 		onStart() {
@@ -402,30 +428,30 @@ let BattleStatuses = {
 	},
 	forrce: {
 		noCopy: true,
-		onStart(pokemon) {
-			this.add(`c|+Forrce|It's either I win or you lose, 'cause I won't accept defeat.`);
-			if (pokemon.illusion) return;
-			let i = 0;
-			for (const moveSlot of pokemon.moveSlots) {
-				let move = this.getMove(moveSlot.id);
-				moveSlot.pp = Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.m.ppPercentages ? pokemon.m.ppPercentages[i] : 1));
-				i++;
-			}
-		},
-		onBeforeSwitchOut(pokemon) {
-			if (pokemon.illusion) return;
-			// track percentages to keep purple pills from resetting pp
-			pokemon.m.ppPercentages = pokemon.moveSlots.slice().map(m => {
-				return m.pp / m.maxpp;
-			});
+		onStart() {
+			let messages = [`This will be fun :p`, `Esketit`, `Well then...`, `Uh, what now?`, `Swagn check Z Room`, `I'm busy ${['coding', 'writing'][this.random(2)]} right now, but if it is your command then so be it...`, `guess im needed, thats a first`, `OwO whats this?`, `You interrupted my demon ritual for a stupid game?`, `No limit to where I can take it`][this.random(11)];
+			this.add(`c|+Forrce|${messages}`);
 		},
 		onSwitchOut() {
-			this.add(`c|+Forrce|What I gotta do to get it through to you? I'm superhuman.`);
+			let messages = ['ok', 'Sorry, I gotta bee are bee', 'wait what did I do?', 'could be worse', 'lol bye', 'Why is SSBB crashing again? AAAAAAAAAAAA', 'It seems I am needed elsewhere', 'darth'][this.random(8)];
+			if (messages === 'darth') {
+				this.add(`c|+Darthikyu|Forrce, The Digital World needs you!`);
+				this.add(`c|+Forrce|Alright Darth, I'll meet you in the Digimon room!`);
+			} else {
+				this.add(`c|+Forrce|${messages}`);
+			}
 		},
 		onFaint() {
-			this.add(`c|+Forrce|How can I find you?`);
-			this.add(`c|+Forrce|Who do you turn to?`);
-			this.add(`c|+Forrce|How do I bind you?`);
+			let messages = [`This is all ${['i want a lamp', 'platinumCheesecake', 'frostyicelad', 'RustySherrifBadge', 'not a racist', 'Roginald', 'Awesome96Birdy', 'Freddy Kyogre', 'Fragments', 'Irpachuza', 'p90king'][this.random(11)]}'s fault anyways`, `Dude quit being so edgy on a pokemon sim lmfao`, `Why be a king when you can be a God?`, `Back to the shadows I go...`, `Eh, whatever at this point lol`, `luc`, `c7`][this.random(7)];
+			if (messages === 'luc') {
+				this.add(`c| Lucario•1582|/w Lycanium Z, Lol Lyc you died`);
+				this.add(`c|+Forrce|~~Who is this Lycanium Z person you speak of? :^~~`);
+			} else if (messages === 'c7') {
+				this.add(`c| C733937 123|Hey now that you're done, wanna battle me?`);
+				this.add(`c|+Forrce|Sure, sounds like fun c7 :D`);
+			} else {
+				this.add(`c|+Forrce|${messages}`);
+			}
 		},
 	},
 	kalalokki: {
@@ -519,13 +545,13 @@ let BattleStatuses = {
 	kaijubunny: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|%Kaiju Bunny|Hey there! Good luck!`);
+			this.add(`c|%Kaiju Bunny|￣( ÒㅅÓ)￣ Thump Thump Motherfucker`);
 		},
 		onSwitchOut() {
-			this.add(`c|%Kaiju Bunny|Don't keep her from battling for too long!`);
+			this.add(`c|%Kaiju Bunny|￣( >ㅅ>)￣ Holding me back, I see how it is`);
 		},
 		onFaint() {
-			this.add(`c|%Kaiju Bunny|She tried her best... ;;`);
+			this.add(`c|%Kaiju Bunny|￣( ‘xㅅx)￣Time to take a 10 hour power nap`);
 		},
 		// Kaiju Rage Innate
 		// onUpdate so toxic orb can activate after. Code mainly copied from Power Construct.
@@ -886,6 +912,21 @@ let BattleStatuses = {
 			}
 		},
 	},
+	rach: {
+		noCopy: true,
+		onStart(target, source) {
+			this.add(`c|%Rach|BURN IT DOWN!`);
+			if (source.illusion) return;
+			this.add('-start', source, 'typeadd', 'Fighting');
+			this.boost({spe: 1}, source);
+		},
+		onSwitchOut() {
+			this.add(`c|%Rach|Tag!`);
+		},
+		onFaint() {
+			this.add(`c|%Rach|I oversold your move`);
+		},
+	},
 	rorymercury: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -1004,6 +1045,18 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|@SpaceBass|bg`);
+		},
+	},
+	sparksblade: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|%SparksBlade|this team looks marsh weak`);
+		},
+		onSwitchOut() {
+			this.add(`c|%SparksBlade|we lose`);
+		},
+		onFaint() {
+			this.add(`c|%SparksBlade|i don't even play this game`);
 		},
 	},
 	sungodvolcarona: {
@@ -1233,6 +1286,16 @@ let BattleStatuses = {
 				}
 			}
 			return [type];
+		},
+	},
+	// weight doubling volatile for trickster
+	minisingularity: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add('-message', pokemon.name + '\'s weight has doubled.');
+		},
+		onModifyWeight(weight) {
+			return weight * 2;
 		},
 	},
 };

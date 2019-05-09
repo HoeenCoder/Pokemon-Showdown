@@ -114,6 +114,7 @@ let BattleMovedex = {
 	// ACakeWearingAHat
 	sparcedance: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "Boosts the user's Attack, Defense, and Speed by one stage.",
 		shortDesc: "+1 atk, def, and spe.",
@@ -163,9 +164,40 @@ let BattleMovedex = {
 		type: "Electric",
 		zMovePower: 200,
 	},
+	// Aethernum
+	cataclysm: {
+		accuracy: 90,
+		basePower: 140,
+		category: "Physical",
+		desc: "Resets all of the user's boosts to 0, then Atk, Def and Speed get lowered by 1",
+		shortDesc: "Clears user's boosts; lowers Atk, Def and Spe.",
+		id: "cataclysm",
+		name: "Cataclysm",
+		isNonstandard: "Custom",
+		pp: 5,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Earth Power", target);
+			this.add('-anim', source, "Continental Crush", target);
+			this.add('-anim', source, "Giga Impact", target);
+		},
+		onAfterMoveSecondarySelf(pokemon) {
+			pokemon.clearBoosts();
+			this.add('-clearboost', pokemon);
+			this.boost({atk: -1, def: -1, spe: -1}, pokemon, pokemon, this.getActiveMove('Cataclysm'));
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+	},
 	// Akir
 	compost: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "The user recovers half their HP. If any of the user's allies fainted the previous turn, this move heals the active Pokemon by 50% of the user's HP on the following turn. Cures the user's party of all status conditions.",
 		shortDesc: "Heal 50%; cures party; If ally fainted last turn: wish.",
@@ -200,6 +232,33 @@ let BattleMovedex = {
 		target: "self",
 		type: "Ghost",
 	},
+	// AlphaWittem
+	nekoveil: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "The user sets up Light Screen, Reflect, and changes the weather to Sunny for 5 turns. The affects of Light Screen and reflect are extended to 8 turns if the user is holding Light Clay, and Sunny Weather remains for 8 turns if the user is holding a Heat Rock.",
+		shortDesc: "Sets Light Screen, Reflect, and Sunny Day for 5 Turns.",
+		id: "nekoveil",
+		name: "Neko Veil",
+		isNonstandard: "Custom",
+		pp: 5,
+		flags: {snatch: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Geomancy", source);
+		},
+		onHit(target, source) {
+			source.side.addSideCondition('lightscreen', source);
+			source.side.addSideCondition('reflect', source);
+		},
+		weather: 'sunnyday',
+		secondary: null,
+		target: "self",
+		type: "Psychic",
+	},
 	// Amaluna
 	turismosplash: {
 		accuracy: true,
@@ -231,36 +290,6 @@ let BattleMovedex = {
 		secondary: null,
 		target: "self",
 		type: "Water",
-	},
-	// ant
-	truant: {
-		accuracy: 100,
-		basePower: 100,
-		category: "Physical",
-		desc: "The target's ability is changed to Truant if this move hits.",
-		shortDesc: "Changes the target's ability to Truant.",
-		id: "truant",
-		name: "TRU ANT",
-		isNonstandard: "Custom",
-		pp: 5,
-		flags: {protect: 1, mirror: 1, contact: 1},
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Sunsteel Strike', target);
-		},
-		onHit(pokemon) {
-			if (pokemon.ability === 'truant') return;
-			let oldAbility = pokemon.setAbility('truant');
-			if (oldAbility) {
-				this.add('-ability', pokemon, 'Truant', '[from] move: TRU ANT');
-				return;
-			}
-			return false;
-		},
-		target: "normal",
-		type: "Steel",
 	},
 	// A Quag to The Past
 	murkyambush: {
@@ -552,6 +581,7 @@ let BattleMovedex = {
 	// bumbadadabum
 	wondertrade: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "Replaces every non-fainted member of the user's team with a Super Staff Bros. Brawl set that is randomly selected from all sets, except those with the move Wonder Trade. Remaining HP and PP percentages, as well as status conditions, are transferred onto the replacement sets This move fails if it's used by a Pokemon that does not originally know this move. This move fails if the user is not bumbadadabum.",
 		shortDesc: "Replaces user's team with random StaffBros. sets.",
@@ -662,6 +692,7 @@ let BattleMovedex = {
 	// Ceteris
 	bringerofdarkness: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "Has a 50% chance to cause the target to fall asleep. Sets one layer of Spikes on the opponent's side of the field and boosts a random stat of the user by one stage, excluding accuracy and evasion, that is not already at maximum.",
 		shortDesc: "50% chance to sleep. Sets 1 Spike. Boosts a stat.",
@@ -694,11 +725,9 @@ let BattleMovedex = {
 				boost[randomStat] = 1;
 				this.boost(boost, source);
 			}
+			if (this.random(2) === 0) target.trySetStatus('slp', source);
 		},
-		secondary: {
-			chance: 50,
-			status: 'slp',
-		},
+		secondary: null,
 		target: "normal",
 		type: "Dark",
 	},
@@ -744,6 +773,7 @@ let BattleMovedex = {
 	// Chloe
 	beskyttelsesnet: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "The user faints and sets Reflect, Light Screen, and Safeguard.",
 		shortDesc: "User faints; sets screens/Safeguard for 5 turns.",
@@ -798,9 +828,39 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Water",
 	},
+	// DaWoblefet
+	superegoinflation: {
+		accuracy: true,
+		category: "Status",
+		desc: "User heals 25% HP. Target gains +2 Attack and +2 Special Attack, and target becomes Taunted.",
+		shortDesc: "User heals 25% HP; target +2 Atk & SpA; Taunted.",
+		id: "superegoinflation",
+		name: "Super Ego Inflation",
+		isNonstandard: "Custom",
+		pp: 5,
+		priority: -7,
+		flags: {mirror: 1, authentic: 1, protect: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Follow Me', source);
+			this.add('-anim', target, 'Swords Dance', target);
+			this.add('-anim', target, 'Nasty Plot', target);
+		},
+		onHit(target, source, move) {
+			this.heal(source.maxhp / 4, source, source, this.getActiveMove('Super Ego Inflation'));
+			this.boost({atk: 2, spa: 2}, target, source, this.getActiveMove('Super Ego Inflation'));
+			target.addVolatile('taunt', source, this.getActiveMove('Super Ego Inflation'));
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+	},
 	// deg
 	luciddreams: {
 		accuracy: 75,
+		basePower: 0,
 		category: "Status",
 		desc: "The foe falls asleep and is inflicted with the effects of Nightmare and Leech Seed. The user loses 1/2 of their maximum HP unless this move had no effect.",
 		shortDesc: "Loses 1/2 HP. Foe: sleep, Nightmare, Leech Seed.",
@@ -809,7 +869,7 @@ let BattleMovedex = {
 		isNonstandard: "Custom",
 		pp: 5,
 		priority: 0,
-		flags: {mirror: 1, snatch: 1, reflectable: 1},
+		flags: {mirror: 1, reflectable: 1, protect: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -903,9 +963,10 @@ let BattleMovedex = {
 	// Eien
 	ancestralpower: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
-		desc: "The user's Attack and Special Attack are raised by one, it transforms into a different Pokemon, and it uses a move dependent on the Pokemon; Celebi (Future Sight), Jirachi (Doom Desire), Manaphy (Tail Glow), Shaymin (Seed Flare), or Victini (V-Create). Reverts to Mew and loses the initial raises of 1 stage to Attack and Special Attack at the end of the turn.",
-		shortDesc: " For turn: transforms, boosts, uses linked move.",
+		desc: "The user's Attack and Special Attack are raised by one, it transforms into a different Pokemon, and it uses two moves dependent on the Pokemon; Celebi (Future Sight and Recover), Jirachi (Doom Desire and Wish), Manaphy (Tail Glow and Surf), Shaymin (Seed Flare and Leech Seed), or Victini (V-Create and Blue Flare). Reverts to Mew and loses the initial raises of 1 stage to Attack and Special Attack at the end of the turn.",
+		shortDesc: " For turn: transforms, boosts, uses linked moves.",
 		id: "ancestralpower",
 		name: "Ancestral Power",
 		isNonstandard: "Custom",
@@ -917,18 +978,19 @@ let BattleMovedex = {
 		},
 		onHit(target, source, move) {
 			let baseForme = source.template.id;
-			/** @type {{[forme: string]: string}} */
+			/** @type {{[forme: string]: string[]}} */
 			let formes = {
-				celebi: 'Future Sight',
-				jirachi: 'Doom Desire',
-				manaphy: 'Tail Glow',
-				shaymin: 'Seed Flare',
-				victini: 'V-create',
+				celebi: ['Future Sight', 'Recover'],
+				jirachi: ['Doom Desire', 'Wish'],
+				manaphy: ['Tail Glow', 'Surf'],
+				shaymin: ['Seed Flare', 'Leech Seed'],
+				victini: ['V-create', 'Blue Flare'],
 			};
 			let forme = Object.keys(formes)[this.random(5)];
 			source.formeChange(forme, this.getAbility('psychicsurge'), true);
 			this.boost({atk: 1, spa: 1}, source, source, move);
-			this.useMove(formes[forme], source, target);
+			this.useMove(formes[forme][0], source, target);
+			this.useMove(formes[forme][1], source, target);
 			this.boost({atk: -1, spa: -1}, source, source, move);
 			source.formeChange(baseForme, this.getAbility('psychicsurge'), true);
 		},
@@ -939,6 +1001,7 @@ let BattleMovedex = {
 	// eternally
 	quack: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "Boosts the user's Defense, Special Defense, and Speed by 1 stage.",
 		shortDesc: "Raises the user's Def, Sp. Def, and Spe by 1.",
@@ -1060,137 +1123,45 @@ let BattleMovedex = {
 		type: "Rock",
 	},
 	// Forrce
-	purplepills: {
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		desc: "The user gains a random typing and 3 moves based on that typing (2 special moves and 1 status move). The user's attacks deal damage based off the user's Special Defense. If used again, returns the user to its original moveset and typing. This move fails if the user is not Forrce.",
-		shortDesc: "Forrce: Gains 3 random moves and typing.",
-		id: "purplepills",
-		name: "Purple Pills",
+	g14: {
+		accuracy: 99,
+		basePower: 80,
+		category: "Special",
 		isNonstandard: "Custom",
-		pp: 15,
+		desc: "This attack is super effective if the foe has any attacks that are super effective against the user. This move becomes a physical attack if the user's Attack is greater than its Special Attack, including stat stage changes. If this attack is not successful, the user loses all of its HP as crash damage. Pokemon with the Magic Guard Ability are unaffected by crash damage.",
+		shortDesc: "SE if foe has SE moves. Physical if Atk > SpA.",
+		id: "g14",
+		name: "G-14",
+		pp: 5,
 		priority: 0,
-		flags: {},
+		flags: {protect: 1, mirror: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, "Swallow", source);
+			this.add('-anim', source, 'Fusion Flare', target);
 		},
-		onTryHit(target, source) {
-			if (source.name !== 'Forrce') {
-				this.add('-fail', source);
-				this.hint("Only Forrce can use Purple Pills.");
-				return null;
+		hasCustomRecoil: true,
+		onMoveFail(target, source, move) {
+			this.damage(source.maxhp, source, source, this.getEffect('High Jump Kick'));
+		},
+		onModifyMove(move, pokemon) {
+			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) move.category = 'Physical';
+		},
+		onEffectiveness(typeMod, target, type) {
+			if (!target) return;
+			let source = target.side.foe.active[0];
+			for (const moveSlot of target.moveSlots) {
+				const move = this.getMove(moveSlot.move);
+				const moveType = move.id === 'hiddenpower' ? target.hpType : move.type;
+				if (move.category !== 'Status' && (this.getImmunity(moveType, source) && this.getEffectiveness(moveType, source) > 0)) {
+					return 1;
+				}
 			}
 		},
-		volatileStatus: 'purplepills',
-		effect: {
-			noCopy: true,
-			onStart(pokemon) {
-				this.add('-start', pokemon, 'Purple Pills', '[silent]');
-				this.add('-message', `${pokemon.name} swallowed some pills!`);
-				const allTypes = ['Normal', 'Fire', 'Fighting', 'Water', 'Flying', 'Grass', 'Poison', 'Electric', 'Ground', 'Psychic', 'Rock', 'Ice', 'Bug', 'Dragon', 'Ghost', 'Dark', 'Steel', 'Fairy'];
-				const type1 = allTypes[this.random(18)];
-				const type2 = allTypes[this.random(18)];
-				if (type1 === type2) {
-					pokemon.types = [type1];
-					this.add('-start', pokemon, 'typechange', `${type1}`);
-				} else {
-					pokemon.types = [type1, type2];
-					this.add('-start', pokemon, 'typechange', `${type1}/${type2}`);
-				}
-				// track percentages to keep purple pills from resetting pp
-				pokemon.m.ppPercentages = pokemon.moveSlots.map(m =>
-					m.pp / m.maxpp
-				);
-				// Get all possible moves sorted for convience in coding
-				let newMovep = [];
-				let statMove = [], offMove1 = [], offMove2 = [];
-				for (const id in this.data.Movedex) {
-					const move = this.data.Movedex[id];
-					if (id !== move.id) continue;
-					if (move.isZ || move.isNonstandard || !move.isViable || move.id === 'batonpass') continue;
-					if (move.type && !pokemon.types.includes(move.type)) continue;
-					// Time to sort!
-					if (move.category === 'Status') statMove.push(move.id);
-					if (move.category === 'Special') {
-						if (type1 === type2) {
-							offMove1.push(move.id);
-							offMove2.push(move.id);
-						} else {
-							if (move.type === type1) {
-								offMove1.push(move.id);
-							} else if (move.type === type2) {
-								offMove2.push(move.id);
-							}
-						}
-					}
-				}
-				const move1 = offMove1[this.random(offMove1.length)];
-				offMove2 = offMove2.filter(move => move !== move1);
-				if (!offMove2.length) offMove2 = ['revelationdance'];
-				const move2 = offMove2[this.random(offMove2.length)];
-				newMovep.push(move1);
-				newMovep.push(move2);
-				newMovep.push(!statMove.length ? 'moonlight' : statMove[this.random(statMove.length)]);
-				newMovep.push('purplepills');
-				// Replace Moveset
-				pokemon.moveSlots = [];
-				for (const [i, moveid] of newMovep.entries()) {
-					const move = this.getMove(moveid);
-					if (!move.id) continue;
-					pokemon.moveSlots.push({
-						move: move.name,
-						id: move.id,
-						// hacky way to reduce purple pill's PP
-						pp: Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.m.ppPercentages ? pokemon.m.ppPercentages[i] : 1)),
-						maxpp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
-						target: move.target,
-						disabled: false,
-						used: false,
-						virtual: true,
-					});
-				}
-			},
-			onModifySpAPriority: 1,
-			onModifySpA(spa, pokemon) {
-				return pokemon.getStat('spd');
-			},
-			onRestart(pokemon) {
-				this.add('-message', `${pokemon.name} feels better!`);
-				delete pokemon.volatiles['purplepills'];
-				this.add('-end', pokemon, 'Purple Pills', '[silent]');
-				pokemon.types = ['Psychic'];
-				this.add('-start', pokemon, 'typechange', 'Psychic');
-				// track percentages to keep purple pills from resetting pp
-				pokemon.m.ppPercentages = pokemon.moveSlots.slice().map(m => {
-					return m.pp / m.maxpp;
-				});
-				// Update movepool
-				let newMovep = ['moonlight', 'heartswap', 'batonpass', 'purplepills'];
-				pokemon.moveSlots = [];
-				for (const [i, moveid] of newMovep.entries()) {
-					let move = this.getMove(moveid);
-					if (!move.id) continue;
-					pokemon.moveSlots.push({
-						move: move.name,
-						id: move.id,
-						// hacky way to reduce purple pill's PP
-						pp: Math.floor(((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5) * (pokemon.m.ppPercentages ? pokemon.m.ppPercentages[i] : 1)),
-						maxpp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
-						target: move.target,
-						disabled: false,
-						used: false,
-						virtual: true,
-					});
-				}
-			},
-		},
 		secondary: null,
-		target: "self",
-		type: "Poison",
+		target: "normal",
+		type: "Fire",
 	},
 	// grimAuxiliatrix
 	paintrain: {
@@ -1235,6 +1206,7 @@ let BattleMovedex = {
 	// Hippopotas
 	hazardpass: {
 		accuracy: 100,
+		basePower: 0,
 		category: "Status",
 		pp: 20,
 		desc: "The user sets 2 of Stealth Rock, Spikes (1 layer), Toxic Spikes (1 layer), and Sticky Web on the foe's side of the field and then switches out.",
@@ -1291,6 +1263,7 @@ let BattleMovedex = {
 	// HoeenHero
 	scriptedterrain: {
 		accuracy: 100,
+		basePower: 0,
 		category: "Status",
 		desc: "Sets Scripted Terrain for 5 turns. The power of Bug type moves is boosted by 1.5, and there is a 5% chance for every move used to become Glitch Out instead. At the end of a turn, every Pokemon has a 5% chance to transform into a Missingno. with 3 random moves and Glitch Out. Switching out will restore the Pokemon to its normal state. This terrain affects floating Pokemon.",
 		shortDesc: "5 turns: +Bug power, glitchy effects.",
@@ -1392,6 +1365,7 @@ let BattleMovedex = {
 	// Used by HoeenHero's terrain
 	glitchout: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "A random move is selected for use, other than After You, Assist, Baneful Bunker, Beak Blast, Belch, Bestow, Celebrate, Chatter, Copycat, Counter, Covet, Crafty Shield, Destiny Bond, Detect, Diamond Storm, Endure, Feint, Fleur Cannon, Focus Punch, Follow Me, Freeze Shock, Helping Hand, Hold Hands, Hyperspace Hole, Ice Burn, Instruct, King's Shield, Light of Ruin, Mat Block, Me First, Metronome, Mimic, Mind Blown, Mirror Coat, Mirror Move, Nature Power, Photon Geyser, Plasma Fists, Protect, Quash, Quick Guard, Rage Powder, Relic Song, Secret Sword, Shell Trap, Sketch, Sleep Talk, Snarl, Snatch, Snore, Spectral Thief, Spiky Shield, Spotlight, Steam Eruption, Struggle, Switcheroo, Techno Blast, Thief, Thousand Arrows, Thousand Waves, Transform, Trick, Trump Card, V-create, or Wide Guard. The selected move's Base Power is increased by 20.",
 		shortDesc: "Uses a random move with Base Power +20.",
@@ -1497,6 +1471,7 @@ let BattleMovedex = {
 	// Iyarito
 	vbora: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "Cures the user's party of all status conditions, then poisons the user.",
 		shortDesc: "Cures party's statuses, then poisons self.",
@@ -1665,6 +1640,7 @@ let BattleMovedex = {
 	// Level 51
 	nextlevelstrats: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "The user gains 5 levels when using this move, which persist upon switching out.",
 		shortDesc: "User gains 5 levels.",
@@ -1806,6 +1782,7 @@ let BattleMovedex = {
 	// MacChaeger
 	naptime: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "The user falls asleep for the next turn, restoring 50% of its HP and curing itself of any major status condition. If the user falls asleep in this way, all other active Pokemon that are not asleep or frozen also try to use Nap Time. Fails if the user has full HP, if the user is already asleep, or if another effect is preventing sleep.",
 		shortDesc: "Active Pokemon sleep 1 turn, restoring HP/status.",
@@ -1922,6 +1899,7 @@ let BattleMovedex = {
 	// Marty
 	typeanalysis: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "If the user is a Silvally, its item becomes a random Memory whose type matches one of the target's weaknesses, it changes forme, and it uses Multi-Attack. This move and its effects ignore the Abilities of other Pokemon. Fails if the target has no weaknesses or if the user's species is not Silvally.",
 		shortDesc: "Changes user/move type to a weakness of target.",
@@ -2120,6 +2098,7 @@ let BattleMovedex = {
 	// Morfent
 	e: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "Sets Trick Room for 5 turns and raises the user's Attack by 1 stage.",
 		shortDesc: "User Attack +1; sets Trick Room.",
@@ -2151,6 +2130,7 @@ let BattleMovedex = {
 	// Used for nui's ability
 	prismaticterrain: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "For 5 turns, the terrain becomes Prismatic Terrain. During the effect, the power of Ice-type attacks is multiplied by 0.5, even if the user is not grounded. Hazards are removed and cannot be set while Prismatic Terrain is active. Fails if the current terrain is Prismatic Terrain.",
 		shortDesc: "5 turns. No hazards,-Ice power even if floating.",
@@ -2212,6 +2192,7 @@ let BattleMovedex = {
 	// nui
 	pyramidingsong: {
 		accuracy: 100,
+		basePower: 0,
 		category: "Status",
 		desc: "If the target has not fainted, both the user and the target are forced to switch out and be replaced with a chosen unfainted ally. The target's replacement has its Speed lowered by 1 stage. Fails if either Pokemon is under the effect of Ingrain or Suction Cups.",
 		shortDesc: "Both Pokemon switch. Opp. replacement: Spe -1.",
@@ -2339,6 +2320,7 @@ let BattleMovedex = {
 	// Paradise
 	corrosivetoxic: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "Badly poisons the target, even if they are Poison-type or Steel-type. This move does not check accuracy.",
 		shortDesc: "Badly poisons the target, regardless of type.",
@@ -2547,6 +2529,7 @@ let BattleMovedex = {
 	// Quite Quiet
 	literallycheating: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "For seven turns, any Pokemon that has one of their stats boosted through any manner loses all PP on the last move they used.",
 		shortDesc: "7 turns: boosting stat: lose all PP from last move.",
@@ -2556,8 +2539,10 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {},
-		onPrepareHit(target, source) {
+		onTryMove() {
 			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
 			this.add('-anim', source, "Genesis Supernova", source);
 		},
 		pseudoWeather: 'literallycheating',
@@ -2593,6 +2578,46 @@ let BattleMovedex = {
 		secondary: null,
 		target: "all",
 		type: "Ghost",
+	},
+	// Rach
+	stunner: {
+		accuracy: 85,
+		basePower: 110,
+		category: "Physical",
+		desc: "Has a 70% chance to raise the user's Attack by 1 stage. 30% chance to flinch or paralyze the opponent.",
+		shortDesc: "70% raise the user's Atk by 1. 30% flinch or par foe.",
+		id: "stunner",
+		name: "Stunner",
+		pp: 10,
+		priority: 0,
+		isNonstandard: "Custom",
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Zen Headbutt", target);
+		},
+		flags: {protect: 1, mirror: 1, contact: 1},
+		secondaries: [
+			{
+				chance: 70,
+				self: {
+					boosts: {atk: 1},
+				},
+			}, {
+				chance: 30,
+				onHit(target, source) {
+					let result = this.random(2);
+					if (result === 0) {
+						target.trySetStatus('par', source);
+					} else {
+						target.addVolatile('flinch', source);
+					}
+				},
+			},
+		],
+		target: "normal",
+		type: "Electric",
 	},
 	// Rory Mercury
 	switchoff: {
@@ -2931,6 +2956,35 @@ let BattleMovedex = {
 		target: "self",
 		type: "Grass",
 	},
+	// SparksBlade
+	kratosmana: {
+		accuracy: 100,
+		basePower: 250,
+		category: "Physical",
+		desc: "The user faints after using this move, even if this move fails for having no target. Has a 10% chance to paralyze the target.",
+		shortDesc: "The user faints. 10% chance to paralyze target.",
+		id: "kratosmana",
+		name: "Kratosmana",
+		isNonstandard: "Custom",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Explosion", target);
+			this.add('-anim', source, "Searing Shot", target);
+			this.add('-anim', target, "Poison Gas", target);
+		},
+		selfdestruct: "always",
+		secondary: {
+			chance: 10,
+			status: 'par',
+		},
+		target: "Normal",
+		type: "Fire",
+	},
 	// SunGodVolcarona
 	scorchingglobalvortex: {
 		accuracy: true,
@@ -3016,6 +3070,7 @@ let BattleMovedex = {
 	// Teremiare
 	rotate: {
 		accuracy: 100,
+		basePower: 0,
 		category: "Status",
 		desc: "The user's replacement will switch out after using their move on the next turn if the replacement's move is successful.",
 		shortDesc: "User's replacement will switch after using its move.",
@@ -3216,6 +3271,7 @@ let BattleMovedex = {
 	// torkool
 	smokebomb: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "Moves all hazards that are on the user's side of the field to the foe's side of the field. Sets Stealth Rock on the foe's side, after which the user switches out.",
 		shortDesc: "Hazards -> foe side. Set SR. User switches out.",
@@ -3278,7 +3334,7 @@ let BattleMovedex = {
 			return 20;
 		},
 		category: "Special",
-		desc: "This move's Base Power is 20 if the target weighs less than 10 kg, 40 if its weight is less than 25 kg, 60 if its weight is less than 50 kg, 80 if its weight is less than 100 kg, 100 if its weight is less than 200 kg, and 120 if its weight is greater than or equal to 200 kg. After doing damage, the target's item is replaced with an Iron Ball, and the target's weight is doubled.",
+		desc: "This move's Base Power is 20 if the target weighs less than 10 kg, 40 if its weight is less than 25 kg, 60 if its weight is less than 50 kg, 80 if its weight is less than 100 kg, 100 if its weight is less than 200 kg, and 120 if its weight is greater than or equal to 200 kg. Before doing damage, the target's item is replaced with an Iron Ball, and the target's weight is doubled.",
 		shortDesc: "BP:weight; increases foe weight; foe item=Iron Ball.",
 		id: "minisingularity",
 		name: "Mini Singularity",
@@ -3286,16 +3342,16 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		volatileStatus: "minisingularity",
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, "Spacial Rend", target);
 			this.add('-anim', source, "Flash", target);
-		},
-		onAfterHit(target, source) {
-			if (source.hp) {
+
+			// Really feel like this could be done better (blocked by protect and alike moves.)
+			if (target.volatiles['banefulbunker'] || target.volatiles['kingsshield'] || target.side.sideConditions['matblock'] || target.volatiles['protect'] || target.volatiles['spikyshield'] || target.volatiles['lilypadshield']) {
+				target.addVolatile('minisignularity', source);
 				let item = target.takeItem();
 				if (!target.item) {
 					if (item) this.add('-enditem', target, item.name, '[from] move: Mini Singularity', '[of] ' + source);
@@ -3303,15 +3359,6 @@ let BattleMovedex = {
 					this.add('-message', target.name + ' obtained an Iron Ball.');
 				}
 			}
-		},
-		effect: {
-			noCopy: true,
-			onStart(pokemon) {
-				this.add('-message', pokemon.name + '\'s weight has doubled.');
-			},
-			onModifyWeight(weight) {
-				return weight * 2;
-			},
 		},
 		secondary: null,
 		target: "normal",

@@ -17,9 +17,9 @@
  */
 
 const RandomTeams = require('../../random-teams');
-
 class RandomStaffBrosTeams extends RandomTeams {
 	randomStaffBrosTeam() {
+		const whatMega = this.random(2);
 		/** @type {PokemonSet[]} */
 		let team = [];
 		/** @type {SSBSets} */
@@ -65,23 +65,29 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Energy Field',
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
+			'Aethernum': {
+				species: 'Regigigas', ability: 'Awakening', item: 'Leftovers', gender: 'N',
+				moves: ['Knock Off', 'Confuse Ray', 'Drain Punch'],
+				signatureMove: 'Cataclysm',
+				evs: {hp: 252, atk: 252, spe: 4}, ivs: {spa: 0}, nature: 'Adamant',
+			},
 			'Akir': {
 				species: 'Parasect', ability: 'Regrowth', item: 'Leftovers', gender: 'M',
 				moves: ['Spore', 'Leech Life', ['Toxic', 'Healing Wish', 'Parting Shot']],
 				signatureMove: 'Compost',
 				evs: {hp: 248, atk: 8, spd: 252}, nature: 'Careful',
 			},
+			'AlphaWittem': {
+				species: 'Espeon', ability: 'O SOLE MIO', item: 'Light Clay', gender: 'M',
+				moves: ['Psychic', 'Focus Blast', 'Morning Sun'],
+				signatureMove: 'Neko Veil',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+			},
 			'Amaluna': {
 				species: 'Octillery', ability: 'Neuroforce', item: 'Expert Belt', gender: 'F',
 				moves: ['Surf', 'Fire Blast', 'Freeze-Dry'],
 				signatureMove: 'Turismo Splash',
 				evs: {hp: 252, spa: 252, spd: 4}, ivs: {atk: 0, spe: 0}, nature: 'Quiet',
-			},
-			'ant': {
-				species: 'Durant', ability: 'Flash Fire', item: 'Leftovers', gender: 'F',
-				moves: ['King\'s Shield', 'U-turn', 'Pursuit'],
-				signatureMove: 'TRU ANT',
-				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
 			'A Quag to The Past': {
 				species: 'Quagsire', ability: 'Unaware', item: 'Leftovers', gender: 'M',
@@ -168,6 +174,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Loving Embrace',
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', shiny: true,
 			},
+			'DaWoblefet': {
+				species: 'Wobbuffet', ability: 'Shadow Artifice', item: 'Iapapa Berry', gender: 'M',
+				moves: ['Counter', 'Mirror Coat', 'Encore'],
+				signatureMove: 'Super Ego Inflation',
+				evs: {hp: 252, def: 252, spd: 4}, ivs: {spe: 0}, nature: 'Relaxed',
+			},
 			'deg': {
 				species: 'Gengar', ability: 'Bad Dreams', item: 'Gengarite', gender: 'M',
 				moves: [['Hex', 'Shadow Ball'], 'Sludge Wave', 'Focus Blast'],
@@ -194,7 +206,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Eien': {
 				species: 'Mew', ability: 'Psychic Surge', item: 'Terrain Extender', gender: 'N',
-				moves: ['Calm Mind', 'Psychic', 'Psyshock'],
+				moves: ['Calm Mind', 'Psychic', 'Roost'],
 				signatureMove: 'Ancestral Power',
 				evs: {hp: 252, spd: 4, spe: 252}, nature: 'Timid',
 			},
@@ -217,10 +229,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
 			},
 			'Forrce': {
-				species: 'Cresselia', ability: 'Wonder Skin', item: 'Leftovers', gender: 'N',
-				moves: ['Moonlight', 'Heart Swap', 'Baton Pass'],
-				signatureMove: 'Purple Pills',
-				evs: {hp: 176, def: 80, spd: 252}, ivs: {atk: 0}, nature: 'Calm',
+				species: 'Charizard', ability: 'Magic Guard', item: ['Charizardite Y', 'Charizardite X'][whatMega], gender: '',
+				moves: [['Aeroblast', 'Dragon Hammer'][whatMega], 'Agility', 'Slack Off'],
+				signatureMove: 'G-14',
+				evs: [{def: 4, spa: 252, spe: 252}, {atk: 252, spd: 4, spe: 252}][whatMega], nature: ['Timid', 'Jolly'][whatMega], shiny: true,
 			},
 			'grimAuxiliatrix': {
 				species: 'Aggron', ability: 'Sturdy', item: 'Aggronite', gender: '',
@@ -420,9 +432,15 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Literally Cheating',
 				evs: {hp: 252, def: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'Rach': {
+				species: 'Pikachu-Libre', ability: 'Huge Power', item: 'Fightinium Z', gender: 'F',
+				moves: ['Flying Press', 'Icicle Crash', 'Thousand Arrows'],
+				signatureMove: 'Stunner',
+				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
+			},
 			'Rory Mercury': {
 				species: 'Charjabug', ability: 'Recharge', item: 'Eviolite', gender: 'M',
-				moves: ['Spikes', 'Leech Life', ['Poison Fang', 'Nuzzle']],
+				moves: ['First Impression', 'Leech Life', 'Bolt Strike'],
 				signatureMove: 'Switch Off',
 				evs: {hp: 252, atk: 252, def: 4}, ivs: {spe: 0}, nature: 'Brave',
 			},
@@ -467,6 +485,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Ingrain', 'Substitute', 'Baton Pass'],
 				signatureMove: 'Army of Mushrooms',
 				evs: {hp: 252, def: 128, spd: 128}, ivs: {atk: 0, spe: 0}, nature: 'Sassy',
+			},
+			'SparksBlade': {
+				species: 'Blacephalon', ability: 'Magic Guard', item: 'Life Orb', gender: 'N',
+				moves: ['Mind Blown', 'Shadow Ball', 'Explosion'],
+				signatureMove: 'Kratosmana',
+				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Naive', shiny: true,
 			},
 			'SunGodVolcarona': {
 				species: 'Volcarona', ability: 'Solar Flare', item: 'Volcaronium Z', gender: 'M',
@@ -556,13 +580,23 @@ class RandomStaffBrosTeams extends RandomTeams {
 		let pool = Object.keys(sets);
 		/** @type {{[type: string]: number}} */
 		let typePool = {};
+		let debug = false;
 		while (pool.length && team.length < 6) {
-			let name = this.sampleNoReplace(pool);
+			let name = '';
+			if (debug && team.length === 1) {
+				// DEBUG CODE, remove before commiting to the main server
+				name = ''; // Change name to force a set to appear
+				pool.splice(pool.indexOf(name), 1);
+			} else {
+				name = this.sampleNoReplace(pool);
+			}
 			let ssbSet = sets[name];
 			// Enforce typing limits
 			let types = this.getTemplate(ssbSet.species).types;
 			if (name === 'E4 Flint') types = ["Steel", "Ground", "Fire"];
 			if (name === 'OM') types = ["Fire", "Fairy"];
+			if (name === 'Rach') types = ["Electric", "Fighting"];
+			if (name === 'ACakeWearingAHat') types = ["Normal", "Ghost"];
 			let rejected = false;
 			for (let type of types) {
 				if (typePool[type] === undefined) typePool[type] = 0;

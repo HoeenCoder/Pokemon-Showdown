@@ -32,6 +32,22 @@ let BattleAbilities = {
 			}
 		},
 	},
+	// Aethernum
+	awakening: {
+		desc: "On switch in, Atk and Speed are lowered by -3, while Def and Spdef are increased by 3. At the end of each turn, Atk and Spe get +1 while Def and Spdef get -1.",
+		shortDesc: "Atk & spe -3; def & spd +3; end turn: Atk & Spe +1; Def & Spd -1",
+		id: "awakening",
+		name: "Awakening",
+		isNonstandard: "Custom",
+		onStart(pokemon) {
+			this.boost({atk: -3, def: 3, spd: 3, spe: -3});
+		},
+		onResidualOrder: 26,
+		onResidualSubOrder: 1,
+		onResidual(pokemon) {
+			this.boost({atk: 1, def: -1, spd: -1, spe: 1});
+		},
+	},
 	// Akir
 	regrowth: {
 		desc: "This Pokemon's healing moves have their priority increased by one stage. When switching out, this Pokemon restores 1/4 of its maximum HP, rounded down.",
@@ -44,6 +60,19 @@ let BattleAbilities = {
 		},
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.maxhp / 4);
+		},
+	},
+	// AlphaWittem
+	osolemio: {
+		desc: "If Sun is active, this Pokemon restores 1/16 of its maximum HP, rounded down, at the end of each turn.",
+		shortDesc: "If Sun is active, this Pokemon heals 1/16 of its max HP each turn.",
+		id: "osolemio",
+		name: "O SOLE MIO",
+		isNonstandard: "Custom",
+		onWeather(target, source, effect) {
+			if (effect.id === 'sunnyday') {
+				this.heal(target.maxhp / 16);
+			}
 		},
 	},
 	// Arsenal
@@ -142,6 +171,31 @@ let BattleAbilities = {
 			},
 		},
 	},
+	// DaWoblefet
+	shadowartifice: {
+		desc: "Prevents adjacent opposing Pokemon from choosing to switch out unless they are immune to trapping or also have this Ability or Shadow Tag. If this Pokemon is knocked out with a move, that move's user loses HP equal to the amount of damage inflicted on this Pokemon.",
+		shortDesc: "Prevents adjacent foes from switching. If KOed, that move's user loses equal HP.",
+		id: "shadowartifice",
+		name: "Shadow Artifice",
+		onFoeTrapPokemon(pokemon) {
+			if (!pokemon.hasAbility('shadowartifice') && !pokemon.hasAbility('shadowtag') && this.isAdjacent(pokemon, this.effectData.target)) {
+				pokemon.tryTrap(true);
+			}
+		},
+		onFoeMaybeTrapPokemon(pokemon, source) {
+			if (!source) source = this.effectData.target;
+			if (!source || !this.isAdjacent(pokemon, source)) return;
+			if (!pokemon.hasAbility('shadowtag') && !pokemon.hasAbility('shadowartifice')) {
+				pokemon.maybeTrapped = true;
+			}
+		},
+		onAfterDamageOrder: 1,
+		onAfterDamage(damage, target, source, move) {
+			if (source && source !== target && move && move.effectType === 'Move' && !target.hp) {
+				this.damage(damage, source, target);
+			}
+		},
+	},
 	// E4 Flint
 	starkmountain: {
 		desc: "The user summons Sunny Day when it switches in. In addition, Water-type attacks do halved damage against this Pokemon.",
@@ -215,8 +269,8 @@ let BattleAbilities = {
 	},
 	// Megazard
 	standuptall: {
-		desc: "This Pokemon's Defense or Special Defense is raised by 1 stage at the end of each full turn it is on the field.",
-		shortDesc: "Raises Defense or Special Defense by 1, at random, after each full turn on the field.",
+		desc: "This Pokemon's Attack, Defense, and Special Defense is raised by 1 stage at the end of each full turn it is on the field.",
+		shortDesc: "Raises Atk, Def, and Spd by 1, after each full turn on the field.",
 		id: "standuptall",
 		name: "Stand Up Tall",
 		isNonstandard: "Custom",
@@ -224,11 +278,7 @@ let BattleAbilities = {
 		onResidualSubOrder: 1,
 		onResidual(pokemon) {
 			if (pokemon.activeTurns) {
-				if (this.randomChance(1, 2)) {
-					this.boost({def: 1});
-				} else {
-					this.boost({spd: 1});
-				}
+				this.boost({atk: 1, spa: 1, spd: 1});
 			}
 		},
 	},
