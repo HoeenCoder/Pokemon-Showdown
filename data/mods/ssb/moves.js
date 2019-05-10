@@ -3511,7 +3511,7 @@ let BattleMovedex = {
 		id: "blehflame",
 		name: "Bleh Flame",
 		isNonstandard: "Custom",
-		pp: 5,
+		pp: 1,
 		priority: 1,
 		flags: {protect: 1, mirror: 1},
 		onTryMove() {
