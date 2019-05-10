@@ -289,7 +289,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
 			'kaori': {
-				species: 'Bellossom', ability: 'Flower Shield', item: 'Heat Rock', gender: '???',
+				species: 'Bellossom', ability: 'Flower Shield', item: 'Heat Rock', gender: 'F',
 				moves: ['Solarbeam', 'Fusion Flare', 'Moonlight'],
 				signatureMove: '>w<',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest', shiny: true,
