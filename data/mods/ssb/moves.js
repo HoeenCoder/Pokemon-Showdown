@@ -783,7 +783,7 @@ let BattleMovedex = {
 		isNonstandard: "Custom",
 		pp: 10,
 		priority: 0,
-		flags: {mirror: 1, snatch: 1},
+		flags: {mirror: 1, protect: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -792,13 +792,14 @@ let BattleMovedex = {
 			this.add('-anim', source, 'Memento', target);
 		},
 		onHit(target, source) {
+			this.boost({atk: -2, spa: -2}, target, source);
 			source.side.addSideCondition('lightscreen', source);
 			source.side.addSideCondition('reflect', source);
 			source.side.addSideCondition('safeguard', source);
 		},
 		selfdestruct: "ifHit",
 		secondary: null,
-		target: "self",
+		target: "normal",
 		type: "Dark",
 	},
 	// Cleo
@@ -3493,7 +3494,7 @@ let BattleMovedex = {
 	// XpRienzo ☑◡☑
 	blehflame: {
 		accuracy: 100,
-		basePower: 80,
+		basePower: 130,
 		category: "Special",
 		desc: "Has a 10% chance to raise all of the user's stats by 1 stage.",
 		shortDesc: "10% chance to raise all stats by 1 (not acc/eva).",
@@ -3501,27 +3502,17 @@ let BattleMovedex = {
 		name: "Bleh Flame",
 		isNonstandard: "Custom",
 		pp: 5,
-		priority: 0,
+		priority: 1,
 		flags: {protect: 1, mirror: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, "Flame Charge", target);
-			this.add('-anim', source, "Overheat", target);
+			this.add('-anim', source, "Focus Energy", source);
+			this.add('-anim', source, "Fusion Flare", target);
 		},
-		secondary: {
-			chance: 10,
-			self: {
-				boosts: {
-					atk: 1,
-					def: 1,
-					spa: 1,
-					spd: 1,
-					spe: 1,
-				},
-			},
-		},
+		secondary: null,
+		isZ: "charcoal",
 		target: "normal",
 		type: "Fire",
 	},

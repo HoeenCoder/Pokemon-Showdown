@@ -579,8 +579,8 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'XpRienzo ☑◡☑': {
 				species: 'Reshiram', ability: 'Turboblaze', item: 'Charcoal', gender: 'M',
 				moves: ['Core Enforcer', 'Volt Switch', 'Psystrike'],
-				signatureMove: 'Bleh Flame',
-				evs: {spa: 252, spd: 4, spe: 252}, ivs: {hp: 24, def: 25, spd: 20}, nature: 'Timid',
+				signatureMove: 'Blue Flare',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'Zarel': {
 				species: 'Meloetta', ability: 'Serene Grace', item: '', gender: 'M',
@@ -598,7 +598,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let name = '';
 			if (debug && team.length === 1) {
 				// DEBUG CODE, remove before commiting to the main server
-				name = ''; // Change name to force a set to appear
+				name = 'XpRienzo ☑◡☑'; // Change name to force a set to appear
 				pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);
