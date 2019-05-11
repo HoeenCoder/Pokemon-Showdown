@@ -109,7 +109,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Beowulf': {
 				species: 'Beedrill', ability: ['Download', 'Speed Boost'], item: 'Beedrillite', gender: 'M',
-				moves: ['Spiky Shield', 'Gunk Shot', ['Bolt Strike', 'Diamond Storm', 'Sacred Fire']],
+				moves: ['Spiky Shield', 'Gunk Shot', ['Bolt Strike', 'Diamond Storm', 'Thousand Arrows']],
 				signatureMove: 'Buzzing of the Swarm',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
@@ -169,7 +169,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Cleo': {
 				species: 'Sealeo', ability: 'Adrenaline Rush', item: 'Leftovers', gender: 'M',
-				moves: ['Icy Wind', 'Ice Beam', 'Wrap'],
+				moves: ['Icy Wind', 'Ice Beam', 'Draining Kiss'],
 				signatureMove: 'Loving Embrace',
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', shiny: true,
 			},
@@ -178,6 +178,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Counter', 'Mirror Coat', 'Encore'],
 				signatureMove: 'Super Ego Inflation',
 				evs: {hp: 252, def: 252, spd: 4}, ivs: {spe: 0}, nature: 'Relaxed',
+			},
+			'Decem': {
+				species: 'Goodra', ability: 'Miracle Scale', item: 'Choice Scarf', gender: '',
+				moves: ['Draco Meteor', 'Fire Blast', 'Sludge Wave'],
+				signatureMove: 'Hit and Run',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'deg': {
 				species: 'Gengar', ability: 'Bad Dreams', item: 'Gengarite', gender: 'M',
@@ -319,7 +325,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 236, def: 220, spd: 48, spe: 4}, ivs: {atk: 0}, nature: 'Calm',
 			},
 			'LifeisDANK': {
-				species: 'Delibird', ability: 'Mountaineer', item: 'Focus Sash', gender: 'F',
+				species: 'Delibird', ability: 'Aerilate', item: 'Focus Sash', gender: 'F',
 				moves: ['Ice Shard', 'Return', 'Explosion'],
 				signatureMove: 'Bar Fight',
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
@@ -409,16 +415,16 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Adamant',
 			},
 			'Overneat': {
-				species: 'Sylveon', ability: 'Fairy Aura', item: 'Life Orb', gender: 'F',
-				moves: ['Nasty Plot', 'Psyshock', 'Earth Power'],
-				signatureMove: 'Total Leech',
-				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+				species: 'Absol', ability: 'Intimidate', item: 'Absolite', gender: 'M',
+				moves: ['Play Rough', 'Close Combat', 'Extreme Speed'],
+				signatureMove: 'Ultimate Slash',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
 			'Pablo': {
 				species: 'Blastoise', ability: 'Torrent', item: 'Blastoisinite', gender: 'M',
 				moves: ['Muddy Water', 'Ice Beam', 'Slack Off'],
 				signatureMove: 'Jail Shell',
-				evs: {hp: 252, def: 4, spa: 252}, nature: 'Modest',
+				evs: {hp: 252, def: 4, spa: 252}, nature: 'Modest', shiny: true,
 			},
 			'Paradise': {
 				species: 'Muk', ability: 'Unaware', item: 'Black Sludge', gender: '',
@@ -616,7 +622,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let name = '';
 			if (debug && team.length === 1) {
 				// DEBUG CODE, remove before commiting to the main server
-				name = 'xJoelituh'; // Change name to force a set to appear
+				name = ''; // Change name to force a set to appear
 				pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);
@@ -629,9 +635,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			// Enforce typing limits
 			let types = this.getTemplate(ssbSet.species).types;
 			if (name === 'E4 Flint') types = ["Steel", "Ground", "Fire"];
-			if (name === 'OM') types = ["Fire", "Fairy"];
-			if (name === 'Rach') types = ["Electric", "Fighting"];
-			if (name === 'ACakeWearingAHat') types = ["Normal", "Ghost"];
+			if (name === 'Overneat') types = ["Dark", "Fairy"];
 			let rejected = false;
 			for (let type of types) {
 				if (typePool[type] === undefined) typePool[type] = 0;

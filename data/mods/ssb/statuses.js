@@ -316,10 +316,10 @@ let BattleStatuses = {
 			this.add(`c|%Cleo|Cleo! Cleo! Your friendly neighborhood Sea Leo!`);
 		},
 		onSwitchOut() {
-			this.add(`c|%Cleo|bbl~`);
+			this.add(`c|%Cleo|/raw QUICK! Distract the foe with pictures of my cat. <a href="https://imgur.com/a/IT2IHgm" target="_blank">SHE’S SO BEAUTIFUL</a>`);
 		},
 		onFaint() {
-			this.add(`c|%Cleo|n.n`);
+			this.add(`c|%Cleo|Love your hair. Hope you win.`);
 		},
 	},
 	dawoblefet: {
@@ -332,6 +332,18 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|@DaWoblefet|mished`);
+		},
+	},
+	decem: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+Decem|:D`);
+		},
+		onSwitchOut() {
+			this.add(`c|+Decem|bye`);
+		},
+		onFaint() {
+			this.add(`c|+Decem|>:(`);
 		},
 	},
 	deg: {
@@ -675,18 +687,17 @@ let BattleStatuses = {
 		onFaint() {
 			this.add(`c|~LifeisDANK|(•⌔•. ) Peent.`);
 		},
-		// Aerilate innate
-		onModifyMovePriority: -1,
-		onModifyMove(move, pokemon) {
-			if (pokemon.illusion) return;
-			if (move.type === 'Normal' && !['judgment', 'multiattack', 'naturalgift', 'revelationdance', 'technoblast', 'weatherball'].includes(move.id) && !(move.isZ && move.category !== 'Status')) {
-				move.type = 'Flying';
-				move.aerilateBoosted = true;
+		// Mountaineer innate
+		onDamage(damage, target, source, effect) {
+			if (effect && effect.id === 'stealthrock') {
+				return false;
 			}
 		},
-		onBasePowerPriority: 8,
-		onBasePower(basePower, pokemon, target, move) {
-			if (move.aerilateBoosted) return this.chainModify([0x1333, 0x1000]);
+		onTryHit(target, source, move) {
+			if (move.type === 'Rock' && !target.activeTurns) {
+				this.add('-immune', target, '[from] ability: Mountaineer');
+				return null;
+			}
 		},
 	},
 	lionyx: {
@@ -864,14 +875,16 @@ let BattleStatuses = {
 	},
 	overneat: {
 		noCopy: true,
-		onStart() {
+		onStart(source) {
 			this.add(`c|+Overneat|[muffled eurobeat playing in the distance]`);
+			if (source.template.speciesid !== 'absolmega' || source.illusion) return;
+			this.add('-start', source, 'typeadd', 'Fairy');
 		},
 		onSwitchOut() {
-			this.add(`c|+Overneat|Time to take a rest`);
+			this.add(`c|+Overneat|Time to take a siesta.`);
 		},
 		onFaint() {
-			this.add(`c|+Overneat|It’s over for me?`);
+			this.add(`c|+Overneat|I gotta go, but friendly reminder to drink water after this battle.`);
 		},
 	},
 	pablo: {
@@ -1372,6 +1385,38 @@ let BattleStatuses = {
 		},
 		onModifyWeight(weight) {
 			return weight * 2;
+		},
+	},
+	// Gooey volatile for Decem's move
+	gooey: {
+		onStart(pokemon, source) {
+			this.add('-start', pokemon, 'Gooey', '[of] ' + source);
+		},
+		onResidualOrder: 10,
+		onResidual(pokemon) {
+			this.damage(pokemon.maxhp / 4);
+		},
+	},
+	// Custom effect for Cleo
+	fullattract: {
+		noCopy: true,
+		onStart(pokemon, source) {
+			if (!this.runEvent('Attract', pokemon, source)) {
+				this.debug('Attract event failed');
+				return false;
+			}
+			this.add('-start', pokemon, 'Attract', '[from] move: Cutie Trap', '[of] ' + source);
+		},
+		onBeforeMovePriority: 2,
+		onBeforeMove(pokemon) {
+			this.add('-activate', pokemon, 'move: Attract', '[of] ' + this.effectData.source);
+			if (this.randomChance(1, 2)) {
+				this.add('cant', pokemon, 'Attract');
+				return false;
+			}
+		},
+		onEnd(pokemon) {
+			this.add('-end', pokemon, 'Attract', '[silent]');
 		},
 	},
 };
