@@ -3661,31 +3661,6 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
-	// XpRienzo ☑◡☑
-	blehflame: {
-		accuracy: 100,
-		basePower: 130,
-		category: "Special",
-		desc: "No additional effect.",
-		shortDesc: "Usually goes first.",
-		id: "blehflame",
-		name: "Bleh Flame",
-		isNonstandard: "Custom",
-		pp: 1,
-		priority: 1,
-		flags: {protect: 1, mirror: 1},
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, "Focus Energy", source);
-			this.add('-anim', source, "Fusion Flare", target);
-		},
-		secondary: null,
-		isZ: "charcoal",
-		target: "normal",
-		type: "Fire",
-	},
 	// Zarel
 	relicsongdance: {
 		accuracy: 100,
