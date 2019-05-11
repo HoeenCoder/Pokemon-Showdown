@@ -777,7 +777,7 @@ let BattleMovedex = {
 		basePower: 0,
 		category: "Status",
 		desc: "The user faints and sets Reflect, Light Screen, and Safeguard; and lowers the target's Attack and Special Attack by 2 stages.",
-		shortDesc: "User faints; sets screens/Safeguard for 5 turns. Lowers target's Atk, SpA by 2.",
+		shortDesc: "User faints; sets screens/Safeguard. Lower's foe's Atk, SpA by 2.",
 		id: "beskyttelsesnet",
 		name: "beskyttelsesnet",
 		isNonstandard: "Custom",
