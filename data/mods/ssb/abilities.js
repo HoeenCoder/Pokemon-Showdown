@@ -704,7 +704,6 @@ let BattleAbilities = {
 		onBasePowerPriority: 8,
 		onBasePower(basePower, attacker, defender, move) {
 			if (move.id.includes('bone')) {
-				console.log(":D");
 				return this.chainModify([0x14CD, 0x1000]);
 			}
 		},
