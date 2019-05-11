@@ -623,10 +623,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			// Enforce typing limits
 			let types = this.getTemplate(ssbSet.species).types;
 			if (name === 'E4 Flint') types = ["Steel", "Ground", "Fire"];
-			if (name === 'OM') types = ["Fire", "Fairy"];
 			if (name === 'Overneat') types = ["Dark", "Fairy"];
-			if (name === 'Rach') types = ["Electric", "Fighting"];
-			if (name === 'ACakeWearingAHat') types = ["Normal", "Ghost"];
 			let rejected = false;
 			for (let type of types) {
 				if (typePool[type] === undefined) typePool[type] = 0;
