@@ -605,7 +605,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 		pool.splice(pool.indexOf('Forrce Alt'), 1);
 		/** @type {{[type: string]: number}} */
 		let typePool = {};
-		let debug = true;
+		let debug = false;
 		while (pool.length && team.length < 6) {
 			let name = '';
 			if (debug && team.length === 1) {
