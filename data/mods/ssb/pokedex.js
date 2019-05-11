@@ -91,7 +91,7 @@ let BattlePokedex = {
 		types: ['Fire', 'Fairy'],
 	},
 	// Overneat
-	steelixmega: {
+	absolmega: {
 		inherit: true,
 		abilities: {0: 'Tough Claws'},
 		types: ['Dark', 'Fairy'],
