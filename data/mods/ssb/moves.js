@@ -328,21 +328,21 @@ let BattleMovedex = {
 		priority: -3,
 		flags: {contact: 1, protect: 1},
 		onTryMovePriority: 100,
-		onTryMove: function () {
+		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onPrepareHit: function (target, source) {
+		onPrepareHit(target, source) {
 			if (source.volatiles['murkyambush'] && source.volatiles['murkyambush'].gotHit) {
 				this.add('-anim', source, "Dig", target);
 			}
 		},
-		beforeTurnCallback: function (pokemon) {
+		beforeTurnCallback(pokemon) {
 			pokemon.addVolatile('murkyambush');
 			this.add('-message', `${pokemon.name} anticipates the opposing Pokémon's next move!`);
 			this.attrLastMove('[still]');
 			this.add('-anim', pokemon, "Work Up", pokemon);
 		},
-		beforeMoveCallback: function (pokemon) {
+		beforeMoveCallback(pokemon) {
 			if (pokemon.volatiles['murkyambush'] && !pokemon.volatiles['murkyambush'].gotHit) {
 				this.add('cant', pokemon, 'Murky Ambush', 'Murky Ambush');
 				this.add('-message', `${pokemon.name} eases up.`);
@@ -353,21 +353,21 @@ let BattleMovedex = {
 		},
 		effect: {
 			duration: 1,
-			onStart: function (pokemon) {
+			onStart(pokemon) {
 				this.add('-singleturn', pokemon, 'move: Murky Ambush');
 			},
 			onBasePowerPriority: 7,
-			onSourceBasePower: function () {
+			onSourceBasePower() {
 				this.debug('Murky Ambush weaken');
 				return this.chainModify(0.5);
 			},
-			onFoeTryMove: function (target, source, move) {
+			onFoeTryMove(target, source, move) {
 				if (move.secondaries && move.category !== 'Status') {
 					this.debug('Murky Ambush secondary effects suppression');
 					delete move.secondaries;
 				}
 			},
-			onHit: function (pokemon, source, move) {
+			onHit(pokemon, source, move) {
 				if (pokemon.side !== source.side && move.category !== 'Status') {
 					pokemon.volatiles['murkyambush'].gotHit = true;
 				}
