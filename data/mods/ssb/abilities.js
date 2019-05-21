@@ -54,7 +54,7 @@ let BattleAbilities = {
 		name: "Careless",
 		isNonstandard: "Custom",
 		onTryHitPriority: 1,
-		onTryHit: function (target, source, move) {
+		onTryHit(target, source, move) {
 			if (target === source || move.hasBounced || !move.flags['reflectable']) {
 				return;
 			}
@@ -64,7 +64,7 @@ let BattleAbilities = {
 			this.useMove(newMove, target, source);
 			return null;
 		},
-		onAllyTryHitSide: function (target, source, move) {
+		onAllyTryHitSide(target, source, move) {
 			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
 				return;
 			}
@@ -74,7 +74,7 @@ let BattleAbilities = {
 			this.useMove(newMove, this.effectData.target, source);
 			return null;
 		},
-		onAnyModifyBoost: function (boosts, target) {
+		onAnyModifyBoost(boosts, target) {
 			let source = this.effectData.target;
 			if (source === target) return;
 			if (source === this.activePokemon && target === this.activeTarget) {
