@@ -315,68 +315,68 @@ let BattleMovedex = {
 		type: "Steel",
 	},
 	// A Quag to The Past
-    murkyambush: {
-        accuracy: true,
-        basePower: 150,
-        category: "Physical",
-        desc: "This move fails unless a foe uses a contact move on the user before the user can execute the move on the same turn. If this move is successful, the foe's move has its secondary effects suppressed and damage halved. If the user survives a hit, it attacks, and the effect ends.",
-        shortDesc: "User must be hit by a contact move before moving.",
-        id: "murkyambush",
-        name: "Murky Ambush",
-        isNonstandard: true,
-        pp: 10,
-        priority: -3,
-        flags: {contact: 1, protect: 1},
-        onTryMovePriority: 100,
-        onTryMove: function () {
-            this.attrLastMove('[still]');
-        },
-        onPrepareHit: function (target, source) {
-            if (source.volatiles['murkyambush'] && source.volatiles['murkyambush'].gotHit) {
-                this.add('-anim', source, "Dig", target);
-            }
-        },
-        beforeTurnCallback: function (pokemon) {
-            pokemon.addVolatile('murkyambush');
-            this.add('-message', `${pokemon.name} anticipates the opposing Pokémon's next move!`);
-            this.attrLastMove('[still]');
-            this.add('-anim', pokemon, "Work Up", pokemon);
-        },
-        beforeMoveCallback: function (pokemon) {
-            if (pokemon.volatiles['murkyambush'] && !pokemon.volatiles['murkyambush'].gotHit) {
-                this.add('cant', pokemon, 'Murky Ambush', 'Murky Ambush');
-                this.add('-message', `${pokemon.name} eases up.`);
-                return true;
-            }
-            this.add('-message', `${pokemon.side.foe.active[0].name} was caught in the ambush!`);
-            this.add(`c|+A Quag to The Past|GOTCHA BITCH`);
-        },
-        effect: {
-            duration: 1,
-            onStart: function (pokemon) {
-                this.add('-singleturn', pokemon, 'move: Murky Ambush');
-            },
-            onBasePowerPriority: 7,
-            onSourceBasePower: function () {
-                this.debug('Murky Ambush weaken');
-                return this.chainModify(0.5);
-            },
-            onFoeTryMove: function (target, source, move) {
-                if (move.secondaries && move.category !== 'Status') {
-                    this.debug('Murky Ambush secondary effects suppression');
-                    delete move.secondaries;
-                }
-            },
-            onHit: function (pokemon, source, move) {
-                if (pokemon.side !== source.side && move.category !== 'Status') {
-                    pokemon.volatiles['murkyambush'].gotHit = true;
-                }
-            },
-        },
-        ignoreImmunity: {'Ground': true},
-        target: "normal",
-        type: "Ground",
-    },
+	murkyambush: {
+		accuracy: true,
+		basePower: 150,
+		category: "Physical",
+		desc: "This move fails unless a foe uses a contact move on the user before the user can execute the move on the same turn. If this move is successful, the foe's move has its secondary effects suppressed and damage halved. If the user survives a hit, it attacks, and the effect ends.",
+		shortDesc: "User must be hit by a contact move before moving.",
+		id: "murkyambush",
+		name: "Murky Ambush",
+		isNonstandard: "Custom",
+		pp: 10,
+		priority: -3,
+		flags: {contact: 1, protect: 1},
+		onTryMovePriority: 100,
+		onTryMove: function () {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit: function (target, source) {
+			if (source.volatiles['murkyambush'] && source.volatiles['murkyambush'].gotHit) {
+				this.add('-anim', source, "Dig", target);
+			}
+		},
+		beforeTurnCallback: function (pokemon) {
+			pokemon.addVolatile('murkyambush');
+			this.add('-message', `${pokemon.name} anticipates the opposing Pokémon's next move!`);
+			this.attrLastMove('[still]');
+			this.add('-anim', pokemon, "Work Up", pokemon);
+		},
+		beforeMoveCallback: function (pokemon) {
+			if (pokemon.volatiles['murkyambush'] && !pokemon.volatiles['murkyambush'].gotHit) {
+				this.add('cant', pokemon, 'Murky Ambush', 'Murky Ambush');
+				this.add('-message', `${pokemon.name} eases up.`);
+				return true;
+			}
+			this.add('-message', `${pokemon.side.foe.active[0].name} was caught in the ambush!`);
+			this.add(`c|+A Quag to The Past|GOTCHA BITCH`);
+		},
+		effect: {
+			duration: 1,
+			onStart: function (pokemon) {
+				this.add('-singleturn', pokemon, 'move: Murky Ambush');
+			},
+			onBasePowerPriority: 7,
+			onSourceBasePower: function () {
+				this.debug('Murky Ambush weaken');
+				return this.chainModify(0.5);
+			},
+			onFoeTryMove: function (target, source, move) {
+				if (move.secondaries && move.category !== 'Status') {
+					this.debug('Murky Ambush secondary effects suppression');
+					delete move.secondaries;
+				}
+			},
+			onHit: function (pokemon, source, move) {
+				if (pokemon.side !== source.side && move.category !== 'Status') {
+					pokemon.volatiles['murkyambush'].gotHit = true;
+				}
+			},
+		},
+		ignoreImmunity: {'Ground': true},
+		target: "normal",
+		type: "Ground",
+	},
 	// Arcticblast
 	trashalanche: {
 		basePower: 80,
