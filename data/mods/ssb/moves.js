@@ -3325,16 +3325,11 @@ let BattleMovedex = {
 			this.add('-anim', source, 'Dark Pulse', target);
 			this.add('-anim', source, 'Dark Void', target);
 		},
+		onHit() {
+			this.field.setTerrain('nightmarefield');
+		},
 		status: 'slp',
 		isZ: "darkrainiumz",
-		secondary: {
-			chance: 100,
-			self: {
-				onHit() {
-					this.field.setTerrain('nightmarefield');
-				},
-			},
-		},
 		target: "normal",
 		type: "Dark",
 	},
@@ -3352,16 +3347,7 @@ let BattleMovedex = {
 		flags: {},
 		terrain: 'nightmarefield',
 		effect: {
-			duration: 5,
-			durationCallback(source, effect) {
-				if (source && source.hasItem('terrainextender')) {
-					return 8;
-				}
-				return 5;
-			},
-			onTryMove(target, source, move) {
-
-			},
+			duration: 4,
 			onStart(battle, source, effect) {
 				if (effect && effect.effectType === 'Ability') {
 					this.add('-fieldstart', 'move: Nightmare Field', '[from] ability: ' + effect, '[of] ' + source);
