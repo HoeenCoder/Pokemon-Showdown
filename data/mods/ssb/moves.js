@@ -3305,7 +3305,7 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
-// Teclis
+  // Teclis
 	absoluteconfiguration: {
 		accuracy: true,
 		basePower: 0,
