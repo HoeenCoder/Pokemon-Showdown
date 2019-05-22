@@ -3318,15 +3318,13 @@ let BattleMovedex = {
 		pp: 1,
 		priority: 0,
 		flags: {},
+		pseudoWeather: 'nightmarefield',
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Dark Pulse', target);
 			this.add('-anim', source, 'Dark Void', target);
-		},
-		onHit() {
-			this.field.setTerrain('nightmarefield');
 		},
 		status: 'slp',
 		isZ: "darkrainiumz",
@@ -3337,15 +3335,14 @@ let BattleMovedex = {
 	nightmarefield: {
 		accuracy: true,
 		category: "Status",
-		desc: "For 5 turns, the terrain becomes Nightmare Field. During the effect, sleeping Pokemon suffer from the effects of Nightmare. Fails if the current terrain is Nightmare Field.",
-		shortDesc: "5 turns. Sleeping Pokemon get Nightmare.",
+		desc: "For 4 turns, Nightmare Field is active. During the effect, sleeping Pokemon suffer from the effects of Nightmare.",
+		shortDesc: "4 turns. Sleeping Pokemon get Nightmare.",
 		id: "nightmarefield",
 		name: "Nightmare Field",
 		isNonstandard: "Custom",
 		pp: 10,
 		priority: 0,
 		flags: {},
-		terrain: 'nightmarefield',
 		effect: {
 			duration: 4,
 			onStart(battle, source, effect) {
@@ -3357,10 +3354,7 @@ let BattleMovedex = {
 			},
 			onResidualOrder: 21,
 			onResidualSubOrder: 2,
-			onResidual() {
-				this.eachEvent('Terrain');
-			},
-			onTerrain(pokemon) {
+			onResidual(pokemon) {
 				if (pokemon.status !== 'slp') return false;
 				this.damage(pokemon.maxhp / 4);
 			},
