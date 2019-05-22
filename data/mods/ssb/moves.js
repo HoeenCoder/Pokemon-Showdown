@@ -3359,8 +3359,9 @@ let BattleMovedex = {
 			onResidualSubOrder: 2,
 			onResidual() {
 				for (const curMon of this.getAllActive()) {
-					if (curMon.status !== 'slp' && !curMon.hasAbility('comatose')) return false;
-					this.damage(curMon.maxhp / 4, curMon, curMon, '[from] move: Nightmare Field');
+					if (curMon.status === 'slp' || curMon.hasAbility('comatose')) {
+						this.damage(curMon.maxhp / 4, curMon);
+					}
 				}
 			},
 			onEnd() {
@@ -3370,8 +3371,7 @@ let BattleMovedex = {
 		secondary: null,
 		target: "self",
 		type: "Dark",
-	},
-	// tennisace
+	},	// tennisace
 	groundsurge: {
 		accuracy: 100,
 		basePower: 95,
