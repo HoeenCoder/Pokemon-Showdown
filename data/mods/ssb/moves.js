@@ -3331,7 +3331,7 @@ let BattleMovedex = {
 			chance: 100,
 			self: {
 				onHit() {
-					this.setTerrain('nightmarefield');
+					this.field.setTerrain('nightmarefield');
 				},
 			},
 		},
