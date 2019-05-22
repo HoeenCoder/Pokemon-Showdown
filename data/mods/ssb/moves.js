@@ -3371,7 +3371,8 @@ let BattleMovedex = {
 		secondary: null,
 		target: "self",
 		type: "Dark",
-	},	// tennisace
+	},
+	// tennisace
 	groundsurge: {
 		accuracy: 100,
 		basePower: 95,
