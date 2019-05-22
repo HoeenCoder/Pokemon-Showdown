@@ -3306,31 +3306,85 @@ let BattleMovedex = {
 		type: "Fire",
 	},
 	// Teclis
-	zekken: {
+	absoluteconfiguration: {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Raises the user's Attack by 2 stages and its Speed by 1 stage.",
-		shortDesc: "Raises the user's Attack by 2 and Speed by 1.",
-		id: "zekken",
-		name: "Zekken",
+		desc: "Puts the foe to sleep. Summons a Nightmare Field with the effects of Nightmare for 4 turns.",
+		shortDesc: "Puts foe to sleep. Nightmare for 4 turns.",
+		id: "absoluteconfiguration",
+		name: "Absolute Configuration",
 		isNonstandard: "Custom",
-		pp: 10,
+		pp: 1,
 		priority: 0,
-		flags: {snatch: 1, mirror: 1},
+		flags: {},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, "Swords Dance", source);
+			this.add('-anim', source, 'Dark Pulse', target);
+			this.add('-anim', source, 'Dark Void', target);
 		},
-		boosts: {
-			atk: 2,
-			spe: 1,
+		status: 'slp',
+		isZ: "darkrainiumz",
+		secondary: {
+			chance: 100,
+			self: {
+				onHit() {
+					this.setTerrain('nightmarefield');
+				},
+			},
+		},
+		target: "normal",
+		type: "Dark",
+	},
+	// Used for Teclis's z-move
+	nightmarefield: {
+		accuracy: true,
+		category: "Status",
+		desc: "For 5 turns, the terrain becomes Nightmare Field. During the effect, sleeping Pokemon suffer from the effects of Nightmare. Fails if the current terrain is Nightmare Field.",
+		shortDesc: "5 turns. Sleeping Pokemon get Nightmare.",
+		id: "nightmarefield",
+		name: "Nightmare Field",
+		isNonstandard: "Custom",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		terrain: 'nightmarefield',
+		effect: {
+			duration: 5,
+			durationCallback(source, effect) {
+				if (source && source.hasItem('terrainextender')) {
+					return 8;
+				}
+				return 5;
+			},
+			onTryMove(target, source, move) {
+
+			},
+			onStart(battle, source, effect) {
+				if (effect && effect.effectType === 'Ability') {
+					this.add('-fieldstart', 'move: Nightmare Field', '[from] ability: ' + effect, '[of] ' + source);
+				} else {
+					this.add('-fieldstart', 'move: Nightmare Field');
+				}
+			},
+			onResidualOrder: 21,
+			onResidualSubOrder: 2,
+			onResidual() {
+				this.eachEvent('Terrain');
+			},
+			onTerrain(pokemon) {
+				if (pokemon.status !== 'slp') return false;
+				this.damage(pokemon.maxhp / 4);
+			},
+			onEnd() {
+				this.add('-fieldend', 'move: Nightmare Field');
+			},
 		},
 		secondary: null,
 		target: "self",
-		type: "Fairy",
+		type: "Dark",
 	},
 	// tennisace
 	groundsurge: {
