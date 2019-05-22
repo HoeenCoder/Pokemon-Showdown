@@ -3305,7 +3305,7 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
-	// Teclis
+// Teclis
 	absoluteconfiguration: {
 		accuracy: true,
 		basePower: 0,
@@ -3318,13 +3318,15 @@ let BattleMovedex = {
 		pp: 1,
 		priority: 0,
 		flags: {},
-		pseudoWeather: 'nightmarefield',
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Dark Pulse', target);
 			this.add('-anim', source, 'Dark Void', target);
+		},
+		onHit(source) {
+			this.field.addPseudoWeather('nightmarefield', source);
 		},
 		status: 'slp',
 		isZ: "darkrainiumz",
@@ -3343,6 +3345,7 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {},
+		pseudoWeather: 'nightmarefield',
 		effect: {
 			duration: 4,
 			onStart(battle, source, effect) {
@@ -3354,9 +3357,11 @@ let BattleMovedex = {
 			},
 			onResidualOrder: 21,
 			onResidualSubOrder: 2,
-			onResidual(pokemon) {
-				if (pokemon.status !== 'slp') return false;
-				this.damage(pokemon.maxhp / 4);
+			onResidual() {
+				for (const curMon of this.getAllActive()) {
+					if (curMon.status !== 'slp' && !curMon.hasAbility('comatose')) return false;
+					this.damage(curMon.maxhp / 4, curMon, curMon, '[from] move: Nightmare Field');
+				}
 			},
 			onEnd() {
 				this.add('-fieldend', 'move: Nightmare Field');
@@ -3365,8 +3370,7 @@ let BattleMovedex = {
 		secondary: null,
 		target: "self",
 		type: "Dark",
-	},
-	// tennisace
+	},	// tennisace
 	groundsurge: {
 		accuracy: 100,
 		basePower: 95,
