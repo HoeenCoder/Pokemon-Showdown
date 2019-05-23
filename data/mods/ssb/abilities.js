@@ -32,26 +32,10 @@ let BattleAbilities = {
 			}
 		},
 	},
-	// Aethernum
-	awakening: {
-		desc: "On switch in, Atk and Speed are lowered by -3, while Def and Spdef are increased by 3. At the end of each turn, Atk and Spe get +1 while Def and Spdef get -1.",
-		shortDesc: "Atk & spe -3; def & spd +3; end turn: Atk & Spe +1; Def & Spd -1",
-		id: "awakening",
-		name: "Awakening",
-		isNonstandard: "Custom",
-		onStart(pokemon) {
-			this.boost({atk: -3, def: 3, spd: 3, spe: -3});
-		},
-		onResidualOrder: 26,
-		onResidualSubOrder: 1,
-		onResidual(pokemon) {
-			this.boost({atk: 1, def: -1, spd: -1, spe: 1});
-		},
-	},
 	// Akir
 	regrowth: {
-		desc: "This Pokemon's healing moves have their priority increased by one stage. When switching out, this Pokemon restores 1/3 of its maximum HP, rounded down.",
-		shortDesc: "Healing moves have priority increased by 1. Heals 1/3 max HP when switching out.",
+		desc: "This Pokemon's healing moves have their priority increased by one stage. When switching out, this Pokemon restores 1/4 of its maximum HP, rounded down.",
+		shortDesc: "Healing moves have priority increased by 1. Heals 1/4 max HP when switching out.",
 		id: "regrowth",
 		name: "Regrowth",
 		isNonstandard: "Custom",
@@ -59,20 +43,53 @@ let BattleAbilities = {
 			if (move && move.flags['heal']) return priority + 1;
 		},
 		onSwitchOut(pokemon) {
-			pokemon.heal(pokemon.maxhp / 3);
+			pokemon.heal(pokemon.maxhp / 4);
 		},
 	},
-	// AlphaWittem
-	osolemio: {
-		desc: "If Sun is active, this Pokemon restores 1/16 of its maximum HP, rounded down, at the end of each turn.",
-		shortDesc: "If Sun is active, this Pokemon heals 1/16 of its max HP each turn.",
-		id: "osolemio",
-		name: "O SOLE MIO",
+	// A Quag To The Past
+	careless: {
+		desc: "This Pokemon blocks certain status moves and instead uses the move against the original user. This Pokemon also ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage.",
+		shortDesc: "Bounces certain status moves and ignores other Pokemon's stat changes.",
+		id: "careless",
+		name: "Careless",
 		isNonstandard: "Custom",
-		onWeather(target, source, effect) {
-			if (effect.id === 'sunnyday') {
-				this.heal(target.maxhp / 16);
+		onTryHitPriority: 1,
+		onTryHit(target, source, move) {
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
 			}
+			let newMove = this.getActiveMove(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		onAllyTryHitSide(target, source, move) {
+			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getActiveMove(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, this.effectData.target, source);
+			return null;
+		},
+		onAnyModifyBoost(boosts, target) {
+			let source = this.effectData.target;
+			if (source === target) return;
+			if (source === this.activePokemon && target === this.activeTarget) {
+				boosts['def'] = 0;
+				boosts['spd'] = 0;
+				boosts['evasion'] = 0;
+			}
+			if (target === this.activePokemon && source === this.activeTarget) {
+				boosts['atk'] = 0;
+				boosts['spa'] = 0;
+				boosts['accuracy'] = 0;
+			}
+		},
+		effect: {
+			duration: 1,
 		},
 	},
 	// Arsenal
@@ -138,6 +155,19 @@ let BattleAbilities = {
 			pokemon.formeChange('Shaymin', this.effect);
 		},
 	},
+	// cc
+	lurking: {
+		desc: "This Pokemon's moves have their accuracy multiplied by 1.3.",
+		shortDesc: "This Pokemon's moves have their accuracy multiplied by 1.3.",
+		id: "lurking",
+		name: "Lurking",
+		isNonstandard: "Custom",
+		onModifyMove(move) {
+			if (typeof move.accuracy === 'number') {
+				move.accuracy *= 1.3;
+			}
+		},
+	},
 	// Cleo
 	adrenalinerush: {
 		desc: "As this Pokemon switches in, its Special Attack and Speed are doubled for 5 turns. After five turns have passed, these effects are removed.",
@@ -171,42 +201,6 @@ let BattleAbilities = {
 			},
 		},
 	},
-	// DaWoblefet
-	shadowartifice: {
-		desc: "Prevents adjacent opposing Pokemon from choosing to switch out unless they are immune to trapping or also have this Ability or Shadow Tag. If this Pokemon is knocked out with a move, that move's user loses HP equal to the amount of damage inflicted on this Pokemon.",
-		shortDesc: "Prevents adjacent foes from switching. If KOed, that move's user loses equal HP.",
-		id: "shadowartifice",
-		name: "Shadow Artifice",
-		onFoeTrapPokemon(pokemon) {
-			if (!pokemon.hasAbility('shadowartifice') && !pokemon.hasAbility('shadowtag') && this.isAdjacent(pokemon, this.effectData.target)) {
-				pokemon.tryTrap(true);
-			}
-		},
-		onFoeMaybeTrapPokemon(pokemon, source) {
-			if (!source) source = this.effectData.target;
-			if (!source || !this.isAdjacent(pokemon, source)) return;
-			if (!pokemon.hasAbility('shadowtag') && !pokemon.hasAbility('shadowartifice')) {
-				pokemon.maybeTrapped = true;
-			}
-		},
-		onAfterDamageOrder: 1,
-		onAfterDamage(damage, target, source, move) {
-			if (source && source !== target && move && move.effectType === 'Move' && !target.hp) {
-				this.damage(damage, source, target);
-			}
-		},
-	},
-	// Decem
-	miraclescale: {
-		desc: "This Pokemon's Dragon type moves have their priority increased by 1.",
-		shortDesc: "+1 Priority to Dragon type moves.",
-		id: "miraclescale",
-		name: "Miracle Scale",
-		isNonstandard: "Custom",
-		onModifyPriority(priority, pokemon, target, move) {
-			if (move && move.type === 'Dragon') return priority + 1;
-		},
-	},
 	// E4 Flint
 	starkmountain: {
 		desc: "The user summons Sunny Day when it switches in. In addition, Water-type attacks do halved damage against this Pokemon.",
@@ -221,56 +215,6 @@ let BattleAbilities = {
 			if (move.type === 'Water') {
 				return this.chainModify(0.5);
 			}
-		},
-	},
-	// Flare
-	superillusion: {
-		desc: "When this Pokemon switches in, it appears as the last unfainted Pokemon in its party until it takes supereffective direct damage from another Pokemon's attack. This Pokemon's actual level and HP are displayed instead of those of the mimicked Pokemon.",
-		shortDesc: "This Pokemon appears as the last Pokemon in the party until it takes a supereffective hit.",
-		id: "superillusion",
-		name: "Super Illusion",
-		isNonstandard: "Custom",
-		isUnbreakable: true,
-		onBeforeSwitchIn(pokemon) {
-			pokemon.illusion = null;
-			let i;
-			for (i = pokemon.side.pokemon.length - 1; i > pokemon.position; i--) {
-				if (!pokemon.side.pokemon[i]) continue;
-				if (!pokemon.side.pokemon[i].fainted) break;
-			}
-			if (!pokemon.side.pokemon[i]) return;
-			if (pokemon === pokemon.side.pokemon[i]) return;
-			pokemon.illusion = pokemon.side.pokemon[i];
-		},
-		onAfterDamage(damage, target, source, effect) {
-			// Illusion that only breaks when hit with a move that is super effective VS dark
-			if (target.illusion && effect && effect.effectType === 'Move' && effect.id !== 'confused' && this.getEffectiveness(effect.type, target.getTypes()) > 0) {
-				this.singleEvent('End', this.getAbility('Illusion'), target.abilityData, target, source, effect);
-			}
-		},
-		onEnd(pokemon) {
-			if (pokemon.illusion) {
-				this.debug('illusion cleared');
-				let disguisedAs = toID(pokemon.illusion.name);
-				pokemon.illusion = null;
-				let details = pokemon.template.species + (pokemon.level === 100 ? '' : ', L' + pokemon.level) + (pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
-				this.add('replace', pokemon, details);
-				this.add('-end', pokemon, 'Illusion');
-				// Handle hippopotas
-				if (this.getTemplate(disguisedAs).exists) disguisedAs += 'user';
-				if (pokemon.volatiles[disguisedAs]) {
-					pokemon.removeVolatile(disguisedAs);
-				}
-				if (!pokemon.volatiles[toID(pokemon.name)]) {
-					let status = this.getEffect(toID(pokemon.name));
-					if (status && status.exists) {
-						pokemon.addVolatile(toID(pokemon.name), pokemon);
-					}
-				}
-			}
-		},
-		onFaint(pokemon) {
-			pokemon.illusion = null;
 		},
 	},
 	// HoeenHero
@@ -291,46 +235,6 @@ let BattleAbilities = {
 				return this.chainModify(2);
 			}
 		},
-	},
-	// Kie
-	maelstrom: {
-		desc: "On switch-in, the weather becomes heavy rain that prevents damaging Fire-type moves from executing, in addition to all the effects of Rain Dance. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream or Desolate Land. If Rain Dance is active, this Pokemon's Speed is doubled.",
-		shortDesc: "Summons heavy rain, doubled speed in rain.",
-		id: "maelstrom",
-		name: "Maelstrom",
-		isNonstandard: "Custom",
-		onModifySpe(spe, pokemon) {
-			if (this.field.isWeather(['raindance', 'primordialsea'])) {
-				return this.chainModify(2);
-			}
-		},
-		onStart(source) {
-			this.field.setWeather('primordialsea');
-		},
-		onAnySetWeather(target, source, weather) {
-			if (this.field.getWeather().id === 'primordialsea' && !['desolateland', 'primordialsea', 'deltastream'].includes(weather.id)) return false;
-		},
-		onEnd(pokemon) {
-			if (this.field.weatherData.source !== pokemon) return;
-			for (const target of this.getAllActive()) {
-				if (target === pokemon) continue;
-				if (target.hasAbility('primordialsea') || target.hasAbility('maelstrom')) {
-					this.field.weatherData.source = target;
-					return;
-				}
-			}
-			this.field.clearWeather();
-		},
-	},
-	// kaori
-	flowershield: {
-		shortDesc: "This Pokemon's Special Defense is doubled.",
-		onModifySpDPriority: 6,
-		onModifySpD(spd) {
-			return this.chainModify(2);
-		},
-		id: "flowershield",
-		name: "Flower Shield",
 	},
 	// KingSwordYT
 	kungfupanda: {
@@ -368,97 +272,10 @@ let BattleAbilities = {
 			if (type === 'hail') return false;
 		},
 	},
-	// Marshmallon
-	sightseeing: {
-		desc: "If this Pokemon is a Castform, its type changes to the current weather condition's type, except Sandstorm.",
-		shortDesc: "Castform's type changes to the current weather condition's type, except Sandstorm.",
-		id: "sightseeing",
-		name: "Sightseeing",
-		isNonstandard: "Custom",
-		onModifyDef(def) {
-			if (!this.field.isWeather('')) {
-				return this.chainModify(1.5);
-			}
-		},
-		onModifySpA(spa) {
-			if (!this.field.isWeather('')) {
-				return this.chainModify(1.5);
-			}
-		},
-		onModifySpD(spd) {
-			if (!this.field.isWeather('')) {
-				return this.chainModify(1.5);
-			}
-		},
-		onModifySpe(spe) {
-			if (!this.field.isWeather('')) {
-				return this.chainModify(1.5);
-			}
-		},
-		onModifyAccuracy(accuracy) {
-			if (!this.field.isWeather('')) {
-				return this.chainModify(1.5);
-			}
-		},
-		onUpdate(pokemon) {
-			if (pokemon.baseTemplate.baseSpecies !== 'Castform' || pokemon.transformed) return;
-			let forme = null;
-			switch (this.field.effectiveWeather()) {
-			case 'sunnyday':
-			case 'desolateland':
-				if (pokemon.template.speciesid !== 'castformsunny') forme = 'Castform-Sunny';
-				break;
-			case 'raindance':
-			case 'primordialsea':
-				if (pokemon.template.speciesid !== 'castformrainy') forme = 'Castform-Rainy';
-				break;
-			case 'hail':
-				if (pokemon.template.speciesid !== 'castformsnowy') forme = 'Castform-Snowy';
-				break;
-			default:
-				if (pokemon.template.speciesid !== 'castform') forme = 'Castform';
-				break;
-			}
-			if (pokemon.isActive && forme) {
-				pokemon.formeChange(forme, this.effect, false, '[msg]');
-				const sets = {
-					'Castform-Sunny': ['Fire Blast', 'Solar Beam', 'Synthesis', 'Weather Forecast'],
-					'Castform-Rainy': ['Hydro Pump', 'Hurricane', 'Thunder', 'Weather Forecast'],
-					'Castform-Snowy': ['Blizzard', 'Thunder', 'Quiver Dance', 'Weather Forecast'],
-					'Castform': ['Rain Dance', 'Sunny Day', 'Hail', 'Weather Forecast'],
-				};
-				// Store percentage of PP left for each moveSlot
-				const carryOver = pokemon.moveSlots.slice().map(m => {
-					return m.pp / m.maxpp;
-				});
-				// Incase theres ever less than 4 moves
-				while (carryOver.length < 4) {
-					carryOver.push(1);
-				}
-				// @ts-ignore
-				let set = sets[forme];
-				pokemon.moveSlots = [];
-				for (let i = 0; i < set.length; i++) {
-					let newMove = set[i];
-					let moveTemplate = this.getMove(newMove);
-					pokemon.moveSlots.push({
-						move: moveTemplate.name,
-						id: moveTemplate.id,
-						pp: ((moveTemplate.noPPBoosts || moveTemplate.isZ) ? Math.floor(moveTemplate.pp * carryOver[i]) : Math.floor((moveTemplate.pp * 8 / 5) * carryOver[i])),
-						maxpp: ((moveTemplate.noPPBoosts || moveTemplate.isZ) ? moveTemplate.pp : moveTemplate.pp * 8 / 5),
-						target: moveTemplate.target,
-						disabled: false,
-						disabledSource: '',
-						used: false,
-					});
-				}
-			}
-		},
-	},
 	// Megazard
 	standuptall: {
-		desc: "This Pokemon's Attack, Defense, and Special Defense is raised by 1 stage at the end of each full turn it is on the field.",
-		shortDesc: "Raises Atk, Def, and Spd by 1, after each full turn on the field.",
+		desc: "This Pokemon's Defense or Special Defense is raised by 1 stage at the end of each full turn it is on the field.",
+		shortDesc: "Raises Defense or Special Defense by 1, at random, after each full turn on the field.",
 		id: "standuptall",
 		name: "Stand Up Tall",
 		isNonstandard: "Custom",
@@ -466,7 +283,11 @@ let BattleAbilities = {
 		onResidualSubOrder: 1,
 		onResidual(pokemon) {
 			if (pokemon.activeTurns) {
-				this.boost({atk: 1, spa: 1, spd: 1});
+				if (this.randomChance(1, 2)) {
+					this.boost({def: 1});
+				} else {
+					this.boost({spd: 1});
+				}
 			}
 		},
 	},
@@ -510,6 +331,48 @@ let BattleAbilities = {
 			this.field.setTerrain('prismaticterrain');
 		},
 	},
+	// Osiris
+	sacredshadow: {
+		desc: "This Pokemon's attacking stats are doubled while using a Ghost-type attack. If a Pokemon uses a Fire-type or Flying-type attack against this Pokemon, that Pokemon's attacking stat is halved when calculating the damage to this Pokemon. This Pokemon cannot be burned. Gaining this Ability while burned cures it.",
+		shortDesc: "This Pokemon's Ghost power is 2x; can't be burned; Fire/Flying power against it is halved.",
+		id: "sacredshadow",
+		name: "Sacred Shadow",
+		isNonstandard: "Custom",
+		onModifyAtkPriority: 5,
+		onSourceModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Fire' || move.type === 'Flying') {
+				return this.chainModify(0.5);
+			}
+		},
+		onModifySpAPriority: 5,
+		onSourceModifySpA(atk, attacker, defender, move) {
+			if (move.type === 'Fire' || move.type === 'Flying') {
+				return this.chainModify(0.5);
+			}
+		},
+		onModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Ghost') {
+				return this.chainModify(2);
+			}
+		},
+		onModifySpA(atk, attacker, defender, move) {
+			if (move.type === 'Ghost') {
+				return this.chainModify(2);
+			}
+		},
+		onUpdate(pokemon) {
+			if (pokemon.status === 'brn') {
+				this.add('-activate', pokemon, 'ability: Sacred Shadow');
+				pokemon.cureStatus();
+			}
+		},
+		onSetStatus(status, target, source, effect) {
+			if (status.id !== 'brn') return;
+			if (!effect || !effect.status) return false;
+			this.add('-immune', target, '[from] ability: Sacred Shadow');
+			return false;
+		},
+	},
 	// Pablo
 	shellshocker: {
 		desc: "This Pokemon's Normal-type moves become Electric-type and have 1.2x power. In addition, this Pokemon is immune to Electric-type moves and heals 1/4 of its maximum HP, rounded down, when hit by an Electric-type move.",
@@ -534,50 +397,6 @@ let BattleAbilities = {
 					this.add('-immune', target, '[from] ability: Shell Shocker');
 				}
 				return null;
-			}
-		},
-	},
-	// pre
-	optimize: {
-		desc: "This Pokemon changes forme and sets depending on which attack it uses, before the attack takes place. If this Pokemon uses Psycho Boost, it first changes to Deoxys-Attack. If this Pokemon uses Recover, it first changes to Deoxys-Defense. If this Pokemon uses Extreme Speed, it first changes to Deoxys-Speed. If this Pokemon uses Refactor, it first changes to Deoxys.",
-		shortDesc: "This Pokemon changes forme and set depending on which attack it uses.",
-		id: "optimize",
-		name: "Optimize",
-		isNonstandard: "Custom",
-		onBeforeMove(pokemon, target, move) {
-			switch (move.id) {
-			case 'psychoboost':
-				if (pokemon.template.species === 'Deoxys-Attack') return;
-				pokemon.set.nature = 'Modest';
-				pokemon.set.ivs = {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31};
-				pokemon.set.evs = {hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252};
-				pokemon.setItem('Life Orb');
-				pokemon.formeChange('Deoxys-Attack', this.effect);
-				break;
-			case 'recover':
-				if (pokemon.template.species === 'Deoxys-Defense') return;
-				pokemon.set.nature = 'Bold';
-				pokemon.set.ivs = {hp: 31, atk: 0, def: 31, spa: 31, spd: 31, spe: 31};
-				pokemon.set.evs = {hp: 252, atk: 0, def: 128, spa: 0, spd: 128, spe: 0};
-				pokemon.setItem('Leftovers');
-				pokemon.formeChange('Deoxys-Defense', this.effect);
-				break;
-			case 'extremespeed':
-				if (pokemon.template.species === 'Deoxys-Speed') return;
-				pokemon.set.nature = 'Adamant';
-				pokemon.set.ivs = {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31};
-				pokemon.set.evs = {hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252};
-				pokemon.setItem('Focus Sash');
-				pokemon.formeChange('Deoxys-Speed', this.effect);
-				break;
-			case 'refactor':
-				if (pokemon.template.species === 'Deoxys') return;
-				pokemon.set.nature = 'Bold';
-				pokemon.set.ivs = {hp: 31, atk: 0, def: 31, spa: 31, spd: 31, spe: 31};
-				pokemon.set.evs = {hp: 252, atk: 0, def: 4, spa: 0, spd: 0, spe: 252};
-				pokemon.setItem('Rocky Helmet');
-				pokemon.formeChange('Deoxys', this.effect);
-				break;
 			}
 		},
 	},
@@ -670,7 +489,7 @@ let BattleAbilities = {
 			return false;
 		},
 	},
-	// Shiba
+	// Shiba and imas
 	galewingsv1: {
 		desc: "This Pokemon's Flying-type moves have their priority increased by 1.",
 		shortDesc: "This Pokemon's Flying-type moves have their priority increased by 1.",
@@ -756,17 +575,28 @@ let BattleAbilities = {
 			this.field.addPseudoWeather('gravity', pokemon);
 		},
 	},
-	// xJoelituh
-	clubexpertise: {
-		shortDesc: "This Pokemon's bone moves have their power multiplied by 1.3.",
-		id: "clubexpertise",
-		name: "Club Expertise",
+	// urkerab
+	focusenergy: {
+		desc: "This Pokemon gains the Focus Energy effect when it switches in.",
+		shortDesc: "This Pokemon gains the Focus Energy effect when it switches in.",
+		id: "focusenergy",
+		name: "Focus Energy",
 		isNonstandard: "Custom",
-		onBasePowerPriority: 8,
-		onBasePower(basePower, attacker, defender, move) {
-			if (move.id.includes('bone')) {
-				return this.chainModify([0x14CD, 0x1000]);
-			}
+		onStart(pokemon) {
+			pokemon.addVolatile('focusenergy');
+		},
+	},
+	// Yuki
+	snowstorm: {
+		desc: "As it switches in, this Pokemon summons hail that remains in effect until replaced by another weather or suppressed by the effects of Cloud Nine, Air Lock, or Delta Stream.",
+		shortDesc: "On switch-in, this Pokemon summons hail which remains active until replaced.",
+		id: "snowstorm",
+		name: "Snow Storm",
+		isNonstandard: "Custom",
+		onStart() {
+			let snowStorm = this.deepClone(this.getEffect('hail'));
+			snowStorm.duration = -1;
+			this.field.setWeather(snowStorm);
 		},
 	},
 	// Modified Illusion to support SSB volatiles
@@ -802,21 +632,6 @@ let BattleAbilities = {
 				move.pranksterBoosted = true;
 				return priority + 1;
 			}
-		},
-	},
-	// Modified Primordial Sea to not end if a pokemon with Maelstrom is out
-	primordialsea: {
-		inherit: true,
-		onEnd(pokemon) {
-			if (this.field.weatherData.source !== pokemon) return;
-			for (const target of this.getAllActive()) {
-				if (target === pokemon) continue;
-				if (target.hasAbility('primordialsea') || target.hasAbility('maelstrom')) {
-					this.field.weatherData.source = target;
-					return;
-				}
-			}
-			this.field.clearWeather();
 		},
 	},
 };
