@@ -62,52 +62,52 @@ let BattleAbilities = {
 			pokemon.heal(pokemon.maxhp / 3);
 		},
 	},
-  	// A Quag To The Past
-  	careless: {
-  		desc: "This Pokemon blocks certain status moves and instead uses the move against the original user. This Pokemon also ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage.",
-  		shortDesc: "Bounces certain status moves and ignores other Pokemon's stat changes.",
-  		id: "careless",
-  		name: "Careless",
-  		isNonstandard: "Custom",
-  		onTryHitPriority: 1,
-  		onTryHit(target, source, move) {
-  			if (target === source || move.hasBounced || !move.flags['reflectable']) {
-  				return;
-  			}
-  			let newMove = this.getActiveMove(move.id);
-  			newMove.hasBounced = true;
-  			newMove.pranksterBoosted = false;
-  			this.useMove(newMove, target, source);
-  			return null;
-  		},
-  		onAllyTryHitSide(target, source, move) {
-  			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
-  				return;
-  			}
-  			let newMove = this.getActiveMove(move.id);
-  			newMove.hasBounced = true;
-  			newMove.pranksterBoosted = false;
-  			this.useMove(newMove, this.effectData.target, source);
-  			return null;
-  		},
-  		onAnyModifyBoost(boosts, target) {
-  			let source = this.effectData.target;
-  			if (source === target) return;
-  			if (source === this.activePokemon && target === this.activeTarget) {
-  				boosts['def'] = 0;
-  				boosts['spd'] = 0;
-  				boosts['evasion'] = 0;
-  			}
-  			if (target === this.activePokemon && source === this.activeTarget) {
-  				boosts['atk'] = 0;
-  				boosts['spa'] = 0;
-  				boosts['accuracy'] = 0;
-  			}
-  		},
-  		effect: {
-  			duration: 1,
-  		},
-  },
+	// A Quag To The Past
+	careless: {
+		desc: "This Pokemon blocks certain status moves and instead uses the move against the original user. This Pokemon also ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage.",
+		shortDesc: "Bounces certain status moves and ignores other Pokemon's stat changes.",
+		id: "careless",
+		name: "Careless",
+		isNonstandard: "Custom",
+		onTryHitPriority: 1,
+		onTryHit(target, source, move) {
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getActiveMove(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		onAllyTryHitSide(target, source, move) {
+			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getActiveMove(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, this.effectData.target, source);
+			return null;
+		},
+		onAnyModifyBoost(boosts, target) {
+			let source = this.effectData.target;
+			if (source === target) return;
+			if (source === this.activePokemon && target === this.activeTarget) {
+				boosts['def'] = 0;
+				boosts['spd'] = 0;
+				boosts['evasion'] = 0;
+			}
+			if (target === this.activePokemon && source === this.activeTarget) {
+				boosts['atk'] = 0;
+				boosts['spa'] = 0;
+				boosts['accuracy'] = 0;
+			}
+		},
+		effect: {
+			duration: 1,
+		},
+	},
 	// AlphaWittem
 	osolemio: {
 		desc: "If Sun is active, this Pokemon restores 1/16 of its maximum HP, rounded down, at the end of each turn.",
