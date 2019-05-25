@@ -13,11 +13,10 @@
  * @property {{hp?: number, atk?: number, def?: number, spa?: number, spd?: number, spe?: number}=} ivs
  * @property {string | string[]} nature
  * @property {number=} level
- * @property {boolean=} shiny
+ * @property {(number|boolean)=} shiny
  */
 
 const RandomTeams = require('../../random-teams');
-
 class RandomStaffBrosTeams extends RandomTeams {
 	randomStaffBrosTeam() {
 		/** @type {PokemonSet[]} */
@@ -49,7 +48,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'5gen': {
 				species: 'Sawsbuck', ability: 'Season\'s Gift', item: 'Heat Rock', gender: 'M',
-				moves: ['Sunny Day', 'Return', 'High Jump Kick'],
+				moves: ['Double Edge', 'Knock Off', 'High Jump Kick'],
 				signatureMove: 'Too Much Saws',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
@@ -65,29 +64,29 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Energy Field',
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
+			'Aethernum': {
+				species: 'Regigigas', ability: 'Awakening', item: 'Leftovers', gender: 'N',
+				moves: ['Knock Off', 'Confuse Ray', 'Drain Punch'],
+				signatureMove: 'Cataclysm',
+				evs: {hp: 252, atk: 252, spe: 4}, ivs: {spa: 0}, nature: 'Adamant',
+			},
 			'Akir': {
 				species: 'Parasect', ability: 'Regrowth', item: 'Leftovers', gender: 'M',
-				moves: ['Spore', 'Leech Life', ['Toxic', 'Healing Wish', 'Parting Shot']],
+				moves: ['Spore', ['Leech Life', 'Horn Leech'], 'Healing Wish'],
 				signatureMove: 'Compost',
 				evs: {hp: 248, atk: 8, spd: 252}, nature: 'Careful',
+			},
+			'AlphaWittem': {
+				species: 'Espeon', ability: 'O SOLE MIO', item: 'Light Clay', gender: 'M',
+				moves: ['Psychic', 'Focus Blast', 'Morning Sun'],
+				signatureMove: 'Neko Veil',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'Amaluna': {
 				species: 'Octillery', ability: 'Neuroforce', item: 'Expert Belt', gender: 'F',
 				moves: ['Surf', 'Fire Blast', 'Freeze-Dry'],
 				signatureMove: 'Turismo Splash',
 				evs: {hp: 252, spa: 252, spd: 4}, ivs: {atk: 0, spe: 0}, nature: 'Quiet',
-			},
-			'Andy >_>': {
-				species: 'Absol', ability: 'Adaptability', item: 'Absolite', gender: 'M',
-				moves: ['Pursuit', 'Destiny Bond', 'Sucker Punch'],
-				signatureMove: 'Pilfer',
-				evs: {atk: 252, def: 4, spe: 252}, nature: 'Adamant',
-			},
-			'ant': {
-				species: 'Durant', ability: 'Flash Fire', item: 'Leftovers', gender: 'F',
-				moves: ['King\'s Shield', 'U-turn', 'Pursuit'],
-				signatureMove: 'TRU ANT',
-				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
 			'A Quag to The Past': {
 				species: 'Quagsire', ability: 'Careless', item: 'Leftovers', gender: 'M',
@@ -110,7 +109,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Beowulf': {
 				species: 'Beedrill', ability: ['Download', 'Speed Boost'], item: 'Beedrillite', gender: 'M',
-				moves: ['Spiky Shield', 'Gunk Shot', ['Bolt Strike', 'Diamond Storm', 'Sacred Fire']],
+				moves: ['Spiky Shield', 'Gunk Shot', ['Bolt Strike', 'Diamond Storm', 'Thousand Arrows']],
 				signatureMove: 'Buzzing of the Swarm',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
@@ -128,7 +127,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'bobochan': {
 				species: 'Emolga', ability: 'Huge Power', item: 'Choice Band', gender: 'M',
-				moves: ['Brave Bird', ['Knock Off', 'Encore'], 'U-turn'],
+				moves: ['Brave Bird', 'Knock Off', 'U-turn'],
 				signatureMove: 'Thousand Circuit Overload',
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
 			},
@@ -150,23 +149,11 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'a e s t h e t i s l a s h',
 				evs: {hp: 32, atk: 252, spd: 4, spe: 220}, nature: 'Jolly',
 			},
-			'cc': {
-				species: 'Cobalion', ability: 'Lurking', item: ['Shuca Berry', 'Chople Berry', 'Fightinium Z'], gender: 'M',
-				moves: ['Focus Blast', 'Flash Cannon', ['Thunder', 'Blizzard']],
-				signatureMove: 'Restarting Router',
-				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
-			},
 			'Ceteris': {
 				species: 'Greninja', ability: 'Protean', item: 'Expert Belt', gender: 'M',
 				moves: ['Dark Pulse', 'Origin Pulse', 'Gunk Shot', 'Shadow Sneak'],
 				signatureMove: 'Bringer of Darkness',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
-			},
-			'Cerberax': {
-				species: 'Wailord', ability: 'Levitate', item: 'Figy Berry', gender: 'F',
-				moves: ['Shift Gear', 'Waterfall', 'Recover'],
-				signatureMove: 'Blimp Crash',
-				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Adamant',
 			},
 			'chaos': {
 				species: 'Bewear', ability: 'Fur Coat', item: 'Red Card', gender: 'M',
@@ -182,9 +169,21 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Cleo': {
 				species: 'Sealeo', ability: 'Adrenaline Rush', item: 'Leftovers', gender: 'M',
-				moves: ['Icy Wind', 'Ice Beam', 'Wrap'],
+				moves: ['Icy Wind', 'Ice Beam', 'Draining Kiss'],
 				signatureMove: 'Loving Embrace',
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Modest', shiny: true,
+			},
+			'DaWoblefet': {
+				species: 'Wobbuffet', ability: 'Shadow Artifice', item: 'Iapapa Berry', gender: 'M',
+				moves: ['Counter', 'Mirror Coat', 'Encore'],
+				signatureMove: 'Super Ego Inflation',
+				evs: {hp: 252, def: 252, spd: 4}, ivs: {spe: 0}, nature: 'Relaxed',
+			},
+			'Decem': {
+				species: 'Goodra', ability: 'Miracle Scale', item: 'Choice Scarf', gender: '',
+				moves: ['Draco Meteor', 'Fire Blast', 'Sludge Wave'],
+				signatureMove: 'Hit and Run',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'deg': {
 				species: 'Gengar', ability: 'Bad Dreams', item: 'Gengarite', gender: 'M',
@@ -197,12 +196,6 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Earthquake', 'Dragon Rush', 'Diamond Storm'],
 				signatureMove: 'Earth\'s Blessing',
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
-			},
-			'duck': {
-				species: 'Farfetch\'d', ability: 'Super Luck', item: 'Stick', gender: 'M',
-				moves: ['Shift Gear', 'Superpower', 'Dragon Ascent'],
-				signatureMove: 'Holy Duck!',
-				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
 			},
 			'E4 Flint': {
 				species: 'Steelix', ability: 'Sturdy', item: 'Magmarizer', gender: 'M',
@@ -218,7 +211,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'Eien': {
 				species: 'Mew', ability: 'Psychic Surge', item: 'Terrain Extender', gender: 'N',
-				moves: ['Calm Mind', 'Psychic', 'Psyshock'],
+				moves: ['Calm Mind', 'Psychic', 'Roost'],
 				signatureMove: 'Ancestral Power',
 				evs: {hp: 252, spd: 4, spe: 252}, nature: 'Timid',
 			},
@@ -228,17 +221,17 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Quack',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
-			'EV': {
-				species: 'Eevee', ability: 'Adaptability', item: 'Leftovers', gender: 'M',
-				moves: ['Baton Pass', 'Wish', 'Protect'],
-				signatureMove: 'Evoblast',
-				evs: {hp: 252, spe: 252}, nature: 'Serious',
-			},
 			'false': {
 				species: 'Rayquaza-Mega', ability: 'Infiltrator', item: 'Focus Band', gender: 'F',
 				moves: ['Celebrate'],
 				signatureMove: 'fr*ck',
 				evs: {atk: 252, spe: 252, def: 4}, nature: 'Jolly', shiny: true,
+			},
+			'Flare': {
+				species: 'Zoroark', ability: 'Super Illusion', item: 'Life Orb', gender: 'N',
+				moves: ['Psyshock', 'Nasty Plot', 'Sludge Bomb'],
+				signatureMove: 'Distortion Blast',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
 			},
 			'FOMG': {
 				species: 'Golem', ability: 'Serene Grace', item: 'Astleyium Z', gender: 'M',
@@ -247,10 +240,17 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
 			},
 			'Forrce': {
-				species: 'Cresselia', ability: 'Wonder Skin', item: 'Leftovers', gender: 'N',
-				moves: ['Moonlight', 'Heart Swap', 'Baton Pass'],
-				signatureMove: 'Purple Pills',
-				evs: {hp: 176, def: 80, spd: 252}, ivs: {atk: 0}, nature: 'Calm',
+				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite Y', gender: '',
+				moves: ['Aeroblast', 'Agility', 'Slack Off'],
+				signatureMove: 'G-14',
+				evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
+			},
+			// Alternate set for Forrce
+			'Forrce Alt': {
+				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite X', gender: '',
+				moves: ['Dragon Hammer', 'Agility', 'Slack Off'],
+				signatureMove: 'G-14',
+				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
 			},
 			'grimAuxiliatrix': {
 				species: 'Aggron', ability: 'Sturdy', item: 'Aggronite', gender: '',
@@ -263,12 +263,6 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Stealth Rock', 'Spikes', 'Toxic Spikes', 'Sticky Web'],
 				signatureMove: 'Hazard Pass',
 				evs: {hp: 252, def: 252, spd: 4}, ivs: {atk: 0, spa: 0}, nature: 'Bold',
-			},
-			'Hipster Sigilyph': {
-				species: 'Sigilyph', ability: 'Simple', item: 'Focus Sash', gender: 'M',
-				moves: ['Oblivion Wing', 'Silver Wind', 'Calm Mind'],
-				signatureMove: 'Mainstream Shock',
-				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'HoeenHero': {
 				species: 'Ludicolo', ability: 'Scripter', item: 'Terrain Extender', gender: 'M',
@@ -283,34 +277,16 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'Hurl': {
-				species: 'Grimer-Alola', ability: 'Poison Touch', item: 'Eviolite', gender: 'M',
-				moves: ['Knock Off', 'Earthquake', 'Recover'],
-				signatureMove: 'Hurl',
-				evs: {hp: 252, atk: 252, spd: 4}, nature: 'Adamant',
-			},
-			'imagi': {
-				species: 'Tapu Lele', ability: 'Psychic Surge', item: 'Luminous Moss', gender: 'N',
-				moves: [['Recover', 'Quiver Dance'], 'Nature\'s Madness', ['Psyshock', 'Moonblast']],
-				signatureMove: 'Delayed Promise',
-				evs: {spa: 252, spd: 4, spe: 252}, nature: 'Modest',
-			},
-			'imas': {
-				species: 'Skarmory', ability: 'Gale Wings v1', item: 'Sharp Beak', gender: 'M',
-				moves: ['Swords Dance', 'Roost', ['Taunt', 'Stealth Rock']],
-				signatureMove: 'B O I',
-				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Adamant',
+				species: 'Flygon', ability: 'Adaptability', item: 'Life Orb', gender: 'M',
+				moves: ['Earthquake', 'U-Turn', 'Dragon Dance'],
+				signatureMove: 'Draconic Meme',
+				evs: {hp: 252, atk: 252, spd: 4}, nature: 'Jolly',
 			},
 			'Iyarito': {
 				species: 'Vaporeon', ability: 'Poison Heal', item: 'Leftovers', gender: 'F',
 				moves: ['Scald', 'Wish', 'Toxic'],
 				signatureMove: 'Víbora',
 				evs: {hp: 252, def: 220, spd: 36}, nature: 'Bold', shiny: true,
-			},
-			'jdarden': {
-				species: 'Dragonair', ability: 'Fur Coat', item: 'Leftovers', gender: 'M',
-				moves: ['Rest', 'Sleep Talk', 'Quiver Dance'],
-				signatureMove: 'Wyvern\'s Wail',
-				evs: {hp: 252, def: 252, spd: 4}, ivs: {atk: 0}, nature: 'Bold',
 			},
 			'Kaiju Bunny': {
 				species: 'Gligar', ability: 'Immunity', item: 'Eviolite', gender: 'F',
@@ -324,11 +300,23 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Maelström',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 			},
+			'kaori': {
+				species: 'Bellossom', ability: 'Flower Shield', item: 'Heat Rock', gender: 'F',
+				moves: ['Solarbeam', 'Fusion Flare', 'Moonlight'],
+				signatureMove: '>w<',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest', shiny: true,
+			},
 			'kay': {
 				species: 'Inkay', ability: 'Contrary', item: 'Eviolite', gender: 'M',
 				moves: ['Power Trip', 'Rest', 'Sleep Talk'],
 				signatureMove: 'Inkzooka',
 				evs: {hp: 252, atk: 144, spe: 112}, nature: 'Adamant',
+			},
+			'Kie': {
+				species: 'Totodile', ability: 'Maelstrom', item: 'Eviolite', gender: 'M',
+				moves: ['Aqua Jet', 'Icicle Crash', 'Horn Leech'],
+				signatureMove: 'Chaotic',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', shiny: true,
 			},
 			'KingSwordYT': {
 				species: 'Pangoro', ability: 'Kung Fu Panda', item: 'Life Orb', gender: 'M',
@@ -343,7 +331,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 236, def: 220, spd: 48, spe: 4}, ivs: {atk: 0}, nature: 'Calm',
 			},
 			'LifeisDANK': {
-				species: 'Delibird', ability: 'Mountaineer', item: 'Focus Sash', gender: 'F',
+				species: 'Delibird', ability: 'Aerilate', item: 'Focus Sash', gender: 'F',
 				moves: ['Ice Shard', 'Return', 'Explosion'],
 				signatureMove: 'Bar Fight',
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
@@ -371,6 +359,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Bolt Strike', 'Zen Headbutt', 'U-turn'],
 				signatureMove: 'V-create',
 				evs: {hp: 252, atk: 4, spe: 252}, nature: 'Jolly',
+			},
+			'Marshmallon': {
+				species: 'Castform', ability: 'Sightseeing', item: 'Shell Bell', gender: 'M',
+				moves: ['Rain Dance', 'Sunny Day', 'Hail'],
+				signatureMove: 'Weather Forecast',
+				evs: {spa: 252, spd: 4, spe: 252}, nature: 'Modest',
 			},
 			'martha': {
 				species: 'Diancie', ability: 'Pixilate', item: 'Diancite', gender: 'F',
@@ -408,12 +402,6 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Python Ivy',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
-			'moo': {
-				species: 'Miltank', ability: 'Scrappy', item: 'Life Orb', gender: 'M',
-				moves: ['Extreme Speed', 'Rapid Spin', 'Close Combat'],
-				signatureMove: 'Protein Shake',
-				evs: {hp: 252, def: 4, spd: 252}, nature: 'Careful',
-			},
 			'Morfent ( _̀> ̀)': {
 				species: 'Banette', ability: 'Intimidate', item: 'Banettite', gender: 'M',
 				moves: ['Shadow Sneak', 'Spectral Thief', 'Drain Punch'],
@@ -432,23 +420,17 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'OM Boom',
 				evs: {atk: 252, def: 4, spe: 252}, nature: 'Adamant',
 			},
-			'Osiris': {
-				species: 'Pumpkaboo-Super', ability: 'Sacred Shadow', item: 'Eviolite', gender: 'M',
-				moves: [['Leech Seed', 'Will-O-Wisp'], 'Recover', 'Seed Bomb'],
-				signatureMove: 'Night March',
-				evs: {hp: 252, atk: 144, spd: 112}, ivs: {spe: 0}, nature: 'Brave', shiny: true,
-			},
 			'Overneat': {
-				species: 'Sylveon', ability: 'Fairy Aura', item: 'Life Orb', gender: 'F',
-				moves: ['Nasty Plot', 'Psyshock', 'Earth Power'],
-				signatureMove: 'Total Leech',
-				evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+				species: 'Absol', ability: 'Intimidate', item: 'Absolite', gender: 'M',
+				moves: ['Play Rough', 'Close Combat', 'Extreme Speed'],
+				signatureMove: 'Ultimate Slash',
+				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 			},
 			'Pablo': {
 				species: 'Blastoise', ability: 'Torrent', item: 'Blastoisinite', gender: 'M',
 				moves: ['Muddy Water', 'Ice Beam', 'Slack Off'],
 				signatureMove: 'Jail Shell',
-				evs: {hp: 252, def: 4, spa: 252}, nature: 'Modest',
+				evs: {hp: 252, def: 4, spa: 252}, nature: 'Modest', shiny: true,
 			},
 			'Paradise': {
 				species: 'Muk', ability: 'Unaware', item: 'Black Sludge', gender: '',
@@ -461,6 +443,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Taunt', 'Moonblast', ['Mystical Fire', 'Earth Power']],
 				signatureMove: 'Grammar Hammer',
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+			},
+			'pre': {
+				species: 'Deoxys', ability: 'Optimize', item: 'Rocky Helmet', gender: 'N',
+				moves: ['Psycho Boost', 'Recover', 'Extreme Speed'],
+				signatureMove: 'Refactor',
+				evs: {hp: 252, def: 4, spd: 252}, ivs: {atk: 0}, nature: 'Bold', shiny: 64,
 			},
 			'ptoad': {
 				species: 'Politoed', ability: 'Fat Rain', item: 'Damp Rock', gender: 'M',
@@ -480,9 +468,15 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Literally Cheating',
 				evs: {hp: 252, def: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'Rach': {
+				species: 'Pikachu-Libre', ability: 'Huge Power', item: 'Fightinium Z', gender: 'F',
+				moves: ['Flying Press', 'Icicle Crash', 'Thousand Arrows'],
+				signatureMove: 'Stunner',
+				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
+			},
 			'Rory Mercury': {
 				species: 'Charjabug', ability: 'Recharge', item: 'Eviolite', gender: 'M',
-				moves: ['Spikes', 'Leech Life', ['Poison Fang', 'Nuzzle']],
+				moves: ['First Impression', 'Leech Life', 'Bolt Strike'],
 				signatureMove: 'Switch Off',
 				evs: {hp: 252, atk: 252, def: 4}, ivs: {spe: 0}, nature: 'Brave',
 			},
@@ -528,6 +522,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Army of Mushrooms',
 				evs: {hp: 252, def: 128, spd: 128}, ivs: {atk: 0, spe: 0}, nature: 'Sassy',
 			},
+			'SparksBlade': {
+				species: 'Blacephalon', ability: 'Magic Guard', item: 'Life Orb', gender: 'N',
+				moves: ['Mind Blown', 'Shadow Ball', 'Explosion'],
+				signatureMove: 'Kratosmana',
+				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Naive', shiny: true,
+			},
 			'SunGodVolcarona': {
 				species: 'Volcarona', ability: 'Solar Flare', item: 'Volcaronium Z', gender: 'M',
 				moves: ['Quiver Dance', 'Giga Drain', ['Earth Power', 'Psychic']],
@@ -542,7 +542,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'tennisace': {
 				species: 'Raikou', ability: 'Levitate', item: 'Life Orb', gender: 'M',
-				moves: ['Volt Switch', 'Shadow Ball', 'Aura Sphere'],
+				moves: ['Volt Switch', 'Ice Beam', ['Aura Sphere', 'Shadow Ball']],
 				signatureMove: 'Ground Surge',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
@@ -588,29 +588,11 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Continuous 1v1',
 				evs: {hp: 252, spa: 200, spd: 56}, ivs: {atk: 0}, nature: 'Modest',
 			},
-			'urkerab': {
-				species: 'Muk-Alola', ability: 'Focus Energy', item: 'Air Balloon', gender: 'M',
-				moves: ['Night Slash', 'Drill Run', 'Cross Poison'],
-				signatureMove: 'Holy Orders',
-				evs: {hp: 252, atk: 96, def: 136, spd: 24}, nature: 'Impish',
-			},
-			'Uselesscrab': {
-				species: 'Kyurem-Black', ability: 'Teravolt', item: 'Nichium Z', gender: 'M',
-				moves: ['Dragon Hammer', 'Plasma Fists', 'Taunt'],
-				signatureMove: 'Icicle Crash',
-				evs: {hp: 252, atk: 252, spe: 4}, nature: 'Adamant', shiny: true,
-			},
 			'Volco': {
 				species: 'Volcanion', ability: 'Unaware', item: 'Assault Vest', gender: 'M',
 				moves: ["Steam Eruption", "Giga Drain", ["Ice Beam", "Ice Beam", "Earth Power"]],
 				signatureMove: 'Explosive Drain',
 				evs: {hp: 248, spa: 252, spd: 8}, ivs: {atk: 0}, nature: 'Modest',
-			},
-			'Yuki': {
-				species: 'Ninetales-Alola', ability: 'Snow Storm', item: 'Focus Sash', gender: 'F',
-				moves: ['Blizzard', 'Moonblast', 'Aurora Veil'],
-				signatureMove: 'Cutie Escape',
-				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
 			},
 			'Xayah': {
 				species: 'Noivern', ability: 'Dancer', item: 'Flyinium Z', gender: 'F',
@@ -618,11 +600,17 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Stunning Dance',
 				evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
 			},
+			'xJoelituh': {
+				species: 'Marowak-Alola', ability: 'Club Expertise', item: 'Thick Club', gender: 'M',
+				moves: ['Shadow Bone', 'Bonemerang', 'Drain Punch'],
+				signatureMove: 'Lava Bone',
+				evs: {atk: 252, def: 4, spe: 252}, ivs: {spa: 0}, nature: 'Jolly', shiny: true,
+			},
 			'XpRienzo ☑◡☑': {
 				species: 'Reshiram', ability: 'Turboblaze', item: 'Charcoal', gender: 'M',
 				moves: ['Core Enforcer', 'Volt Switch', 'Psystrike'],
-				signatureMove: 'Bleh Flame',
-				evs: {spa: 252, spd: 4, spe: 252}, ivs: {hp: 24, def: 25, spd: 20}, nature: 'Timid',
+				signatureMove: 'Blue Flare',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'Zarel': {
 				species: 'Meloetta', ability: 'Serene Grace', item: '', gender: 'M',
@@ -630,23 +618,30 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Relic Song Dance',
 				evs: {hp: 4, atk: 252, spa: 252}, nature: 'Quiet',
 			},
-			'Zyg': {
-				species: 'Zygarde', ability: 'Poison Heal', item: 'Leftovers', gender: 'N',
-				moves: ['Thousand Arrows', 'Stone Edge', 'Coil'],
-				signatureMove: 'My Life',
-				evs: {hp: 188, atk: 68, def: 252}, nature: 'Adamant',
-			},
 		};
 		let pool = Object.keys(sets);
+		pool.splice(pool.indexOf('Forrce Alt'), 1);
 		/** @type {{[type: string]: number}} */
 		let typePool = {};
+		let debug = false;
 		while (pool.length && team.length < 6) {
-			let name = this.sampleNoReplace(pool);
+			let name = '';
+			if (debug && team.length === 1) {
+				// DEBUG CODE, remove before commiting to the main server
+				name = ''; // Change name to force a set to appear
+				pool.splice(pool.indexOf(name), 1);
+			} else {
+				name = this.sampleNoReplace(pool);
+			}
 			let ssbSet = sets[name];
+			if (name === 'Forrce' && this.random()) {
+				// Swap to the alternate set, use the same name
+				ssbSet = sets['Forrce Alt'];
+			}
 			// Enforce typing limits
 			let types = this.getTemplate(ssbSet.species).types;
 			if (name === 'E4 Flint') types = ["Steel", "Ground", "Fire"];
-			if (name === 'OM') types = ["Fire", "Fairy"];
+			if (name === 'Overneat') types = ["Dark", "Fairy"];
 			let rejected = false;
 			for (let type of types) {
 				if (typePool[type] === undefined) typePool[type] = 0;
@@ -673,7 +668,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0},
 				ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
 				level: ssbSet.level || 100,
-				shiny: ssbSet.shiny,
+				shiny: typeof ssbSet.shiny === 'number' ? this.randomChance(1, ssbSet.shiny) : ssbSet.shiny,
 			};
 			if (ssbSet.ivs) {
 				for (let iv in ssbSet.ivs) {
