@@ -1560,7 +1560,7 @@ let BattleMovedex = {
 				status: 'par',
 			}, {
 				chance: 10,
-				volatileStatus: 'cofusion',
+				volatileStatus: 'confusion',
 			},
 		],
 		target: "normal",
