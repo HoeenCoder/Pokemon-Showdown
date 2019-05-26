@@ -634,7 +634,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let name = '';
 			if (debug && team.length === 1) {
 				// DEBUG CODE, remove before commiting to the main server
-				name = 'irritated'; // Change name to force a set to appear
+				name = ''; // Change name to force a set to appear
 				pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);
