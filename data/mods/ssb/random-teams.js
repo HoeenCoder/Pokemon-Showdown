@@ -282,6 +282,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Draconic Meme',
 				evs: {hp: 252, atk: 252, spd: 4}, nature: 'Jolly',
 			},
+			'irritated': {
+				species: 'Jirachi', ability: 'Serene Grace', item: 'Leftovers', gender: 'F',
+				moves: ['Double Iron Bash', 'Rock Slide', 'Icicle Crash', 'Zing Zap'],
+				signatureMove: 'Pure Skill',
+				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
+			},
 			'Iyarito': {
 				species: 'Vaporeon', ability: 'Poison Heal', item: 'Leftovers', gender: 'F',
 				moves: ['Scald', 'Wish', 'Toxic'],
@@ -628,7 +634,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let name = '';
 			if (debug && team.length === 1) {
 				// DEBUG CODE, remove before commiting to the main server
-				name = ''; // Change name to force a set to appear
+				name = 'irritated'; // Change name to force a set to appear
 				pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);
@@ -693,6 +699,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			}
 			set.moves.push(ssbSet.signatureMove);
 			if (name === 'The Immortal' && set.item === 'Choice Scarf') set.moves[3] = 'Superpower';
+			if (name === 'irritated' && !set.moves.includes('Double Iron Bash')) set.moves[this.random(3)] = 'Double Iron Bash';
 			team.push(set);
 		}
 		return team;
