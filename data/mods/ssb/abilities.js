@@ -235,7 +235,7 @@ let BattleAbilities = {
 		},
 		id: "giblovepls",
 		name: "Gib love pls",
-	}
+	},
 	// Flare
 	superillusion: {
 		desc: "When this Pokemon switches in, it appears as the last unfainted Pokemon in its party until it takes supereffective direct damage from another Pokemon's attack. This Pokemon's actual level and HP are displayed instead of those of the mimicked Pokemon.",
