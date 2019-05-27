@@ -239,19 +239,6 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Rock Slide',
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
 			},
-			'Forrce': {
-				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite Y', gender: '',
-				moves: ['Aeroblast', 'Agility', 'Slack Off'],
-				signatureMove: 'G-14',
-				evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
-			},
-			// Alternate set for Forrce
-			'Forrce Alt': {
-				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite X', gender: '',
-				moves: ['Dragon Hammer', 'Agility', 'Slack Off'],
-				signatureMove: 'G-14',
-				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
-			},
 			'grimAuxiliatrix': {
 				species: 'Aggron', ability: 'Sturdy', item: 'Aggronite', gender: '',
 				moves: [['Toxic', 'Stealth Rock'], ['Stone Edge', 'Heat Crash'], 'Earthquake'],
@@ -444,6 +431,19 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Grammar Hammer',
 				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'PokemonDeadChannel': {
+				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite Y', gender: '',
+				moves: ['Aeroblast', 'Agility', 'Slack Off'],
+				signatureMove: 'G-14',
+				evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
+			},
+			// Alternate set for PokemonDeadChannel
+			'PokemonDeadChannel Alt': {
+				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite X', gender: '',
+				moves: ['Dragon Hammer', 'Agility', 'Slack Off'],
+				signatureMove: 'G-14',
+				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
+			},
 			'pre': {
 				species: 'Deoxys', ability: 'Optimize', item: 'Rocky Helmet', gender: 'N',
 				moves: ['Psycho Boost', 'Recover', 'Extreme Speed'],
@@ -620,7 +620,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 		};
 		let pool = Object.keys(sets);
-		pool.splice(pool.indexOf('Forrce Alt'), 1);
+		pool.splice(pool.indexOf('PokemonDeadChannel Alt'), 1);
 		/** @type {{[type: string]: number}} */
 		let typePool = {};
 		let debug = false;
@@ -634,9 +634,9 @@ class RandomStaffBrosTeams extends RandomTeams {
 				name = this.sampleNoReplace(pool);
 			}
 			let ssbSet = sets[name];
-			if (name === 'Forrce' && this.random()) {
+			if (name === 'PokemonDeadChannel' && this.random()) {
 				// Swap to the alternate set, use the same name
-				ssbSet = sets['Forrce Alt'];
+				ssbSet = sets['PokemonDeadChannel Alt'];
 			}
 			// Enforce typing limits
 			let types = this.getTemplate(ssbSet.species).types;

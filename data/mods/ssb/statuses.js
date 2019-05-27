@@ -463,34 +463,6 @@ let BattleStatuses = {
 			this.add(`c|%FOMG|Rock in peace...`);
 		},
 	},
-	forrce: {
-		noCopy: true,
-		onStart() {
-			let messages = [`This will be fun :p`, `Esketit`, `Well then...`, `Uh, what now?`, `Swagn check Z Room`, `I'm busy ${['coding', 'writing'][this.random(2)]} right now, but if it is your command then so be it...`, `guess im needed, thats a first`, `OwO whats this?`, `You interrupted my demon ritual for a stupid game?`, `No limit to where I can take it`][this.random(11)];
-			this.add(`c|+Forrce|${messages}`);
-		},
-		onSwitchOut() {
-			let messages = ['ok', 'Sorry, I gotta bee are bee', 'wait what did I do?', 'could be worse', 'lol bye', 'Why is SSBB crashing again? AAAAAAAAAAAA', 'It seems I am needed elsewhere', 'darth'][this.random(8)];
-			if (messages === 'darth') {
-				this.add(`c|+Darthikyu|Forrce, The Digital World needs you!`);
-				this.add(`c|+Forrce|Alright Darth, I'll meet you in the Digimon room!`);
-			} else {
-				this.add(`c|+Forrce|${messages}`);
-			}
-		},
-		onFaint() {
-			let messages = [`This is all ${['i want a lamp', 'platinumCheesecake', 'frostyicelad', 'RustySherrifBadge', 'not a racist', 'Roginald', 'Awesome96Birdy', 'Freddy Kyogre', 'Fragments', 'Irpachuza', 'p90king'][this.random(11)]}'s fault anyways`, `Dude quit being so edgy on a pokemon sim lmfao`, `Why be a king when you can be a God?`, `Back to the shadows I go...`, `Eh, whatever at this point lol`, `luc`, `c7`][this.random(7)];
-			if (messages === 'luc') {
-				this.add(`c| Lucario•1582|/w Lycanium Z, Lol Lyc you died`);
-				this.add(`c|+Forrce|~~Who is this Lycanium Z person you speak of? :^~~`);
-			} else if (messages === 'c7') {
-				this.add(`c| C733937 123|Hey now that you're done, wanna battle me?`);
-				this.add(`c|+Forrce|Sure, sounds like fun c7 :D`);
-			} else {
-				this.add(`c|+Forrce|${messages}`);
-			}
-		},
-	},
 	grimauxiliatrix: {
 		noCopy: true,
 		onStart() {
@@ -935,6 +907,34 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|@pluviometer|${["Follow SmogonU on Facebook! https://www.facebook.com/SmogonU", "Follow SmogonU on Twitter! https://twitter.com/SmogonU"][this.random(2)]}`);
+		},
+	},
+	pokemondeadchannel: {
+		noCopy: true,
+		onStart() {
+			let messages = [`This will be fun :p`, `Esketit`, `Well then...`, `Uh, what now?`, `Swagn check Z Room`, `guess im needed, thats a first`, `free ${['Polkadot Bow', 'Pyukumuku'][this.random(2)]}`, `You interrupted my demon ritual for a stupid game?`, `No limit to where I can take it`][this.random(9)];
+			this.add(`c|+PokemonDeadChannel|${messages}`);
+		},
+		onSwitchOut() {
+			let messages = ['shoddy wifi smh', 'oh', 'wait what did I do?', 'could be worse', 'lol bye', 'Why is SSBB crashing again? AAAAAAAAAAAA', 'It seems I am needed elsewhere', 'darth'][this.random(8)];
+			if (messages === 'darth') {
+				this.add(`c|+Darthikyu|PokemonDeadChannel, The Digital World needs you!`);
+				this.add(`c|+PokemonDeadChannel|Alright Darth, I'll meet you in the Digimon room!`);
+			} else {
+				this.add(`c|+PokemonDeadChannel|${messages}`);
+			}
+		},
+		onFaint() {
+			let messages = [`This is all ${['i want a lamp', 'platinumCheesecake', 'frostyicelad', 'RustySherrifBadge', 'not a racist', 'Roginald', 'Awesome96Birdy', 'Freddy Kyogre', 'Fragments', 'Irpachuza', 'p90king', 'sharp_claw'][this.random(12)]}'s fault anyways`, `Dude quit being so edgy on a pokemon sim lmfao`, `Why be a king when you can be a God?`, `Back to the shadows I go...`, `Eh, whatever at this point lol`, `luc`, `c7`][this.random(7)];
+			if (messages === 'luc') {
+				this.add(`c| Lucario•1582|/w Lycanium Z, Lol Lyc you died`);
+				this.add(`c|+PokemonDeadChannel|~~Who is this Lycanium Z person you speak of? :^~~`);
+			} else if (messages === 'c7') {
+				this.add(`c| C733937 123|Hey now that you're done, wanna battle me?`);
+				this.add(`c|+PokemonDeadChannel|Sure, sounds like fun c7 :D`);
+			} else {
+				this.add(`c|+PokemonDeadChannel|${messages}`);
+			}
 		},
 	},
 	pre: {

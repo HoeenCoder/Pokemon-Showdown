@@ -1185,47 +1185,6 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Rock",
 	},
-	// Forrce
-	g14: {
-		accuracy: 99,
-		basePower: 80,
-		category: "Special",
-		isNonstandard: "Custom",
-		desc: "This attack is super effective if the foe has any attacks that are super effective against the user. This move becomes a physical attack if the user's Attack is greater than its Special Attack, including stat stage changes. If this attack is not successful, the user loses all of its HP as crash damage. Pokemon with the Magic Guard Ability are unaffected by crash damage.",
-		shortDesc: "SE if foe has SE moves. Physical if Atk > SpA.",
-		id: "g14",
-		name: "G-14",
-		pp: 5,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Fusion Flare', target);
-		},
-		hasCustomRecoil: true,
-		onMoveFail(target, source, move) {
-			this.damage(source.maxhp, source, source, this.getEffect('High Jump Kick'));
-		},
-		onModifyMove(move, pokemon) {
-			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) move.category = 'Physical';
-		},
-		onEffectiveness(typeMod, target, type) {
-			if (!target) return;
-			let source = target.side.foe.active[0];
-			for (const moveSlot of target.moveSlots) {
-				const move = this.getMove(moveSlot.move);
-				const moveType = move.id === 'hiddenpower' ? target.hpType : move.type;
-				if (move.category !== 'Status' && (this.getImmunity(moveType, source) && this.getEffectiveness(moveType, source) > 0)) {
-					return 1;
-				}
-			}
-		},
-		secondary: null,
-		target: "normal",
-		type: "Fire",
-	},
 	// grimAuxiliatrix
 	paintrain: {
 		accuracy: 100,
@@ -2579,6 +2538,47 @@ let BattleMovedex = {
 		},
 		target: "normal",
 		type: "Ghost",
+	},
+	// PokemonDeadChannel
+	ginshxt: {
+		accuracy: 99,
+		basePower: 80,
+		category: "Special",
+		isNonstandard: "Custom",
+		desc: "This attack is super effective if the foe has any attacks that are super effective against the user. This move becomes a physical attack if the user's Attack is greater than its Special Attack, including stat stage changes. If this attack is not successful, the user loses all of its HP as crash damage. Pokemon with the Magic Guard Ability are unaffected by crash damage.",
+		shortDesc: "SE if foe has SE moves. Physical if Atk > SpA.",
+		id: "ginshxt",
+		name: "Gin Shxt",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Fusion Flare', target);
+		},
+		hasCustomRecoil: true,
+		onMoveFail(target, source, move) {
+			this.damage(source.maxhp, source, source, this.getEffect('High Jump Kick'));
+		},
+		onModifyMove(move, pokemon) {
+			if (pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) move.category = 'Physical';
+		},
+		onEffectiveness(typeMod, target, type) {
+			if (!target) return;
+			let source = target.side.foe.active[0];
+			for (const moveSlot of target.moveSlots) {
+				const move = this.getMove(moveSlot.move);
+				const moveType = move.id === 'hiddenpower' ? target.hpType : move.type;
+				if (move.category !== 'Status' && (this.getImmunity(moveType, source) && this.getEffectiveness(moveType, source) > 0)) {
+					return 1;
+				}
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fire",
 	},
 	// pre
 	"refactor": {
