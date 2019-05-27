@@ -215,7 +215,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Ancestral Power',
 				evs: {hp: 252, spd: 4, spe: 252}, nature: 'Timid',
 			},
-			'Elgino10': {
+			'Elgino': {
 				species: 'Mimikyu', ability: 'Gib love pls', item: ['Mimikium Z', 'Ghostium Z', 'Fightinium Z'], gender: '',
 				moves: ['Spectral Thief', 'Play Rough', ['Shadow Sneak', 'Swords Dance']],
 				signatureMove: 'Rough Snuggle',
