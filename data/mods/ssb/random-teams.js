@@ -215,6 +215,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Ancestral Power',
 				evs: {hp: 252, spd: 4, spe: 252}, nature: 'Timid',
 			},
+			'Elgino10': {
+				species: 'Mimikyu', ability: 'Gib love pls', item: ['Mimikium Z', 'Ghostium Z', 'Fightinium Z'], gender: '',
+				moves: ['Spectral Thief', 'Play Rough', ['Shadow Sneak', 'Swords Dance']],
+				signatureMove: 'Rough Snuggle',
+				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Adamant',
+			},
 			'eternally': {
 				species: 'Ducklett', ability: 'Primordial Sea', item: 'Eviolite', gender: 'M',
 				moves: ['Origin Pulse', 'Hurricane', 'Roost'],
