@@ -1018,7 +1018,7 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Psychic",
 	},
-	// Elgino10
+	// Elgino
 	roughsnuggle: {
 		accuracy: 100,
 		basePower: 90,
