@@ -3612,7 +3612,7 @@ let BattleMovedex = {
 			this.useMove("taunt", pokemon);
 		},
 		onHit(source) {
-			return this.heal(source.maxhp / 2, source);
+			this.heal(source.maxhp / 2, source);
 		},
 		secondary: null,
 		target: "self",
