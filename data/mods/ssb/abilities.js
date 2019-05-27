@@ -223,7 +223,7 @@ let BattleAbilities = {
 			}
 		},
 	},
-	// Elgino10
+	// Elgino
 	giblovepls: {
 		desc: "This Pokemon's Defense is raised 1 stage and heals 20% after it is damaged by a contact move.",
 		shortDesc: "Defense +1 and heal 20% after hit by contact move."
