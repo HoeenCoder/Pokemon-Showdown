@@ -1041,7 +1041,7 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fighting",
 		zMovePower: 175,
-	}
+	},
 	// eternally
 	quack: {
 		accuracy: true,
