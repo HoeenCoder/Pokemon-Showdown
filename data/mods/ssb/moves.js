@@ -1032,14 +1032,14 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		onBasePowerPriority: 4,
-		onBasePower(basePower, pokemon, target): {
+		onBasePower(basePower, pokemon, target) {
 			if (target.template.evos.length) {
 				return this.chainModify(2);
 			}
 		},
 		secondary: null,
 		target: "normal",
-		type: "Fighting"
+		type: "Fighting",
 		zMovePower: 175,
 	}
 	// eternally
