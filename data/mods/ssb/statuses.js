@@ -1392,7 +1392,7 @@ let BattleStatuses = {
 		},
 	},
 	// weight doubling volatile for trickster
-	minisingularity: {
+	weightdoubler: {
 		noCopy: true,
 		onStart(pokemon) {
 			this.add('-message', pokemon.name + '\'s weight has doubled.');
