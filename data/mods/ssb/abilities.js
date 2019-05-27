@@ -228,7 +228,7 @@ let BattleAbilities = {
 		desc: "This Pokemon's Defense is raised 1 stage and heals 20% after it is damaged by a contact move.",
 		shortDesc: "Defense +1 and heal 20% after hit by contact move.",
 		onAfterDamage(damage, target, source, effect) {
-			if(effect && effect.flags['contact']) {
+			if (effect && effect.flags['contact']) {
 				this.boost({def: 1});
 				this.heal(target.maxhp / 5);
 			}
