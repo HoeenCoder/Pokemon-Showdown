@@ -1018,6 +1018,30 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Psychic",
 	},
+	// Elgino10
+	roughsnuggle: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		desc: "Power doubles if the target is not fully evolved.",
+		shortDesc: "Power doubles if the target is NFE.",
+		id: "roughsnuggle",
+		name: "Rough Snuggle",
+		isNonstandard: "Custom",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onBasePowerPriority: 4,
+		onBasePower(basePower, pokemon, target): {
+			if (target.template.evos.length) {
+				return this.chainModify(2);
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fighting"
+		zMovePower: 175,
+	}
 	// eternally
 	quack: {
 		accuracy: true,
