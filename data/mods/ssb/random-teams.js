@@ -629,12 +629,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 		pool.splice(pool.indexOf('Forrce Alt'), 1);
 		/** @type {{[type: string]: number}} */
 		let typePool = {};
-		let debug = true;
+		let debug = false;
 		while (pool.length && team.length < 6) {
 			let name = '';
 			if (debug && team.length === 1) {
 				// DEBUG CODE, remove before commiting to the main server
-				name = 'vivalospride'; // Change name to force a set to appear
+				name = ''; // Change name to force a set to appear
 				pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);
