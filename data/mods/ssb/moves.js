@@ -1031,7 +1031,6 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		onBasePowerPriority: 4,
 		onBasePower(basePower, pokemon, target) {
 			if (target.template.evos.length) {
 				return this.chainModify(2);
