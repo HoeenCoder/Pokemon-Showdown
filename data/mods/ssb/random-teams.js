@@ -434,14 +434,14 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'PokemonDeadChannel': {
 				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite Y', gender: '',
 				moves: ['Aeroblast', 'Agility', 'Slack Off'],
-				signatureMove: 'G-14',
+				signatureMove: 'Gin Shxt',
 				evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
 			},
 			// Alternate set for PokemonDeadChannel
 			'PokemonDeadChannel Alt': {
 				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite X', gender: '',
 				moves: ['Dragon Hammer', 'Agility', 'Slack Off'],
-				signatureMove: 'G-14',
+				signatureMove: 'Gin Shxt',
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
 			},
 			'pre': {
