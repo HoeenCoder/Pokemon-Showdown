@@ -588,6 +588,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Continuous 1v1',
 				evs: {hp: 252, spa: 200, spd: 56}, ivs: {atk: 0}, nature: 'Modest',
 			},
+			'vivalospride': {
+				species: 'Araquanid', ability: 'TRASH VIV WEBS', item: 'Wave Incense', gender: 'M',
+				moves: ['Liquidation', 'U-turn', 'Toxic'],
+				signatureMove: 'CEILINGS ABSENT',
+				evs: {hp: 64, atk: 252, spe: 192}, nature: 'Adamant',
+			},
 			'Volco': {
 				species: 'Volcanion', ability: 'Unaware', item: 'Assault Vest', gender: 'M',
 				moves: ["Steam Eruption", "Giga Drain", ["Ice Beam", "Ice Beam", "Earth Power"]],
@@ -623,12 +629,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 		pool.splice(pool.indexOf('Forrce Alt'), 1);
 		/** @type {{[type: string]: number}} */
 		let typePool = {};
-		let debug = false;
+		let debug = true;
 		while (pool.length && team.length < 6) {
 			let name = '';
 			if (debug && team.length === 1) {
 				// DEBUG CODE, remove before commiting to the main server
-				name = ''; // Change name to force a set to appear
+				name = 'vivalospride'; // Change name to force a set to appear
 				pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.sampleNoReplace(pool);
