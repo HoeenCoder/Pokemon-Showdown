@@ -232,7 +232,7 @@ let BattleAbilities = {
 				this.boost({def: 1});
 				this.heal(target.maxhp / 5);
 			}
-		}
+		},
 		id: "giblovepls",
 		name: "Gib love pls",
 	}
