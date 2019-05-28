@@ -62,6 +62,20 @@ let BattleAbilities = {
 			pokemon.heal(pokemon.maxhp / 3);
 		},
 	},
+	// AlphaWittem
+	osolemio: {
+		desc: "If Sun is active, this Pokemon restores 1/16 of its maximum HP, rounded down, at the end of each turn.",
+		shortDesc: "If Sun is active, this Pokemon heals 1/16 of its max HP each turn.",
+		id: "osolemio",
+		name: "O SOLE MIO",
+		isNonstandard: "Custom",
+		onWeather(target, source, effect) {
+			if (effect.id === 'sunnyday') {
+				this.heal(target.maxhp / 16);
+			}
+		},
+	},
+
 	// A Quag To The Past
 	careless: {
 		desc: "This Pokemon blocks certain status moves and instead uses the move against the original user. This Pokemon also ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage.",
@@ -106,19 +120,6 @@ let BattleAbilities = {
 		},
 		effect: {
 			duration: 1,
-		},
-	},
-	// AlphaWittem
-	osolemio: {
-		desc: "If Sun is active, this Pokemon restores 1/16 of its maximum HP, rounded down, at the end of each turn.",
-		shortDesc: "If Sun is active, this Pokemon heals 1/16 of its max HP each turn.",
-		id: "osolemio",
-		name: "O SOLE MIO",
-		isNonstandard: "Custom",
-		onWeather(target, source, effect) {
-			if (effect.id === 'sunnyday') {
-				this.heal(target.maxhp / 16);
-			}
 		},
 	},
 	// Arsenal
