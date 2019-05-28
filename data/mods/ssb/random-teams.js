@@ -219,7 +219,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Mimikyu', ability: 'Gib love pls', item: ['Mimikium Z', 'Ghostium Z', 'Fightinium Z'], gender: '',
 				moves: ['Spectral Thief', 'Play Rough', ['Shadow Sneak', 'Swords Dance']],
 				signatureMove: 'Rough Snuggle',
-				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Adamant',
+				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Adamant', shiny: true,
 			},
 			'eternally': {
 				species: 'Ducklett', ability: 'Primordial Sea', item: 'Eviolite', gender: 'M',
