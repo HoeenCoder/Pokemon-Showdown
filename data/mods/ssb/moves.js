@@ -1031,6 +1031,9 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
+		},
 		onBasePower(basePower, pokemon, target) {
 			if (target.template.evos.length) {
 				return this.chainModify(2);
