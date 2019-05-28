@@ -333,7 +333,7 @@ let BattleMovedex = {
 			onStart(pokemon) {
 				this.add('-singleturn', pokemon, 'move: Murky Ambush');
 			},
-			onBasePowerPriority: 7,
+			onSourceBasePowerPriority: 7,
 			onSourceBasePower() {
 				this.debug('Murky Ambush weaken');
 				return this.chainModify(0.5);
