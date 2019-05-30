@@ -1031,8 +1031,12 @@ let Formats = [
 		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
 		onBegin() {
 			this.add('raw|SUPER STAFF BROS <b>BRAWL</b>!!');
-			this.add('message', 'GET READY FOR THE NEXT BATTLE!');
-			if (this.teamGenerator.allXfix) this.add(`c|&HoeenHero|Oops I dropped my bag of xfix sets sorry!`);
+			if (this.teamGenerator.allXfix) {
+				this.add('message', 'LET\'S ROLL THE DICE!!!');
+				this.add(`c|&HoeenHero|Oops I dropped my bag of xfix sets sorry!`);
+			} else {
+				this.add('message', 'GET READY FOR THE NEXT BATTLE!');
+			}
 			this.add(`raw|<div class='broadcast-green'><b>Wondering what all these custom moves, abilities, and items do?<br />Check out the <a href="https://www.smogon.com/articles/super-staff-bros-brawl" target="_blank">Super Staff Bros Brawl Guide</a> and find out!</b></div>`);
 		},
 		onSwitchInPriority: 100,
