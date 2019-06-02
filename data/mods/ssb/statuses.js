@@ -1207,13 +1207,13 @@ let BattleStatuses = {
 	teclis: {
 		noCopy: true,
 		onStart() {
- 			this.add(`c|@Teclis|Only in darkness can you see the stars.`);
+			this.add(`c|@Teclis|Only in darkness can you see the stars.`);
 		},
 		onSwitchOut() {
- 			this.add(`c|@Teclis|Hope is the last thing to die.`);
+			this.add(`c|@Teclis|Hope is the last thing to die.`);
 		},
 		onFaint() {
- 			this.add(`c|@Teclis|There is no end, only new beginnings.`);
+			this.add(`c|@Teclis|There is no end, only new beginnings.`);
 		},
 	},
 	tennisace: {
