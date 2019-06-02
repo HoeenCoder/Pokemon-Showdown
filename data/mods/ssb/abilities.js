@@ -229,8 +229,8 @@ let BattleAbilities = {
 		shortDesc: "Defense +1 and heal 20% after hit by contact move.",
 		onAfterDamage(damage, target, source, effect) {
 			if (effect && effect.flags['contact']) {
-				this.boost({def: 1});
-				this.heal(target.maxhp / 5);
+				this.boost({def: 1}, target);
+				this.heal(target.maxhp / 5, target);
 			}
 		},
 		id: "giblovepls",
