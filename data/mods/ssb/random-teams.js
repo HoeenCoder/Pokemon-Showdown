@@ -577,10 +577,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'Teclis': {
-				species: 'Darkrai', ability: 'Dark Aura', item: 'Darkrainium Z',gender: 'N',
+				species: 'Darkrai', ability: 'Dark Aura', item: 'Darkrainium Z', gender: 'N',
 				moves: ['Dark Pulse', 'Nasty Plot', 'Earth Power'],
 				signatureMove: 'Dark Void',
-				evs: {spa: 252, spd: 4, spd: 252}, ivs: {atk: 0}, nature: 'Timid',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'tennisace': {
 				species: 'Raikou', ability: 'Levitate', item: 'Life Orb', gender: 'M',
