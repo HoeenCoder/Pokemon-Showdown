@@ -397,7 +397,7 @@ let BattleStatuses = {
 			this.add(`c|@Eien|This game is Bad Civilization...`);
 		},
 	},
-	elgino10: {
+	elgino: {
 		noCopy: true,
 		onStart() {
 			this.add(`c|+Elgino|I'm about to solve this puzzle.`);
