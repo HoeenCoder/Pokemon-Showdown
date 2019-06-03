@@ -3386,6 +3386,7 @@ let BattleMovedex = {
 	// Used for Teclis's z-move
 	nightmarefield: {
 		accuracy: true,
+		basePower: 0,
 		category: "Status",
 		desc: "For 4 turns, Nightmare Field is active. During the effect, sleeping Pokemon suffer from the effects of Nightmare.",
 		shortDesc: "4 turns. Sleeping Pokemon get Nightmare.",
