@@ -1621,7 +1621,7 @@ let BattleMovedex = {
 		onHit(target, source, move) {
 			this.boost({atk: 2}, source, source);
 			target.trySetStatus('par', source);
-			target.addVolatile('trapped', source, move, 'trapper');
+			target.tryTrap();
 		},
 		secondary: null,
 		target: "normal",
