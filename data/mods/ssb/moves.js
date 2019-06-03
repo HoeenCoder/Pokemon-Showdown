@@ -3459,7 +3459,7 @@ let BattleMovedex = {
 		},
 		self: {
 			boosts: {
-				acc: -1,
+				accuracy: -2,
 			},
 		},
 		secondary: null,
