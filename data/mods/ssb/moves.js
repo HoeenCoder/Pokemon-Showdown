@@ -1193,6 +1193,38 @@ let BattleMovedex = {
 		target: "normal",
 		type: "???",
 	},
+	// fart
+	soupstealing7starstrike: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		desc: "If the user is a Kartana, the user's primary type becomes a random type, matching this move.",
+		shortDesc: "Changes user/move type to fire, water, or grass.",
+		id: "soupstealing7starstrike",
+		name: "Soup-Stealing 7-Star Strike",
+		isNonstandard: true,
+		pp: 15,
+		priority: 0,
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Conversion", source);
+		},
+		onModifyMove(move, pokemon) {
+			let types = ['Fire', 'Water', 'Grass'];
+			let randomType = this.sample(types);
+			move.type = randomType;
+			this.add('-start', pokemon, 'typeadd', randomType);
+		},
+		onHit(target, source) {
+			this.add('-anim', source, 'Spectral Thief', target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+	},
 	// Flare
 	distortionblast: {
 		accuracy: 100,
