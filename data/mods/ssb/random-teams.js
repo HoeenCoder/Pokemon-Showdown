@@ -595,6 +595,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Fiery Dance',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'Sunny': {
+				species: 'Sceptile', ability: 'Overgrow', item: 'Sceptilite', gender: '',
+				moves: ['Sludge Wave', 'Draco Meteor', 'Focus Blast'],
+				signatureMove: 'Leaf Blaster',
+				evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
+			},
 			'Teclis': {
 				species: 'Gallade', ability: 'Intimidate', item: 'Galladite', gender: 'M',
 				moves: ['Sacred Sword', 'Psycho Cut', 'Knock Off'],
