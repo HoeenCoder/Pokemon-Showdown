@@ -478,7 +478,7 @@ let BattleStatuses = {
 	fart: {
 		noCopy: true,
 		onStart(target, source) {
-			source.types = ['Fairy', 'Steel'];
+			this.add('-start', source, 'typechange', `Fairy/Steel`);
 			this.add(`c|+fart|it's fukken raw`);
 		},
 		onSwitchOut() {
