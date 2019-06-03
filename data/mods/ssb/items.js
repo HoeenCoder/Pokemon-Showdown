@@ -2,6 +2,18 @@
 
 /**@type {{[k: string]: ModdedItemData}} */
 let BattleItems = {
+	// Aeonic
+	noseiumz: {
+		id: "noseiumz",
+		name: "Noseium Z",
+		isNonstandard: "Custom",
+		onTakeItem: false,
+		zMove: "Shitpost",
+		zMoveFrom: "Fissure",
+		zMoveUser: ["Nosepass"],
+		gen: 7,
+		desc: "If held by a Nosepass with Fissure, it can use Shitpost.",
+	},
 	// E4 Flint
 	magmarizer: {
 		inherit: true,
@@ -37,6 +49,18 @@ let BattleItems = {
 		zMoveUser: ["Victini"],
 		gen: 7,
 		desc: "If held by a Victini with V-create, it can use Blaze of Glory.",
+	},
+	// Pohjis
+	marowakiumz: {
+		id: "marowakiumz",
+		name: "Marowakium Z",
+		isNonstandard: "Custom",
+		onTakeItem: false,
+		zMove: "Great Eqake",
+		zMoveFrom: "Earthquake",
+		zMoveUser: ["Marowak"],
+		gen: 7,
+		desc: "If held by a Marowak with Earthquake, it can use Great Eqake.",
 	},
 	// SamJo
 	thicciniumz: {
@@ -86,18 +110,6 @@ let BattleItems = {
 		zMoveUser: ["Buzzwole"],
 		gen: 7,
 		desc: "If held by a Buzzwole with Drain Punch, it can use Ultra Succ.",
-	},
-	// Tiksi
-	tiksiumz: {
-		id: "tiksiumz",
-		name: "Tiksium Z",
-		isNonstandard: "Custom",
-		onTakeItem: false,
-		zMove: "Devolution Wave",
-		zMoveFrom: "Rock Slide",
-		zMoveUser: ["Cradily"],
-		gen: 7,
-		desc: "If held by a Cradily with Rock Slide, it can use Devolution Wave.",
 	},
 	// XpRienzo
 	"charcoal": {

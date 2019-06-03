@@ -32,6 +32,56 @@ let BattleAbilities = {
 			}
 		},
 	},
+	// Aeonic
+	dummythicc: {
+		desc: "This ability gives the effects of the abilities Fur Coat, Magic Bounce, Infiltrator, and Sturdy.",
+		shortDesc: "Fur Coat + Magic Bounce + Infiltrator + Sturdy",
+		id: "dummythicc",
+		name: "Dummy Thicc",
+		isNonstandard: "Custom",
+		onModifyDefPriority: 6,
+		onModifyDef(def) {
+			return this.chainModify(2);
+		},
+		onModifyMove(move) {
+			move.infiltrates = true;
+		},
+		onTryHitPriority: 1,
+		onTryHit(target, source, move) {
+			if (move.ohko) {
+				this.add('-immune', target, '[from] ability: Sturdy');
+				return null;
+			}
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getActiveMove(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		onAllyTryHitSide(target, source, move) {
+			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getActiveMove(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, this.effectData.target, source);
+			return null;
+		},
+		onDamagePriority: -100,
+		onDamage(damage, target, source, effect) {
+			if (target.hp === target.maxhp && damage >= target.hp && effect && effect.effectType === 'Move') {
+				this.add('-ability', target, 'Sturdy');
+				return target.hp - 1;
+			}
+		},
+		effect: {
+			duration: 1,
+		},
+	},
 	// Aethernum
 	awakening: {
 		desc: "On switch in, Atk and Speed are lowered by -3, while Def and Spdef are increased by 3. At the end of each turn, Atk and Spe get +1 while Def and Spdef get -1.",
@@ -73,6 +123,53 @@ let BattleAbilities = {
 			if (effect.id === 'sunnyday') {
 				this.heal(target.maxhp / 16);
 			}
+		},
+	},
+
+	// A Quag To The Past
+	careless: {
+		desc: "This Pokemon blocks certain status moves and instead uses the move against the original user. This Pokemon also ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage.",
+		shortDesc: "Bounces certain status moves and ignores other Pokemon's stat changes.",
+		id: "careless",
+		name: "Careless",
+		isNonstandard: "Custom",
+		onTryHitPriority: 1,
+		onTryHit(target, source, move) {
+			if (target === source || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getActiveMove(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, target, source);
+			return null;
+		},
+		onAllyTryHitSide(target, source, move) {
+			if (target.side === source.side || move.hasBounced || !move.flags['reflectable']) {
+				return;
+			}
+			let newMove = this.getActiveMove(move.id);
+			newMove.hasBounced = true;
+			newMove.pranksterBoosted = false;
+			this.useMove(newMove, this.effectData.target, source);
+			return null;
+		},
+		onAnyModifyBoost(boosts, target) {
+			let source = this.effectData.target;
+			if (source === target) return;
+			if (source === this.activePokemon && target === this.activeTarget) {
+				boosts['def'] = 0;
+				boosts['spd'] = 0;
+				boosts['evasion'] = 0;
+			}
+			if (target === this.activePokemon && source === this.activeTarget) {
+				boosts['atk'] = 0;
+				boosts['spa'] = 0;
+				boosts['accuracy'] = 0;
+			}
+		},
+		effect: {
+			duration: 1,
 		},
 	},
 	// Arsenal
@@ -223,6 +320,19 @@ let BattleAbilities = {
 			}
 		},
 	},
+	// Elgino
+	giblovepls: {
+		desc: "This Pokemon's Defense is raised 1 stage and heals 20% after it is damaged by a contact move.",
+		shortDesc: "Defense +1 and heal 20% after hit by contact move.",
+		onAfterDamage(damage, target, source, effect) {
+			if (effect && effect.flags['contact']) {
+				this.boost({def: 1}, target);
+				this.heal(target.maxhp / 5, target);
+			}
+		},
+		id: "giblovepls",
+		name: "Gib love pls",
+	},
 	// Flare
 	superillusion: {
 		desc: "When this Pokemon switches in, it appears as the last unfainted Pokemon in its party until it takes supereffective direct damage from another Pokemon's attack. This Pokemon's actual level and HP are displayed instead of those of the mimicked Pokemon.",
@@ -273,6 +383,20 @@ let BattleAbilities = {
 			pokemon.illusion = null;
 		},
 	},
+	// guishark
+	gzguishark: {
+		desc: "Boosts Attack by 1 stage upon switch-in/Mega Evolution.",
+		shortDesc: "Boosts Attack by 1 stage upon switch-in/Mega Evolution.",
+		id: "gzguishark",
+		name: "gz guishark",
+		isNonstandard: "Custom",
+		onSwitchIn(pokemon) {
+			this.boost({atk: 1}, pokemon);
+		},
+		onAfterMega(pokemon) {
+			this.boost({atk: 1}, pokemon);
+		},
+	},
 	// HoeenHero
 	scripter: {
 		desc: "If Scripted Terrain is active, this Pokemon's Speed is doubled, and its moves have 1.5x power.",
@@ -290,6 +414,17 @@ let BattleAbilities = {
 			if (this.field.isTerrain('scriptedterrain')) {
 				return this.chainModify(2);
 			}
+		},
+	},
+	// inactive
+	souleater: {
+		desc: "Attacking moves heal the user 33% of damage dealt.",
+		shortDesc: "Attacking moves heal the user 33% of damage dealt.",
+		id: "souleater",
+		name: "Soul Eater",
+		isNonstandard: "Custom",
+		onModifyMove(move) {
+			move.drain = [1, 3];
 		},
 	},
 	// Kie
@@ -370,8 +505,8 @@ let BattleAbilities = {
 	},
 	// Marshmallon
 	sightseeing: {
-		desc: "If this Pokemon is a Castform, its type changes to the current weather condition's type, except Sandstorm.",
-		shortDesc: "Castform's type changes to the current weather condition's type, except Sandstorm.",
+		desc: "If this Pokemon is a Castform, its type and moves changes to the current weather condition's type, except Sandstorm. The user's Defense, Special Attack, Special Defense, Speed, and Accuracy are all boosted 1.5x during weather.",
+		shortDesc: "Castform's type & moves changes to the current weather condition's type, except Sandstorm.",
 		id: "sightseeing",
 		name: "Sightseeing",
 		isNonstandard: "Custom",
@@ -466,7 +601,7 @@ let BattleAbilities = {
 		onResidualSubOrder: 1,
 		onResidual(pokemon) {
 			if (pokemon.activeTurns) {
-				this.boost({atk: 1, spa: 1, spd: 1});
+				this.boost({atk: 1, def: 1, spd: 1});
 			}
 		},
 	},
@@ -617,6 +752,23 @@ let BattleAbilities = {
 			}
 		},
 	},
+	// Raid
+	tempest: {
+		desc: "This pokemon's Flying type moves have 1.3x base power and will always hit.",
+		shortDesc: "Flying type moves have 1.3x power and always hit.",
+		id: "tempest",
+		name: "Tempest",
+		isNonstandard: "Custom",
+		onBasePowerPriority: 8,
+		onBasePower(basePower, attacker, defender, move) {
+			if (move.type === 'Flying') {
+				return this.chainModify(1.3);
+			}
+		},
+		onModifyMove(move) {
+			if (move.type === 'Flying') move.accuracy = true;
+		},
+	},
 	// Rory Mercury
 	recharge: {
 		desc: "Upon switching out, this Pokemon has its major status condition cured and restores 1/3 of its maximum HP, rounded down. When this Pokemon switches in, if it uses an Electric-type attack on the next turn, that attack's power will be doubled.",
@@ -688,6 +840,10 @@ let BattleAbilities = {
 		id: "solarflare",
 		name: "Solar Flare",
 		isNonstandard: "Custom",
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Solar Flare');
+			this.add('-message', `The light of the sun shields ${pokemon.name} from Rock-type moves!`);
+		},
 		onTryHit(target, source, move) {
 			if (target !== source && move.type === 'Rock') {
 				if (!this.heal(target.maxhp / 4)) {
@@ -755,6 +911,50 @@ let BattleAbilities = {
 		onStart(pokemon) {
 			this.field.addPseudoWeather('gravity', pokemon);
 		},
+	},
+	// vivalospride
+	trashvivwebs: {
+		desc: "This Pokemon's attacking stat is doubled while using a Water-type attack. If a Pokemon uses a Fire-type attack against this Pokemon, that Pokemon's attacking stat is halved when calculating the damage to this Pokemon. This Pokemon cannot be burned. Gaining this Ability while burned cures it. Sets Sticky Web on switching in.",
+		shortDesc: "User's Water power is 2x; can't be burned; Fire power is halved. Sets web.",
+		onStart(pokemon) {
+			this.useMove("stickyweb", pokemon);
+		},
+		onModifyAtkPriority: 5,
+		onSourceModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Fire') {
+				return this.chainModify(0.5);
+			}
+		},
+		onModifySpAPriority: 5,
+		onSourceModifySpA(atk, attacker, defender, move) {
+			if (move.type === 'Fire') {
+				return this.chainModify(0.5);
+			}
+		},
+		onModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Water') {
+				return this.chainModify(2);
+			}
+		},
+		onModifySpA(atk, attacker, defender, move) {
+			if (move.type === 'Water') {
+				return this.chainModify(2);
+			}
+		},
+		onUpdate(pokemon) {
+			if (pokemon.status === 'brn') {
+				this.add('-activate', pokemon, 'ability: Water Bubble');
+				pokemon.cureStatus();
+			}
+		},
+		onSetStatus(status, target, source, effect) {
+			if (status.id !== 'brn') return;
+			if (!effect || !effect.status) return false;
+			this.add('-immune', target, '[from] ability: Water Bubble');
+			return false;
+		},
+		id: "trashvivwebs",
+		name: "TRASH VIV WEBS",
 	},
 	// xJoelituh
 	clubexpertise: {

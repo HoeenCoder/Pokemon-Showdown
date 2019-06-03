@@ -84,6 +84,18 @@ let BattleStatuses = {
 			this.add(`c|@Aelita|CODE: LYOKO . Tower deactivated... Return to the past, now!`);
 		},
 	},
+	aeonic: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+Aeonic|Guys the emoji movie wasn't __that__ bad`);
+		},
+		onSwitchOut() {
+			this.add(`c|+Aeonic|Still better than kie btw`);
+		},
+		onFaint() {
+			this.add(`c|+Aeonic|Don't forget me`);
+		},
+	},
 	aethernum: {
 		noCopy: true,
 		onStart() {
@@ -143,13 +155,13 @@ let BattleStatuses = {
 	aquagtothepast: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+A Quag to The Past|You mess with one Goon, you mess with them all... And they're all here!`);
+			this.add(`c|+A Quag to The Past|The Goons are all here`);
 		},
 		onSwitchOut() {
-			this.add(`c|+A Quag to The Past|Um, no.`);
+			this.add(`c|+A Quag to The Past|um no`);
 		},
 		onFaint() {
-			this.add(`c|+A Quag to The Past|...Wait, this isn't the groupchat, is it...`);
+			this.add(`c|+A Quag to The Past|Wait, this isn't the groupchat...`);
 		},
 	},
 	arcticblast: {
@@ -196,6 +208,18 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|+Arsenal|Wenger Out`);
+		},
+	},
+	averardo: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+Averardo|ECCOMI`);
+		},
+		onSwitchIn() {
+			this.add(`c|+Averardo|Scillato (PA)`);
+		},
+		onFaint() {
+			this.add(`c|+Averardo|Non mi sporcare più i MP`);
 		},
 	},
 	beowulf: {
@@ -337,13 +361,13 @@ let BattleStatuses = {
 	decem: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+Decem|:D`);
+			this.add(`c|%Decem|:D`);
 		},
 		onSwitchOut() {
-			this.add(`c|+Decem|bye`);
+			this.add(`c|%Decem|bye`);
 		},
 		onFaint() {
-			this.add(`c|+Decem|>:(`);
+			this.add(`c|%Decem|>:(`);
 		},
 	},
 	deg: {
@@ -395,6 +419,18 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|@Eien|This game is Bad Civilization...`);
+		},
+	},
+	elgino: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+Elgino|I'm about to solve this puzzle.`);
+		},
+		onSwitchOut() {
+			this.add(`c|+Elgino|uh I need some hints for this one, I'll try again later`);
+		},
+		onFaint() {
+			this.add(`c|+Elgino|Frankly, I'm... ashamed.`);
 		},
 	},
 	eternally: {
@@ -472,6 +508,18 @@ let BattleStatuses = {
 			this.add(`c|@grimAuxiliatrix|**KNOCKOUT!**`);
 		},
 	},
+	guishark: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+guishark|Let's go hunt doodoodoodoodoodoo!`);
+		},
+		onSwitchOut() {
+			this.add(`c|+guishark|Run away doodoodoodoodoodoo!`);
+		},
+		onFaint() {
+			this.add(`c|+guishark|It's the end doodoodoodoodoodoo!`);
+		},
+	},
 	// Cant use the exact name because its a pokemon's name
 	hippopotasuser: {
 		noCopy: true,
@@ -528,6 +576,27 @@ let BattleStatuses = {
 			if (effect.effectType !== 'Move') {
 				return false;
 			}
+		},
+	},
+	inactive: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+inactive|I just can't wait to face you.`);
+		},
+		onSwitchOut() {
+			this.add(`c|+inactive|I'll keep an eye out for you next time...`);
+		},
+		onFaint() {
+			this.add(`c|+inactive|/me turns to stone`);
+		},
+	},
+	irritated: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+irritated|Glhf`);
+		},
+		onFaint() {
+			this.add(`c|+irritated|wtf hax`);
 		},
 	},
 	iyarito: {
@@ -949,6 +1018,18 @@ let BattleStatuses = {
 			this.add(`c|&pre|LAMBS TO THE COSMIC SLAUGHTER!!`);
 		},
 	},
+	pohjis: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+Pohjis|thats pohjis`);
+		},
+		onSwitchOut() {
+			this.add(`c|+Pohjis|ÖPÖOLÖL`);
+		},
+		onFaint() {
+			this.add(`c|+Pohjis|rly enjoyed that`);
+		},
+	},
 	ptoad: {
 		noCopy: true,
 		onStart() {
@@ -1010,6 +1091,10 @@ let BattleStatuses = {
 		onFaint() {
 			this.add(`c|%Rach|I oversold your move`);
 		},
+	},
+	raid: {
+		noCopy: true,
+		// No messages provided
 	},
 	rorymercury: {
 		noCopy: true,
@@ -1235,18 +1320,6 @@ let BattleStatuses = {
 			this.add(`c|+The Leprechaun|This ain't it chief`);
 		},
 	},
-	tiksi: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|@Tiksi|Hakkaa päälle! For the King of the Woodland!`);
-		},
-		onSwitchOut() {
-			this.add(`c|@Tiksi|TI rigged this ok`);
-		},
-		onFaint(pokemon) {
-			this.add(`c|@Tiksi|You rotten ${pokemon.side.foe.name}! I'll send you to the Tiksi branch!`);
-		},
-	},
 	torkool: {
 		noCopy: true,
 		onStart() {
@@ -1283,6 +1356,18 @@ let BattleStatuses = {
 			this.add(`c|%UnleashOurPassion|That's hax! You were supposed to miss`);
 		},
 	},
+	vivalospride: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+vivalospride|bet`);
+		},
+		onSwitchOut() {
+			this.add(`c|+vivalospride|tuh`);
+		},
+		onFaint() {
+			this.add(`c|+vivalospride|THERE IT IS!!`);
+		},
+	},
 	volco: {
 		noCopy: true,
 		onStart() {
@@ -1305,6 +1390,18 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|+Xayah|All out of second dances...`);
+		},
+	},
+	xfix: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|&xfix|destroy the world!`);
+		},
+		onSwitchOut() {
+			this.add(`c|&xfix|brb i need to rethink my plan`);
+		},
+		onFaint() {
+			this.add(`c|&xfix|but the world refused`);
 		},
 	},
 	xjoelituh: {
@@ -1392,7 +1489,7 @@ let BattleStatuses = {
 		},
 	},
 	// weight doubling volatile for trickster
-	minisingularity: {
+	weightdoubler: {
 		noCopy: true,
 		onStart(pokemon) {
 			this.add('-message', pokemon.name + '\'s weight has doubled.');
