@@ -3465,7 +3465,7 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Grass",
-},
+	},
 	// Teclis
 	zekken: {
 		accuracy: true,
