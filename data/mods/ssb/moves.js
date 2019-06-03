@@ -3438,6 +3438,34 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fire",
 	},
+	// Sunny
+	leafblaster: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		desc: "Lowers the user's Accuracy by 1 stage.",
+		shortDesc: "Lowers the user's Acc by 1.",
+		id: "leafblaster",
+		name: "Leaf Blaster",
+		isNonstandard: "Custom",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Leaf Storm", target);
+		},
+		self: {
+			boosts: {
+				acc: -1,
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Grass",
+},
 	// Teclis
 	zekken: {
 		accuracy: true,
