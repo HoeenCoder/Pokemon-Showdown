@@ -343,7 +343,7 @@ let BattleAbilities = {
 				let templateid = pokemon.template.speciesid === 'mimikyutotem' ? 'Mimikyu-Busted-Totem' : 'Mimikyu-Busted';
 				pokemon.formeChange(templateid, this.effect, true);
 			}
-},
+		},
 		onAfterDamage(damage, target, source, effect) {
 			if (effect && effect.flags['contact']) {
 				this.boost({def: 1}, target);
