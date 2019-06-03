@@ -1202,7 +1202,7 @@ let BattleMovedex = {
 		shortDesc: "Changes user/move type to fire, water, or grass.",
 		id: "soupstealing7starstrike",
 		name: "Soup-Stealing 7-Star Strike",
-		isNonstandard: true,
+		isNonstandard: "Custom",
 		pp: 15,
 		priority: 0,
 		onTryMovePriority: 100,
