@@ -2719,16 +2719,40 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Ghost",
 	},
+	// Pohjis
+	greateqake: {
+		accuracy: true,
+		basePower: 200,
+		category: "Physical",
+		desc: "No additional effects.",
+		shortDesc: "No additional effects.",
+		id: "greateqake",
+		name: "Great Eqake",
+		isNonstandard: "Custom",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Tectonic Rage", target);
+		},
+		isZ: "marowakiumz",
+		secondary: null,
+		target: "normal",
+		type: "Ground",
+	},
 	// PokemonDeadChannel
-	ginshxt: {
+	plugwalk: {
 		accuracy: 99,
 		basePower: 80,
 		category: "Special",
 		isNonstandard: "Custom",
 		desc: "This attack is super effective if the foe has any attacks that are super effective against the user. This move becomes a physical attack if the user's Attack is greater than its Special Attack, including stat stage changes. If this attack is not successful, the user loses all of its HP as crash damage. Pokemon with the Magic Guard Ability are unaffected by crash damage.",
 		shortDesc: "SE if foe has SE moves. Physical if Atk > SpA.",
-		id: "ginshxt",
-		name: "Gin Shxt",
+		id: "plugwalk",
+		name: "Plug Walk",
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
@@ -2812,30 +2836,6 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Psychic",
-	},
-	// Pohjis
-	greateqake: {
-		accuracy: true,
-		basePower: 200,
-		category: "Physical",
-		desc: "No additional effects.",
-		shortDesc: "No additional effects.",
-		id: "greateqake",
-		name: "Great Eqake",
-		isNonstandard: "Custom",
-		pp: 1,
-		priority: 0,
-		flags: {},
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, "Tectonic Rage", target);
-		},
-		isZ: "marowakiumz",
-		secondary: null,
-		target: "normal",
-		type: "Ground",
 	},
 	// ptoad
 	lilypadshield: {

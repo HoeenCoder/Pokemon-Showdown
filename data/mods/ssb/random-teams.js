@@ -489,14 +489,14 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'PokemonDeadChannel': {
 				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite Y', gender: '',
 				moves: ['Aeroblast', 'Agility', 'Slack Off'],
-				signatureMove: 'Gin Shxt',
+				signatureMove: 'Plug Walk',
 				evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
 			},
 			// Alternate set for PokemonDeadChannel
 			'PokemonDeadChannel Alt': {
 				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite X', gender: '',
 				moves: ['Dragon Hammer', 'Agility', 'Slack Off'],
-				signatureMove: 'Gin Shxt',
+				signatureMove: 'Plug Walk',
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
 			},
 			'pre': {
@@ -706,7 +706,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			}
 			let ssbSet = sets[name];
 
-			if (name === 'PokemonDeadChannel' && Math.Round(this.random())) {
+			if (name === 'PokemonDeadChannel' && Math.round(this.random())) {
 				// Swap to the alternate set, use the same name
 				ssbSet = sets['PokemonDeadChannel Alt'];
 			}

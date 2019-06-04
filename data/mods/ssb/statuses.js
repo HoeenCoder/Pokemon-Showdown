@@ -981,41 +981,25 @@ let BattleStatuses = {
 	pokemondeadchannel: {
 		noCopy: true,
 		onStart() {
-			let messages = [`This will be fun :p`, `Esketit`, `Well then...`, `Uh, what now?`, `Swagn check Z Room`, `guess im needed, thats a first`, `free ${['Polkadot Bow', 'Pyukumuku'][this.random(2)]}`, `You interrupted my demon ritual for a stupid game?`, `No limit to where I can take it`][this.random(9)];
-			this.add(`c|+PokemonDeadChannel|${messages}`);
+			this.add(`c|+PokemonDeadChannel|づ∧＿∧づﾀﾞﾗﾗﾗ`);
+			this.add(`c|+PokemonDeadChannel|づ｀･ω･)づ∴“`);
+			this.add(`c|+PokemonDeadChannel|づづづづづ∴≒`);
+			this.add(`c|+PokemonDeadChannel|づづづづづづ∵`);
+			this.add(`c|+PokemonDeadChannel|(_／⌒ヽ_)∴`);
+			this.add(`c|+PokemonDeadChannel|ORA ORA ORA ORA ORA !!!`);
 		},
 		onSwitchOut() {
-			let messages = ['shoddy wifi smh', 'oh', 'wait what did I do?', 'could be worse', 'lol bye', 'Why is SSBB crashing again? AAAAAAAAAAAA', 'It seems I am needed elsewhere', 'darth'][this.random(8)];
-			if (messages === 'darth') {
-				this.add(`c|+Darthikyu|PokemonDeadChannel, The Digital World needs you!`);
-				this.add(`c|+PokemonDeadChannel|Alright Darth, I'll meet you in the Digimon room!`);
-			} else {
-				this.add(`c|+PokemonDeadChannel|${messages}`);
-			}
+			this.add(`c|+PokemonDeadChannel|Bye Losers`);
+			this.add(`c|+PokemonDeadChannel|　＜⌒／ヽ-､_＿_`);
+			this.add(`c|+PokemonDeadChannel|／＜_/＿＿＿＿／`);
+			this.add(`c|+PokemonDeadChannel|￣￣￣￣￣￣￣`);
 		},
 		onFaint() {
-			let messages = [`This is all ${['i want a lamp', 'platinumCheesecake', 'frostyicelad', 'RustySherrifBadge', 'not a racist', 'Roginald', 'Awesome96Birdy', 'Freddy Kyogre', 'Fragments', 'Irpachuza', 'p90king', 'sharp_claw'][this.random(12)]}'s fault anyways`, `Dude quit being so edgy on a pokemon sim lmfao`, `Why be a king when you can be a God?`, `Back to the shadows I go...`, `Eh, whatever at this point lol`, `luc`, `c7`][this.random(7)];
-			if (messages === 'luc') {
-				this.add(`c| Lucario•1582|/w Lycanium Z, Lol Lyc you died`);
-				this.add(`c|+PokemonDeadChannel|~~Who is this Lycanium Z person you speak of? :^~~`);
-			} else if (messages === 'c7') {
-				this.add(`c| C733937 123|Hey now that you're done, wanna battle me?`);
-				this.add(`c|+PokemonDeadChannel|Sure, sounds like fun c7 :D`);
-			} else {
-				this.add(`c|+PokemonDeadChannel|${messages}`);
-			}
-		},
-	},
-	pre: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|&pre|let's go, in and out, 20 minute adventure`);
-		},
-		onSwitchOut() {
-			this.add(`c|&pre|sometimes science is more art than science`);
-		},
-		onFaint() {
-			this.add(`c|&pre|LAMBS TO THE COSMIC SLAUGHTER!!`);
+			this.add(`c|+PokemonDeadChannel|∧,,,∧`);
+			this.add(`c|+PokemonDeadChannel|( ⁻ω⁻)`);
+			this.add(`c|+PokemonDeadChannel|( つとﾉ  旦`);
+			this.add(`c|+PokemonDeadChannel|￣￣￣￣￣`);
+			this.add(`c|+PokemonDeadChannel|I hate you all`);
 		},
 	},
 	pohjis: {
@@ -1028,6 +1012,18 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|+Pohjis|rly enjoyed that`);
+		},
+	},
+	pre: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|&pre|let's go, in and out, 20 minute adventure`);
+		},
+		onSwitchOut() {
+			this.add(`c|&pre|sometimes science is more art than science`);
+		},
+		onFaint() {
+			this.add(`c|&pre|LAMBS TO THE COSMIC SLAUGHTER!!`);
 		},
 	},
 	ptoad: {
