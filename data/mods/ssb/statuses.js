@@ -991,7 +991,7 @@ let BattleStatuses = {
 		onSwitchOut() {
 			this.add(`c|+PokemonDeadChannel|Bye Losers`);
 			this.add(`c|+PokemonDeadChannel|　＜⌒／ヽ-､_＿_`);
-			this.add(`c|+PokemonDeadChannel|／＜_/＿＿＿＿／`);
+			this.add(`c|+PokemonDeadChannel|／＜_/＿＿＿＿／`); // eslint-disable-line no-irregular-whitespace
 			this.add(`c|+PokemonDeadChannel|￣￣￣￣￣￣￣`);
 		},
 		onFaint() {
