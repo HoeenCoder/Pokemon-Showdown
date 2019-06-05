@@ -690,7 +690,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 		pool.splice(pool.indexOf('Forrce Alt'), 1);
 		/** @type {{[type: string]: number}} */
 		let typePool = {};
-		let debug = false;
+		let debug = true;
 		let depth = 0;
 		if (options.inBattle) this.allXfix = false;
 		while (pool.length && team.length < 6) {
@@ -699,7 +699,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let name = '';
 			if (debug && team.length === 1 && !options.inBattle) {
 				// DEBUG CODE, remove before commiting to the main server
-				name = ''; // Change name to force a set to appear
+				name = 'Arsenal'; // Change name to force a set to appear
 				pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.allXfix ? 'xfix' : this.sampleNoReplace(pool);
@@ -710,10 +710,6 @@ class RandomStaffBrosTeams extends RandomTeams {
 				ssbSet = sets['Forrce Alt'];
 			}
 			if (!this.allXfix) {
-				if (team.length == 5 && ssbSet.ability.includes("Illusion")) {
-					// reject
-					continue;
-				}
 				// Enforce typing limits
 				let types = this.getTemplate(ssbSet.species).types;
 				let rejected = false;
@@ -767,7 +763,13 @@ class RandomStaffBrosTeams extends RandomTeams {
 				set.moves.push(move);
 			}
 			set.moves.push(ssbSet.signatureMove);
-			if (name === 'Arsenal' && set.item.onPlate) set.species = 'Arceus-' + set.item.onPlate;
+			if (team.length === 5 && set.ability.includes("Illusion")) {
+				// reject
+				continue;
+			}
+			if (name === 'Arsenal' && this.getItem(set.item).onPlate) {
+				set.species = 'Arceus-' + this.getItem(set.item).onPlate;
+			}
 			if (name === 'The Immortal' && set.item === 'Choice Scarf') set.moves[3] = 'Superpower';
 			if (name === 'irritated' && !set.moves.includes('Double Iron Bash')) set.moves[this.random(3)] = 'Double Iron Bash';
 			team.push(set);
