@@ -710,6 +710,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 				ssbSet = sets['Forrce Alt'];
 			}
 			if (!this.allXfix) {
+				if (team.length == 5 && ssbSet.ability.includes("Illusion")) {
+					// reject
+					continue;
+				}
 				// Enforce typing limits
 				let types = this.getTemplate(ssbSet.species).types;
 				let rejected = false;
@@ -763,6 +767,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				set.moves.push(move);
 			}
 			set.moves.push(ssbSet.signatureMove);
+			if (name === 'Arsenal' && set.item.onPlate) set.species = 'Arceus-' + set.item.onPlate;
 			if (name === 'The Immortal' && set.item === 'Choice Scarf') set.moves[3] = 'Superpower';
 			if (name === 'irritated' && !set.moves.includes('Double Iron Bash')) set.moves[this.random(3)] = 'Double Iron Bash';
 			team.push(set);
