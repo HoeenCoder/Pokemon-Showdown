@@ -152,6 +152,18 @@ let BattleStatuses = {
 			this.add(`c|+Amaluna|Don't talk to me unless you're famous`);
 		},
 	},
+	andrew: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+Andrew|Hah! You better have BURN HEAL!`);
+		},
+		onSwitchOut() {
+			this.add(`c|+Andrew|brb kuncing`);
+		},
+		onFaint() {
+			this.add(`c|+Andrew|avenge me c.kilgannon!`);
+		},
+	},
 	aquagtothepast: {
 		noCopy: true,
 		onStart() {

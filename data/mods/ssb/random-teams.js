@@ -106,6 +106,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Turismo Splash',
 				evs: {hp: 252, spa: 252, spd: 4}, ivs: {atk: 0, spe: 0}, nature: 'Quiet',
 			},
+			'Andrew': {
+				species: 'Quilava', ability: 'Volcanic Tempest', item: 'Eviolite', gender: 'M',
+				moves: ['Quiver Dance', 'Seed Flare', 'Fiery Dance'],
+				signatureMove: 'Back Off! GRRR!',
+				evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+			},
 			'A Quag to The Past': {
 				species: 'Quagsire', ability: 'Careless', item: 'Leftovers', gender: 'M',
 				moves: ['Recover', 'Toxic', 'Scald'],
