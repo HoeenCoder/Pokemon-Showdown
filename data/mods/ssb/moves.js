@@ -421,7 +421,7 @@ let BattleMovedex = {
 					return this.chainModify(2);
 				}
 			},
-			onDamage(basePower, attacker, defender, move) {
+			onAnyModifyDamage(basePower, attacker, defender, move) {
 				if (move.type === 'Fire') {
 					return this.chainModify(1.5);
 				}
