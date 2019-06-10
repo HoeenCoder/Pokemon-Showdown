@@ -1350,7 +1350,7 @@ let BattleMovedex = {
 					spd: -1,
 				},
 			},
-  		],
+		],
 		target: "normal",
 		type: "Fire",
 	},
