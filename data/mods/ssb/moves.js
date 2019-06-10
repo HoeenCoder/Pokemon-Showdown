@@ -1219,7 +1219,7 @@ let BattleMovedex = {
 		},
 		onHit(target, source) {
 			this.add('-anim', source, 'Spectral Thief', target);
-			if (Math.floor(Math.random() * 2) === 0) {
+			if (Math.round(this.random())) {
 				this.add(`c|+fart|I hl on soup`);
 			} else {
 				this.add(`c|+fart|did someone say soup?`);
