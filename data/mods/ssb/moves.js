@@ -396,7 +396,7 @@ let BattleMovedex = {
 		basePower: 100,
 		accuracy: 100,
 		category: "Special",
-		desc: "This move supresses the opponent's ability and 70% chance to boost the user's Special Attack and Speed by one stage.",
+		desc: "This move supresses the opponent's ability and has a 70% chance to boost the user's Special Attack and Speed by one stage.",
 		shortDesc: "70% User's SpA & Spe +1. Suppresses foe's ability.",
 		id: "flock",
 		name: "Flock",
