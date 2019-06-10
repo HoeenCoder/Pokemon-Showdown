@@ -2119,33 +2119,33 @@ let BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		flags: {},
-		onTryMove: function () {
+		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onModifyMove: function (move, pokemon) {
+		onModifyMove(move, pokemon) {
 			move.type = pokemon.types[1];
 		},
 		onPrepareHit(target, source) {
 			let move = 'Tri Attack';
 			switch (source.types[1]) {
-				case 'Ghost':
-					move = 'Moongeist Beam';
-					break;
-				case 'Flying':
-					move = 'Hurricane';
-					break;
-				case 'Fire':
-					move = 'Blast Burn';
-					break;
-				case 'Water':
-					move = 'Hydro Cannon';
-					break;
-				case 'Grass':
-					move = 'Frenzy Plant';
-					break;
-				case 'Ice':
-					move = 'Sheer Cold';
-					break;
+			case 'Ghost':
+				move = 'Moongeist Beam';
+				break;
+			case 'Flying':
+				move = 'Hurricane';
+				break;
+			case 'Fire':
+				move = 'Blast Burn';
+				break;
+			case 'Water':
+				move = 'Hydro Cannon';
+				break;
+			case 'Grass':
+				move = 'Frenzy Plant';
+				break;
+			case 'Ice':
+				move = 'Sheer Cold';
+				break;
 			}
 			this.add('-anim', source, move, target);
 		},
