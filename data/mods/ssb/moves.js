@@ -296,7 +296,7 @@ let BattleMovedex = {
 		secondary: null,
 		target: "self",
 		type: "Psychic",
-	},	
+	},
 	// Andrew
 	backoffgrrr: {
 		accuracy: true,
