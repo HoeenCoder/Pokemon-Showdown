@@ -1198,7 +1198,7 @@ let BattleMovedex = {
 		accuracy: 100,
 		basePower: 90,
 		category: "Physical",
-		desc: "If the user is a Kartana, the user's primary type becomes a random type, matching this move.",
+		desc: "The user's primary type becomes a random type, matching this move.",
 		shortDesc: "Changes user/move type to fire, water, or grass.",
 		id: "soupstealing7starstrike",
 		name: "Soup-Stealing 7-Star Strike",
@@ -1215,6 +1215,7 @@ let BattleMovedex = {
 			let types = ['Fire', 'Water', 'Grass'];
 			let randomType = this.sample(types);
 			move.type = randomType;
+			pokemon.addType(randomType);
 			this.add('-start', pokemon, 'typeadd', randomType);
 		},
 		onHit(target, source) {
