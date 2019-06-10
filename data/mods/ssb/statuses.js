@@ -435,7 +435,7 @@ let BattleStatuses = {
 		onDamagePriority: 1,
 		onDamage(damage, target, source, effect) {
 			if (effect && effect.effectType === 'Move' && ['mimikyu', 'mimikyutotem'].includes(target.template.speciesid) && !target.transformed) {
-				this.add('-activate', target, 'ability: Gib love pls');
+				this.add('-activate', target, 'ability: Disguise');
 				this.effectData.busted = true;
 				return 0;
 			}
