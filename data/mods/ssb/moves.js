@@ -1166,7 +1166,7 @@ let BattleMovedex = {
 		accuracy: 100,
 		basePower: 90,
 		category: "Physical",
-		desc: "The user's primary type becomes a random type, matching this move.",
+		desc: "This move is either a Water, Fire, or Grass type move. The selected type is added to the user of this move.",
 		shortDesc: "Changes user/move type to fire, water, or grass.",
 		id: "soupstealing7starstrike",
 		name: "Soup-Stealing 7-Star Strike",
