@@ -1321,7 +1321,7 @@ let BattleMovedex = {
 	},
 	// Gallant Spear
 	stormassaultogs: {
-		accuracy: 100,
+		accuracy: 90,
 		basePower: 20,
 		multihit: 3,
 		category: "Special",
