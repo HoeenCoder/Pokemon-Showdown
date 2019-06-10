@@ -109,7 +109,7 @@ let BattleScripts = {
 	},
 	// Modded to allow unlimited mega evos
 	runMegaEvo(pokemon) {
-		var templateid;
+		let templateid;
 		if (pokemon.name === 'Kris') {
 			let rotoms = ['Rotom-Fan', 'Rotom-Frost', 'Rotom-Heat', 'Rotom-Mow', 'Rotom-Wash'];
 			templateid = rotoms[Math.floor(this.random() * rotoms.length)];
