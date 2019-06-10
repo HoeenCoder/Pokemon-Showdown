@@ -350,11 +350,9 @@ let BattleMovedex = {
 				return null;
 			},
 			onHit(target, source, move) {
-				if (move.isZPowered) {
-					this.add('-anim', target, "Scary Face", source);
-					this.add('-anim', target, "Roar", source);
-					source.forceSwitchFlag = true;
-				}
+				this.add('-anim', target, "Scary Face", source);
+				this.add('-anim', target, "Roar", source);
+				source.forceSwitchFlag = true;
 			},
 		},
 		secondary: null,
