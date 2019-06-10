@@ -392,7 +392,7 @@ let BattleAbilities = {
 		isNonstandard: "Custom",
 		onSwitchIn(pokemon) {
 			this.add('-activate', pokemon, 'ability: Trombe!');
-			if (Math.floor(Math.random() * 2) === 0) {
+			if (Math.round(this.random())) {
 				pokemon.side.addSideCondition('lightscreen');
 			} else {
 				pokemon.side.addSideCondition('reflect');
