@@ -100,17 +100,17 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Neko Veil',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
-			'Amaluna': {
-				species: 'Octillery', ability: 'Neuroforce', item: 'Expert Belt', gender: 'F',
-				moves: ['Surf', 'Fire Blast', 'Freeze-Dry'],
-				signatureMove: 'Turismo Splash',
-				evs: {hp: 252, spa: 252, spd: 4}, ivs: {atk: 0, spe: 0}, nature: 'Quiet',
-			},
 			'A Quag to The Past': {
 				species: 'Quagsire', ability: 'Careless', item: 'Leftovers', gender: 'M',
 				moves: ['Recover', 'Toxic', 'Scald'],
 				signatureMove: 'Murky Ambush',
 				evs: {hp: 252, def: 252, spd: 4}, ivs: {spe: 0}, nature: 'Relaxed',
+			},
+			'a random duck': {
+				species: 'Swanna', ability: 'Volt Absorb', item: 'Safety Goggles', gender: 'M',
+				moves: ['Nasty Plot', 'Steam Eruption', 'Oblivion Wing'],
+				signatureMove: 'Flock',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
 			},
 			'Arcticblast': {
 				species: 'Garbodor', ability: 'Analytic', item: 'Assault Vest', gender: 'M',
@@ -258,8 +258,8 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {atk: 252, spe: 252, def: 4}, nature: 'Jolly', shiny: true,
 			},
 			'Flare': {
-				species: 'Zoroark', ability: 'Super Illusion', item: 'Life Orb', gender: 'N',
-				moves: ['Psyshock', 'Nasty Plot', 'Sludge Bomb'],
+				species: 'Zoroark', ability: 'Super Illusion', item: 'Choice Scarf', gender: 'N',
+				moves: ['Fleur Cannon', 'Parting Shot', 'Sludge Bomb'],
 				signatureMove: 'Distortion Blast',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
 			},
@@ -268,19 +268,6 @@ class RandomStaffBrosTeams extends RandomTeams {
 				moves: ['Earthquake', 'Explosion', 'Iron Head'],
 				signatureMove: 'Rock Slide',
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
-			},
-			'Forrce': {
-				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite Y', gender: '',
-				moves: ['Aeroblast', 'Agility', 'Slack Off'],
-				signatureMove: 'G-14',
-				evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
-			},
-			// Alternate set for Forrce
-			'Forrce Alt': {
-				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite X', gender: '',
-				moves: ['Dragon Hammer', 'Agility', 'Slack Off'],
-				signatureMove: 'G-14',
-				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
 			},
 			'Gallant Spear': {
 				species: 'Rapidash', ability: 'Trombe!', item: ['Eject Button', 'Choice Specs'], gender: 'M',
@@ -505,6 +492,19 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Earthquake',
 				evs: {hp: 252, atk: 252, spd: 4}, ivs: {spe: 0}, nature: 'Brave',
 			},
+			'PokemonDeadChannel': {
+				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite Y', gender: '',
+				moves: ['Aeroblast', 'Agility', 'Slack Off'],
+				signatureMove: 'Plug Walk',
+				evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
+			},
+			// Alternate set for PokemonDeadChannel
+			'PokemonDeadChannel Alt': {
+				species: 'Charizard', ability: 'Magic Guard', item: 'Charizardite X', gender: '',
+				moves: ['Dragon Hammer', 'Agility', 'Slack Off'],
+				signatureMove: 'Plug Walk',
+				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
+			},
 			'pre': {
 				species: 'Deoxys', ability: 'Optimize', item: 'Rocky Helmet', gender: 'N',
 				moves: ['Psycho Boost', 'Recover', 'Extreme Speed'],
@@ -601,11 +601,17 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Fiery Dance',
 				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
+			'Sunny': {
+				species: 'Sceptile', ability: 'Overgrow', item: 'Sceptilite', gender: 'M',
+				moves: ['Sludge Wave', 'Draco Meteor', 'Focus Blast'],
+				signatureMove: 'Leaf Blaster',
+				evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
+			},
 			'Teclis': {
-				species: 'Gallade', ability: 'Intimidate', item: 'Galladite', gender: 'M',
-				moves: ['Sacred Sword', 'Psycho Cut', 'Knock Off'],
-				signatureMove: 'Zekken',
-				evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', shiny: true,
+				species: 'Darkrai', ability: 'Dark Aura', item: 'Darkrainium Z', gender: 'N',
+				moves: ['Dark Pulse', 'Nasty Plot', 'Earth Power'],
+				signatureMove: 'Dark Void',
+				evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 			},
 			'tennisace': {
 				species: 'Raikou', ability: 'Levitate', item: 'Life Orb', gender: 'M',
@@ -693,7 +699,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 		};
 		let pool = Object.keys(sets);
-		pool.splice(pool.indexOf('Forrce Alt'), 1);
+		pool.splice(pool.indexOf('PokemonDeadChannel Alt'), 1);
 		/** @type {{[type: string]: number}} */
 		let typePool = {};
 		let debug = false;
@@ -711,9 +717,10 @@ class RandomStaffBrosTeams extends RandomTeams {
 				name = this.allXfix ? 'xfix' : this.sampleNoReplace(pool);
 			}
 			let ssbSet = sets[name];
-			if (name === 'Forrce' && Math.round(this.random())) {
+
+			if (name === 'PokemonDeadChannel' && Math.round(this.random())) {
 				// Swap to the alternate set, use the same name
-				ssbSet = sets['Forrce Alt'];
+				ssbSet = sets['PokemonDeadChannel Alt'];
 			}
 			if (!this.allXfix) {
 				// Enforce typing limits
