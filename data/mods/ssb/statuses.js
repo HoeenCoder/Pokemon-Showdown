@@ -140,18 +140,6 @@ let BattleStatuses = {
 			this.add(`c|@AlphaWittem|PER LA PATRIA!`);
 		},
 	},
-	amaluna: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Amaluna|Please no casual chatting here`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Amaluna|It's not too late, it's never too late`);
-		},
-		onFaint() {
-			this.add(`c|+Amaluna|Don't talk to me unless you're famous`);
-		},
-	},
 	aquagtothepast: {
 		noCopy: true,
 		onStart() {
@@ -510,34 +498,6 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|%FOMG|Rock in peace...`);
-		},
-	},
-	forrce: {
-		noCopy: true,
-		onStart() {
-			let messages = [`This will be fun :p`, `Esketit`, `Well then...`, `Uh, what now?`, `Swagn check Z Room`, `I'm busy ${['coding', 'writing'][this.random(2)]} right now, but if it is your command then so be it...`, `guess im needed, thats a first`, `OwO whats this?`, `You interrupted my demon ritual for a stupid game?`, `No limit to where I can take it`][this.random(11)];
-			this.add(`c|+Forrce|${messages}`);
-		},
-		onSwitchOut() {
-			let messages = ['ok', 'Sorry, I gotta bee are bee', 'wait what did I do?', 'could be worse', 'lol bye', 'Why is SSBB crashing again? AAAAAAAAAAAA', 'It seems I am needed elsewhere', 'darth'][this.random(8)];
-			if (messages === 'darth') {
-				this.add(`c|+Darthikyu|Forrce, The Digital World needs you!`);
-				this.add(`c|+Forrce|Alright Darth, I'll meet you in the Digimon room!`);
-			} else {
-				this.add(`c|+Forrce|${messages}`);
-			}
-		},
-		onFaint() {
-			let messages = [`This is all ${['i want a lamp', 'platinumCheesecake', 'frostyicelad', 'RustySherrifBadge', 'not a racist', 'Roginald', 'Awesome96Birdy', 'Freddy Kyogre', 'Fragments', 'Irpachuza', 'p90king'][this.random(11)]}'s fault anyways`, `Dude quit being so edgy on a pokemon sim lmfao`, `Why be a king when you can be a God?`, `Back to the shadows I go...`, `Eh, whatever at this point lol`, `luc`, `c7`][this.random(7)];
-			if (messages === 'luc') {
-				this.add(`c| Lucario•1582|/w Lycanium Z, Lol Lyc you died`);
-				this.add(`c|+Forrce|~~Who is this Lycanium Z person you speak of? :^~~`);
-			} else if (messages === 'c7') {
-				this.add(`c| C733937 123|Hey now that you're done, wanna battle me?`);
-				this.add(`c|+Forrce|Sure, sounds like fun c7 :D`);
-			} else {
-				this.add(`c|+Forrce|${messages}`);
-			}
 		},
 	},
 	grimauxiliatrix: {
@@ -1019,16 +979,28 @@ let BattleStatuses = {
 			this.add(`c|@pluviometer|${["Follow SmogonU on Facebook! https://www.facebook.com/SmogonU", "Follow SmogonU on Twitter! https://twitter.com/SmogonU"][this.random(2)]}`);
 		},
 	},
-	pre: {
+	pokemondeadchannel: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|&pre|let's go, in and out, 20 minute adventure`);
+			this.add(`c|+PokemonDeadChannel|づ∧＿∧づﾀﾞﾗﾗﾗ`);
+			this.add(`c|+PokemonDeadChannel|づ｀･ω･)づ∴“`);
+			this.add(`c|+PokemonDeadChannel|づづづづづ∴≒`);
+			this.add(`c|+PokemonDeadChannel|づづづづづづ∵`);
+			this.add(`c|+PokemonDeadChannel|(_／⌒ヽ_)∴`);
+			this.add(`c|+PokemonDeadChannel|ORA ORA ORA ORA ORA !!!`);
 		},
 		onSwitchOut() {
-			this.add(`c|&pre|sometimes science is more art than science`);
+			this.add(`c|+PokemonDeadChannel|Bye Losers`);
+			this.add(`c|+PokemonDeadChannel|　＜⌒／ヽ-､_＿_`); // eslint-disable-line no-irregular-whitespace
+			this.add(`c|+PokemonDeadChannel|／＜_/＿＿＿＿／`);
+			this.add(`c|+PokemonDeadChannel|￣￣￣￣￣￣￣`);
 		},
 		onFaint() {
-			this.add(`c|&pre|LAMBS TO THE COSMIC SLAUGHTER!!`);
+			this.add(`c|+PokemonDeadChannel|∧,,,∧`);
+			this.add(`c|+PokemonDeadChannel|( ⁻ω⁻)`);
+			this.add(`c|+PokemonDeadChannel|( つとﾉ  旦`);
+			this.add(`c|+PokemonDeadChannel|￣￣￣￣￣`);
+			this.add(`c|+PokemonDeadChannel|I hate you all`);
 		},
 	},
 	pohjis: {
@@ -1041,6 +1013,18 @@ let BattleStatuses = {
 		},
 		onFaint() {
 			this.add(`c|+Pohjis|rly enjoyed that`);
+		},
+	},
+	pre: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|&pre|let's go, in and out, 20 minute adventure`);
+		},
+		onSwitchOut() {
+			this.add(`c|&pre|sometimes science is more art than science`);
+		},
+		onFaint() {
+			this.add(`c|&pre|LAMBS TO THE COSMIC SLAUGHTER!!`);
 		},
 	},
 	ptoad: {
@@ -1256,13 +1240,13 @@ let BattleStatuses = {
 	teclis: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Teclis|Sometimes you have to fight to get your point across.`);
+			this.add(`c|@Teclis|Only in darkness can you see the stars.`);
 		},
 		onSwitchOut() {
-			this.add(`c|@Teclis|You deserve a break.`);
+			this.add(`c|@Teclis|Hope is the last thing to die.`);
 		},
 		onFaint() {
-			this.add(`c|@Teclis|I'm convinced !`);
+			this.add(`c|@Teclis|There is no end, only new beginnings.`);
 		},
 	},
 	tennisace: {
