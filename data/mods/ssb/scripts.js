@@ -109,7 +109,13 @@ let BattleScripts = {
 	},
 	// Modded to allow unlimited mega evos
 	runMegaEvo(pokemon) {
-		const templateid = pokemon.canMegaEvo || pokemon.canUltraBurst;
+		var templateid;
+		if (pokemon.name === 'Kris') {
+			let rotoms = ['Rotom-Fan', 'Rotom-Frost', 'Rotom-Heat', 'Rotom-Mow', 'Rotom-Wash'];
+			templateid = rotoms[Math.floor(this.random() * rotoms.length)];
+		} else {
+			templateid = pokemon.canMegaEvo || pokemon.canUltraBurst;
+		}
 		if (!templateid) return false;
 		const side = pokemon.side;
 
