@@ -41,15 +41,6 @@ let BattlePokedex = {
 		// Doubled def, spa, spd and spe
 		baseStats: {hp: 62, atk: 44, def: 100, spa: 88, spd: 100, spe: 110},
 	},
-	// Forrce
-	charizardmegax: {
-		inherit: true,
-		abilities: {0: 'Moxie'},
-	},
-	charizardmegay: {
-		inherit: true,
-		abilities: {0: 'Soul Heart'},
-	},
 	// grimAuxiliatrix
 	aggronmega: {
 		inherit: true,
@@ -101,6 +92,15 @@ let BattlePokedex = {
 		abilities: {0: 'Tough Claws'},
 		types: ['Dark', 'Fairy'],
 	},
+	// PokemonDeadChannel
+	charizardmegax: {
+		inherit: true,
+		abilities: {0: 'Moxie'},
+	},
+	charizardmegay: {
+		inherit: true,
+		abilities: {0: 'Soul Heart'},
+	},
 	// pre
 	deoxys: {
 		inherit: true,
@@ -137,11 +137,6 @@ let BattlePokedex = {
 	sceptilemega: {
 		inherit: true,
 		abilities: {0: 'Contrary'},
-	},
-	// Teclis
-	gallademega: {
-		inherit: true,
-		abilities: {0: 'Natural Cure'},
 	},
 };
 
