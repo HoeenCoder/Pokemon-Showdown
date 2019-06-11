@@ -110,17 +110,14 @@ let BattleStatuses = {
 	},
 	akiamara: {
 		noCopy: true,
-		onStart: function (pokemon) {
+		onStart() {
 			this.add(`c|+Akiamara|alguem br?`);
 		},
-		onSwitchOut: function () {
+		onSwitchOut() {
 			this.add(`c|+Akiamara|Pode me multar que já volto`);
 		},
-		onFaint: function () {
+		onFaint() {
 			this.add(`c|+Akiamara|I'm going to report you to my big fren Mitsuki`);
-		},
-		onModifyMove(move) {
-			move.ignoreAbility = true;
 		},
 	},
 	akir: {
