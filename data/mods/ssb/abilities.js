@@ -100,12 +100,22 @@ let BattleAbilities = {
 	},
 	// Akiamara
 	toxicswap: {
-		shortDesc: "On switch-in, this Pokemon swaps all stat changes with the opponent.",
+		shortDesc: "On switch-in, this Pokemon swaps all stat changes with the opponent. Ignores abilities.",
 		isNonstandard: "Custom",
 		id: "toxicswap",
 		name: "Toxic Swap",
-		onSwitchIn(target) {
-			this.useMove('heartswap', target);
+		onStart(pokemon) {
+			const target = pokemon.side.foe.active;			
+			let source_boosts = pokemon.boosts;
+			for (let i in target.boosts) {
+				// @ts-ignore
+				pokemon.boosts[i] = target.boosts[i];
+			}
+			target.boosts = source_boosts;
+			this.add('-swapboost', pokemon, target, '[from] move: Heart Swap');
+		},
+		onModifyMove(move) {
+			move.ignoreAbility = true;
 		},
 	},
 	// Akir
