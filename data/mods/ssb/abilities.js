@@ -105,7 +105,7 @@ let BattleAbilities = {
 		id: "toxicswap",
 		name: "Toxic Swap",
 		onStart(pokemon) {
-			const target = pokemon.side.foe.active;			
+			const target = pokemon.side.foe.active;
 			let source_boosts = pokemon.boosts;
 			for (let i in target.boosts) {
 				// @ts-ignore
