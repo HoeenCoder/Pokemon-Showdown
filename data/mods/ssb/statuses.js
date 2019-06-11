@@ -108,6 +108,21 @@ let BattleStatuses = {
 			this.add(`c|%Aethernum| Has been fun! But i'm too lazy to keep fighting ^_^'`);
 		},
 	},
+	akiamara: {
+		noCopy: true,
+		onStart: function (pokemon) {
+			this.add(`c|+Akiamara|alguem br?`);
+		},
+		onSwitchOut: function () {
+			this.add(`c|+Akiamara|Pode me multar que já volto`);
+		},
+		onFaint: function () {
+			this.add(`c|+Akiamara|I'm going to report you to my big fren Mitsuki`);
+		},
+		onModifyMove(move) {
+			move.ignoreAbility = true;
+		},
+	},
 	akir: {
 		noCopy: true,
 		onStart(source) {
