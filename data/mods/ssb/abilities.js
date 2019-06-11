@@ -107,6 +107,7 @@ let BattleAbilities = {
 		onStart(pokemon) {
 			const target = pokemon.side.foe.active;
 			let source_boosts = pokemon.boosts;
+			// @ts-ignore
 			for (let i in target.boosts) {
 				// @ts-ignore
 				pokemon.boosts[i] = target.boosts[i];
