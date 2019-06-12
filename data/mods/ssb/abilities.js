@@ -112,6 +112,7 @@ let BattleAbilities = {
 				// @ts-ignore
 				pokemon.boosts[i] = target.boosts[i];
 			}
+			// @ts-ignore
 			target.boosts = source_boosts;
 			this.add('-swapboost', pokemon, target, '[from] move: Heart Swap');
 		},
