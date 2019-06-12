@@ -105,15 +105,21 @@ let BattleAbilities = {
 		id: "toxicswap",
 		name: "Toxic Swap",
 		onStart(pokemon) {
-			const target = pokemon.side.foe.active;
-			let source_boosts = pokemon.boosts;
+			let target = pokemon.side.foe.active[0];
+			if (!target) return;
+			let targetBoosts = {};
+			let pokemonBoosts = {};
+			
 			// @ts-ignore
 			for (let i in target.boosts) {
 				// @ts-ignore
-				pokemon.boosts[i] = target.boosts[i];
+				targetBoosts[i] = target.boosts[i];
+				// @ts-ignore
+				pokemonBoosts[i] = pokemon.boosts[i];
 			}
-			// @ts-ignore
-			target.boosts = source_boosts;
+			target.setBoost(pokemonBoosts);
+			pokemon.setBoost(targetBoosts);
+
 			this.add('-swapboost', pokemon, target, '[from] move: Heart Swap');
 		},
 		onModifyMove(move) {
