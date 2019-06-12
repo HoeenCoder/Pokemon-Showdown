@@ -109,7 +109,7 @@ let BattleAbilities = {
 			if (!target) return;
 			let targetBoosts = {};
 			let pokemonBoosts = {};
-			
+
 			// @ts-ignore
 			for (let i in target.boosts) {
 				// @ts-ignore
