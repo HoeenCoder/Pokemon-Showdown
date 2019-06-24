@@ -121,7 +121,7 @@ let BattleAbilities = {
 			target.setBoost(pokemonBoosts);
 			pokemon.setBoost(targetBoosts);
 
-			this.add('-swapboost', pokemon, target, '[from] move: Heart Swap');
+			this.add('-swapboost', pokemon, target, '[from] ability: Toxic Swap');
 		},
 		onModifyMove(move) {
 			move.ignoreAbility = true;
