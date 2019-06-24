@@ -776,6 +776,7 @@ let BattleStatuses = {
 		noCopy: true,
 		onStart(pokemon) {
 			this.add(`c|+Kris|glhf`);
+			if (pokemon.illusion) return;
 			for (const target of pokemon.side.foe.active) {
 				if (!target || target.fainted) continue;
 				for (const moveSlot of target.moveSlots) {
