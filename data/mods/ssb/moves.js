@@ -2149,7 +2149,12 @@ let BattleMovedex = {
 			}
 			this.add('-anim', source, move, target);
 		},
-		secondary: null,
+		secondary: {
+			chance: 10,
+			boosts: {
+				spd: -1,
+			},
+		},
 		target: "normal",
 		type: "Normal",
 	},
