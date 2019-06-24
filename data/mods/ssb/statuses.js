@@ -608,13 +608,13 @@ let BattleStatuses = {
 	hubriz: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+Hubriz|Just a harmless flower...`);
+			this.add(`c|%Hubriz|Just a harmless flower...`);
 		},
 		onSwitchOut() {
-			this.add(`c|+Hubriz|I'll bloom once more soon enough!`);
+			this.add(`c|%Hubriz|I'll bloom once more soon enough!`);
 		},
 		onFaint() {
-			this.add(`c|+Hubriz|I burn, I pine, I perish.`);
+			this.add(`c|%Hubriz|I burn, I pine, I perish.`);
 		},
 	},
 	hurl: {
