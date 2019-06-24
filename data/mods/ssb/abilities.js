@@ -100,7 +100,8 @@ let BattleAbilities = {
 	},
 	// Akiamara
 	toxicswap: {
-		shortDesc: "On switch-in, this Pokemon swaps all stat changes with the opponent. Ignores abilities.",
+		desc: "On switch-in, this Pokemon swaps all stat changes with the opponent. Ignores abilities.",
+		shortDesc: "On switch-in, swaps all stat changes with opponent. Ignores abilities.",
 		isNonstandard: "Custom",
 		id: "toxicswap",
 		name: "Toxic Swap",
