@@ -41,7 +41,8 @@ let BattleItems = {
 	// Kris
 	thunderstone: {
 		inherit: true,
-		megaStone: "Rotom-Wash",
+		// @ts-ignore
+		megaStone: ["Rotom-Wash", "Rotom-Mow", "Rotom-Heat", "Rotom-Frost", "Rotom-Fan"],
 		megaEvolves: "Rotom",
 		onTakeItem(item, source) {
 			if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
