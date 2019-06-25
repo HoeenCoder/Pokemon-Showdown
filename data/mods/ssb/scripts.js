@@ -107,15 +107,22 @@ let BattleScripts = {
 		}
 		if (noLock && pokemon.volatiles.lockedmove) delete pokemon.volatiles.lockedmove;
 	},
+	// Modded to allow arrays as Mega Stone options
+	canMegaEvo(pokemon) {
+		let altForme = pokemon.baseTemplate.otherFormes && this.getTemplate(pokemon.baseTemplate.otherFormes[0]);
+		let item = pokemon.getItem();
+		if (altForme && altForme.isMega && altForme.requiredMove && pokemon.baseMoves.includes(toID(altForme.requiredMove)) && !item.zMove) return altForme.species;
+		if (item.megaEvolves !== pokemon.baseTemplate.baseSpecies || item.megaStone === pokemon.species) {
+			return null;
+		}
+		if (Array.isArray(item.megaStone)) {
+			return item.megaStone[Math.floor(this.random() * item.megaStone.length)];
+		}
+		return item.megaStone;
+	},
 	// Modded to allow unlimited mega evos
 	runMegaEvo(pokemon) {
-		let templateid;
-		if (pokemon.name === 'Kris') {
-			let rotoms = ['Rotom-Fan', 'Rotom-Frost', 'Rotom-Heat', 'Rotom-Mow', 'Rotom-Wash'];
-			templateid = rotoms[Math.floor(this.random() * rotoms.length)];
-		} else {
-			templateid = pokemon.canMegaEvo || pokemon.canUltraBurst;
-		}
+		const templateid = pokemon.canMegaEvo || pokemon.canUltraBurst;
 		if (!templateid) return false;
 		const side = pokemon.side;
 
