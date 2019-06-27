@@ -116,6 +116,7 @@ let BattleScripts = {
 			return null;
 		}
 		if (Array.isArray(item.megaStone)) {
+			if (item.megaStone.indexOf(pokemon.species)) return null;
 			return item.megaStone[Math.floor(this.random() * item.megaStone.length)];
 		}
 		return item.megaStone;
