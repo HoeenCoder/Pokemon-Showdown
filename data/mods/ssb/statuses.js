@@ -1145,6 +1145,18 @@ let BattleStatuses = {
 			this.add(`c|%Rach|I oversold your move`);
 		},
 	},
+	rageuser: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c|+Rage|I'm about to ruin this mans whole career`);
+		},
+		onSwitchOut() {
+			this.add(`c|+Rage|Ain't supposed to be like that chief, we out`);
+		},
+		onFaint() {
+			this.add(`c|+Rage|/me quits`);
+		},
+	},
 	raid: {
 		noCopy: true,
 		// No messages provided
@@ -1595,6 +1607,38 @@ let BattleStatuses = {
 			this.add('-end', pokemon, 'Attract', '[silent]');
 		},
 	},
+	// Custom effect for Rage's multihit
+	hitsmorethanonce: {
+		onStart(pokemon, source) {
+			this.add('-message', `${pokemon.name}'s next attack will hit multiple times!`);
+		},
+		onPrepareHit(source, target, move) {
+			if (move.category !== 'Status') {
+				move.multihit = [2, 5];
+				move.basePower = 25;
+				this.effectData.usedup = true;
+			}
+		},
+		onAfterMove(pokemon, source) {
+			if (this.effectData.usedup) pokemon.removeVolatile('multihitter');
+		},
+	},
+	// Rage effect because rage overrides rage
+/*	rageeeee: {
+		onStart(pokemon) {
+			this.add('-singlemove', pokemon, 'Rageeeee');
+		},
+		onHit(target, source, move) {
+			if (target !== source && move.category !== 'Status') {
+				this.boost({atk: 1});
+			}
+		},
+		onBeforeMovePriority: 100,
+		onBeforeMove(pokemon) {
+			this.debug('removing Rageeeee before attack');
+			pokemon.removeVolatile('rageeeee');
+		},
+	},*/
 };
 
 exports.BattleStatuses = BattleStatuses;

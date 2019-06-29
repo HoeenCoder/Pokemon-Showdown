@@ -547,6 +547,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Stunner',
 				evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
 			},
+			'Rage': {
+				species: 'Salamence', ability: 'Intimidate', item: 'Salamencite', gender: 'M',
+				moves: ['Extreme Speed', 'Thousand Arrows', 'Frustration'],
+				signatureMove: 'Rageeeee',
+				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
+			},
 			'Raid': {
 				species: 'Moltres', ability: 'Tempest', item: 'Life Orb', gender: 'N',
 				moves: ['Hurricane', 'Roost', 'U-Turn'],
@@ -714,7 +720,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 		pool.splice(pool.indexOf('PokemonDeadChannel Alt'), 1);
 		/** @type {{[type: string]: number}} */
 		let typePool = {};
-		let debug = false;
+		let debug = true;
 		let depth = 0;
 		if (options.inBattle) this.allXfix = false;
 		while (pool.length && team.length < 6) {
@@ -723,7 +729,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			let name = '';
 			if (debug && team.length === 1 && !options.inBattle) {
 				// DEBUG CODE, remove before commiting to the main server
-				name = ''; // Change name to force a set to appear
+				name = 'Rage'; // Change name to force a set to appear
 				pool.splice(pool.indexOf(name), 1);
 			} else {
 				name = this.allXfix ? 'xfix' : this.sampleNoReplace(pool);
@@ -790,6 +796,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			set.moves.push(ssbSet.signatureMove);
 			if (name === 'The Immortal' && set.item === 'Choice Scarf') set.moves[3] = 'Superpower';
 			if (name === 'irritated' && !set.moves.includes('Double Iron Bash')) set.moves[this.random(3)] = 'Double Iron Bash';
+			if (name === 'Rage') set.happiness = 0;
 			team.push(set);
 		}
 		return team;
