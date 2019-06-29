@@ -1623,22 +1623,6 @@ let BattleStatuses = {
 			if (this.effectData.usedup) pokemon.removeVolatile('multihitter');
 		},
 	},
-	// Rage effect because rage overrides rage
-/*	rageeeee: {
-		onStart(pokemon) {
-			this.add('-singlemove', pokemon, 'Rageeeee');
-		},
-		onHit(target, source, move) {
-			if (target !== source && move.category !== 'Status') {
-				this.boost({atk: 1});
-			}
-		},
-		onBeforeMovePriority: 100,
-		onBeforeMove(pokemon) {
-			this.debug('removing Rageeeee before attack');
-			pokemon.removeVolatile('rageeeee');
-		},
-	},*/
 };
 
 exports.BattleStatuses = BattleStatuses;
