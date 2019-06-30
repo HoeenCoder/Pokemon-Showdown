@@ -3218,7 +3218,7 @@ let BattleMovedex = {
 		basePower: 40,
 		category: "Physical",
 		desc: "The user becomes affected with the effects of rage and endure. The opponent's next attack will hit 2 to 5 times with a base power of 25.",
-		shortDesc: "User: Rage + Endure. Foe: next attack hits multiple times.",
+		shortDesc: "User: Rage + Endure. Foe: next move hits 2-5x.",
 		id: "rageeeee",
 		name: "Rageeeee",
 		isNonstandard: "Custom",
