@@ -1620,7 +1620,7 @@ let BattleStatuses = {
 			}
 		},
 		onAfterMove(pokemon, source) {
-			if (this.effectData.usedup) pokemon.removeVolatile('multihitter');
+			if (this.effectData.usedup) pokemon.removeVolatile('hitsmorethanonce');
 		},
 	},
 };
