@@ -2151,6 +2151,9 @@ let BattleMovedex = {
 		flags: {},
 		stallingMove: true,
 		volatileStatus: 'kingsshield',
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
 		onTryHit(pokemon) {
 			return !!this.willAct() && this.runEvent('StallMove', pokemon);
 		},
@@ -2173,37 +2176,6 @@ let BattleMovedex = {
 			target.setBoost(sourceBoosts);
 
 			this.add('-swapboost', pokemon, target, 'def, spd', '[from] move: Guard Swap');
-		},
-		effect: {
-			duration: 1,
-			onStart(target) {
-				this.add('-singleturn', target, 'Protect');
-			},
-			onTryHitPriority: 3,
-			onTryHit(target, source, move) {
-				if (!move.flags['protect'] || move.category === 'Status') {
-					if (move.isZ) move.zBrokeProtect = true;
-					return;
-				}
-				this.add('-activate', target, 'move: Protect');
-				source.moveThisTurnResult = true;
-				let lockedmove = source.getVolatile('lockedmove');
-				if (lockedmove) {
-					// Outrage counter is reset
-					if (source.volatiles['lockedmove'].duration === 2) {
-						delete source.volatiles['lockedmove'];
-					}
-				}
-				if (move.flags['contact']) {
-					this.boost({atk: -2}, source, target, this.getMove("King's Shield"));
-				}
-				return null;
-			},
-			onHit(target, source, move) {
-				if (move.isZPowered && move.flags['contact']) {
-					this.boost({atk: -2}, source, target, this.getMove("King's Shield"));
-				}
-			},
 		},
 		secondary: null,
 		target: "self",
