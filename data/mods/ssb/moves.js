@@ -4204,7 +4204,7 @@ let BattleMovedex = {
 		},
 		target: "normal",
 		type: "Poison",
-},
+	},
 	// Zarel
 	relicsongdance: {
 		accuracy: 100,
