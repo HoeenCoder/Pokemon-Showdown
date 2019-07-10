@@ -3293,7 +3293,7 @@ let BattleMovedex = {
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Stealth Rock', target);
- 			this.add('-anim', source, 'Eruption', target); 
+			this.add('-anim', source, 'Eruption', target);
 		},
 		sideCondition: 'magmaore',
 		self: {
