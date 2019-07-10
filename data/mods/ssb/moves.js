@@ -2122,6 +2122,12 @@ let BattleMovedex = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
+		onTry(pokemon, target) {
+			if (pokemon.types[1] === undefined) {
+				this.add('-fail', pokemon);
+				return null;
+			}
+		},
 		onModifyMove(move, pokemon) {
 			move.type = pokemon.types[1];
 		},
