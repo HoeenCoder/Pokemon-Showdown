@@ -3298,7 +3298,9 @@ let BattleMovedex = {
 		sideCondition: 'magmaore',
 		self: {
 			onHit(pokemon) {
-				pokemon.addVolatile('magmaore2');
+				if (pokemon.template.speciesid === 'rhydon') {
+					pokemon.addVolatile('magmaore2');
+				}
 			},
 		},
 		effect: {
