@@ -4187,7 +4187,8 @@ let BattleMovedex = {
 		id: "twinweedle",
 		isNonstandard: "Custom",
 		name: "TwinWeedle",
-		pp: 20,
+		pp: 25,
+		noPPBoosts: true,
 		priority: 0,
 		flags: {protect: 1, mirror: 1, heal: 1},
 		onTryMove() {
@@ -4196,7 +4197,7 @@ let BattleMovedex = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Poison Sting', target);
 		},
-		drain: [1, 3],
+		drain: [3, 10],
 		secondary: {
 			chance: 20,
 			status: 'psn',
