@@ -3310,8 +3310,7 @@ let BattleMovedex = {
 				let typeMod = this.clampIntRange(pokemon.runEffectiveness(this.getActiveMove('stealthrock')), -6, 6);
 				this.damage(pokemon.maxhp * Math.pow(2, typeMod) / 8);
 				if (!(pokemon.hp <= 0 || pokemon.fainted) && this.random(10) < 4) {
-					pokemon.trySetStatus('brn');
-					pokemon.m.magmaOre = true;
+					if (pokemon.trySetStatus('brn')) pokemon.m.magmaOre = true;
 				}
 			},
 			onSwitchOut(pokemon) {
