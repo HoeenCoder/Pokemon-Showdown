@@ -2157,6 +2157,10 @@ let BattleMovedex = {
 		onTryHit(pokemon) {
 			return !!this.willAct() && this.runEvent('StallMove', pokemon);
 		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "King's Shield", source);
+			this.add('-anim', source, "Guard Swap", target);
+		},
 		onHit(pokemon) {
 			pokemon.addVolatile('stall');
 			this.add(`c|+Kipkluif|o7`);
@@ -2175,7 +2179,6 @@ let BattleMovedex = {
 			pokemon.setBoost(targetBoosts);
 			target.setBoost(sourceBoosts);
 
-			this.add('-anim', pokemon, "Guard Swap", target);
 			this.add('-swapboost', pokemon, target, 'def, spd', '[from] move: Guard Swap');
 		},
 		secondary: null,
