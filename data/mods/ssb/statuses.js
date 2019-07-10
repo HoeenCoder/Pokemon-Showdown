@@ -786,10 +786,10 @@ let BattleStatuses = {
 	},
 	kipkluif: {
 		noCopy: true,
-		onStart: function () {
+		onStart() {
 			this.add(`c|+Kipkluif|I like bacon.`);
 		},
-		onSwitchOut: function () {
+		onSwitchOut() {
 			this.add(`c|+Kipkluif|Run away da, run run away da`);
 		},
 		onFaint() {
