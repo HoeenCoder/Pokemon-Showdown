@@ -2137,6 +2137,79 @@ let BattleMovedex = {
 		target: "normal",
 		type: "Fighting",
 	},
+	"salutethecolonel": {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "The user is protected from most attacks made by other Pokemon during this turn, and Pokemon trying to make contact with the user have their Attack lowered by 2 stages. Non-damaging moves go through this protection. This move has a 1/X chance of being successful, where X starts at 1 and triples each time this move is successfully used. X resets to 1 if this move fails, if the user's last move used is not Baneful Bunker, Detect, Endure, King's Shield, Protect, Quick Guard, Spiky Shield, or Wide Guard, or if it was one of those moves and the user's protection was broken. Fails if the user moves last this turn.",
+		shortDesc: "Protects from attacks. Contact: lowers Atk by 2. Guard Swap.",
+		id: "salutethecolonel",
+		isNonstandard: "Custom",
+		name: "Salute the Colonel",
+		pp: 15,
+		priority: 4,
+		flags: {},
+		stallingMove: true,
+		volatileStatus: 'kingsshield',
+		onTryHit(pokemon) {
+			return !!this.willAct() && this.runEvent('StallMove', pokemon);
+		},
+		onHit(pokemon) {
+			pokemon.addVolatile('stall');
+			this.add(`c|+Kipkluif|o7`);
+			let target = pokemon.side.foe.active[0];
+			if (!target) return;
+			let targetBoosts = {};
+			let sourceBoosts = {};
+
+			for (const stat of ['def', 'spd']) {
+				// @ts-ignore
+				targetBoosts[stat] = target.boosts[stat];
+				// @ts-ignore
+				sourceBoosts[stat] = pokemon.boosts[stat];
+			}
+
+			pokemon.setBoost(targetBoosts);
+			target.setBoost(sourceBoosts);
+
+			this.add('-swapboost', pokemon, target, 'def, spd', '[from] move: Guard Swap');
+		},
+		effect: {
+			duration: 1,
+			onStart(target) {
+				this.add('-singleturn', target, 'Protect');
+			},
+			onTryHitPriority: 3,
+			onTryHit(target, source, move) {
+				if (!move.flags['protect'] || move.category === 'Status') {
+					if (move.isZ) move.zBrokeProtect = true;
+					return;
+				}
+				this.add('-activate', target, 'move: Protect');
+				
+				source.moveThisTurnResult = true;
+				let lockedmove = source.getVolatile('lockedmove');
+				if (lockedmove) {
+					// Outrage counter is reset
+					if (source.volatiles['lockedmove'].duration === 2) {
+						delete source.volatiles['lockedmove'];
+					}
+				}
+				if (move.flags['contact']) {
+					this.boost({atk: -2}, source, target, this.getMove("King's Shield"));
+				}
+				return null;
+			},
+			onHit(target, source, move) {
+				if (move.isZPowered && move.flags['contact']) {
+					this.boost({atk: -2}, source, target, this.getMove("King's Shield"));
+				}
+			},
+		},
+		secondary: null,
+		target: "self",
+		type: "Fighting",
+	},
 	// Kris
 	ectoplasm: {
 		accuracy: 100,
