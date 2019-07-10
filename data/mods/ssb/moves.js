@@ -2175,6 +2175,7 @@ let BattleMovedex = {
 			pokemon.setBoost(targetBoosts);
 			target.setBoost(sourceBoosts);
 
+			this.add('-anim', pokemon, "Guard Swap", target);
 			this.add('-swapboost', pokemon, target, 'def, spd', '[from] move: Guard Swap');
 		},
 		secondary: null,
