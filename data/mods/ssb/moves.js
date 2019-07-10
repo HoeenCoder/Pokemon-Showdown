@@ -3238,7 +3238,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "normal",
-		type: "Normal",
+		type: "Flying",
 	},
 	// Raid
 	firestorm: {
