@@ -523,13 +523,13 @@ let BattleStatuses = {
 		noCopy: true,
 		onStart(target, source) {
 			this.add('-start', source, 'typechange', `Fairy/Steel`);
-			this.add(`c|+fart|it's fukken raw`);
+			this.add(`c|%fart|it's fukken raw`);
 		},
 		onSwitchOut() {
-			this.add(`c|+fart|this boy is not correct. he is **flawed.**`);
+			this.add(`c|%fart|this boy is not correct. he is **flawed.**`);
 		},
 		onFaint() {
-			this.add(`c|+fart|the things I do for love...`);
+			this.add(`c|%fart|the things I do for love...`);
 		},
 	},
 	flare: {
