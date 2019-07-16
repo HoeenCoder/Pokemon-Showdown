@@ -13,6 +13,7 @@
  * @property {{hp?: number, atk?: number, def?: number, spa?: number, spd?: number, spe?: number}=} ivs
  * @property {string | string[]} nature
  * @property {number=} level
+ * @property {number=} happiness
  * @property {(number|boolean)=} shiny
  */
 
@@ -551,7 +552,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Salamence', ability: 'Intimidate', item: 'Salamencite', gender: 'M',
 				moves: ['Extreme Speed', 'Thousand Arrows', 'Frustration'],
 				signatureMove: 'Rageeeee',
-				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
+				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', happiness: 0,
 			},
 			'Raid': {
 				species: 'Moltres', ability: 'Tempest', item: 'Life Orb', gender: 'N',
@@ -770,6 +771,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				evs: {hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0},
 				ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
 				level: ssbSet.level || 100,
+				happiness: ssbSet.happiness || 255,
 				shiny: typeof ssbSet.shiny === 'number' ? this.randomChance(1, ssbSet.shiny) : ssbSet.shiny,
 			};
 			if (ssbSet.ivs) {
@@ -796,7 +798,6 @@ class RandomStaffBrosTeams extends RandomTeams {
 			set.moves.push(ssbSet.signatureMove);
 			if (name === 'The Immortal' && set.item === 'Choice Scarf') set.moves[3] = 'Superpower';
 			if (name === 'irritated' && !set.moves.includes('Double Iron Bash')) set.moves[this.random(3)] = 'Double Iron Bash';
-			if (name === 'Rage') set.happiness = 0;
 			team.push(set);
 		}
 		return team;
