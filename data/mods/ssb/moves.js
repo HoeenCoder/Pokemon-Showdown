@@ -3234,7 +3234,7 @@ let BattleMovedex = {
 		onHit(target, source) {
 			source.addVolatile('rage', source);
 			source.addVolatile('endure', source);
-			target.addVolatile('hitsmorethanonce', source);
+			target.addVolatile('enrageeeeed', source);
 		},
 		secondary: null,
 		target: "normal",
