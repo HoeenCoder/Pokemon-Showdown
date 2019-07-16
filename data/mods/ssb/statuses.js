@@ -1608,7 +1608,7 @@ let BattleStatuses = {
 		},
 	},
 	// Custom effect for Rage's multihit
-	hitsmorethanonce: {
+	enrageeeeed: {
 		onStart(pokemon, source) {
 			this.add('-message', `${pokemon.name}'s next attack will hit multiple times!`);
 		},
@@ -1620,7 +1620,7 @@ let BattleStatuses = {
 			}
 		},
 		onAfterMove(pokemon, source) {
-			if (this.effectData.usedup) pokemon.removeVolatile('hitsmorethanonce');
+			if (this.effectData.usedup) pokemon.removeVolatile('enrageeeeed');
 		},
 	},
 };
