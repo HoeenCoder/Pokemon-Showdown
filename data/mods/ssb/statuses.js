@@ -1568,19 +1568,6 @@ let BattleStatuses = {
 			}
 		},
 	},
-	// Type-changing custom effect for Saburo
-	magmaore2: {
-		duration: 1,
-		noCopy: true,
-		onStart(pokemon, source) {
-			source.setType(source.types.map(type => type === "Ground" ? "Fire" : type));
-			this.add('-start', source, 'typechange', source.types.join('/'), '[from] move: x1');
-		},
-		onEnd(source) {
-			source.setType(source.types.map(type => type === "Fire" ? "Ground" : type));
-			this.add('-start', source, 'typechange', source.types.join('/'), '[from] move: x1');
-		},
-	},
 	// Modified type setup for arceus
 	arceus: {
 		inherit: true,
