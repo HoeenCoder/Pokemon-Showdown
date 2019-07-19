@@ -518,6 +518,10 @@ let BattleMovedex = {
 			this.effect = effect;
 			if (format && format.onSwitchIn) format.onSwitchIn.call(this, target);
 			this.add('-message', `${oldName} was sent to the distortion world and replaced with somebody else!`);
+			for (let stat of Object.keys(target.boosts)) {
+				// @ts-ignore Iterate through stat changes to update client
+				this.add('-setboost', target, stat, target.boosts[stat], '[silent]');
+			}
 		},
 		target: "normal",
 		type: "Ghost",
