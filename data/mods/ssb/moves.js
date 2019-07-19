@@ -509,6 +509,7 @@ let BattleMovedex = {
 			// @ts-ignore Read only property needs to be written to for this to work
 			target.fullname = pokemon.side.id + ": " + pokemon.name;
 			this.add('replace', target, pokemon.getDetails, target.hp / target.maxhp); // name change
+			this.battle.add('-copyboost', pokemon, target);
 
 			const format = this.getFormat();
 			effect = this.effect;
@@ -518,6 +519,9 @@ let BattleMovedex = {
 			this.effect = effect;
 			if (format && format.onSwitchIn) format.onSwitchIn.call(this, target);
 			this.add('-message', `${oldName} was sent to the distortion world and replaced with somebody else!`);
+			for (let key of Object.keys(target.boosts)) {
+				this.add('-setboost', target, key, target.boosts[key], '[silent]');
+			}
 		},
 		target: "normal",
 		type: "Ghost",
