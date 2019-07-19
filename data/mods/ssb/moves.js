@@ -505,6 +505,8 @@ let BattleMovedex = {
 			// @ts-ignore Read only property needs to be written to for this to work
 			target.name = pokemon.name;
 			// @ts-ignore Read only property needs to be written to for this to work
+			target.item = pokemon.item;
+			// @ts-ignore Read only property needs to be written to for this to work
 			target.id = pokemon.side.id + ": " + pokemon.name;
 			// @ts-ignore Read only property needs to be written to for this to work
 			target.fullname = pokemon.side.id + ": " + pokemon.name;
