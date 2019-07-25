@@ -849,7 +849,6 @@ let BattleAbilities = {
 					this.add('-message', `${target.name}'s attack was reduced after that super effective attack!`);
 					target.m.heavilydamaged = true;
 				}
-				
 			}
 		},
 		onModifyAtk(atk, pokemon) {
