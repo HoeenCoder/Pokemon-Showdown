@@ -1254,7 +1254,10 @@ let BattleMovedex = {
 				return this.chainModify(2);
 			}
 		},
-		secondary: null,
+		secondary: {
+			chance: 30,
+			status: 'par',
+		},
 		target: "normal",
 		type: "Electric",
 	},
