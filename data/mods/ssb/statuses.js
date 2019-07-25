@@ -650,6 +650,18 @@ let BattleStatuses = {
 			this.add(`c|+jdarden|Back to my natural state`);
 		},
 	},
+	jolteonite: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|+Jolteonite|**Time to electrify you**`);
+		},
+		onSwitchOut() {
+			this.add(`c|+Jolteonite|__I'll be coming back for you!__`);
+		},
+		onFaint() {
+			this.add(`c|+Jolteonite|I'm shocked that you mere mortal actually defeated __me__`);
+		},
+	},
 	kaijubunny: {
 		noCopy: true,
 		onStart() {
