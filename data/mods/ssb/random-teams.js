@@ -312,6 +312,12 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Wyvern\'s Wail',
 				evs: {hp: 252, def: 252, spd: 4}, ivs: {atk: 0}, nature: 'Bold',
 			},
+			'jolteonite': {
+				species: 'Dragonite', ability: 'Ice Absorb', item: 'Sky Plate', gender: 'M',
+				moves: ['Dragon Dance', 'Extreme Speed', 'Thousand Arrows'],
+				signatureMove: 'Hyperforce Strike',
+				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
+			},
 			'Kaiju Bunny': {
 				species: 'Gligar', ability: 'Immunity', item: 'Eviolite', gender: 'F',
 				moves: ['Earthquake', 'Roost', ['Toxic', 'Stealth Rock']],
