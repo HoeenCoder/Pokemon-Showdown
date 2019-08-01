@@ -537,7 +537,7 @@ let BattleStatuses = {
 			} else if (activeMon === 'delibird' || activeMon === 'milotic' || activeMon === 'aggron') {
 				this.add(`c|%fart|the gang's all here!`);
 			} else if (family.includes(activeMon)) {
-				this.add(`c|%fart|I don't want to fight family :(`);
+				this.add(`c|%fart|what's cookin', good lookin'?`);
 			} else {
 				this.add(`c|%fart|it's fukken raw`);
 			}
