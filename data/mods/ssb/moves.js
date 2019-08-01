@@ -1965,9 +1965,9 @@ let BattleMovedex = {
 		id: "petrifyinggaze",
 		name: "Petrifying Gaze",
 		isNonstandard: "Custom",
-		pp: 10,
+		pp: 1,
 		priority: 0,
-		flags: {reflectable: 1, mirror: 1},
+		flags: {},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
