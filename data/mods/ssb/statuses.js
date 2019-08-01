@@ -525,13 +525,25 @@ let BattleStatuses = {
 		noCopy: true,
 		onStart(target, source) {
 			this.add('-start', source, 'typechange', `Fairy/Steel`);
-			this.add(`c|%fart|it's fukken raw`);
+			let activeMon = source.side.foe.active[0].template.speciesid;
+			if (activeMon === 'ludicolo' || activeMon === 'charizard') {
+				 this.add(`c|%fart|what song should I sing?`);
+			} else if (activeMon === 'delibird' || activeMon === 'milotic' || activeMon === 'aggron') {
+				this.add(`c|%fart|the gang's all here!`);
+			} else {
+				this.add(`c|%fart|it's fukken raw`);
+			}
 		},
 		onSwitchOut() {
 			this.add(`c|%fart|this boy is not correct. he is **flawed.**`);
 		},
-		onFaint() {
-			this.add(`c|%fart|the things I do for love...`);
+		onFaint(pokemon) {
+			let activeMon = pokemon.side.foe.active[0].template.speciesid;
+			if (activeMon === 'durant') {
+				this.add(`c|%fart|UOP I'm deleting your mon`);
+			} else {
+				this.add(`c|%fart|the things I do for love...`);
+			}
 		},
 	},
 	flare: {
