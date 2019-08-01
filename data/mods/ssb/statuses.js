@@ -530,6 +530,8 @@ let BattleStatuses = {
 				 this.add(`c|%fart|what song should I sing?`);
 			} else if (activeMon === 'delibird' || activeMon === 'milotic' || activeMon === 'aggron') {
 				this.add(`c|%fart|the gang's all here!`);
+			} else if (activeMon === 'regigigas' || activeMon === 'greninja' || activeMon === 'zoroark' || activeMon === 'audino' || activeMon === 'hoopa' || activeMon === 'weedle' || activeMon === 'porygonz' || activeMon === 'snorlax' || activeMon === 'luxray' || activeMon === 'oricorio'  || activeMon === 'sceptile' || activeMon === 'jolteonite') {
+				this.add(`c|%fart|I don't want to fight family :(`);
 			} else {
 				this.add(`c|%fart|it's fukken raw`);
 			}
