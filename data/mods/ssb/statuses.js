@@ -525,12 +525,18 @@ let BattleStatuses = {
 		noCopy: true,
 		onStart(target, source) {
 			this.add('-start', source, 'typechange', `Fairy/Steel`);
-			let activeMon = source.side.foe.active[0].template.speciesid;
+			let activeMon;
+			if (source.side.foe.active[0].illusion) {
+				activeMon = source.side.foe.active[0].illusion.speciesid;
+			} else {
+				activeMon = source.side.foe.active[0].template.speciesid;
+			}
+			let family = ['regigigas', 'greninja', 'zoroark', 'audino', 'hoopa', 'weedle', 'porygonz', 'snorlax', 'luxray', 'oricorio', 'sceptile', 'dragonite'];
 			if (activeMon === 'ludicolo' || activeMon === 'charizard') {
 				 this.add(`c|%fart|what song should I sing?`);
 			} else if (activeMon === 'delibird' || activeMon === 'milotic' || activeMon === 'aggron') {
 				this.add(`c|%fart|the gang's all here!`);
-			} else if (activeMon === 'regigigas' || activeMon === 'greninja' || activeMon === 'zoroark' || activeMon === 'audino' || activeMon === 'hoopa' || activeMon === 'weedle' || activeMon === 'porygonz' || activeMon === 'snorlax' || activeMon === 'luxray' || activeMon === 'oricorio'  || activeMon === 'sceptile' || activeMon === 'dragonite') {
+			} else if (family.includes(activeMon)) {
 				this.add(`c|%fart|I don't want to fight family :(`);
 			} else {
 				this.add(`c|%fart|it's fukken raw`);
