@@ -2002,7 +2002,7 @@ let BattleMovedex = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Heart Stamp', target);
 		},
-		flags: {protect: 1, mirror: 1}
+		flags: {protect: 1, mirror: 1},
 		secondaries: [
 			{
 				chance: 30,
