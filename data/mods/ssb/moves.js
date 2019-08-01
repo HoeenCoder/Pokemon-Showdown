@@ -1979,6 +1979,7 @@ let BattleMovedex = {
 			target.trySetStatus('par', source);
 			return target.addVolatile('trapped', source, move, 'trapper');
 		},
+		isZ: "dusknoiriumz",
 		secondary: null,
 		target: "normal",
 		type: "Ghost",
@@ -2001,7 +2002,7 @@ let BattleMovedex = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Heart Stamp', target);
 		},
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1}
 		secondaries: [
 			{
 				chance: 30,
