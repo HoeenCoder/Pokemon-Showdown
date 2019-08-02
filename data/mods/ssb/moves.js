@@ -4324,7 +4324,7 @@ let BattleMovedex = {
 			this.add('-anim', source, "U-Turn", target);
 		},
 		onHit(target, source, move) {
-			let removeAll = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'magmaore'];
+			let removeAll = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb'];
 			let silentRemove = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist'];
 			for (const sideCondition of removeAll) {
 				if (target.side.removeSideCondition(sideCondition)) {
