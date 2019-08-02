@@ -702,7 +702,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Durant', ability: 'Hustle', item: 'Choice Band', gender: 'M',
 				moves: ['Iron Head', ['Megahorn', 'Leech Life'], ['Wild Charge', 'Superpower']],
 				signatureMove: 'Quick Reload',
-				evs: {hp: 24, spa: 232, spd: 252}, nature: 'Jolly',
+				evs: {hp: 24, atk: 232, spe: 252}, nature: 'Jolly',
 			},
 			'vivalospride': {
 				species: 'Araquanid', ability: 'TRASH VIV WEBS', item: 'Wave Incense', gender: 'M',
