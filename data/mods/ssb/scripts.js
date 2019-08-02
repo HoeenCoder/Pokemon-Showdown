@@ -408,7 +408,7 @@ let BattleScripts = {
 		if ('magnetrise' in this.volatiles) return false;
 		if ('telekinesis' in this.volatiles) return false;
 		return item !== 'airballoon';
-},
+	},
 };
 
 exports.BattleScripts = BattleScripts;
