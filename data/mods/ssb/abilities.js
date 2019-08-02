@@ -361,11 +361,6 @@ let BattleAbilities = {
 		id: "radioactive",
 		name: "Radioactive",
 		isNonstandard: "Custom",
-		onTryHit(target, source, move) {
-			if (target !== source && move.type === 'Ground') {
-				return null;
-			}
-		},
 		onModifyAtk(atk, pokemon) {
 			if (pokemon.status) {
 				return this.chainModify(1.5);
