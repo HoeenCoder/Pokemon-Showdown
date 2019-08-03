@@ -526,15 +526,11 @@ let BattleStatuses = {
 		onStart(target, source) {
 			this.add('-start', source, 'typechange', `Fairy/Steel`);
 			let activeMon;
-			if (source.side.foe.active[0].illusion) {
-				activeMon = source.side.foe.active[0].illusion.speciesid;
-			} else {
-				activeMon = source.side.foe.active[0].template.speciesid;
-			}
-			let family = ['regigigas', 'greninja', 'zoroark', 'audino', 'hoopa', 'weedle', 'porygonz', 'snorlax', 'luxray', 'oricorio', 'sceptile', 'dragonite'];
-			if (activeMon === 'ludicolo' || activeMon === 'charizard') {
+			activeMon = toID(source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : activeMon = source.side.foe.active[0].template.name);
+			let family = ['aethernum', 'ceteris', 'flare', 'ransei', 'trickster', 'zalm', 'aelita', 'biggie', 'deetah', 'birdy', 'sunny', 'jolteonite'];
+			if (activeMon === 'hoeenhero' || activeMon === 'pokemondeadchannel') {
 				 this.add(`c|%fart|what song should I sing?`);
-			} else if (activeMon === 'delibird' || activeMon === 'milotic' || activeMon === 'aggron') {
+			} else if (activeMon === 'lifeisdank' || activeMon === 'nui' || activeMon === 'grimauxiliatrix') {
 				this.add(`c|%fart|the gang's all here!`);
 			} else if (family.includes(activeMon)) {
 				this.add(`c|%fart|what's cookin', good lookin'?`);
@@ -546,8 +542,9 @@ let BattleStatuses = {
 			this.add(`c|%fart|this boy is not correct. he is **flawed.**`);
 		},
 		onFaint(pokemon) {
-			let activeMon = pokemon.side.foe.active[0].template.speciesid;
-			if (activeMon === 'durant') {
+			let activeMon;
+			activeMon = toID(pokemon.side.foe.active[0].illusion ? pokemon.side.foe.active[0].illusion.name : activeMon = pokemon.side.foe.active[0].template.name);
+			if (activeMon === 'unleashourpassion') {
 				this.add(`c|%fart|UOP I'm deleting your mon`);
 			} else {
 				this.add(`c|%fart|the things I do for love...`);
