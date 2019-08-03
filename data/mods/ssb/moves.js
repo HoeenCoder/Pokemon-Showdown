@@ -1644,7 +1644,7 @@ let BattleMovedex = {
 			}, {
 				chance: 10,
 				boosts: {
-					spd: -1,
+					def: -1,
 				},
 			},
 		],
