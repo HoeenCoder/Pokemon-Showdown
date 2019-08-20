@@ -975,6 +975,7 @@ let BattleAbilities = {
 		isNonstandard: "Custom",
 		effect: {
 			duration: 1,
+			onSwitchInPriority: -1,
 			onSwitchIn(pokemon) {
 				pokemon.heal(pokemon.maxhp / 3);
 				this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
