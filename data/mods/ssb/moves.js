@@ -827,7 +827,7 @@ let BattleMovedex = {
 		},
 		onHit(target, source, effect) {
 			let dancemoves = ['dragondance', 'featherdance', 'fierydance', 'petaldance', 'quiverdance', 'revelationdance', 'swordsdance', 'teeterdance'];
-			let randomMove = dancemoves[this.random(8)];
+			let randomMove = dancemoves[dancemoves.length];
 			this.useMove(randomMove, target);
 			this.useMove(randomMove, target);
 			// Kill getting locked into petal dance
