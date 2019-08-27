@@ -3281,7 +3281,7 @@ let BattleMovedex = {
 		onHit(target, source) {
 			this.heal(source.maxhp / 2, source);
 			if (!this.canSwitch(source.side)) return;
-			let lowestmon = false;
+			let lowestmon;
 			for (const ally of source.side.pokemon) {
 				if (ally === source) continue;
 				if (ally.fainted || !ally.hp) continue;
