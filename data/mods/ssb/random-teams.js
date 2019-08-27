@@ -535,7 +535,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Earthquake',
 				evs: {hp: 252, atk: 252, spd: 4}, ivs: {spe: 0}, nature: 'Brave',
 			},
-			'PokemonDeadChannel': {
+			'pokemondeadchannel': {
 				species: 'Magearna-Original', ability: 'Numb Numb Juice', item: 'Leftovers', gender: 'N',
 				moves: ['Sparkly Swirl', ['Charm','Eerie Impulse'], ['Toxic','Thunder Wave']],
 				signatureMove: 'Express Yourself',
@@ -759,7 +759,6 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 		};
 		let pool = Object.keys(sets);
-		pool.splice(pool.indexOf('PokemonDeadChannel Alt'), 1);
 		/** @type {{[type: string]: number}} */
 		let typePool = {};
 		let debug = false;
