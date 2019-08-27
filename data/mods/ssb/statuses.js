@@ -1125,7 +1125,7 @@ let BattleStatuses = {
 			this.add(`c|+pokemondeadchannel|Hey Noctrine i REQUIRE ASSISSTANCE!!!!`);
 		},
 		onFaint() {
-			this.add(`c|+pokemondeadchannel|I ${["listen to way too much rap music", "hange names way too often"][this.random(2)]} ;_;`);
+			this.add(`c|+pokemondeadchannel|I ${["listen to way too much rap music", "change names way too often"][this.random(2)]} ;_;`);
 		},
 	},
 	pohjis: {
