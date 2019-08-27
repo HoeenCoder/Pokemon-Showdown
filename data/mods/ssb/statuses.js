@@ -372,18 +372,6 @@ let BattleStatuses = {
 			this.add(`c|@Chloe|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`);
 		},
 	},
-	cleo: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%Cleo|Cleo! Cleo! Your friendly neighborhood Sea Leo!`);
-		},
-		onSwitchOut() {
-			this.add(`c|%Cleo|/raw QUICK! Distract the foe with pictures of my cat. <a href="https://imgur.com/a/IT2IHgm" target="_blank">SHE’S SO BEAUTIFUL</a>`);
-		},
-		onFaint() {
-			this.add(`c|%Cleo|Love your hair. Hope you win.`);
-		},
-	},
 	dawoblefet: {
 		noCopy: true,
 		onStart() {
