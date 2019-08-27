@@ -3265,7 +3265,7 @@ let BattleMovedex = {
 		category: "Status",
 		isNonstandard: "Custom",
 		desc: "The user is healed 50% of its HP. The pokemon with the lowest HP in its party is also heal 50% of its HP as well.",
-		shortDesc: "User + Pokemon with lowest health heal recover 50% HP.",
+		shortDesc: "User + Pokemon with lowest health recover 50% HP.",
 		id: "expressyourself",
 		name: "Express Yourself",
 		pp: 5,
@@ -3280,12 +3280,18 @@ let BattleMovedex = {
 		},
 		onHit(target, source) {
 			this.heal(source.maxhp / 2, source);
-			let lowestmon = source.side.pokemon[1]; // failsafe
+			if (!this.canSwitch(source.side)) return;
+			let lowestmon = false;
 			for (const ally of source.side.pokemon) {
 				if (ally === source) continue;
-				if (ally.fainted || !ally.hp) return;
-				if (lowestmon.hp > ally.hp) lowestmon = ally;
+				if (ally.fainted || !ally.hp) continue;
+				if (!lowestmon) {
+					lowestmon = ally;
+				} else {
+					if ((lowestmon.hp / lowestmon.maxhp) > (ally.hp / ally.maxhp)) lowestmon = ally;
+				}
 			}
+			if (!lowestmon) return;
 			lowestmon.heal(lowestmon.maxhp / 2, lowestmon);
 			this.add('-message', `${source.name} restored a teammate's HP.`);
 		},
