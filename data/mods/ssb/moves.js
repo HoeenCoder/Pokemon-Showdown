@@ -826,26 +826,13 @@ let BattleMovedex = {
 			this.attrLastMove('[still]');
 		},
 		onHit(target, source, effect) {
-			const moves = [];
-			for (const i in exports.BattleMovedex) {
-				const move = exports.BattleMovedex[i];
-				if (i !== move.id) continue;
-				if (move.name && move.name.includes('Dance') && move.id !== 'lunardance' && move.id !== 'raindance' && !move.isNonstandard) {
-					moves.push(move);
-				}
-			}
-			let randomMove;
-			if (moves.length) {
-				randomMove = this.sample(moves).id;
-			}
-			if (!randomMove) {
-				return false;
-			}
+			let dancemoves = ['dragondance', 'featherdance', 'fierydance', 'petaldance', 'quiverdance', 'revelationdance', 'swordsdance', 'teeterdance'];
+			let randomMove = dancemoves[this.random(8)];
 			this.useMove(randomMove, target);
 			this.useMove(randomMove, target);
 			// Kill getting locked into petal dance
 			if (source.getVolatile('lockedmove')) {
-				delete source.volatiles['lockedmove'];
+				source.removeVolatile('lockedmove');
 			}
 		},
 		secondary: null,
