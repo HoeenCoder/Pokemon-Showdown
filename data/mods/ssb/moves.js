@@ -4064,7 +4064,7 @@ let BattleMovedex = {
 		target: "Normal",
 		type: "Fire",
 	},
-	// Sunny
+	// Sundar
 	leafblaster: {
 		accuracy: 100,
 		basePower: 90,
@@ -4091,6 +4091,33 @@ let BattleMovedex = {
 		secondary: null,
 		target: "normal",
 		type: "Grass",
+	},
+	// SunGodVolcarona
+	scorchingglobalvortex: {
+		accuracy: true,
+		basePower: 200,
+		category: "Special",
+		desc: "Burns the target. Ignores abilities.",
+		shortDesc: "Burns the target. Ignores abilities.",
+		id: "scorchingglobalvortex",
+		name: "Scorching Global Vortex",
+		isNonstandard: "Custom",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Searing Sunraze Smash", target);
+		},
+		onHit(target, source) {
+			target.trySetStatus('brn', source);
+		},
+		ignoreAbility: true,
+		isZ: "volcaroniumz",
+		target: "normal",
+		type: "Fire",
 	},
 	// Teclis
 	absoluteconfiguration: {
