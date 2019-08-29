@@ -1046,7 +1046,7 @@ let BattleMovedex = {
 		},
 		onBasePower(basePower, source, target, move) {
 			if (move.category === 'Physical') {
-				return 105;
+				return this.chainModify(1.5);
 			}
 		},
 		target: "normal",
