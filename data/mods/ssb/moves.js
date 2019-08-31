@@ -851,7 +851,7 @@ let BattleMovedex = {
 		isNonstandard: "Custom",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, sound: 1},
+		flags: {protect: 1, mirror: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -2319,12 +2319,14 @@ let BattleMovedex = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Petal Dance', source);
 		},
+		onHit(target, source) {
+			this.field.setWeather('sunnyday', source);
+		},
 		boosts: {
 			spa: 1,
 			spd: 1,
 			spe: 1,
 		},
-		weather: 'sunnyday',
 		secondary: null,
 		target: "self",
 		type: "Grass",
@@ -2771,7 +2773,7 @@ let BattleMovedex = {
 		isNonstandard: "Custom",
 		pp: 10,
 		priority: 2,
-		flags: {},
+		flags: {heal: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -3369,7 +3371,7 @@ let BattleMovedex = {
 		name: "Express Yourself",
 		pp: 5,
 		priority: 0,
-		flags: {snatch: 1},
+		flags: {snatch: 1, heal: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -3836,7 +3838,7 @@ let BattleMovedex = {
 		isNonstandard: "Custom",
 		pp: 1,
 		priority: 0,
-		flags: {},
+		flags: {contact: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -3847,23 +3849,23 @@ let BattleMovedex = {
 		secondaries: [
 			{
 				volatileStatus: "taunt",
-				chance: 100,
+				chance: 10,
 			},
 			{
 				volatileStatus: "confusion",
-				chance: 100,
+				chance: 10,
 			},
 			{
 				volatileStatus: "flinch",
-				chance: 100,
+				chance: 10,
 			},
 			{
 				volatileStatus: "healblock",
-				chance: 100,
+				chance: 10,
 			},
 			{
 				volatileStatus: "focusenergy",
-				chance: 100,
+				chance: 10,
 			},
 		],
 		selfSwitch: 'copyvolatile',
@@ -4170,7 +4172,7 @@ let BattleMovedex = {
 		isNonstandard: "Custom",
 		pp: 1,
 		priority: 0,
-		flags: {},
+		flags: {reflectable: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -4467,7 +4469,7 @@ let BattleMovedex = {
 		isNonstandard: "Custom",
 		pp: 15,
 		priority: 0,
-		flags: {mirror: 1, protect: 1},
+		flags: {mirror: 1, protect: 1, contact: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -4559,7 +4561,7 @@ let BattleMovedex = {
 		isNonstandard: "Custom",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, dance: 1},
+		flags: {protect: 1, mirror: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
