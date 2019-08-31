@@ -603,6 +603,7 @@ let BattleAbilities = {
 		onTryHit(target, source, move) {
 			if (target !== source && move.type === 'Ice') {
 				this.add('-immune', target, '[from] ability: Minnesnowta');
+				return null;
 			}
 		},
 		onBasePowerPriority: 8,
