@@ -939,7 +939,8 @@ let BattleMovedex = {
 		isNonstandard: "Custom",
 		pp: 5,
 		priority: 0,
-		flags: {dance: 1},
+		flags: {dance: 1, heal: 1},
+		heal: [1, 3],
 		onTryMove(pokemon) {
 			this.attrLastMove('[still]');
 		},
