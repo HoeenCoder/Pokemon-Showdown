@@ -940,11 +940,11 @@ let BattleMovedex = {
 		pp: 5,
 		priority: 0,
 		flags: {dance: 1, heal: 1},
-		heal: [1, 3],
 		onTryMove(pokemon) {
 			this.attrLastMove('[still]');
 		},
 		onHit(target, source, effect) {
+			this.heal(source.maxhp / 3, source);
 			let dancemoves = ['dragondance', 'featherdance', 'fierydance', 'petaldance', 'quiverdance', 'revelationdance', 'swordsdance', 'teeterdance'];
 			let randomMove = dancemoves[this.random(dancemoves.length)];
 			this.useMove(randomMove, target);
