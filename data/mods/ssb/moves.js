@@ -2866,7 +2866,7 @@ let BattleMovedex = {
 			default:
 				if (this.field.setWeather(['raindance', 'sunnyday', 'hail'][this.random(3)], source)) didSomething = true;
 			}
-			if (this.heal(source.maxhp / 3, source)) didSomething = true;
+			if (this.heal(source.maxhp / 4, source)) didSomething = true;
 			if (source.addVolatile('stall')) didSomething = true;
 			if (source.addVolatile('protect')) didSomething = true;
 			return didSomething;
