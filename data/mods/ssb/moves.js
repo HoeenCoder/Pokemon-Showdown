@@ -3874,7 +3874,7 @@ let BattleMovedex = {
 		accuracy: 100,
 		basePower: 120,
 		category: "Physical",
-		desc: "Passes boosts; has other secondary effects.",
+		desc: "Has a 10% chance per effect to apply taunt, confusion, flinch, heal block, and/or focus energy to the target.",
 		shortDesc: "Passes boosts; has other secondary effects.",
 		id: "plurshift",
 		name: "Plurshift",
