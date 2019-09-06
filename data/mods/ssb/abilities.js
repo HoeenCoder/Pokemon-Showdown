@@ -986,7 +986,7 @@ let BattleAbilities = {
 	// Seraphus
 	seraphicregeneration: {
 		desc: "When this Pokemon switches out, it regains 33% of its HP, then its replacement recovers 33% of its health.",
-		shortDesc: "Upon switching out, this Pokemon and its replacement regains 33% of its HP.",
+		shortDesc: "Upon switching out, this Pokemon and its replacement regain 33% of their HP.",
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.maxhp / 3);
 			pokemon.side.addSlotCondition(pokemon, 'seraphicregeneration');
