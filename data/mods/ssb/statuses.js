@@ -1188,7 +1188,7 @@ let BattleStatuses = {
 			this.add(`c|+pokemondeadchannel|Hey Noctrine this set isnt working. I might need a new team.`);
 		},
 		onFaint() {
-			this.add(`c|+pokemondeadchannel|I ${["listen to way too much rap music", "change names way too often"][this.random(2)]} ;_;`);
+			this.add(`c|+pokemondeadchannel|I ${["listen to way too much rap music", "change names way too often"][this.random(2)]} x_x`);
 		},
 	},
 	pohjis: {
