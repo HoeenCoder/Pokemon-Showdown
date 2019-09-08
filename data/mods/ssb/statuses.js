@@ -1182,7 +1182,7 @@ let BattleStatuses = {
 	pokemondeadchannel: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+pokemondeadchannel|${["Lucario•1582 is cute uwu", "Swagn check Z room"][this.random(2)]}`);
+			this.add(`c|+pokemondeadchannel|${["Lucario•1582 is cute", "Swagn check Z room"][this.random(2)]}`);
 		},
 		onSwitchOut() {
 			this.add(`c|+pokemondeadchannel|Hey Noctrine this set isnt working. I might need a new team.`);
