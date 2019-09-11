@@ -1751,7 +1751,6 @@ let BattleMovedex = {
 		basePower: 0,
 		category: "Status",
 		desc: "Increases this Pokemon's Attack, Special Attack, and Speed by two stages while also decreasing this Pokemon's Defense and Special Defense by one stage. If this Pokemon is Minior-Meteor, it will permanently transform into one of the Minior colors and have a special effect based on that color. Red burns, orange confuses, yellow paralyzes, green applies Leech Seed, blue gives the user Aqua Ring status, indigo poisons, and violet badly poisons.",
-		shortDesc: "+2 Atk, Spa, Spe. -1 Def, Spd. Meteor -> Core.",
 		shortDesc: "+2 Atk, SpA, Spe. -1 Def, SpD. Meteor -> Core.",
 		id: "tastetherainbow",
 		name: "Taste the Rainbow",
