@@ -835,7 +835,7 @@ let BattleMovedex = {
 	},
 	// Averardo
 	dragonsmash: {
-		accuracy: 100,
+		accuracy: 90,
 		basePower: 150,
 		category: "Physical",
 		desc: "This Pokemon takes 50% of the damage it deals as recoil.",
