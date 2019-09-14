@@ -3350,7 +3350,7 @@ let BattleMovedex = {
 			this.add('-anim', source, 'Rain Dance', source);
 		},
 		secondary: null,
-		target: "self",
+		target: "all",
 		type: "Poison",
 	},
 	// pluviometer
