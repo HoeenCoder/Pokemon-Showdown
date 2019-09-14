@@ -653,7 +653,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Honchkrow', ability: 'Illusion', item: 'Fakeclaimium Z', gender: 'M',
 				moves: ['Superpower', 'Sucker Punch', ['Flamethrower', 'Ice Beam', 'Thunderbolt']],
 				signatureMove: 'Brave Bird',
-				evs: {atk: 128, spa: 252, spe: 252}, nature: 'Naive',
+				evs: {atk: 128, spa: 128, spe: 252}, nature: 'Naive',
 			},
 			'SparksBlade': {
 				species: 'Blacephalon', ability: 'Magic Guard', item: 'Life Orb', gender: 'N',
