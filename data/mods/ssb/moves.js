@@ -3407,6 +3407,8 @@ let BattleMovedex = {
 			this.heal(source.maxhp / 2, source);
 			if (!this.canSwitch(source.side)) return;
 			for (const ally of source.side.pokemon) {
+				if (ally === source) continue;
+				if (ally.fainted || !ally.hp) continue;
 				ally.heal(ally.maxhp / 8, ally);
 			}
 			this.add('-message', `${source.name} restored everyone's HP.`);
