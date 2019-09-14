@@ -2235,7 +2235,7 @@ let BattleMovedex = {
 			this.add('-anim', source, "Draco Meteor", target);
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
-			this.heal(Math.ceil(pokemon.maxhp / 7), pokemon, pokemon, move); // 15% health recovered
+			this.heal(pokemon.maxhp * 0.15, pokemon, pokemon, move); // 15% health recovered
 		},
 		secondary: null,
 		target: "normal",
