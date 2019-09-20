@@ -914,7 +914,7 @@ let BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Uses a random dance move twice in a row and then restores 1/3 of its max HP. Lunar Dance and Rain Dance cannot be called.",
+		desc: "Uses a random dance move twice in a row and then restores 1/3 of its max HP. Lunar Dance cannot be called.",
 		shortDesc: "Uses random dance move twice; heals 1/3 HP.",
 		id: 'justdance',
 		name: "Just Dance",
