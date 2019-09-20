@@ -955,12 +955,6 @@ let BattleStatuses = {
 		noCopy: true,
 		onStart(pokemon) {
 			this.add(`c|+Lost Seso|<3 ( ͡° ͜ʖ ͡°) DANCE WITH ME ( ͡° ͜ʖ ͡°) <3`);
-			if (pokemon.illusion) return;
-			this.effectData.danceMultiplier = 0;
-		},
-		onAfterMove(pokemon, target, move) {
-			if (pokemon.illusion) return;
-			if (move.flags.dance) this.effectData.danceMultiplier++;
 		},
 		onSwitchOut() {
 			this.add(`c|+Lost Seso|Ran out of ramen, brb`);
@@ -1179,14 +1173,15 @@ let BattleStatuses = {
 	},
 	pokemondeadchannel: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|+pokemondeadchannel|${["Lucario•1582 is cute", "Swagn check Z room"][this.random(2)]}`);
+		onStart(pokemon) {
+			pokemon.m.alt = this.randomChance(1, 10) ? " pinkdragontamer" : "+pokemondeadchannel";
+			this.add(`c|${pokemon.m.alt}|${["Lucario•1582 is cute", "Swagn check Z room"][this.random(2)]}`);
 		},
-		onSwitchOut() {
-			this.add(`c|+pokemondeadchannel|Hey Noctrine this set isnt working. I might need a new team.`);
+		onSwitchOut(pokemon) {
+			this.add(`c|${pokemon.m.alt}|Hey Noctrine this set isnt working. I might need a new team.`);
 		},
-		onFaint() {
-			this.add(`c|+pokemondeadchannel|I ${["listen to way too much rap music", "change names way too often"][this.random(2)]} x_x`);
+		onFaint(pokemon) {
+			this.add(`c|${pokemon.m.alt}|I ${["listen to way too much rap music", "change names way too often"][this.random(2)]} x_x`);
 		},
 	},
 	pohjis: {
