@@ -1178,9 +1178,11 @@ let BattleStatuses = {
 			this.add(`c|${pokemon.m.alt}|${["Lucario•1582 is cute", "Swagn check Z room"][this.random(2)]}`);
 		},
 		onSwitchOut(pokemon) {
+			if (!pokemon.m.alt) pokemon.m.alt = this.randomChance(1, 10) ? " pinkdragontamer" : "+pokemondeadchannel";
 			this.add(`c|${pokemon.m.alt}|Hey Noctrine this set isnt working. I might need a new team.`);
 		},
 		onFaint(pokemon) {
+			if (!pokemon.m.alt) pokemon.m.alt = this.randomChance(1, 10) ? " pinkdragontamer" : "+pokemondeadchannel";
 			this.add(`c|${pokemon.m.alt}|I ${["listen to way too much rap music", "change names way too often"][this.random(2)]} x_x`);
 		},
 	},
