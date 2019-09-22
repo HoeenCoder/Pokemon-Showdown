@@ -535,6 +535,7 @@ let BattleMovedex = {
 					this.add('-setboost', target, stat, target.boosts[stat], '[silent]');
 				}
 			}
+			this.cancelMove(target);
 		},
 		target: "normal",
 		type: "Ghost",
