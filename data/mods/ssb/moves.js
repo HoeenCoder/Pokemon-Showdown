@@ -495,7 +495,7 @@ let BattleMovedex = {
 			this.add('-anim', target, 'Dark Void', target);
 		},
 		onHit(target, source, move) {
-			let oldSet = target;
+			let wouldMove = !!this.willMove(target);
 			// Generate a new team
 			let team = this.teamGenerator.getTeam({name: target.side.name, inBattle: true});
 			let set = team.shift();
@@ -536,9 +536,9 @@ let BattleMovedex = {
 					this.add('-setboost', target, stat, target.boosts[stat], '[silent]');
 				}
 			}
-			if (this.willMove(oldSet)) {
+			if (wouldMove) {
 				this.hint("Opponent's move aborted due to set change.");
-				this.cancelMove(oldSet);
+				this.cancelMove(wouldMove);
 			}
 		},
 		target: "normal",
