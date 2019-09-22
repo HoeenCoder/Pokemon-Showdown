@@ -495,8 +495,7 @@ let BattleMovedex = {
 			this.add('-anim', target, 'Dark Void', target);
 		},
 		onHit(target, source, move) {
-			// If the opponent somehow moves after Heretic's Mark, it will kill their action as this move scrambles their moveset
-			this.cancelAction(target);
+			let oldSet = target;
 			// Generate a new team
 			let team = this.teamGenerator.getTeam({name: target.side.name, inBattle: true});
 			let set = team.shift();
@@ -536,6 +535,10 @@ let BattleMovedex = {
 					// @ts-ignore Iterate through stat changes to update client
 					this.add('-setboost', target, stat, target.boosts[stat], '[silent]');
 				}
+			}
+			if (this.willMove(oldSet)) {
+				this.hint("Opponent's move aborted due to set change.");
+				this.cancelMove(oldSet);
 			}
 		},
 		target: "normal",
