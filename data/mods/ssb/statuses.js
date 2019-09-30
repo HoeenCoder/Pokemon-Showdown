@@ -1792,7 +1792,7 @@ let BattleStatuses = {
 			this.add('-message', `${pokemon.name}'s next attack will hit multiple times!`);
 		},
 		onPrepareHit(source, target, move) {
-			if (move.category !== 'Status') {
+			if (move.category !== 'Status' && !move.multihit) {
 				move.multihit = [2, 5];
 				move.basePower = 25;
 				this.effectData.usedup = true;
