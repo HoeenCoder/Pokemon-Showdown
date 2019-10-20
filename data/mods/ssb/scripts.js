@@ -366,6 +366,13 @@ let BattleScripts = {
 			}
 			return this.battle.trunc(speed, 13);
 		},
+		ignoringAbility() {
+			const abilities = [
+				'battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange',
+			];
+			return !!((this.battle.gen >= 5 && !this.isActive) ||
+					  (this.volatiles['gastroacid'] && !abilities.includes(this.ability)) || this.battle.field.getPseudoWeather('neutralizingspores'));
+		},
 		isGrounded(negateImmunity = false) {
 			if ('gravity' in this.battle.field.pseudoWeather) return true;
 			if ('ingrain' in this.volatiles && this.battle.gen >= 4) return true;
