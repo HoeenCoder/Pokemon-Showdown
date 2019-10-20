@@ -128,17 +128,28 @@ let BattleAbilities = {
 		},
 	},
 	// Akir
-	regrowth: {
-		desc: "This Pokemon's healing moves have their priority increased by one stage. When switching out, this Pokemon restores 1/3 of its maximum HP, rounded down.",
-		shortDesc: "Healing moves have priority increased by 1. Heals 1/3 max HP when switching out.",
-		id: "regrowth",
-		name: "Regrowth",
+	neutralizingspores: {
+		desc: "Ignores all abilities while on the field.",
+		shortDesc: "Ignores all abilities while on the field.",
+		id: "neutralizingspores",
+		name: "Neutralizing Spores",
 		isNonstandard: "Custom",
-		onModifyPriority(priority, pokemon, target, move) {
-			if (move && move.flags['heal']) return priority + 1;
+		onStart() {
+			this.field.addPseudoWeather('neutralizingspores');
 		},
-		onSwitchOut(pokemon) {
-			pokemon.heal(pokemon.maxhp / 3);
+		pseudoWeather: 'neutralizingspores',
+		// Ability negation is located in scripts.js
+		effect: {
+			duration: 0,
+			onStart() {},
+			onUpdate(pokemon) {
+				let killEffect = true;
+				for (const curMon of this.getAllActive()) {
+					if (toID(curMon.ability) === 'neutralizingspores') killEffect = false;
+				}
+				if (killEffect) this.battle.removePseudoWeather('neutralizingspores');
+			},
+			onEnd() {},
 		},
 	},
 	// Alpha
