@@ -209,7 +209,7 @@ let BattleMovedex = {
 	},
 	// Akasianse
 	quickreload: {
-		accuracy: 100,
+		accuracy: true,
 		basePower: 0,
 		category: "Physical",
 		desc: "Uses Defog and then attempts to use U-Turn.",
