@@ -828,13 +828,13 @@ let BattleStatuses = {
 	kay: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@kay|Every kiss begins with Kay`);
+			this.add(`c|+kay|Every kiss begins with Kay`);
 		},
 		onSwitchOut() {
-			this.add(`c|@kay|くコ:彡`);
+			this.add(`c|+kay|くコ:彡`);
 		},
 		onFaint() {
-			this.add(`c|@kay|'kay bye!くコ:彡`);
+			this.add(`c|+kay|'kay bye!くコ:彡`);
 		},
 		// Simple Innate
 		onBoost(boost, target, source, effect) {
@@ -928,15 +928,15 @@ let BattleStatuses = {
 	lifeisdank: {
 		noCopy: true,
 		onStart(target) {
-			this.add(`c|&LifeisDANK|!!!ლ(⁰⊖⁰ლ) Peent Peent.`);
+			this.add(`c|+LifeisDANK|!!!ლ(⁰⊖⁰ლ) Peent Peent.`);
 			if (target.illusion) return;
 			this.boost({spe: 2}, target);
 		},
 		onSwitchOut() {
-			this.add(`c|&LifeisDANK|!(•⌔• ) Peent Peent.`);
+			this.add(`c|+LifeisDANK|!(•⌔• ) Peent Peent.`);
 		},
 		onFaint() {
-			this.add(`c|&LifeisDANK|(•⌔•. ) Peent.`);
+			this.add(`c|+LifeisDANK|(•⌔•. ) Peent.`);
 		},
 		// Mountaineer innate
 		onDamage(damage, target, source, effect) {
