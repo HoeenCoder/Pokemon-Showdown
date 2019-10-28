@@ -1092,13 +1092,13 @@ let BattleStatuses = {
 	nui: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|&nui|（*＾3＾）`);
+			this.add(`c|@nui|（*＾3＾）`);
 		},
 		onSwitchOut() {
-			this.add(`c|&nui|(´◔‸◔\`) **??+ !`);
+			this.add(`c|@nui|(´◔‸◔\`) **??+ !`);
 		},
 		onFaint() {
-			this.add(`c|&nui|(◕︿◕✿)`);
+			this.add(`c|@nui|(◕︿◕✿)`);
 		},
 	},
 	om: {
