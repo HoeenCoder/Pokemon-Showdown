@@ -129,28 +129,16 @@ let BattleAbilities = {
 	},
 	// Akir
 	neutralizingspores: {
-		desc: "Ignores all abilities while on the field.",
-		shortDesc: "Ignores all abilities while on the field.",
+		desc: "Nullifies all abilities while on the field.",
+		shortDesc: "Nullifies all abilities while on the field.",
 		id: "neutralizingspores",
 		name: "Neutralizing Spores",
 		isNonstandard: "Custom",
-		onStart() {
-			this.field.addPseudoWeather('neutralizingspores');
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Neutralizing Spores');
+			this.add('-message', `${pokemon.name} neutralized all abilities on the field!`);
 		},
-		pseudoWeather: 'neutralizingspores',
-		// Ability negation is located in scripts.js
-		effect: {
-			duration: 0,
-			onStart() {},
-			onUpdate(pokemon) {
-				let killEffect = true;
-				for (const curMon of this.getAllActive()) {
-					if (toID(curMon.ability) === 'neutralizingspores') killEffect = false;
-				}
-				if (killEffect) this.battle.removePseudoWeather('neutralizingspores');
-			},
-			onEnd() {},
-		},
+		// ability ignoring located in scripts.js
 	},
 	// Alpha
 	osolemio: {
