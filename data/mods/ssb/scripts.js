@@ -355,17 +355,6 @@ let BattleScripts = {
 		return tr(baseDamage, 16);
 	},
 	pokemon: {
-		getActionSpeed() {
-			let speed = this.getStat('spe', false, false);
-			if ((this.battle.field.getPseudoWeather('trickroom') || this.battle.field.getPseudoWeather('alienwave')) &&
-				 !(this.battle.field.getPseudoWeather('trickroom') && this.battle.field.getPseudoWeather('alienwave'))) {
-				speed = 0x2710 - speed;
-			}
-			if (this.battle.field.getPseudoWeather('distortionworld')) {
-				speed = 0; // Anything times 0 is still 0
-			}
-			return this.battle.trunc(speed, 13);
-		},
 		ignoringAbility() {
 			const abilities = [
 				'battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange',
@@ -379,7 +368,19 @@ let BattleScripts = {
 				if (allyActive.ability.includes('neutralizingspores') && !allyActive.volatiles['gastroacid']) sporeEffect = true;
 			}
 			return !!((this.battle.gen >= 5 && !this.isActive) ||
-					  (this.volatiles['gastroacid'] && !abilities.includes(this.ability)) || (sporeEffect && !this.ability.includes('neutralizingspores')));
+					  (this.volatiles['gastroacid'] && !abilities.includes(this.ability)) || 
+					  (sporeEffect && !this.ability.includes('neutralizingspores')));
+		},
+		getActionSpeed() {
+			let speed = this.getStat('spe', false, false);
+			if ((this.battle.field.getPseudoWeather('trickroom') || this.battle.field.getPseudoWeather('alienwave')) &&
+				 !(this.battle.field.getPseudoWeather('trickroom') && this.battle.field.getPseudoWeather('alienwave'))) {
+				speed = 0x2710 - speed;
+			}
+			if (this.battle.field.getPseudoWeather('distortionworld')) {
+				speed = 0; // Anything times 0 is still 0
+			}
+			return this.battle.trunc(speed, 13);
 		},
 		isGrounded(negateImmunity = false) {
 			if ('gravity' in this.battle.field.pseudoWeather) return true;

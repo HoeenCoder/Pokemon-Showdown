@@ -107,21 +107,21 @@ let BattleStatuses = {
 	},
 	akir: {
 		noCopy: true,
-		onStart(source) {
+		onStart() {
 			this.add(`c|%Akir|hey whats up`);
-			if (source.illusion) return;
-			this.boost({def: 1, spd: 1}, source);
 		},
-		onSwitchOut() {
+		onSwitchOut(pokemon) {
 			this.add(`c|%Akir|sorry need to build more`);
+			if (pokemon.illusion) return;
+			pokemon.heal(pokemon.maxhp / 3);
 		},
 		onFaint() {
 			this.add(`c|%Akir|too sleepy, c ya`);
 		},
 		onSourceModifyDamage(damage, source, target, move) {
-			if (target.getMoveHitData(move).typeMod > 0 && !target.illusion) {
-				this.debug('Solid Rock neutralize');
-				return this.chainModify(0.75);
+			if (target.getMoveHitData(move) && !target.illusion) {
+				this.debug('Mushroom Guard halves damage.');
+				return this.chainModify(0.5);
 			}
 		},
 	},

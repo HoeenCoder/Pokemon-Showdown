@@ -99,7 +99,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 				species: 'Parasect', ability: 'Neutralizing Spores', item: 'Leftovers', gender: 'M',
 				moves: ['Toxic', 'Leech Life', ['Lunar Dance', 'Spore']],
 				signatureMove: 'Compost',
-				evs: {hp: 248, atk: 8, spd: 252}, nature: 'Careful',
+				evs: {hp: 252, atk: 4, def: 252}, nature: 'Impish',
 			},
 			'Alpha': {
 				species: 'Espeon', ability: 'O SOLE MIO', item: 'Light Clay', gender: 'M',
