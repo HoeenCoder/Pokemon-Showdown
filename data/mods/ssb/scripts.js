@@ -368,7 +368,7 @@ let BattleScripts = {
 				if (allyActive.ability.includes('neutralizingspores') && !allyActive.volatiles['gastroacid']) sporeEffect = true;
 			}
 			return !!((this.battle.gen >= 5 && !this.isActive) ||
-					  (this.volatiles['gastroacid'] && !abilities.includes(this.ability)) || 
+					  (this.volatiles['gastroacid'] && !abilities.includes(this.ability)) ||
 					  (sporeEffect && !this.ability.includes('neutralizingspores')));
 		},
 		getActionSpeed() {
