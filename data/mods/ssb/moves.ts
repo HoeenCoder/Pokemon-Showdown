@@ -208,6 +208,14 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 1,
 		priority: 0,
 		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Imprison', target);
+			this.add('-anim', source, 'Mean Look', target);
+			this.add('-anim', source, 'Transform', target);
+		},
 		volatileStatus: 'imprison',
 		onHit(target, source, move) {
 			target.addVolatile('trapped', source, move, 'trapper');

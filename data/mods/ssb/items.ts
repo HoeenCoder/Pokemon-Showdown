@@ -19,3 +19,5 @@ export const BattleItems: {[k: string]: ModdedItemData} = {
 		desc: "Holder is immune to powder moves and damage from Sandstorm Hail, and Snowstorm.",
 	},
 };
+
+exports.BattleItems = BattleItems;
