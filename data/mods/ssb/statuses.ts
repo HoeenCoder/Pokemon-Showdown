@@ -38,4 +38,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 	IMPORTANT: Obtain the username from getName
 	*/
 	// Please keep statuses organized alphabetically based on staff member name!
+	overneat: {
+		noCopy: true,
+		onStart(source) {
+			this.add(`c|${getName('Overneat')}|Lets end this ${source.side.foe.name}!!`);
+			if (source.species.id !== 'absolmega' || source.illusion) return;
+			this.add('-start', source, 'typeadd', 'Fairy');
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Overneat')}|I can do better!`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Overneat')}|I was to cocky...`);
+		},
+	},
 };

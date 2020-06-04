@@ -6,4 +6,10 @@ export const BattlePokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 100, atk: 100, def: 100, spa: 100, spd: 100, spe: 100}, // the base stats for the pokemon
 	},
 	*/
+	// Overneat
+	absolmega: {
+		inherit: true,
+		abilities: {0: 'Darkest Wings'},
+		types: ['Dark', 'Fairy'],
+	},
 };

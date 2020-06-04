@@ -29,4 +29,23 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
+
+	"healingyou": {
+		accuracy: 100,
+		basePower: 117,
+		category: "Physical",
+		desc: "Heals foe 50% and eliminates any status problem but it lowers Defense and Special Defense stat by 1 stage, then proceeds to attack the foe.",
+		shortDesc: "Heals foe and gets rid of their status but the foe's Def and SpD by 1, attacks the foe.",
+		name: "Move Name",
+		pp: 5,
+		priority: 0,
+		onTryHit(target, source) {
+			this.heal(Math.ceil(target.baseMaxhp * 0.5));
+			this.boost({def: -1, spd: -1}, target);
+		},
+		flags: {mirror: 1, protect: 1},
+		secondary: null,
+		target: "normal",
+		type: "Dark",
+	},
 };
