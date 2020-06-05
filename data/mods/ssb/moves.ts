@@ -72,13 +72,13 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Normal",
 	},
 
-	//Kris
+	// Kris
 	ebhewbnjgwegaer: {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "",
-		shortDesc: "",
+		desc: "The user changes into a random Pokemon with a first name letter that matches the forme Unown is currently in (A -> Alakazam, etc) that has base stats that would benefit from Unown's EV/IV/Nature spread and moves. Using it while in a forme that is not Unown will make it revert back to the Unown forme it transformed in (If an Unown transforms into Alakazam, it'll transform back to Unown-A when used again). Light of Ruin becomes Strange Steam, Psystrike becomes Psyshock, Secret Sword becomes Aura Sphere, Mind Blown becomes Flamethrower, and Seed Flare becomes Apple Acid while in a non-Unown forme.",
+		shortDesc: "Transform into Unown. Unown: Transform into mon.",
 		name: "ebhewbnjgWEGAER",
 		pp: 20,
 		priority: 0,
@@ -101,12 +101,13 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 					if (species.isNonstandard === 'Unobtainable') return false;
 					if (['Arceus', 'Silvally'].includes(species.baseSpecies) && species.types[0] !== 'Normal') return false;
 					if (species.baseStats.spa < 80) return false;
-					if (species.baseStats.spe < 80)  return false;
-					let unownLetter = target.species.id.charAt(5) || 'a';
+					if (species.baseStats.spe < 80) return false;
+					const unownLetter = target.species.id.charAt(5) || 'a';
 					if (!species.id.startsWith(unownLetter.trim().toLowerCase())) return false;
 					return true;
 				});
 				target.formeChange(this.sample(monList), this.effect, true);
+				target.setAbility('Protean');
 				target.moveSlots = target.moveSlots.map(slot => {
 					const newMoves: {[k: string]: string} = {
 						lightofruin: 'strangesteam',
@@ -207,7 +208,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Mirror Shot', source);
 			this.add('-anim', source, 'Refresh', source);
 		},
-		onHit: function () {
+		onHit() {
 			this.add(`c|@OM~!|Bang Bang`);
 		},
 		secondary: {

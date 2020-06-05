@@ -53,11 +53,13 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 	kris: {
 		noCopy: true,
 		onStart(source) {
-			const foeName = source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : source.side.foe.active[0].name;
+			const foeName = source.side.foe.active[0].illusion ?
+				source.side.foe.active[0].illusion.name : source.side.foe.active[0].name;
 			this.add(`c|${getName('Kris')}|hi ${foeName}`);
 		},
 		onSwitchOut(source) {
-			const foeName = source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : source.side.foe.active[0].name;
+			const foeName = source.side.foe.active[0].illusion ?
+				source.side.foe.active[0].illusion.name : source.side.foe.active[0].name;
 			this.add(`c|${getName('Kris')}|bye ${foeName}`);
 		},
 		onFaint() {
@@ -77,7 +79,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			if (pokemon.activeTurns < 1) return;
 			const unownLetters = 'abcdefghijklmnopgrstuvwxyz'.split('');
 			const currentFormeID = toID(pokemon.set.species);
-			let currentLetter = currentFormeID.charAt(5) || 'a';
+			const currentLetter = currentFormeID.charAt(5) || 'a';
 			const chosenLetter = this.sample(unownLetters.filter(letter => {
 				return letter !== currentLetter;
 			}));
