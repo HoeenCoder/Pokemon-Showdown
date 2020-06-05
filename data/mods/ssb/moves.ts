@@ -88,6 +88,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			},
 			// groundedness implemented in battle.engine.js:BattlePokemon#isGrounded
 		},
+		secondary: null,
 		target: "normal",
 		type: "Ice",
 	},
