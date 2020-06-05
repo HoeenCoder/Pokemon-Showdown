@@ -41,7 +41,8 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "If hit below 1/4 HP, heal 1/2 max HP. One time.",
 		name: "Second Wind",
 		onAfterDamage(damage, target, source, move) {
-			if (move && target.hp > 0 && target.hp < target.maxhp / 4) {
+			if (move && target.hp > 0 && target.hp < target.maxhp / 4 && !target.m.secondwind) {
+				target.m.secondwind = true;
 				this.heal(target.maxhp / 2);
 			}
 		},
