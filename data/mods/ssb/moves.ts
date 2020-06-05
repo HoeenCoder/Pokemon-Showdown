@@ -216,7 +216,9 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Mean Look', target);
 			this.add('-anim', source, 'Transform', target);
 		},
-		volatileStatus: 'imprison',
+		self: {
+			volatileStatus: 'imprison',
+		},
 		onHit(target, source, move) {
 			target.addVolatile('trapped', source, move, 'trapper');
 			const transforming = source.transformInto(target);
