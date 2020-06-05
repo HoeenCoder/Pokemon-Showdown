@@ -44,7 +44,7 @@ export const ssbSets: SSBSets = {
 		species: 'Lopunny', ability: 'Second Wind', item: 'Lopunnite', gender: 'F',
 		moves: ['Return', 'Play Rough', ['Drain Punch', 'High Jump Kick']],
 		signatureMove: 'Cozy Cuddle',
-		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', level: 100, shiny: 1,
 	},
 	Mitsuki: {
 		species: 'Leafeon', ability: 'Photosynthesis', item: ['Life Orb', 'Miracle Seed'], gender: 'M',
