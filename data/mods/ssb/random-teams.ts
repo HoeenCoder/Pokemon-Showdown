@@ -40,6 +40,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Data Corruption',
 		evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
 	},
+	'Kaiju Bunny': {
+		species: 'Lopunny', ability: 'Second Wind', item: 'Lopunnite', gender: 'F',
+		moves: ['Return', 'Play Rough', ['Drain Punch', 'High Jump Kick']],
+		signatureMove: 'Cozy Cuddle',
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
+	},
 	Mitsuki: {
 		species: 'Leafeon', ability: 'Photosynthesis', item: ['Life Orb', 'Miracle Seed'], gender: 'M',
 		moves: ['Solar Blade', ['Body Slam', 'X-Scissor'], 'Thousand Arrows'],
