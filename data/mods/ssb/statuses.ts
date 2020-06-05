@@ -50,6 +50,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('GXS')}|A Critical Error Has Occurred. Would You Like To Send A Report? Sending Report.`);
 		},
 	},
+	kaijubunny: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Kaiju Bunny')}|I heard SOMEONE wasn't getting enough affection! ￣( ÒㅅÓ)￣`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Kaiju Bunny')}|Brb, need more coffee ￣( =ㅅ=)￣`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Kaiju Bunny')}|Wow, okay, r00d ￣(ಥㅅಥ)￣`);
+		},
+	},
 	mitsuki: {
 		noCopy: true,
 		onStart() {
