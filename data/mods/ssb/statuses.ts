@@ -43,6 +43,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		noCopy: true,
 		onStart(source) {
 			this.add(`c|${getName('OM~!')}|What's up gamers?`);
+			if (source.illusion) return;
 			this.add('-start', source, 'typeadd', 'Flying');
 		},
 		onSwitchOut() {
