@@ -9,6 +9,7 @@ export const BattlePokedex: {[k: string]: ModdedSpeciesData} = {
 	// Kaiju Bunny
 	lopunnymega: {
 		inherit: true,
+		abilities: {0: 'Second Wind'},
 		types: ['Normal', 'Fairy'],
 	},
 	// OM~!
