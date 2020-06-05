@@ -38,6 +38,19 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 	IMPORTANT: Obtain the username from getName
 	*/
 	// Please keep statuses organized alphabetically based on staff member name!
+	mitsuki: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Mitsuki')}|alguem quer batalha?????`);
+		},
+		onSwitchOut(source) {
+			this.add(`c|${getName('Mitsuki')}|You're weak, ${source.side.foe.name}. Why? Because you lack... hatred.`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Mitsuki')}|THIS WORLD SHALL KNOW P A I N`);
+		},
+  },
+
 	overneat: {
 		noCopy: true,
 		onStart(source) {
@@ -50,6 +63,5 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Overneat')}|I was to cocky...`);
-		},
 	},
 };
