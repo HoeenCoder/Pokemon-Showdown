@@ -36,7 +36,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		category: "Physical",
 		desc: "Heals foe 50% and eliminates any status problem but it lowers Defense and Special Defense stat by 1 stage, then proceeds to attack the foe.",
 		shortDesc: "Heals foe and gets rid of their status but the foe's Def and SpD by 1, attacks the foe.",
-		name: "Move Name",
+		name: "Healing you?",
 		pp: 5,
 		priority: 0,
 		onTryHit(target, source) {
