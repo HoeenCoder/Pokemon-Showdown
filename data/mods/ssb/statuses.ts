@@ -38,4 +38,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 	IMPORTANT: Obtain the username from getName
 	*/
 	// Please keep statuses organized alphabetically based on staff member name!
+
+	om: {
+		noCopy: true,
+		onStart(source) {
+			this.add(`c|${getName('OM~!')}|What's up gamers?`);
+			this.add('-start', source, 'typeadd', 'Flying');
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('OM~!')}|Let me just ${['host murder for the 100th time', 'clean out scum zzz', 'ladder mnm rq'][this.random(3)]}`);
+		},
+		onFaint() {
+			this.add(`c|${getName('OM~!')}|ugh, I ${['rolled a 1, damnit.', 'got killed night 1, seriously?', 'got critfroze by ice beam asfgegkhalfewgihons'][this.random(3)}`);
+		},
+	},
 };
