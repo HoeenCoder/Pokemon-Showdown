@@ -53,6 +53,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				const stats: BoostName[] = [];
 				let stat: BoostName;
 				for (stat in target.boosts) {
+					if (stat === 'evasion' || stat === 'accuracy') continue;
 					if (target.boosts[stat] > -6) {
 						stats.push(stat);
 					}
