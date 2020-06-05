@@ -36,6 +36,55 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
+	// Flare
+	krisenbon: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		desc: "If the target is a Flying type that has not used Roost this turn or a Pokemon with the Levitate Ability, it loses its immunity to Ground-type attacks and the Arena Trap Ability as long as it remains active. This move's type effectiveness against Water is changed to be neutral no matter what this move's type is.",
+		shortDesc: "Grounds target. Neutral on Water.",
+		name: "Kōri Senbon",
+		pp: 5,
+		priority: 1,
+		flags: {protect: 1, mirror: 1, nonsky: 1},
+		volatileStatus: 'smackdown',
+		onEffectiveness(typeMod, target, type) {
+			if (type === 'Water') return 0;
+		},
+		effect: {
+			noCopy: true,
+			onStart(pokemon) {
+				let applies = false;
+				if (pokemon.hasType('Flying') || pokemon.hasAbility('levitate')) applies = true;
+				if (pokemon.hasItem('ironball') || pokemon.volatiles['ingrain'] ||
+					this.field.getPseudoWeather('gravity')) applies = false;
+				if (pokemon.removeVolatile('fly') || pokemon.removeVolatile('bounce')) {
+					applies = true;
+					this.queue.cancelMove(pokemon);
+					pokemon.removeVolatile('twoturnmove');
+				}
+				if (pokemon.volatiles['magnetrise']) {
+					applies = true;
+					delete pokemon.volatiles['magnetrise'];
+				}
+				if (pokemon.volatiles['telekinesis']) {
+					applies = true;
+					delete pokemon.volatiles['telekinesis'];
+				}
+				if (!applies) return false;
+				this.add('-start', pokemon, 'Smack Down');
+			},
+			onRestart(pokemon) {
+				if (pokemon.removeVolatile('fly') || pokemon.removeVolatile('bounce')) {
+					this.queue.cancelMove(pokemon);
+					this.add('-start', pokemon, 'Smack Down');
+				}
+			},
+			// groundedness implemented in battle.engine.js:BattlePokemon#isGrounded
+		},
+		target: "normal",
+		type: "Ice",
+	},
 	// GXS
 	datacorruption: {
 		accuracy: 90,
