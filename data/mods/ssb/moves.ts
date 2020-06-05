@@ -40,8 +40,13 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 5,
 		priority: 0,
 		onTryHit(target, source) {
+			this.attrLastMove('[still]');
 			this.heal(Math.ceil(target.baseMaxhp * 0.5));
 			this.boost({def: -1, spd: -1}, target);
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Heal Pulse', source);
+			this.add('-anim', source, 'Close Combat', source);
 		},
 		flags: {mirror: 1, protect: 1},
 		secondary: null,
