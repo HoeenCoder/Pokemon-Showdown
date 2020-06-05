@@ -349,14 +349,14 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Imprison', target);
+			this.add('-anim', source, 'Imprison', source);
 			this.add('-anim', source, 'Mean Look', target);
 			this.add('-anim', source, 'Transform', target);
 		},
-		onHit(target, source, move) {
-			target.addVolatile('trapped', source, move, 'trapper');
-			source.addVolatile('imprison', source, move);
-			if (!source.transformInto(target)) {
+		onHit(target, pokemon, move) {
+			target.addVolatile('trapped', pokemon, move, 'trapper');
+			pokemon.addVolatile('imprison', pokemon, move);
+			if (!pokemon.transformInto(target)) {
 				return false;
 			}
 		},
