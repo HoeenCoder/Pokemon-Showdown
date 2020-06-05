@@ -72,6 +72,38 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Normal",
 	},
 
+	// Kaiju Bunny
+	cozycuddle: {
+		accuracy: 95,
+		basePower: 0,
+		category: "Status",
+		desc: "Traps the target and lowers its Attack and Defense by two stages.",
+		shortDesc: "Traps target. Atk -2 Def -2.",
+		name: "Cozy Cuddle",
+		pp: 20,
+		priority: 0,
+		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Flatter', target);
+			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
+		},
+		onHit(target, source, move) {
+			target.addVolatile('trapped', source, move, 'trapper');
+			if (!target.m.cuddled) {
+				this.boost({atk: -2, def: -2}, target, target);
+				target.m.cuddled = true;
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Ghost",
+	},
+
+	},
+
 	// Mitsuki
 	terraforming: {
 		accuracy: 100,
