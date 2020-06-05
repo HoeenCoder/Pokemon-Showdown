@@ -48,6 +48,9 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		priority: 1,
 		flags: {protect: 1, mirror: 1, nonsky: 1},
 		volatileStatus: 'smackdown',
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Ice Shard', target);
 		},
