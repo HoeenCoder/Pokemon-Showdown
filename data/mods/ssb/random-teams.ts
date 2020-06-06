@@ -35,7 +35,7 @@ export const ssbSets: SSBSets = {
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
 	Flare: {
-		species: 'Weavile', ability: 'Permafrost Armor', item: 'Life Orb', gender: 'M',
+		species: 'Weavile', ability: 'Permafrost Armor', item: 'Life Orb', gender: 'N',
 		moves: ['Earthquake', 'Knock Off', ['Play Rough', 'U-turn']],
 		signatureMove: 'Kōri Senbon',
 		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
