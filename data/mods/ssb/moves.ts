@@ -76,6 +76,48 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Fire",
 	},
+	// Darth
+	archangelsrequiem: {
+		accuracy: 100, // a number or true for always hits
+		basePower: 80, // Not used for Status moves, base power of the move, number
+		category: "Special", // "Physical", "Special", or "Status"
+		desc: "Type is the users secondary typing. Switches out both target and user, recovering 33% health to the users replacement.", // long description
+		shortDesc: "Type is users second type; switches target and user with user's replacement regaining 33% health.", // short description, shows up in /dt
+		name: "Archangel's Requiem",
+		pp: 10, // unboosted PP count
+		priority: -5, // move priority, -6 -> 6
+		flags: {protect: 1, mirror: 1}, // Move flags https://github.com/smogon/pokemon-showdown/blob/master/data/moves.js#L1-L27
+		onTryMove() {
+			this.attrLastMove('[still]'); // For custom animations
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Roost', source);
+			this.add('-anim', source, 'Whirlwind', target);
+			this.add('-anim', source, 'Whirlwind', source);
+		},
+		onModifyType(move, pokemon) {
+			let type = pokemon.types[1] ? pokemon.types[1] : pokemon.types[0];
+			move.type = type;
+		},
+		onHit(target, source, move) {
+			if (source && source !== target && target.hp) {
+				if (!this.canSwitch(target.side) || target.forceSwitchFlag) return;
+					if (pokemon.switchFlag === true) return;
+					target.switchFlag = true;
+			}
+		},
+		effect: {
+			onSwap(target) {
+				if (!target.fainted && target.hp < target.maxhp) {
+					target.heal(target.maxhp);
+					this.add('-heal', target, 33, '[from] move: Archangel\'s Requiem')
+				}
+			},
+		forceSwitch: true,
+		selfSwitch: true,
+		target: "normal", 
+		type: "Normal", 
+	},
 	// GXS
 	datacorruption: {
 		accuracy: 90,

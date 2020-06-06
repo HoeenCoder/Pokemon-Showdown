@@ -57,6 +57,20 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			}
 		},
 	},
+	darth: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Darth')}|Let the Guardian Angel protect thee!`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Darth')}|Well, everyone needs a break at some point.`);
+		},
+		onTryMove(attacker, defender, move) {
+			if (move.id === 'angelsrequiem') {
+				this.add(`c|${getName('Darth')}|Take my place, serve the Angel of Stall!`);
+			}
+		},
+	},
 	gxs: {
 		noCopy: true,
 		onStart() {

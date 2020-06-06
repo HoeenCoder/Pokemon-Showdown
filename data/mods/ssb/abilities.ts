@@ -25,6 +25,32 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
+	// Darth
+	guardianangel: {
+		desc: "Regenerator effect and changes type on switch in to be super effective against foe.", // long description
+		shortDesc: "Regenerator + changes type for super effectiveness against opponent.",
+		name: "Guardian Angel",
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
+		},
+		onStart(pokemon) {
+			let resistances = [];
+			Object.keys(Dex.data.TypeChart).forEach(function(type) {
+				if (Dex.getEffectiveness(type, pokemon.side.foe) < 1) return resistances.push(type);
+				return null;
+			}
+			let randType = resistances[Math.floor(Math.random() * resistances.length)];
+			let randTypeTwo = resistances[Math.floor(Math.random() * resistances.length)];
+			while (randType === randTypeTwo) {
+				randTypeTwo = resistances[Math.floor(Math.random() * resistances.length)];
+			}
+			this.add("-start", pokemon, "typechange", randType + '/' + randTypeTwo);
+			let types = [];
+			types.push(randType);
+			types.push(randTypeTwo);
+			pokemon.types = types;
+		}
+	},
 	// GXS
 	virusupload: {
 		desc: "On switch-in, this Pokemon's Attack or Special Attack is raised by 1 stage based on the weaker combined defensive stat of all opposing Pokemon. Attack is raised if their Defense is lower, and Special Attack is raised if their Special Defense is the same or lower.",
