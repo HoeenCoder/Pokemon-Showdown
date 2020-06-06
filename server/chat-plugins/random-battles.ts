@@ -296,7 +296,7 @@ function SSBSets(target: string) {
 	const dex = Dex.forFormat('gen8superstaffbros4');
 	if (!Object.keys(ssbSets).map(toID).includes(toID(target))) {
 		return {e: `Error: ${target.trim()} doesn't have a [Gen 8] Super Staff Bros 4 set.`};
-	};
+	}
 	let name = '';
 	for (const member in ssbSets) {
 		if (toID(target) !== toID(member)) continue;
@@ -309,7 +309,7 @@ function SSBSets(target: string) {
 	buf += `<details><summary>Set</summary>`;
 	buf += `<ul style="list-style-type:none;"><li>${set.species}${set.gender !== '' ? ` (${set.gender})` : ``} @ ${Array.isArray(set.item) ? set.item.map(x => dex.getItem(x).name).join(' / ') : dex.getItem(set.item).name}</li>`;
 	buf += `<li>Ability: ${Array.isArray(set.ability) ? set.ability.map(x => dex.getAbility(x).name).join(' / ') : dex.getAbility(set.ability).name}</li>`;
-	if(set.shiny) {
+	if (set.shiny) {
 		buf += `<li>Shiny: `;
 		if (typeof set.shiny === 'number') {
 			buf += `Sometimes`;
@@ -348,7 +348,7 @@ function SSBSets(target: string) {
 	buf += `</details>`;
 	const sigMove = baseDex.getMove(set.signatureMove).exists && !Array.isArray(set.item) &&
 		typeof dex.getItem(set.item).zMove === 'string' ?
-			dex.getMove(dex.getItem(set.item).zMove as string) : dex.getMove(set.signatureMove);
+		dex.getMove(dex.getItem(set.item).zMove as string) : dex.getMove(set.signatureMove);
 	if (!sigMove.shortDesc || (!sigMove.shortDesc && !sigMove.desc)) {
 		// Do nothing
 	} else {
@@ -382,15 +382,15 @@ function SSBSets(target: string) {
 	// Special casing for users whose usernames are already existing, i.e. Perish Song
 	let effect = dex.getEffect(name + 'user');
 	if (effect.exists && effect.desc && effect.shortDesc) {
-		const name = effect.desc;
-		buf += `<details><summary><strong>Innate Ability</strong>: ${name}</summary>`;
+		const n = effect.desc;
+		buf += `<details><summary><strong>Innate Ability</strong>: ${n}</summary>`;
 		buf += `<strong>Description</strong>: ${effect.shortDesc}`;
 		buf += `</details>`;
 	} else {
 		effect = dex.getEffect(name);
 		if (effect.exists && effect.desc && effect.shortDesc) {
-			const name = effect.desc;
-			buf += `<details><summary><strong>Innate Ability</strong>: ${name}</summary>`;
+			const n = effect.desc;
+			buf += `<details><summary><strong>Innate Ability</strong>: ${n}</summary>`;
 			buf += `<strong>Description</strong>: ${effect.shortDesc}`;
 			buf += `</details>`;
 		}
@@ -399,7 +399,8 @@ function SSBSets(target: string) {
 	if (species.types.some(x => !baseDex.getSpecies(set.species).types.includes(x))) {
 		buf += `<p><strong>Custom Type</strong>: ${species.types.map(x => `<img src="https://${Config.routes.client}/sprites/types/${dex.getType(x).name}.png" />`).join('')}</p>`;
 	}
-	if (Object.values(species.baseStats).some((stat, i) => stat !== Object.values(baseDex.getSpecies(set.species).baseStats)[i])) {
+	if (Object.values(species.baseStats).some(
+		(stat, i) => stat !== Object.values(baseDex.getSpecies(set.species).baseStats)[i])) {
 		buf += `<p><strong>Custom Base Stats</strong>: `;
 		const stats = [];
 		let i: StatName;
