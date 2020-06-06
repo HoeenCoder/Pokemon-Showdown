@@ -83,8 +83,15 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 20,
 		priority: 0,
 		flags: {},
+		volatileStatus: 'cozycuddle',
 		onTryMove() {
 			this.attrLastMove('[still]');
+		},
+		onTryHit(target, source, move) {
+			if (target.volatiles['cozycuddle']) return false;
+			if (target.volatiles['trapped']) {
+				delete move.volatileStatus;
+			}
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Flatter', target);
@@ -96,6 +103,14 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				this.boost({atk: -2, def: -2}, target, target);
 				target.m.cuddled = true;
 			}
+		},
+		effect: {
+			onStart(pokemon) {
+				this.add('-start', pokemon, 'move: Cozy Cuddle');
+			},
+			onTrapPokemon(pokemon) {
+				pokemon.tryTrap();
+			},
 		},
 		secondary: null,
 		target: "normal",
