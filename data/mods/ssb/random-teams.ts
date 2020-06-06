@@ -58,12 +58,18 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Hyper Goner',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
 	},
+	Jho: {
+		species: 'Toxtricity', ability: 'Punk Rock', item: 'Throat Spray', gender: 'M',
+		moves: ['Nasty Plot', 'Overdrive', 'Volt Switch'],
+		signatureMove: 'Genre Change',
+		evs: {spa: 252, spd: 4, spe :252}, ivs: {atk: 0}, nature: 'Timid',
+	},
 	'Kaiju Bunny': {
 		species: 'Lopunny', ability: 'Second Wind', item: 'Lopunnite', gender: 'F',
 		moves: ['Return', 'Play Rough', ['Drain Punch', 'High Jump Kick']],
 		signatureMove: 'Cozy Cuddle',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: 1,
-  },
+	},
 	Kris: {
 		species: 'Unown', ability: 'Protean', item: 'Life Orb', gender: 'N',
 		moves: ['Light of Ruin', 'Psystrike', ['Secret Sword', 'Mind Blown', 'Seed Flare']],
