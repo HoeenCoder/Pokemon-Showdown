@@ -107,6 +107,8 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 				pokemon.formeChange(`unown${chosenLetter === 'a' ? '' : chosenLetter}`, this.effect, true);
 			}
 		},
+		desc: "phuck",
+		shortDesc: "While in an Unown form, this Pokemon has the effects of Magic Guard and transforms into a random letter of Unown at the end of every turn.",
 	},
 	mitsuki: {
 		noCopy: true,

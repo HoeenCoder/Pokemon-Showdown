@@ -108,7 +108,7 @@ replace('.sim-dist', [
 	{regex: /(require\(.*?)(lib)/g, replace: `$1.lib-dist`},
 ]);
 replace('.server-dist', [
-	{regex: /(require\(.*?)(lib|sim)/g, replace: `$1.$2-dist`},
+	{regex: /(require\(.*?)(lib|sim|data)/g, replace: `$1.$2-dist`},
 ]);
 replace('./tools/set-import/importer.js', [
 	{regex: /(require\(.*?)(lib|sim)/g, replace: `$1.$2-dist`},
