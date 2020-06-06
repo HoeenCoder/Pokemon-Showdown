@@ -113,7 +113,6 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 					this.add('-heal', target, 33, '[from] move: Archangel\'s Requiem')
 				}
 			},
-		forceSwitch: true,
 		selfSwitch: true,
 		target: "normal", 
 		type: "Normal", 
