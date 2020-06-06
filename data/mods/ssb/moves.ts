@@ -98,18 +98,14 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
 		},
 		onHit(target, source, move) {
-			target.addVolatile('trapped', source, move, 'trapper');
-			if (!target.m.cuddled) {
-				this.boost({atk: -2, def: -2}, target, target);
-				target.m.cuddled = true;
-			}
+			this.boost({atk: -2, def: -2}, target, target);
 		},
 		effect: {
-			onStart(pokemon) {
-				this.add('-start', pokemon, 'move: Cozy Cuddle');
+			onStart(pokemon, source) {
+				this.add('-start', pokemon, 'move: Cozy Cuddle', '[of]' + source);
 			},
 			onTrapPokemon(pokemon) {
-				pokemon.tryTrap();
+				if (this.effectData.source && this.effectData.source.isActive) pokemon.tryTrap();
 			},
 		},
 		secondary: null,
