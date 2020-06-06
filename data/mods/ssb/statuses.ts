@@ -38,6 +38,25 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 	IMPORTANT: Obtain the username from getName
 	*/
 	// Please keep statuses organized alphabetically based on staff member name!
+	cantsay: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('cant say')}|haha volc go brrrr`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('cant say')}|lol CTed`);
+		},
+		onFaint() {
+			this.add(`c|${getName('cant say')}|${['imagine taking pokemon seriously when you can just get haxed', '/me plays curb your enthusiasm theme', 'bad players always get lucky'][this.random(3)]}`);
+		},
+		// Magic Guard Innate
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+	},
 	flare: {
 		noCopy: true,
 		onStart() {
@@ -48,8 +67,8 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Flare')}|Sorry, things were initially better, but ¯\_(ツ)_/¯`);
-		},
-	},
+    },
+  },
 	gxs: {
 		noCopy: true,
 		onStart() {
@@ -60,6 +79,64 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('GXS')}|A Critical Error Has Occurred. Would You Like To Send A Report? Sending Report.`);
+		},
+	},
+	kris: {
+		noCopy: true,
+		onStart(source) {
+			const foeName = source.side.foe.active[0].illusion ?
+				source.side.foe.active[0].illusion.name : source.side.foe.active[0].name;
+			this.add(`c|${getName('Kris')}|hi ${foeName}`);
+		},
+		onSwitchOut(source) {
+			const foeName = source.side.foe.active[0].illusion ?
+				source.side.foe.active[0].illusion.name : source.side.foe.active[0].name;
+			this.add(`c|${getName('Kris')}|bye ${foeName}`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Kris')}|Fortnite Battle Royale`);
+		},
+		// phuck innate
+		onDamage(damage, target, source, effect) { // Magic Guard
+			if (!source || !source.species.id.startsWith('unown') || source.illusion) return;
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+		onResidual(pokemon) {
+			if (!pokemon.species.id.startsWith('unown') || pokemon.illusion) return;
+			// So this doesn't activate upon switching in
+			if (pokemon.activeTurns < 1) return;
+			const unownLetters = 'abcdefghijklmnopgrstuvwxyz'.split('');
+			const currentFormeID = toID(pokemon.set.species);
+			const currentLetter = currentFormeID.charAt(5) || 'a';
+			const chosenLetter = this.sample(unownLetters.filter(letter => {
+				return letter !== currentLetter;
+			}));
+			// Change is permanent so when you switch out you keep the letter
+			this.add(`c|${getName('Kris')}|watch this`);
+			if (chosenLetter === 'w') {
+				this.add('-activate', pokemon, 'ability: phuck');
+				pokemon.formeChange(`unownw`, this.effect, true);
+				this.add(`c|${getName('Kris')}|W? More like L`);
+				this.add('-activate', pokemon, 'ability: phuck');
+				pokemon.formeChange(`unownl`, this.effect, true);
+				this.hint(`There are no W Pokemon that work with Kris's signature move, so we're counting this as a loss`);
+			} else if (chosenLetter === 'u') {
+				this.add('-activate', pokemon, 'ability: phuck');
+				pokemon.formeChange(`unownu`, this.effect, true);
+				this.add(`c|${getName('Kris')}|U? I'm already an Unown, no`);
+				this.add('-activate', pokemon, 'ability: phuck');
+				const chosenLetter2 = this.sample(unownLetters.filter(letter => {
+					return letter !== 'u' && letter !== 'w';
+				}));
+				pokemon.formeChange(`unown${chosenLetter2}`, this.effect, true);
+				this.hint(`There are no U Pokemon that work with Kris's signature move, so we're counting this as a loss`);
+			} else {
+				this.add('-activate', pokemon, 'ability: phuck');
+				pokemon.formeChange(`unown${chosenLetter === 'a' ? '' : chosenLetter}`, this.effect, true);
+			}
 		},
 	},
 	mitsuki: {
@@ -102,6 +179,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('OM~!')}|ugh, I ${['rolled a 1, damnit.', 'got killed night 1, seriously?', 'got critfroze by ice beam asfgegkhalfewgihons'][this.random(3)]}`);
 		},
 	},
+	paradise: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Paradise ╱╲☼')}|You ever notice that the first thing a PS tryhard does is put their PS auth in their smogon signature?`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Paradise ╱╲☼')}|Pokemon Showdown copypastas have to be among the worst I've seen on any website. People spam garbage over and over until eventually the mods get fed up and clamp down on spam. I don't blame them for it. Have you ever seen a copypasta fail as hard as the dead memes on this website? There are mods on here who still think that "Harambe" and "Damn Daniel" are the peak of comedy. Not to mention that there are rooms on here that don't even talk about pokemon lol. Yeah, I don't see this website lasting more than 2 years, I'd suggest becoming a mod somewhere else.`);
+		},
+		onFaint(pokemon) {
+			this.add(`c|${getName('Paradise ╱╲☼')}|Paradise has been kicked, not banned, therefore you could still potentially invite them back. However, do not do this @${pokemon.side.name}, unless of course, you want to be banned too, because if you invite them back you and Paradise will both be banned.`);
+		},
+	},
 	perishsonguser: {
 		noCopy: true,
 		onStart(target, source) {
@@ -126,6 +215,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('phiwings99')}|God, Nalei is fucking terrible at this game.`);
+		},
+	},
+	rabia: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Rabia')}|eternally`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Rabia')}|rabia`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Rabia')}|im top 500 in relevant tiers and lead gp, i have 8 badges, im fine, gg`);
 		},
 	},
 	// Snowstorm status support for Perish Song's ability

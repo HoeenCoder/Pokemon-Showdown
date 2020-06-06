@@ -11,6 +11,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 10, // unboosted PP count
 		priority: 0, // move priority, -6 -> 6
 		flags: {}, // Move flags https://github.com/smogon/pokemon-showdown/blob/master/data/moves.js#L1-L27
+		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]'); // For custom animations
 		},
@@ -36,6 +37,48 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
+
+	// cant say
+	neverlucky: {
+		accuracy: 85,
+		basePower: 110,
+		category: "Special",
+		desc: "Doubles base power if statused. Has a 10% chance to boost every stat 1 stage. High Crit Ratio.",
+		shortDesc: "Doubles base power if statused. Has a 10% chance to boost every stat 1 stage. High Crit Ratio.",
+		name: "Never Lucky",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Overheat', target);
+		},
+		onBasePower(basePower, pokemon) {
+			if (pokemon.status && pokemon.status !== 'slp') {
+				return this.chainModify(2);
+			}
+		},
+		secondary: {
+			chance: 10,
+			self: {
+				boosts: {
+					atk: 1,
+					def: 1,
+					spa: 1,
+					spd: 1,
+					spe: 1,
+				},
+			},
+		},
+		critRatio: 2,
+		target: "normal",
+		type: "Fire",
+	},
+      
+
 	// Flare
 	krisenbon: {
 		accuracy: 100,
@@ -61,6 +104,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Ice",
 	},
+      
 	// GXS
 	datacorruption: {
 		accuracy: 90,
@@ -97,6 +141,98 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Normal",
 	},
 
+	// Kris
+	ebhewbnjgwegaer: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "The user changes into a random Pokemon with a first name letter that matches the forme Unown is currently in (A -> Alakazam, etc) that has base stats that would benefit from Unown's EV/IV/Nature spread and moves. Using it while in a forme that is not Unown will make it revert back to the Unown forme it transformed in (If an Unown transforms into Alakazam, it'll transform back to Unown-A when used again). Light of Ruin becomes Strange Steam, Psystrike becomes Psyshock, Secret Sword becomes Aura Sphere, Mind Blown becomes Flamethrower, and Seed Flare becomes Apple Acid while in a non-Unown forme.",
+		shortDesc: "Transform into Unown. Unown: Transform into mon.",
+		name: "ebhewbnjgWEGAER",
+		pp: 20,
+		priority: 0,
+		flags: {},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'All-Out Pummeling', source);
+			this.add('-anim', source, 'Perish Song', source);
+			this.add('-anim', source, 'Roar of Time', source);
+		},
+		onHit(target) {
+			if (!target) return;
+			if (target.species.id.startsWith('unown')) {
+				const monList = Object.keys(this.dex.data.Pokedex).filter(speciesid => {
+					const species = this.dex.getSpecies(speciesid);
+					if (species.isGigantamax) return false;
+					if (species.id.startsWith('unown')) return false;
+					if (species.isNonstandard === 'Unobtainable') return false;
+					if (['Arceus', 'Silvally'].includes(species.baseSpecies) && species.types[0] !== 'Normal') return false;
+					if (species.baseStats.spa < 80) return false;
+					if (species.baseStats.spe < 80) return false;
+					const unownLetter = target.species.id.charAt(5) || 'a';
+					if (!species.id.startsWith(unownLetter.trim().toLowerCase())) return false;
+					return true;
+				});
+				target.formeChange(this.sample(monList), this.effect, true);
+				target.setAbility('Protean');
+				target.moveSlots = target.moveSlots.map(slot => {
+					const newMoves: {[k: string]: string} = {
+						lightofruin: 'strangesteam',
+						psystrike: 'psyshock',
+						secretsword: 'aurasphere',
+						mindblown: 'flamethrower',
+						seedflare: 'appleacid',
+					};
+					if (slot.id in newMoves) {
+						const newMove = this.dex.getMove(newMoves[slot.id]);
+						const newSlot = {
+							id: newMove.id,
+							move: newMove.name,
+							pp: newMove.pp * 8 / 5,
+							maxpp: newMove.pp * 8 / 5,
+							disabled: slot.disabled,
+							used: false,
+						};
+						return newSlot;
+					}
+					return slot;
+				});
+			} else {
+				let transformingLetter = target.species.id[0];
+				if (transformingLetter === 'a') transformingLetter = '';
+				target.formeChange(`unown${transformingLetter}`, this.effect, true);
+				target.moveSlots = target.moveSlots.map(slot => {
+					const newMoves: {[k: string]: string} = {
+						strangesteam: 'lightofruin',
+						psyshock: 'psystrike',
+						aurasphere: 'secretsword',
+						flamethrower: 'mindblown',
+						appleacid: 'seedflare',
+					};
+					if (slot.id in newMoves) {
+						const newMove = this.dex.getMove(newMoves[slot.id]);
+						const newSlot = {
+							id: newMove.id,
+							move: newMove.name,
+							pp: newMove.pp * 8 / 5,
+							maxpp: newMove.pp * 8 / 5,
+							disabled: slot.disabled,
+							used: false,
+						};
+						return newSlot;
+					}
+					return slot;
+				});
+			}
+		},
+		secondary: null,
+		target: "self",
+		type: "Bird",
+	},
+
 	// Mitsuki
 	terraforming: {
 		accuracy: 100,
@@ -108,6 +244,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1},
+		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -133,16 +270,17 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		name: "MechOMnism",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, heal: 1},
 		drain: [1, 3],
-		onTryHit(target, source) {
+		onTryMovePriority: 100,
+		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Mirror Shot', source);
+			this.add('-anim', source, 'Mirror Shot', target);
 			this.add('-anim', source, 'Refresh', source);
 		},
-		onHit: function () {
+		onHit() {
 			this.add(`c|@OM~!|Bang Bang`);
 		},
 		secondary: {
@@ -167,20 +305,68 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		name: "Healing you?",
 		pp: 5,
 		priority: 0,
-		onTryHit(target, source) {
+		onTryMovePriority: 100,
+		onTryMove() {
 			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Heal Pulse', target);
 			this.heal(Math.ceil(target.baseMaxhp * 0.5));
 			target.cureStatus();
 			this.boost({def: -1, spd: -1}, target);
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Heal Pulse', source);
-			this.add('-anim', source, 'Close Combat', source);
+			this.add('-anim', source, 'Close Combat', target);
 		},
 		flags: {mirror: 1, protect: 1},
 		secondary: null,
 		target: "normal",
 		type: "Dark",
+	},
+
+	// Paradise
+	"rapidturn": {
+		accuracy: 100,
+		basePower: 50,
+		category: "Physical",
+		desc: "Removes hazards then user switches out after dealing damage",
+		shortDesc: "Removes hazards then switches out",
+		name: "Rapid Turn",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Rapid Spin', target);
+			this.add('-anim', source, 'U-turn', target);
+		},
+		onAfterHit(target, pokemon) {
+			const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
+			for (const condition of sideConditions) {
+				if (pokemon.hp && pokemon.side.removeSideCondition(condition)) {
+					this.add('-sideend', pokemon.side, this.dex.getEffect(condition).name, '[from] move: Rapid Spin', '[of] ' + pokemon);
+				}
+			}
+			if (pokemon.hp && pokemon.volatiles['partiallytrapped']) {
+				pokemon.removeVolatile('partiallytrapped');
+			}
+		},
+		onAfterSubDamage(damage, target, pokemon) {
+			const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
+			for (const condition of sideConditions) {
+				if (pokemon.hp && pokemon.side.removeSideCondition(condition)) {
+					this.add('-sideend', pokemon.side, this.dex.getEffect(condition).name, '[from] move: Rapid Spin', '[of] ' + pokemon);
+				}
+			}
+			if (pokemon.hp && pokemon.volatiles['partiallytrapped']) {
+				pokemon.removeVolatile('partiallytrapped');
+			}
+		},
+		selfSwitch: true,
+		secondary: null,
+		target: "normal",
+		type: "Normal",
 	},
 
 	// Perish Song
@@ -198,6 +384,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1},
+		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -233,26 +420,54 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 1,
 		priority: 0,
 		flags: {},
+		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Imprison', target);
+			this.add('-anim', source, 'Imprison', source);
 			this.add('-anim', source, 'Mean Look', target);
 			this.add('-anim', source, 'Transform', target);
 		},
-		self: {
-			volatileStatus: 'imprison',
-		},
-		onHit(target, source, move) {
-			target.addVolatile('trapped', source, move, 'trapper');
-			const transforming = source.transformInto(target);
-			return transforming;
+		onHit(target, pokemon, move) {
+			target.addVolatile('trapped', pokemon, move, 'trapper');
+			pokemon.addVolatile('imprison', pokemon, move);
+			if (!pokemon.transformInto(target)) {
+				return false;
+			}
 		},
 		isZ: "boatiumz",
 		secondary: null,
 		target: "normal",
 		type: "Ghost",
+	},
+
+	// Rabia
+	psychodrive: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Special",
+		desc: "Has a 30% chance to boost the user's Speed by 1 stage.",
+		shortDesc: "30% chance to boost the user's Spe by 1.",
+		name: "Psycho Drive",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Genesis Supernova', target);
+		},
+		secondary: {
+			chance: 30,
+			self: {
+				boosts: {spe: 1},
+			},
+		},
+		target: "normal",
+		type: "Psychic",
 	},
 	// These moves need modified to support Snowstorm (Perish Song's ability)
 	auroraveil: {
@@ -260,7 +475,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		desc: "For 5 turns, the user and its party members take 0.5x damage from physical and special attacks, or 0.66x damage if in a Double Battle; does not reduce damage further with Reflect or Light Screen. Critical hits ignore this protection. It is removed from the user's side if the user or an ally is successfully hit by Brick Break, Psychic Fangs, or Defog. Brick Break and Psychic Fangs remove the effect before damage is calculated. Lasts for 8 turns if the user is holding Light Clay. Fails unless the weather is Hail or Snowstorm.",
 		shortDesc: "For 5 turns, damage to allies is halved. Hail and Snowstorm only.",
 		onTryHitSide() {
-			if (!this.field.isWeather('hail') && !this.field.isWeather('snowstorm')) return false;
+			if (!this.field.isWeather(['hail', 'snowstorm'])) return false;
 		},
 	},
 	blizzard: {
