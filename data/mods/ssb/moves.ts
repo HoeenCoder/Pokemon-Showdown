@@ -37,7 +37,6 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
-
 	// cant say
 	neverlucky: {
 		accuracy: 85,
