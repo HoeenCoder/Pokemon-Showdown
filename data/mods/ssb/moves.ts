@@ -78,7 +78,6 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Fire",
 	},
       
-
 	// Flare
 	krisenbon: {
 		accuracy: 100,
