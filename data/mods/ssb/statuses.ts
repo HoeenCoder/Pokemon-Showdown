@@ -66,10 +66,10 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add('-start', source, 'typechange', 'Bug/Ice');
 		},
 		onSwitchOut(source) {
-			this.add(`c|${getName('Frostyicelad')}|Hey! ${source.side.name} why dont you keep me in and let me sweep? Mean.`);
+			this.add(`c|${getName('frostyicelad ❆')}|Hey! ${source.side.name} why dont you keep me in and let me sweep? Mean.`);
 		},
 		onFaint() {
-			this.add(`c|${getName('Frostyicelad')}|So c-c-cold`);
+			this.add(`c|${getName('frostyicelad ❆')}|So c-c-cold`);
 		},
 	},
 
