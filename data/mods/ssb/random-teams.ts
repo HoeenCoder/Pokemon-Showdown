@@ -42,7 +42,7 @@ export const ssbSets: SSBSets = {
 	},
 	Darth: {
 		species: 'Articuno', ability: 'Guardian Angel', item: 'Heavy Duty Boots', gender: 'M',
-		moves: ['Revelation Dance', ['Recover', 'Roost'], 'U-Turn'],
+		moves: ['Revelation Dance', ['Recover', 'Roost'], 'U-turn'],
 		signatureMove: 'Archangel\'s Requiem',
 		evs: {hp: 252, def: 128, spd: 128}, nature: 'Bold',
 	},
