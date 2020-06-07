@@ -39,15 +39,15 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 				if (this.dex.getEffectiveness(type, pokemon.side.foe) >= 1) continue;
 				resistances.push(type);
 			}
-			let randType = resistances[Math.floor(Math.random() * resistances.length)];
-			let randTypeTwo = resistances[Math.floor(Math.random() * resistances.length)];
+			const randType = this.sample(resistances);
+			let randTypeTwo = this.sample(resistances);
 			while (randType === randTypeTwo && resistances.length > 1) {
-				randTypeTwo = resistances[Math.floor(Math.random() * resistances.length)];
+				randTypeTwo = this.sample(resistances);
 			}
 			this.add("-start", pokemon, "typechange", randType + '/' + randTypeTwo);
-			let types = [];
-			types.push(randType);
-			randTypeOne === randTypeTwo ? pokemon.types = types : (types.push(randTypeTwo) && pokemon.types = types)
+			let types = [randType];
+			if (randTypeTwo !== randType) types.push(randTypeTwo);
+			pokemon.types = types;
 		}
 	},
 	// GXS
