@@ -145,7 +145,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				this.add('-start', pokemon, 'move: Cozy Cuddle', '[of]' + source);
 			},
 			onTrapPokemon(pokemon) {
-				if (this.effectData.source && this.effectData.source.isActive) pokemon.tryTrap();
+				if (this.effectData.source?.isActive) pokemon.tryTrap();
 			},
 		},
 		secondary: null,
