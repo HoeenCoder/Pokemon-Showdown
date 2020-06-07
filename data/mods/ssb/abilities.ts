@@ -41,14 +41,13 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			}
 			let randType = resistances[Math.floor(Math.random() * resistances.length)];
 			let randTypeTwo = resistances[Math.floor(Math.random() * resistances.length)];
-			while (randType === randTypeTwo) {
+			while (randType === randTypeTwo && resistances.length > 1) {
 				randTypeTwo = resistances[Math.floor(Math.random() * resistances.length)];
 			}
 			this.add("-start", pokemon, "typechange", randType + '/' + randTypeTwo);
 			let types = [];
 			types.push(randType);
-			types.push(randTypeTwo);
-			pokemon.types = types;
+			randTypeOne === randTypeTwo ? pokemon.types = types : (types.push(randTypeTwo) && pokemon.types = types)
 		}
 	},
 	// GXS
