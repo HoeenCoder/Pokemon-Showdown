@@ -3,8 +3,8 @@ import {FS} from '../../../lib/fs';
 // Similar to User.usergroups. Cannot import here due to users.ts requiring Chat
 // This also acts as a cache, meaning ranks will only update when a hotpatch/restart occurs
 const usergroups: {[userid: string]: string} = {};
-const data = FS('config/usergroups.csv').readIfExistsSync().split('\n');
-for (const row of data) {
+const usergroupData = FS('config/usergroups.csv').readIfExistsSync().split('\n');
+for (const row of usergroupData) {
 	if (!toID(row)) continue;
 
 	const cells = row.split(',');
@@ -223,11 +223,14 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('Segmr')}|*awakens conquerors haki* Greetings.`);
 		},
 		onSwitchOut(pokemon) {
-			if (!pokemon.switchFlag || pokemon.switchFlag !== 'disconnect') this.add(`c|${getName('Segmr')}|The beauty of a stable internet connection is it allows you to`);
+			if (!pokemon.switchFlag || pokemon.switchFlag !== 'disconnect') {
+				this.add(`c|${getName('Segmr')}|The beauty of a stable internet connection is it allows you to`);
+			}
 			this.add(`l|Segmr`);
 		},
 		onFaint(pokemon) {
-			const name = pokemon.side.foe.active[0].illusion ? pokemon.side.foe.active[0].illusion.name : pokemon.side.foe.active[0].name;
+			const name = pokemon.side.foe.active[0].illusion ?
+				pokemon.side.foe.active[0].illusion.name : pokemon.side.foe.active[0].name;
 			this.add(`c|${getName('Segmr')}|I'm sorry ${name} but could you please stop talking to me`);
 		},
 	},

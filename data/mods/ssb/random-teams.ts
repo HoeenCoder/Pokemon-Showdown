@@ -98,7 +98,7 @@ export const ssbSets: SSBSets = {
 		species: 'Ninetales-Alola', ability: 'wAll In', item: 'Light Clay', gender: 'M',
 		moves: ['Recover', 'Will-O-Wisp', 'Freeze-Dry'],
 		signatureMove: 'Disconnect',
-		evs: {def: 4, spa: 252, spe: 252}, nature: 'Modest'
+		evs: {def: 4, spa: 252, spe: 252}, nature: 'Modest',
 	},
 };
 
