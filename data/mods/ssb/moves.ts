@@ -118,7 +118,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		basePower: 0,
 		category: "Status",
 		desc: "Traps the target and lowers its Attack and Defense by two stages.",
-		shortDesc: "Traps target. Atk -2 Def -2.",
+		shortDesc: "Target: trapped, Atk and Def lowered by 2.",
 		name: "Cozy Cuddle",
 		pp: 20,
 		priority: 0,
