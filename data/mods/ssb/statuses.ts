@@ -73,6 +73,8 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		noCopy: true,
 		onStart() {
 			this.add(`c|${getName('Kaiju Bunny')}|I heard SOMEONE wasn't getting enough affection! ￣( ÒㅅÓ)￣`);
+			if (source.species.id !== 'lopunnymega' || source.illusion) return;
+			this.add('-start', source, 'typechange', 'Normal/Fairy');
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('Kaiju Bunny')}|Brb, need more coffee ￣( =ㅅ=)￣`);
