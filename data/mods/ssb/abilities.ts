@@ -27,8 +27,8 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	},
 	// Darth
 	guardianangel: {
-		desc: "Regenerator effect and changes type on switch in to be super effective against foe.", // long description
-		shortDesc: "Regenerator + changes type for super effectiveness against opponent.",
+		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out. When switching in, this Pokemon's types are changed to resist the last used move from the opposing Pokemon.",
+		shortDesc: "Switching out: Regenerator. Switching in: The effects of Conversion 2.",
 		name: "Guardian Angel",
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.baseMaxhp / 3);
