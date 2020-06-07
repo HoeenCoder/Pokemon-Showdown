@@ -44,9 +44,9 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			while (randType === randTypeTwo && resistances.length > 1) {
 				randTypeTwo = this.sample(resistances);
 			}
-			this.add("-start", pokemon, "typechange", randType + '/' + randTypeTwo);
 			let types = [randType];
 			if (randTypeTwo !== randType) types.push(randTypeTwo);
+			this.add("-start", pokemon, "typechange", types.join('/);
 			pokemon.types = types;
 		}
 	},
