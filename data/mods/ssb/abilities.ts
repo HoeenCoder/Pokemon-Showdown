@@ -34,10 +34,10 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			pokemon.heal(pokemon.baseMaxhp / 3);
 		},
 		onStart(pokemon) {
-			let resistances = [];
-			Object.keys(Dex.data.TypeChart).forEach(function(type) {
-				if (Dex.getEffectiveness(type, pokemon.side.foe) < 1) return resistances.push(type);
-				return null;
+			const resistances: string[] = [];
+			for (const type of Object.keys(this.dex.data.TypeChart)) {
+				if (this.dex.getEffectiveness(type, pokemon.side.foe) >= 1) continue;
+				resistances.push(type);
 			}
 			let randType = resistances[Math.floor(Math.random() * resistances.length)];
 			let randTypeTwo = resistances[Math.floor(Math.random() * resistances.length)];
