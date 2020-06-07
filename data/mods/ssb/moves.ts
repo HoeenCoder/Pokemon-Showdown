@@ -1,7 +1,9 @@
+import {getName} from './statuses';
+
 export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	/*
 	// Example
-	"moveid": {
+	moveid: {
 		accuracy: 100, // a number or true for always hits
 		basePower: 100, // Not used for Status moves, base power of the move, number
 		category: "Physical", // "Physical", "Special", or "Status"
@@ -106,6 +108,33 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		critRatio: 2,
 		target: "normal",
 		type: "Fire",
+	},
+
+	// drampa's grandpa
+	getoffmylawn: {
+		accuracy: 100,
+		basePower: 78,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		name: "GET OFF MY LAWN!",
+		pp: 10,
+		priority: -6,
+		flags: {protect: 1, sound: 1, authentic: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Boomburst', target);
+		},
+		onHit() {
+			this.add(`c|${getName('drampa\'s grandpa')}|GET OFF MY LAWN!!!`);
+		},
+		secondary: null,
+		selfSwitch: true,
+		target: "normal",
+		type: "Normal",
 	},
 
 	// Flare
@@ -548,7 +577,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
 			for (const condition of sideConditions) {
 				if (pokemon.hp && pokemon.side.removeSideCondition(condition)) {
-					this.add('-sideend', pokemon.side, this.dex.getEffect(condition).name, '[from] move: Rapid Spin', '[of] ' + pokemon);
+					this.add('-sideend', pokemon.side, this.dex.getEffect(condition).name, '[from] move: Rapid Turn', '[of] ' + pokemon);
 				}
 			}
 			if (pokemon.hp && pokemon.volatiles['partiallytrapped']) {
@@ -559,7 +588,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
 			for (const condition of sideConditions) {
 				if (pokemon.hp && pokemon.side.removeSideCondition(condition)) {
-					this.add('-sideend', pokemon.side, this.dex.getEffect(condition).name, '[from] move: Rapid Spin', '[of] ' + pokemon);
+					this.add('-sideend', pokemon.side, this.dex.getEffect(condition).name, '[from] move: Rapid Turn', '[of] ' + pokemon);
 				}
 			}
 			if (pokemon.hp && pokemon.volatiles['partiallytrapped']) {
@@ -764,7 +793,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		desc: "Has a 10% chance to freeze the target. If the weather is Hail or Snowstorm, this move does not check accuracy.",
 		shortDesc: "10% freeze foe(s). Can't miss in Hail or Snowstorm.",
 		onModifyMove(move) {
-			if (this.field.isWeather('hail') || this.field.isWeather('snowstorm')) move.accuracy = true;
+			if (this.field.isWeather(['hail', 'snowstorm'])) move.accuracy = true;
 		},
 	},
 	dig: {
