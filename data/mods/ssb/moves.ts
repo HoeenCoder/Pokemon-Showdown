@@ -76,19 +76,20 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Fire",
 	},
+
 	// Darth
 	archangelsrequiem: {
-		accuracy: 100, // a number or true for always hits
-		basePower: 80, // Not used for Status moves, base power of the move, number
-		category: "Special", // "Physical", "Special", or "Status"
-		desc: "Type is the users secondary typing. Switches out both target and user, recovering 33% health to the users replacement.", // long description
-		shortDesc: "Type is users second type; switches target and user with user's replacement regaining 33% health.", // short description, shows up in /dt
+		accuracy: 100,
+		basePower: 80,
+		category: "Special",
+		desc: "This move type is always the user's secondary typing. If this move is successful, both the target and the user ar forced out, and the user's replacement gets 1/3 of its maximum health restored.",
+		shortDesc: "Type=2nd type,both mons switch,replacement: heal.",
 		name: "Archangel's Requiem",
-		pp: 10, // unboosted PP count
-		priority: -5, // move priority, -6 -> 6
-		flags: {protect: 1, mirror: 1}, // Move flags https://github.com/smogon/pokemon-showdown/blob/master/data/moves.js#L1-L27
+		pp: 10,
+		priority: -5,
+		flags: {protect: 1, mirror: 1},
 		onTryMove() {
-			this.attrLastMove('[still]'); // For custom animations
+			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Roost', source);
@@ -117,6 +118,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal", 
 		type: "Normal", 
 	},
+
 	// GXS
 	datacorruption: {
 		accuracy: 90,
