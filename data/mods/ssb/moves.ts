@@ -76,6 +76,31 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Fire",
 	},
+
+	frostywave: {
+		accuracy: 100,
+		basePower: 95,
+		category: "Special",
+		desc: "Sound based move, ignores foes abilities, targets all opponents on the field.",
+		shortDesc: "Sound Based, ignores abilities, hits all foes.",
+		name: "Frosty Wave",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
+		ignoreAbility: true,
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Boomburst', target);
+			this.add('-anim', source, 'Blizzard', target);
+		},
+		secondary: null,
+		target: "allAdjacentFoes",
+		type: "Ice",
+	},
+
 	// GXS
 	datacorruption: {
 		accuracy: 90,

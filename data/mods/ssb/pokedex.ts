@@ -6,6 +6,28 @@ export const BattlePokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 100, atk: 100, def: 100, spa: 100, spd: 100, spe: 100}, // the base stats for the pokemon
 	},
 	*/
+
+	// Frostyicelad
+	frosmoth: {
+		inherit: true,
+		otherFormes: ["Frosmoth-Mega"],
+		formeOrder: ["Frosmoth", "Frosmoth-Mega"],
+	},
+	frosmothmega: {
+		num: 873,
+		name: "Frosmoth-Mega",
+		baseSpecies: "Frosmoth",
+		forme: "Mega",
+		types: ["Ice", "Bug"],
+		baseStats: {hp: 70, atk: 75, def: 100, spa: 130, spd: 100, spe: 100},
+		abilities: {0: "Punk Rock"},
+		heightm: 1.3,
+		weightkg: 42,
+		color: "White",
+		eggGroups: ["Bug"],
+		requiredItem: "Ice Stone",
+	},
+
 	// Kris
 	unown: {
 		inherit: true,

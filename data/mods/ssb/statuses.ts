@@ -57,6 +57,22 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			}
 		},
 	},
+
+	frostyicelad: {
+		noCopy: true,
+		onStart(source) {
+			this.add(`c|${getName('Frostyicelad')}|Oh i guess its my turn now! Time to sweep!`);
+			if (source.species.id !== 'absolmega' || source.illusion) return;
+			this.add('-start', source, 'typechange', 'Bug/Ice');
+		},
+		onSwitchOut(source) {
+			this.add(`c|${getName('Frostyicelad')}|Hey! ${source.side.name} why dont you keep me in and let me sweep? Mean.`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Frostyicelad')}|So c-c-cold`);
+		},
+	},
+
 	gxs: {
 		noCopy: true,
 		onStart() {
