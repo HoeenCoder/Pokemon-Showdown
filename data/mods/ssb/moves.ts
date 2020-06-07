@@ -77,6 +77,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Fire",
 	},
 
+	// frostyicelad
 	frostywave: {
 		accuracy: 100,
 		basePower: 95,
