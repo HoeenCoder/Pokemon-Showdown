@@ -81,7 +81,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 95,
 		category: "Special",
-		desc: "Sound based move, ignores foes abilities, targets all opponents on the field.",
+		desc: "This move and its effects ignore the Abilities of other Pokemon.",
 		shortDesc: "Sound Based, ignores abilities, hits all foes.",
 		name: "Frosty Wave",
 		pp: 10,
