@@ -260,4 +260,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add('-weather', 'none');
 		},
 	},
+	// Custom side condition to allow the ability to track what mon was last in for Darth's Ability.
+	tracker: {
+		onStart(source) {
+			let mon = source.active[0];
+			if (mon.name !== 'Darth') {
+				this.effectData.storedTypes = mon.getTypes();
+			}
+		},
+		onSwitchIn(pokemon) {
+			if (pokemon.name !== 'Darth') {
+				this.effectData.storedTypes = pokemon.getTypes();
+			}
+		},
+	},
 };
