@@ -25,6 +25,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
+
 	// Darth
 	guardianangel: {
 		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out. When switching in, this Pokemon's types are changed to resist the weakness of the last Pokemon in before it.",
@@ -56,6 +57,23 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-start', pokemon, 'typechange', newTypes.join('/'));
 		}
 	},
+
+	// Flare
+	permafrostarmor: {
+		desc: "This Pokemon takes 1/10 less damage from direct attacks. This Pokemon can only be damaged by direct attacks.",
+		shortDesc: "Reduced damage from direct attacks. Can only be damaged by direct attacks.",
+		name: "Permafrost Armor",
+		onSourceModifyDamage(damage, source, target, move) {
+			return this.chainModify(0.9);
+		},
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+	},
+
 	// GXS
 	virusupload: {
 		desc: "On switch-in, this Pokemon's Attack or Special Attack is raised by 1 stage based on the weaker combined defensive stat of all opposing Pokemon. Attack is raised if their Defense is lower, and Special Attack is raised if their Special Defense is the same or lower.",
@@ -77,6 +95,32 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 				} else if (totalspa) {
 					this.boost({spa: -1}, targ, pokemon);
 				}
+			}
+		},
+	},
+
+	// Instruct
+	determination: {
+		desc: "15% chance to live a hit on 1HP",
+		shortDesc: "15% chance to live a hit on 1HP",
+		name: "Determination",
+		onDamage(damage, target, source, effect) {
+			if (this.randomChance(1, 15) && damage >= target.hp && effect && effect.effectType === 'Move') {
+				this.add("-activate", target, "Ability: Determination");
+				return target.hp - 1;
+			}
+		},
+	},
+
+	// Kaiju Bunny
+	secondwind: {
+		desc: "This Pokemon restores 1/2 of its HP if it falls below 1/4 of its maximum HP by an enemy attack. This effect only occurs once.",
+		shortDesc: "If hit below 1/4 HP, heal 1/2 max HP. One time.",
+		name: "Second Wind",
+		onAfterDamage(damage, target, source, move) {
+			if (move && target.hp > 0 && target.hp < target.maxhp / 4 && !target.m.secondwind) {
+				target.m.secondwind = true;
+				this.heal(target.maxhp / 2);
 			}
 		},
 	},
@@ -178,6 +222,17 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 				move.pranksterBoosted = true;
 				return priority + 1;
 			}
+		},
+	},
+
+	// Segmr
+	wallin: {
+		desc: "When this Pokemon switches in, Aurora Veil automatically gets set up.",
+		shortDesc: "Sets up Aurora Veil on switch-in.",
+		name: "wAll In",
+		onSwitchIn(pokemon) {
+			if (pokemon.side.getSideCondition('auroraveil')) return;
+			pokemon.side.addSideCondition('auroraveil');
 		},
 	},
 	// Modified Illusion to support SSB volatiles
