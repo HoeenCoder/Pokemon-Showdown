@@ -98,7 +98,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		desc: "This Pokemon restores 1/2 of its HP if it falls below 1/4 of its maximum HP by an enemy attack. This effect only occurs once.",
 		shortDesc: "If hit below 1/4 HP, heal 1/2 max HP. One time.",
 		name: "Second Wind",
-		onSourceDamage(damage, target, source, move) {
+		onDamagingHit(damage, target, source, move) {
 			if (move && target.hp > 0 && target.hp < target.maxhp / 4 && !target.m.secondwind) {
 				target.m.secondwind = true;
 				this.heal(target.maxhp / 2);
