@@ -103,7 +103,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		onHit(target, source, move) {
 			if (source && source !== target && target.hp) {
 				if (!this.canSwitch(target.side) || target.forceSwitchFlag) return;
-					if (pokemon.switchFlag === true) return;
+					if (target.switchFlag === true) return;
 					target.switchFlag = true;
 			}
 		},
@@ -115,8 +115,8 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				}
 			},
 		selfSwitch: true,
-		target: "normal", 
-		type: "Normal", 
+		target: "normal",
+		type: "Normal",
 	},
 
 	// GXS
