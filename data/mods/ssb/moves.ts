@@ -76,7 +76,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Fire",
 	},
-      
+
 	// Flare
 	krisenbon: {
 		accuracy: 100,
@@ -102,7 +102,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Ice",
 	},
-      
+
 	// GXS
 	datacorruption: {
 		accuracy: 90,
