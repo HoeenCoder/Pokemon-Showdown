@@ -27,27 +27,33 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	},
 	// Darth
 	guardianangel: {
-		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out. When switching in, this Pokemon's types are changed to resist the last used move from the opposing Pokemon.",
-		shortDesc: "Switching out: Regenerator. Switching in: The effects of Conversion 2.",
+		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out. When switching in, this Pokemon's types are changed to resist the weakness of the last Pokemon in before it.",
+		shortDesc: "Switching out: Regenerator. Switching in: Resists Weaknesses of last Pokemon.",
 		name: "Guardian Angel",
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.baseMaxhp / 3);
 		},
 		onStart(pokemon) {
-			const resistances: string[] = [];
-			for (const type of Object.keys(this.dex.data.TypeChart)) {
-				if (this.dex.getEffectiveness(type, pokemon.side.foe) >= 1) continue;
-				resistances.push(type);
+			const possibleTypes = [];
+			const newTypes = [];
+			let types = pokemon.side.sideConditions['tracker'].storedTypes;
+			for (const u in types) {
+				for (const type in this.dex.data.TypeChart) {
+					let typeCheck = this.dex.data.TypeChart[type].damageTaken[pokemon.side.sideConditions['tracker'].storedTypes[u]];
+					if (typeCheck === 2 || typeCheck === 3) {
+						possibleTypes.push(type);
+					}
+				}
 			}
-			const randType = this.sample(resistances);
-			let randTypeTwo = this.sample(resistances);
-			while (randType === randTypeTwo && resistances.length > 1) {
-				randTypeTwo = this.sample(resistances);
+			if (possibleTypes.length < 2) return;
+
+			newTypes.push(this.sample(possibleTypes), this.sample(possibleTypes));
+			while (newTypes[0] === newTypes[1] && possibleTypes.length > 1) {
+				newTypes[1] = this.sample(possibleTypes);
 			}
-			let types = [randType];
-			if (randTypeTwo !== randType) types.push(randTypeTwo);
-			this.add("-start", pokemon, "typechange", types.join('/);
-			pokemon.types = types;
+
+			if (!pokemon.setType(newTypes)) return;
+			this.add('-start', pokemon, 'typechange', newTypes.join('/'));
 		}
 	},
 	// GXS
