@@ -66,9 +66,9 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('Flare')}|Shunshin No Jutsu!`);
 		},
 		onFaint() {
-			this.add(`c|${getName('Flare')}|Sorry, things were initially better, but ¯\_(ツ)_/¯`);
-    },
-  },
+			this.add(`c|${getName('Flare')}|Sorry, things were initially better, but ¯\\_(ツ)_/¯`);
+		},
+	},
 	gxs: {
 		noCopy: true,
 		onStart() {
