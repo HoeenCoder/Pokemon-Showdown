@@ -709,12 +709,12 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 		},
 		onTry(pokemon, target) {
-				pokemon.m.bigstormcoming = true;
-				this.useMove("Hurricane", pokemon);
-				this.useMove("Thunder", pokemon);
-				this.useMove("Blizzard", pokemon);
-				this.useMove("Weather Ball", pokemon);
-				pokemon.m.bigstormcoming = false;
+			pokemon.m.bigstormcoming = true;
+			this.useMove("Hurricane", pokemon);
+			this.useMove("Thunder", pokemon);
+			this.useMove("Blizzard", pokemon);
+			this.useMove("Weather Ball", pokemon);
+			pokemon.m.bigstormcoming = false;
 		},
 		secondary: null,
 		target: "normal",
