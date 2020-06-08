@@ -77,6 +77,32 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Fire",
 	},
 
+	// Flare
+	krisenbon: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		desc: "If the target is a Flying type that has not used Roost this turn or a Pokemon with the Levitate Ability, it loses its immunity to Ground-type attacks and the Arena Trap Ability as long as it remains active. This move's type effectiveness against Water is changed to be neutral no matter what this move's type is.",
+		shortDesc: "Grounds target. Neutral on Water.",
+		name: "Kōri Senbon",
+		pp: 5,
+		priority: 1,
+		flags: {protect: 1, mirror: 1, nonsky: 1},
+		volatileStatus: 'smackdown',
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Ice Shard', target);
+		},
+		onEffectiveness(typeMod, target, type) {
+			if (type === 'Water') return 0;
+		},
+		secondary: null,
+		target: "normal",
+		type: "Ice",
+	},
+
 	// frostyicelad
 	frostywave: {
 		accuracy: 100,
@@ -136,6 +162,71 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		target: "normal",
 		type: "Normal",
+	},
+	// Instruct
+	hypergoner: {
+		accuracy: 85,
+		basePower: 130,
+		category: "Physical",
+		desc: "Always Super Effective. Will leave opponent on 1 HP.",
+		shortDesc: "Always Super Effective. Will leave opponent on 1 HP.",
+		name: "Hyper Goner",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Prismatic Laser', target);
+		},
+		onEffectiveness(typeMod, target, type) {
+			return 1;
+		},
+		noFaint: true,
+		secondary: null,
+		target: "normal",
+		type: "???",
+	},
+	// Kaiju Bunny
+	cozycuddle: {
+		accuracy: 95,
+		basePower: 0,
+		category: "Status",
+		desc: "Traps the target and lowers its Attack and Defense by two stages.",
+		shortDesc: "Target: trapped, Atk and Def lowered by 2.",
+		name: "Cozy Cuddle",
+		pp: 20,
+		priority: 0,
+		flags: {},
+		volatileStatus: 'cozycuddle',
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onTryHit(target, source, move) {
+			if (target.volatiles['cozycuddle']) return false;
+			if (target.volatiles['trapped']) {
+				delete move.volatileStatus;
+			}
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Flatter', target);
+			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
+		},
+		onHit(target, source, move) {
+			this.boost({atk: -2, def: -2}, target, target);
+		},
+		effect: {
+			onStart(pokemon, source) {
+				this.add('-start', pokemon, 'move: Cozy Cuddle', '[of]' + source.name);
+			},
+			onTrapPokemon(pokemon) {
+				if (this.effectData.source?.isActive) pokemon.tryTrap();
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
 	},
 
 	// Kris
@@ -466,6 +557,56 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Psychic",
 	},
+
+	// Segmr
+	disconnect: {
+		accuracy: 100,
+		basePower: 150,
+		category: "Special",
+		desc: "Deals damage two turns after this move is used. At the end of that turn, the damage is calculated at that time and dealt to the Pokemon at the position the target had when the move was used. If the user is no longer active at the time, damage is calculated based on the user's natural Special Attack stat, types, and level, with no boosts from its held item or Ability. Fails if this move, Doom Desire, or Future Sight is already in effect for the target's position. Switches the user out.",
+		shortDesc: "Hits 2 turns after use. User switches out.",
+		name: "Disconnect",
+		pp: 5,
+		priority: 0,
+		flags: {},
+		isFutureMove: true,
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Doom Desire', target);
+		},
+		onTry(source, target) {
+			if (!target.side.addSlotCondition(target, 'futuremove')) {
+				source.switchFlag = 'disconnect' as ID;
+			} else {
+				Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+					move: 'disconnect',
+					source: source,
+					moveData: {
+						id: 'disconnect',
+						name: "Disconnect",
+						accuracy: 100,
+						basePower: 150,
+						category: "Special",
+						priority: 0,
+						flags: {},
+						effectType: 'Move',
+						isFutureMove: true,
+						type: 'Fairy',
+					},
+				});
+				this.add('-start', source, 'Disconnect');
+				this.add(`c|%Segmr|Lemme show you this`);
+				source.switchFlag = 'disconnect' as ID;
+				return null;
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+	},
 	// These moves need modified to support Snowstorm (Perish Song's ability)
 	auroraveil: {
 		inherit: true,
@@ -647,5 +788,14 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				break;
 			}
 		},
+	},
+	// Modified move descriptions for support of Segmr's move
+	doomdesire: {
+		inherit: true,
+		desc: "Deals damage two turns after this move is used. At the end of that turn, the damage is calculated at that time and dealt to the Pokemon at the position the target had when the move was used. If the user is no longer active at the time, damage is calculated based on the user's natural Special Attack stat, types, and level, with no boosts from its held item or Ability. Fails if this move, Disconnect, or Future Sight is already in effect for the target's position.",
+	},
+	futuresight: {
+		inherit: true,
+		desc: "Deals damage two turns after this move is used. At the end of that turn, the damage is calculated at that time and dealt to the Pokemon at the position the target had when the move was used. If the user is no longer active at the time, damage is calculated based on the user's natural Special Attack stat, types, and level, with no boosts from its held item or Ability. Fails if this move, Doom Desire, or Disconnect is already in effect for the target's position.",
 	},
 };
