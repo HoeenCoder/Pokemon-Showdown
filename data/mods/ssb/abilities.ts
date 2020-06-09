@@ -437,7 +437,8 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		desc: "If this Pokemon is an Eiscue, the first physical hit it takes in battle deals 0 neutral damage. Its ice face is then broken and it changes forme to Noice Face. Eiscue regains its Ice Face forme when Hail or Snowstorm begins or when Eiscue switches in while Hail or Snowstorm is active. Confusion damage also breaks the ice face.",
 		shortDesc: "If Eiscue, first physical hit taken deals 0 damage. Effect is restored in Hail/Snowstorm.",
 		onStart(pokemon) {
-			if (this.field.isWeather(['heavyhailstorm', 'hail', 'snowstorm']) && pokemon.species.id === 'eiscuenoice' && !pokemon.transformed) {
+			if (this.field.isWeather(['heavyhailstorm', 'hail', 'snowstorm']) &&
+				pokemon.species.id === 'eiscuenoice' && !pokemon.transformed) {
 				this.add('-activate', pokemon, 'ability: Ice Face');
 				this.effectData.busted = false;
 				pokemon.formeChange('Eiscue', this.effect, true);
@@ -445,7 +446,8 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onAnyWeatherStart() {
 			const pokemon = this.effectData.target;
-			if (this.field.isWeather(['heavyhailstorm', 'hail', 'snowstorm']) && pokemon.species.id === 'eiscuenoice' && !pokemon.transformed) {
+			if (this.field.isWeather(['heavyhailstorm', 'hail', 'snowstorm']) &&
+				pokemon.species.id === 'eiscuenoice' && !pokemon.transformed) {
 				this.add('-activate', pokemon, 'ability: Ice Face');
 				this.effectData.busted = false;
 				pokemon.formeChange('Eiscue', this.effect, true);
