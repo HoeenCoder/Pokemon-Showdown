@@ -80,11 +80,6 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		onFaint() {
 			this.add(`c|${getName('cleann')}|Shazam! They've been destroyed from the inside...`);
 		},
-		onTryMove(attacker, defender, move) {
-			if (move.id === 'maliciousintent') {
-				this.add(`c|${getName('cleann')}|Your team's information has been LEAKED!`);
-			}
-		},
 	},
 	darth: {
 		noCopy: true,
