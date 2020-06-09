@@ -46,6 +46,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Never Lucky',
 		evs: {hp: 248, def: 36, spe: 224}, ivs: {atk: 0}, nature: 'Timid',
 	},
+	Darth: {
+		species: 'Articuno', ability: 'Guardian Angel', item: 'Heavy Duty Boots', gender: 'M',
+		moves: ['Revelation Dance', ['Recover', 'Roost'], 'U-turn'],
+		signatureMove: 'Archangel\'s Requiem',
+		evs: {hp: 252, def: 128, spd: 128}, nature: 'Bold',
+	},
 	'drampa\'s grandpa': {
 		species: 'Drampa', ability: 'Old Manpa', item: 'Wise Glasses', gender: 'M',
 		moves: [

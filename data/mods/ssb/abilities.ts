@@ -67,6 +67,38 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Darth
+	guardianangel: {
+		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out. When switching in, this Pokemon's types are changed to resist the weakness of the last Pokemon in before it.",
+		shortDesc: "Switching out: Regenerator. Switching in: Resists Weaknesses of last Pokemon.",
+		name: "Guardian Angel",
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
+		},
+		onStart(pokemon) {
+			const possibleTypes = [];
+			const newTypes = [];
+			let types = pokemon.side.sideConditions['tracker'].storedTypes;
+			for (const u in types) {
+				for (const type in this.dex.data.TypeChart) {
+					let typeCheck = this.dex.data.TypeChart[type].damageTaken[pokemon.side.sideConditions['tracker'].storedTypes[u]];
+					if (typeCheck === 2 || typeCheck === 3) {
+						possibleTypes.push(type);
+					}
+				}
+			}
+			if (possibleTypes.length < 2) return;
+
+			newTypes.push(this.sample(possibleTypes), this.sample(possibleTypes));
+			while (newTypes[0] === newTypes[1] && possibleTypes.length > 1) {
+				newTypes[1] = this.sample(possibleTypes);
+			}
+
+			if (!pokemon.setType(newTypes)) return;
+			this.add('-start', pokemon, 'typechange', newTypes.join('/'));
+		}
+	},
+
 	// drampa's grandpa
 	oldmanpa: {
 		desc: "This Pokemon's sound-based moves have their power multiplied by 1.3. This Pokemon takes halved damage from sound-based moves. This Pokemon ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage. Upon switching in, this Pokemon's Defense and Special Defense are raised by 1 stage.",
@@ -103,7 +135,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			this.boost({def: 1, spd: 1});
 		},
-	},
+  },
 
 	// Flare
 	permafrostarmor: {
