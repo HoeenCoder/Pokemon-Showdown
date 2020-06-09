@@ -46,7 +46,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'ebhewbnjgWEGAER',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 	},
-	Majorbowman: {
+	MajorBowman: {
 		species: 'Weezing-Galar', ability: 'Neutralizing Gas', item: 'Black Sludge', gender: 'M',
 		moves: ['Strange Steam', ['Toxic Spikes', 'Haze'], 'Recover'],
 		signatureMove: 'Corrosive Cloud',
