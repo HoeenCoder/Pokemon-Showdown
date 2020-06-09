@@ -69,6 +69,23 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			}
 		},
 	},
+	cleann: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('cleann')}|The mainframe is open... intercept their messages and get out`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('cleann')}|Mission Success`);
+		},
+		onFaint() {
+			this.add(`c|${getName('cleann')}|Shazam! They've been destroyed from the inside...`);
+		},
+		onTryMove(attacker, defender, move) {
+			if (move.id === 'maliciousintent') {
+				this.add(`c|${getName('cleann')}|Your team's information has been LEAKED!`);
+			}
+		},
+	},
 	darth: {
 		noCopy: true,
 		onStart() {
