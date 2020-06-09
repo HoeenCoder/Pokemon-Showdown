@@ -525,7 +525,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		onHit(target) {
 			if (!target) return;
-			if (!target.species.id.includes('unown')) {
+			if (target.species.id.includes('unown')) {
 				const monList = Object.keys(this.dex.data.Pokedex).filter(speciesid => {
 					const species = this.dex.getSpecies(speciesid);
 					if (species.isGigantamax) return false;
