@@ -10,6 +10,47 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	},
 	*/
 	// Please keep abilites organized alphabetically based on staff member name!
+	// Aethernum
+	rainyseason: {
+		desc: "On switch-in, the weather becomes heavy rain that prevents damaging Fire-type moves from executing, in addition to all the effects of Rain Dance. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream, Desolate Land, or Snowstorm. If Rain Dance is active, this Pokemon restores 1/8 of its maximum HP, rounded down, at the end of each turn. If this Pokemon is holding Big Root, it will restore 1/6 of its maximum HP, rounded down, at the end of the turn. If this Pokemon is holding Utility Umbrella, its HP does not get restored. This Pokemon collects raindrops.",
+		shortDesc: "Primordial Sea + Swift Swim. Restore HP if raining. Collect raindrops.",
+		name: "Rainy Season",
+		onStart(source) {
+			this.field.setWeather('primordialsea');
+		},
+		onAnySetWeather(target, source, weather) {
+			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'snowstorm'];
+			if (this.field.getWeather().id === 'primordialsea' && !strongWeathers.includes(weather.id)) return false;
+		},
+		onEnd(pokemon) {
+			if (this.field.weatherData.source !== pokemon) return;
+			for (const target of this.getAllActive()) {
+				if (target === pokemon) continue;
+				if (target.hasAbility('primordialsea')) {
+					this.field.weatherData.source = target;
+					return;
+				}
+			}
+			this.field.clearWeather();
+		},
+		onWeather(target, source, effect) {
+			if (target.hasItem('utilityumbrella')) return;
+			if (effect.id === 'raindance' || effect.id === 'primordialsea') {
+				if (!target.hasItem('Big Root')) {
+					this.heal(target.baseMaxhp / 8);
+				} else {
+					this.heal(target.baseMaxhp / 6);
+				}
+				if (!target.volatiles['raindrop']) target.addVolatile('raindrop');
+			}
+		},
+		onModifySpe(spe, pokemon) {
+			if (['raindance', 'primordialsea'].includes(pokemon.effectiveWeather())) {
+				return this.chainModify(2);
+			}
+		},
+	},
+
 	// cant say
 	ragequit: {
 		desc: "If Pokemon with this ability uses a move that misses or fails it faints and gives -2 Atk / -2 SpA to foe",
@@ -26,6 +67,75 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Darth
+	guardianangel: {
+		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out. When switching in, this Pokemon's types are changed to resist the weakness of the last Pokemon in before it.",
+		shortDesc: "Switching out: Regenerator. Switching in: Resists Weaknesses of last Pokemon.",
+		name: "Guardian Angel",
+		onSwitchOut(pokemon) {
+			pokemon.heal(pokemon.baseMaxhp / 3);
+		},
+		onStart(pokemon) {
+			const possibleTypes = [];
+			const newTypes = [];
+			let types = pokemon.side.sideConditions['tracker'].storedTypes;
+			for (const u in types) {
+				for (const type in this.dex.data.TypeChart) {
+					let typeCheck = this.dex.data.TypeChart[type].damageTaken[pokemon.side.sideConditions['tracker'].storedTypes[u]];
+					if (typeCheck === 2 || typeCheck === 3) {
+						possibleTypes.push(type);
+					}
+				}
+			}
+			if (possibleTypes.length < 2) return;
+
+			newTypes.push(this.sample(possibleTypes), this.sample(possibleTypes));
+			while (newTypes[0] === newTypes[1] && possibleTypes.length > 1) {
+				newTypes[1] = this.sample(possibleTypes);
+			}
+
+			if (!pokemon.setType(newTypes)) return;
+			this.add('-start', pokemon, 'typechange', newTypes.join('/'));
+		}
+	},
+
+	// drampa's grandpa
+	oldmanpa: {
+		desc: "This Pokemon's sound-based moves have their power multiplied by 1.3. This Pokemon takes halved damage from sound-based moves. This Pokemon ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage. Upon switching in, this Pokemon's Defense and Special Defense are raised by 1 stage.",
+		shortDesc: "Effects of Punk Rock + Unaware. On switch-in, boosts Def and Sp. Def by 1.",
+		name: "Old Manpa",
+		onBasePowerPriority: 7,
+		onBasePower(basePower, attacker, defender, move) {
+			if (move.flags['sound']) {
+				this.debug('Old Manpa boost');
+				return this.chainModify([0x14CD, 0x1000]);
+			}
+		},
+		onSourceModifyDamage(damage, source, target, move) {
+			if (move.flags['sound']) {
+				this.debug('Old Manpa weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		onAnyModifyBoost(boosts, pokemon) {
+			const unawareUser = this.effectData.target;
+			if (unawareUser === pokemon) return;
+			if (unawareUser === this.activePokemon && pokemon === this.activeTarget) {
+				boosts['def'] = 0;
+				boosts['spd'] = 0;
+				boosts['evasion'] = 0;
+			}
+			if (pokemon === this.activePokemon && unawareUser === this.activeTarget) {
+				boosts['atk'] = 0;
+				boosts['def'] = 0;
+				boosts['spa'] = 0;
+				boosts['accuracy'] = 0;
+			}
+		},
+		onStart(pokemon) {
+			this.boost({def: 1, spd: 1});
+		},
+  },
 
 	// Flare
 	permafrostarmor: {
@@ -93,12 +203,25 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Jho
+	venomize: {
+		desc: "This Pokemon's sound-based moves become Poison-type moves. This effect comes after other effects that change a move's type, but before Ion Deluge and Electrify's effects.",
+		shortDesc: "This Pokemon's sound-based moves become Poison type.",
+		onModifyTypePriority: -1,
+		onModifyType(move, pokemon) {
+			if (move.flags['sound'] && !pokemon.volatiles['dynamax']) { // hardcode
+				move.type = 'Poison';
+			}
+		},
+		name: "Venomize",
+	},
+
 	// Kaiju Bunny
 	secondwind: {
 		desc: "This Pokemon restores 1/2 of its HP if it falls below 1/4 of its maximum HP by an enemy attack. This effect only occurs once.",
 		shortDesc: "If hit below 1/4 HP, heal 1/2 max HP. One time.",
 		name: "Second Wind",
-		onAfterDamage(damage, target, source, move) {
+		onDamagingHit(damage, target, source, move) {
 			if (move && target.hp > 0 && target.hp < target.maxhp / 4 && !target.m.secondwind) {
 				target.m.secondwind = true;
 				this.heal(target.maxhp / 2);
