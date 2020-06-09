@@ -137,6 +137,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				if (mons.length < 1) return;
 				let randNo = this.random(mons.length);
 				this.add('-message', `${source.name} identified that the opposing team has ${mons[randNo].species}!`);
+				this.add(`c|${getName('cleann')}|Your team's information has been LEAKED!`);
 				mons[randNo].m.identified = true;
 			},
 		},
