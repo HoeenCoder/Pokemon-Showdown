@@ -37,6 +37,37 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	*/
 	// Please keep sets organized alphabetically based on staff member name!
+	// Aethernum
+	lilypadoverflow: {
+		accuracy: 100,
+		basePower: 60,
+		basePowerCallback(source, target, move) {
+			if (!source.volatiles['raindrop'] || !source.volatiles['raindrop'].layers) return move.basePower;
+			return move.basePower + (source.volatiles['raindrop'].layers * 20);
+		},
+		category: "Special",
+		desc: "Power is equal to 60 + (Number of Raindrops collected * 20). Whether or not this move is successful, the user's Defense and Special Defense decrease by as many stages as Raindrop had increased them, and the user's Raindrop count resets to 0.",
+		shortDesc: "More power with more collected Raindrops.",
+		name: "Lilypad Overflow",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Water Spout', target);
+			this.add('-anim', source, 'Max Geyser', target);
+		},
+		onAfterMove(pokemon) {
+			if (pokemon.volatiles['raindrop']) pokemon.removeVolatile('raindrop');
+		},
+		secondary: null,
+		target: "normal",
+		type: "Water",
+	},
+
 	// cant say
 	neverlucky: {
 		accuracy: 85,
@@ -181,6 +212,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Normal",
 	},
+
 	// Instruct
 	hypergoner: {
 		accuracy: 85,
@@ -206,6 +238,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "???",
 	},
+
 	// Kaiju Bunny
 	cozycuddle: {
 		accuracy: 95,
@@ -245,6 +278,86 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Fairy",
+	},
+
+	// Jho
+	genrechange: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "If the user is a Toxtricity, it changes into its Low-Key forme and Nasty Plot and Overdrive change to Aura Sphere and Boomburst, respectively. If the user is a Toxtricity in its Low-Key forme, it changes into its Amped forme and Aura Sphere and Boomburst turn into Nasty Plot and Overdrive, respectively. Raises the user's Speed by 1 stage.",
+		shortDesc: "Toxtricity: +1 Speed. Changes forme.",
+		name: "Genre Change",
+		pp: 5,
+		priority: 0,
+		flags: {sound: 1},
+		onTryMove(pokemon, target, move) {
+			this.attrLastMove('[still]');
+			if (pokemon.species.baseSpecies === 'Toxtricity') {
+				return;
+			}
+			this.add('-fail', pokemon, 'move: Genre Change');
+			this.hint("Only a Pokemon whose form is Toxtricity or Toxtricity-Low-Key can use this move.");
+			return null;
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Screech', source);
+			// The transform animation is done via `formeChange`
+		},
+		onHit(pokemon) {
+			if (pokemon.species.forme === 'Low-Key') {
+				pokemon.formeChange(`toxtricity`, this.effect);
+				pokemon.moveSlots = pokemon.moveSlots.map(slot => {
+					const newMoves: {[k: string]: string} = {
+						boomburst: 'overdrive',
+						aurasphere: 'nastyplot',
+					};
+					if (slot.id in newMoves) {
+						const move = this.dex.getMove(newMoves[slot.id]);
+						const newSlot = {
+							id: move.id,
+							move: move.name,
+							// Luckily, both slots have the same number of PP
+							pp: slot.pp,
+							maxpp: move.pp * 8 / 5,
+							disabled: slot.disabled,
+							used: false,
+						};
+						return newSlot;
+					}
+					return slot;
+				});
+			} else {
+				pokemon.formeChange(`toxtricitylowkey`, this.effect);
+				pokemon.setAbility('venomize');
+				pokemon.moveSlots = pokemon.moveSlots.map(slot => {
+					const newMoves: {[k: string]: string} = {
+						overdrive: 'boomburst',
+						nastyplot: 'aurasphere',
+					};
+					if (slot.id in newMoves) {
+						const move = this.dex.getMove(newMoves[slot.id]);
+						const newSlot = {
+							id: move.id,
+							move: move.name,
+							// Luckily, both slots have the same number of PP
+							pp: slot.pp,
+							maxpp: move.pp * 8 / 5,
+							disabled: slot.disabled,
+							used: false,
+						};
+						return newSlot;
+					}
+					return slot;
+				});
+			}
+		},
+		boosts: {
+			spe: 1,
+		},
+		secondary: null,
+		target: "self",
+		type: "Normal",
 	},
 
 	// Kris
@@ -339,6 +452,36 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Bird",
 	},
 
+	// Majorbowman
+	corrosivecloud: {
+		accuracy: true,
+		basePower: 90,
+		category: "Special",
+		desc: "Has a 30% chance to burn the target. This move's type effectiveness against Steel is changed to be super effective no matter what this move's type is.",
+		shortDesc: "30% chance to burn. Super effective on Steel.",
+		name: "Corrosive Cloud",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Poison Gas', target);
+			this.add('-anim', source, 'Fire Spin', target);
+		},
+		onEffectiveness(typeMod, target, type) {
+			if (type === 'Steel') return 1;
+		},
+		ignoreImmunity: {'Poison': true},
+		secondary: {
+			chance: 30,
+			status: 'brn',
+		},
+		target: "normal",
+		type: "Poison",
+	},
+
 	// Mitsuki
 	terraforming: {
 		accuracy: 100,
@@ -385,9 +528,6 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Mirror Shot', target);
 			this.add('-anim', source, 'Refresh', source);
-		},
-		onHit() {
-			this.add(`c|@OM~!|Bang Bang`);
 		},
 		secondary: {
 			chance: 15,
@@ -624,6 +764,34 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Fairy",
+	},
+
+	// Zodiax
+	bigstormcoming: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Special",
+		desc: "Uses Hurricane, Thunder, Blizzard, and Weather Ball at 30% power.",
+		shortDesc: "30% power: Hurricane, Thunder, Blizzard, Weather Ball.",
+		name: "Big Storm Coming",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onTry(pokemon, target) {
+			pokemon.m.bigstormcoming = true;
+			this.useMove("Hurricane", pokemon);
+			this.useMove("Thunder", pokemon);
+			this.useMove("Blizzard", pokemon);
+			this.useMove("Weather Ball", pokemon);
+			pokemon.m.bigstormcoming = false;
+		},
+		secondary: null,
+		target: "normal",
+		type: "Flying",
 	},
 	// These moves need modified to support Snowstorm (Perish Song's ability)
 	auroraveil: {
