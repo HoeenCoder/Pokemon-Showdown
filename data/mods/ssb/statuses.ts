@@ -128,6 +128,36 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('Elgino')}|I'm out of fairies D:!`);
 		},
 	},
+	fart: {
+		noCopy: true,
+		onStart() {
+			let activeMon;
+			activeMon = source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : activeMon = source.side.foe.active[0].template.name;
+			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimm1ck', 'zalm', 'aelita', 'biggie', 'celine', 'sundar'];
+			if (toID(activeMon) === 'hoeenhero' || toID(activeMon) === 'instruct') {
+				this.add(`c|${getName('fart')}|🎵 it's friday, friday, gotta get down on friday 🎵`);
+			} else if (toID(activeMon) === 'grimauxiliatrix') {
+				this.add(`c|${getName('fart')}|howdy ho, neighbor`);
+			} else if (family.includes(toID(activeMon))) {
+				this.add(`c|${getName('fart')}|hey, hey, hey. ${activeMon} is OK`);
+			} else {
+				this.add(`c|${getName('fart')}|rats, rats, we are the rats`);
+			}
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('fart')}|if I can't win this game, then I'll make it boring for everyone.`);
+		},
+		onFaint() {
+			let activeMon;
+			activeMon = toID(source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : activeMon = source.side.foe.active[0].template.name);
+			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimm1ck', 'zalm', 'aelita', 'biggie', 'celine', 'sundar'];
+			if (family.includes(activeMon)) {
+				this.add(`c|${getName('fart')}|I stole your heart, so now I'm satisfied`);
+			} else {
+				this.add(`c|${getName('fart')}|oy, I die`);
+			}
+		},
+	},
 	flare: {
 		noCopy: true,
 		onStart() {
