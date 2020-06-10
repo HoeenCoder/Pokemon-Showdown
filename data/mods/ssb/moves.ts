@@ -274,8 +274,8 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 40,
 		basePowerCallback() {
-			if (this.field.pseudoWeather.soup) {
-				return 40 * this.field.pseudoWeather.soup.multiplier;
+			if (this.field.pseudoWeather.soupstealing7starstrike2electricboogaloo) {
+				return 40 * this.field.pseudoWeather.soupstealing7starstrike2electricboogaloo.multiplier;
 			}
 			return 40;
 		},
@@ -287,7 +287,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		onTry() {
-			this.field.addPseudoWeather('soup');
+			this.field.addPseudoWeather('soupstealing7starstrike2electricboogaloo');
 		},
 		onTryMove() {
 			this.attrLastMove('[still]');
@@ -304,7 +304,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		onHit(target, source) {
 			this.add('-anim', source, 'Spectral Thief', target);
-			if (Math.round(this.random())) {
+			if (this.randomChance(1,2)) {
 				this.add(`c|${getName('fart')}|I hl on soup`);
 			} else {
 				this.add(`c|${getName('fart')}|I walk with purpose. bring me soup.`);
