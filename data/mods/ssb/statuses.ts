@@ -139,7 +139,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			} else if (toID(activeMon) === 'grimauxiliatrix') {
 				this.add(`c|${getName('fart')}|howdy ho, neighbor`);
 			} else if (toID(activeMon) === 'fart') {
-				this.add(`c|${getName('fart')}|let's go, my reflection`);
+				this.add(`c|${getName('fart')}|How Can Mirrors Be Real If Our Eyes Aren't Real`);
 			} else if (family.includes(toID(activeMon))) {
 				this.add(`c|${getName('fart')}|hey, hey, hey. ${activeMon} is OK`);
 			} else {
