@@ -132,12 +132,14 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		noCopy: true,
 		onStart() {
 			let activeMon;
-			activeMon = source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : activeMon = source.side.foe.active[0].template.name;
+			activeMon = source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : activeMon = source.side.foe.active[0].name;
 			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimm1ck', 'zalm', 'aelita', 'biggie', 'celine', 'sundar'];
 			if (toID(activeMon) === 'hoeenhero' || toID(activeMon) === 'instruct') {
 				this.add(`c|${getName('fart')}|🎵 it's friday, friday, gotta get down on friday 🎵`);
 			} else if (toID(activeMon) === 'grimauxiliatrix') {
 				this.add(`c|${getName('fart')}|howdy ho, neighbor`);
+			} else if (toID(activeMon) === 'fart') {
+				this.add(`c|${getName('fart')}|let's go, my reflection`);
 			} else if (family.includes(toID(activeMon))) {
 				this.add(`c|${getName('fart')}|hey, hey, hey. ${activeMon} is OK`);
 			} else {
@@ -149,7 +151,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onFaint() {
 			let activeMon;
-			activeMon = toID(source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : activeMon = source.side.foe.active[0].template.name);
+			activeMon = toID(pokemon.side.foe.active[0].illusion ? pokemon.side.foe.active[0].illusion.name : activeMon = pokemon.side.foe.active[0].name);
 			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimm1ck', 'zalm', 'aelita', 'biggie', 'celine', 'sundar'];
 			if (family.includes(activeMon)) {
 				this.add(`c|${getName('fart')}|I stole your heart, so now I'm satisfied`);
