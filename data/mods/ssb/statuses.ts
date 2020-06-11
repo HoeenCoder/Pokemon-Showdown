@@ -154,7 +154,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			activeMon = toID(pokemon.side.foe.active[0].illusion ? pokemon.side.foe.active[0].illusion.name : activeMon = pokemon.side.foe.active[0].name);
 			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimm1ck', 'zalm', 'aelita', 'biggie', 'celine', 'sundar'];
 			if (family.includes(activeMon)) {
-				this.add(`c|${getName('fart')}|I stole your heart, so now I'm satisfied`);
+				this.add(`c|${getName('fart')}|At least I... wasn't boring, right?`);
 			} else {
 				this.add(`c|${getName('fart')}|oy, I die`);
 			}
