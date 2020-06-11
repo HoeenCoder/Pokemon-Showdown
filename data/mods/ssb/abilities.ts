@@ -143,21 +143,23 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "2 random types + STAB on switch-in.",
 		name: "Bipolar",
 		onSwitchIn(pokemon) {
-			let typeMap = {"Normal": "Return",
-									 "Fighting": "Sacred Sword",
-									 "Flying": "Drill Peck",
-									 "Poison": "Poison Jab",
-									 "Ground": "Earthquake",
-									 "Rock": "Stone Edge",
-									 "Bug": "Lunge",
-									 "Ghost": "Shadow Bone",
-									 "Steel": "Iron Head",
-									 "Electric": "Zing Zap",
-									 "Psychic": "Psychic Fangs",
-									 "Ice": "Icicle Crash",
-									 "Dragon": "Dual Chop",
-									 "Dark": "Jaw Lock",
-									 "Fairy": "Play Rough"};
+			const typeMap = {
+				Normal: "Return",
+				Fighting: "Sacred Sword",
+				Flying: "Drill Peck",
+				Poison: "Poison Jab",
+				Ground: "Earthquake",
+				Rock: "Stone Edge",
+				Bug: "Lunge",
+				Ghost: "Shadow Bone",
+				Steel: "Iron Head",
+				Electric: "Zing Zap",
+				Psychic: "Psychic Fangs",
+				Ice: "Icicle Crash",
+				Dragon: "Dual Chop",
+				Dark: "Jaw Lock",
+				Fairy: "Play Rough",
+			};
 			let types = Object.keys(typeMap);
 			this.prng.shuffle(types);
 			let newTypes = [types[0], types[1]];
