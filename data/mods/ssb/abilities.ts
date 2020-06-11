@@ -58,8 +58,8 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		name: "h",
 		onSwitchIn(pokemon) {
 			let typeList = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock",
-									 "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
-									 "Psychic", "Ice", "Dragon", "Dark", "Fairy"];
+								"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
+								"Psychic", "Ice", "Dragon", "Dark", "Fairy"];
 			this.prng.shuffle(typeList);
 			let firstType = typeList[0];
 			this.prng.shuffle(typeList);
