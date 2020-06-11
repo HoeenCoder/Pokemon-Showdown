@@ -117,15 +117,9 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		onTryImmunityPriority: -2,
 		onTryImmunity(target, pokemon) {
-			if (this.dex.getEffectiveness(pokemon.types[0], target.types[0]) === 0) return false;
-			if (target.types[1]) {
-				if (this.dex.getEffectiveness(pokemon.types[0], target.types[1]) === 0) return false;
-			}
+			if (!target.runImmunity(pokemon.types[0])) return false;
 			if (pokemon.types[1]) {
-				if (this.dex.getEffectiveness(pokemon.types[1], target.types[0]) === 0) return false;
-			}
-			if (pokemon.types[1] && target.types[1]) {
-				if (this.dex.getEffectiveness(pokemon.types[1], target.types[1]) === 0) return false;
+				if (!target.runImmunity(pokemon.types[1])) return false;
 			}
 			return true;
 		},
