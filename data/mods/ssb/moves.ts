@@ -304,7 +304,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		onHit(target, source) {
 			this.add('-anim', source, 'Spectral Thief', target);
-			if (this.randomChance(1,2)) {
+			if (this.randomChance(1, 2)) {
 				this.add(`c|${getName('fart')}|I hl on soup`);
 			} else {
 				this.add(`c|${getName('fart')}|I walk with purpose. bring me soup.`);
