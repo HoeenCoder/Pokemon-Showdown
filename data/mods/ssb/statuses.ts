@@ -74,7 +74,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('Cake')}|${pokemon.side.name} is a nerd`);
 		},
 		onFaint() {
-			this.add(`c|${getName('Cake')}|Chowder was a good show}`);
+			this.add(`c|${getName('Cake')}|Chowder was a good show`);
 		},
 	},
 	cantsay: {
