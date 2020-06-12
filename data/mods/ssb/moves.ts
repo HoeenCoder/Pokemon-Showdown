@@ -112,8 +112,8 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Brave Bird', target);
 		},
-		onModifyMove(move, pokemon, target) {
-			move.type = '???'; // to prevent crash when checking for Bird-type's immunities
+		onModifyType(move, pokemon, target) {
+			move.type = pokemon.types[0]; // to prevent crash when checking for Bird-type's immunities
 		},
 		onTryImmunityPriority: -2,
 		onTryImmunity(target, pokemon) {
@@ -127,9 +127,9 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			if (!target) return;
 			let pokemon = target.side.foe.active[0];
 			if (pokemon.types[1]) {
-				return this.dex.getEffectiveness(pokemon.types[0], type) + this.dex.getEffectiveness(pokemon.types[1], type);
+				return typeMod + this.dex.getEffectiveness(pokemon.types[1], type);
 			}
-			return this.dex.getEffectiveness(pokemon.types[0], type);
+			return typeMod;
 		},
 		priority: 0,
 		secondary: null,
