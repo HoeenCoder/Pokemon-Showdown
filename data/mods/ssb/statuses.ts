@@ -66,7 +66,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		noCopy: true,
 		onStart(target, source) {
 			this.add(`c|${getName('Cake')}|AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`);
-			if (source.species.id !== 'dunsparce' || source.illusion) return;
+			if (source.illusion) return;
 			// Cake innate
 			this.boost({atk: 1, def: 1, spa: 1, spd: 1, spe: 1}, source, source);
 		},
