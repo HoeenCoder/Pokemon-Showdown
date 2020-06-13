@@ -140,6 +140,38 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('Emeri')}|don't forget to chall SFG or Agarica in gen8ou`);
 		},
 	},
+	fart: {
+		noCopy: true,
+		onStart() {
+			let activeMon;
+			activeMon = source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : activeMon = source.side.foe.active[0].name;
+			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimm1ck', 'zalm', 'aelita', 'biggie', 'sundar'];
+			if (toID(activeMon) === 'hoeenhero') {
+				this.add(`c|${getName('fart')}|🎵 it's friday, friday, gotta get down on friday 🎵`);
+			} else if (toID(activeMon) === 'grimauxiliatrix') {
+				this.add(`c|${getName('fart')}|howdy ho, neighbor`);
+			} else if (toID(activeMon) === 'fart') {
+				this.add(`c|${getName('fart')}|How Can Mirrors Be Real If Our Eyes Aren't Real`);
+			} else if (family.includes(toID(activeMon))) {
+				this.add(`c|${getName('fart')}|hey, hey, hey. ${activeMon} is OK`);
+			} else {
+				this.add(`c|${getName('fart')}|rats, rats, we are the rats`);
+			}
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('fart')}|if I can't win this game, then I'll make it boring for everyone.`);
+		},
+		onFaint() {
+			let activeMon;
+			activeMon = toID(pokemon.side.foe.active[0].illusion ? pokemon.side.foe.active[0].illusion.name : activeMon = pokemon.side.foe.active[0].name);
+			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimm1ck', 'zalm', 'aelita', 'biggie', 'sundar'];
+			if (family.includes(activeMon)) {
+				this.add(`c|${getName('fart')}|at least I wasn't boring, right?`);
+			} else {
+				this.add(`c|${getName('fart')}|oy, I die`);
+			}
+		},
+	},
 	flare: {
 		noCopy: true,
 		onStart() {
