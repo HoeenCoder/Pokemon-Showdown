@@ -390,7 +390,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		onFaint() {
 			this.add(`c|${getName('PiraTe Princess')}|I failed my death save`);
 		},
-		onHit (target, source, move) {
+		onHit(target, source, move) {
 			if (move?.effectType === 'Move' && target.getMoveHitData(move).crit) {
 				this.add(`c|${getName('PiraTe Princess')}|NATURAL 20!!!`);
 			}

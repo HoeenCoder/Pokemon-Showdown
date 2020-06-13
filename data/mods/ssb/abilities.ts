@@ -376,7 +376,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onResidual(pokemon) {
 			if (!pokemon.hp) return;
-			const moves = Object.values(pokemon.getMoves()).map(move =>  move.id);
+			const moves = Object.values(pokemon.getMoves()).map(move => move.id);
 			const types: string[] = [];
 			for (const move of moves) {
 				types.push(this.dex.getMove(move).type);
