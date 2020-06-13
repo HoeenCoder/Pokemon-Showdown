@@ -38,6 +38,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 	IMPORTANT: Obtain the username from getName
 	*/
 	// Please keep statuses organized alphabetically based on staff member name!
+	aeonic: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Aeonic')}|What's bonkin?`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Aeonic')}|I am thou, thou art I`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Aeonic')}|Guys the emoji movie wasn't __that bad__`);
+		},
+	},
 	aethernum: {
 		noCopy: true,
 		onStart() {
