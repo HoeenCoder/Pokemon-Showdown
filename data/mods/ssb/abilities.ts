@@ -105,7 +105,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 				let secondType = typeList[0];
 				let newTypes = [];
 				if (firstType === secondType) {
-					newTypes = [firstType]
+					newTypes = [firstType];
 				} else {
 					newTypes = [firstType, secondType];
 				}
