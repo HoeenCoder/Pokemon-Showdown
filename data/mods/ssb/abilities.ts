@@ -178,9 +178,8 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			let newTypes = [types[0], types[1]];
 			this.add('-start', pokemon, 'typechange', newTypes.join('/'));
 			pokemon.setType(newTypes);
-			let move = this.dex.getMove(typeMap[newTypes[0]]);
-			pokemon.moveSlots[3] = pokemon.moveSlots[1];
-			pokemon.moveSlots[1] = {
+			let move = this.dex.getMove(typeMap[newTypes[1]]);
+			let moveObject = {
 					move: move.name,
 					id: move.id,
 					pp: move.pp,
@@ -190,8 +189,9 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 					used: false,
 					virtual: true,
 			};
-			move = this.dex.getMove(typeMap[newTypes[1]]);
-			pokemon.moveSlots[2] = {
+			pokemon.moveSlots.unshift(moveObject);
+			move = this.dex.getMove(typeMap[newTypes[0]]);
+			moveObject = {
 					move: move.name,
 					id: move.id,
 					pp: move.pp,
@@ -201,6 +201,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 					used: false,
 					virtual: true,
 			};
+			pokemon.moveSlots.unshift(moveObject);
 		},
 	},
 
