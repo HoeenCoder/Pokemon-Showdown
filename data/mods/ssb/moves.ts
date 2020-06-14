@@ -1170,6 +1170,10 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		onTryMove(target) {
 			this.attrLastMove('[still]');
 		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Calm Mind', source);
+			this.add('-anim', source, 'Recover', source);
+		},
 		boosts: {
 			spa: 1,
 		},
