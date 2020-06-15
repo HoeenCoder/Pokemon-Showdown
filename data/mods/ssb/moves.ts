@@ -216,15 +216,15 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		accuracy: 55,
 		basePower: 100,
 		category: "Special",
-		desc: "",
-		shortDesc: "",
+		desc: "No additional effect.",
+		shortDesc: "No additional effect.",
 		name: "Víðsýni",
 		pp: 5,
 		priority: 1,
 		flags: {protect:1},
 		onTryMovePriority: 100,
 		onTryMove() {
-			this.attrLastMove('[still]'); // For custom animations
+			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Seed Flare', target);
