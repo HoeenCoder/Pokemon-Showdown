@@ -212,7 +212,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Fire",
 	},
 	// Chloe
-	viosyni: {
+	vsni: {
 		accuracy: 55,
 		basePower: 100,
 		category: "Special",
