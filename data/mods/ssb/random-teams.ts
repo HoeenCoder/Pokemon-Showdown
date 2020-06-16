@@ -69,8 +69,8 @@ export const ssbSets: SSBSets = {
 		moves: ['Nasty Plot', 'Inferno', 'Psystrike'],
 		signatureMove: 'Víðsýni',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
-  },
-  'c.kilgannon': {
+	},
+	'c.kilgannon': {
 		species: 'Yveltal', ability: 'Pestilence', item: 'Choice Scarf', gender: 'N',
 		moves: ['Knock Off', 'Steel Wing', 'U-turn'],
 		signatureMove: 'the swirlix move',
