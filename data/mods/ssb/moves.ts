@@ -45,7 +45,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		basePower: 50,
 		category: "Special",
 		desc: "Removes hazards and gives user +1 speed.",
-		shortDesc: "Removes hazards. +1 Spe",
+		shortDesc: "Free user from hazards/bind/Leech Seed; +1 Spe.",
 		name: "Skystriker",
 		pp: 30,
 		priority: 0,
