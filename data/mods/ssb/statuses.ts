@@ -119,9 +119,9 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Chloe')}|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`);
-    },
-  },
-  ckilgannon: {
+		},
+	},
+	ckilgannon: {
 		noCopy: true,
 		onStart() {
 			this.add(`c|${getName('c.kilgannon')}|Take a look to the sky just before you die`);
