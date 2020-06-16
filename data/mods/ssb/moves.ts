@@ -212,7 +212,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Fire",
 	},
 
-  // Chloe
+	// Chloe
 	vsni: {
 		accuracy: 55,
 		basePower: 100,
@@ -234,7 +234,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Grass", 
 	},
 
-  // c.kilgannon
+	// c.kilgannon
 	theswirlixmove: {
 		accuracy: 100,
 		basePower: 70,
