@@ -140,7 +140,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		onResidualOrder: 100,
 		onResidual() {
 			for (const curMon of this.getAllActive()) {
-				if (curMon.types.includes('Fairy')) {
+				if (curMon.hasType('Fairy')) {
 					this.damage(Math.floor(curMon.baseMaxhp * 0.18), curMon);
 				} else {
 					this.damage(Math.floor(curMon.baseMaxhp * 0.12), curMon);
