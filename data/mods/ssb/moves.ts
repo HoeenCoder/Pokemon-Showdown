@@ -221,7 +221,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		name: "Víðsýni",
 		pp: 5,
 		priority: 1,
-		flags: {protect:1},
+		flags: {protect: 1},
 		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
