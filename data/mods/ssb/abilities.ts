@@ -132,6 +132,23 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// c.kilgannon
+	pestilence: {
+		desc: "All Pokemon take 12% damage while this Pokemon is out. Fairies take 18% instead.",
+		shortDesc: "All Pokemon take 12% damage while this Pokemon is out. Fairies take 18% instead.",
+		name: "Pestilence",
+		onResidualOrder: 100,
+		onResidual() {
+			for (const curMon of this.getAllActive()) {
+				if (curMon.types.includes('Fairy')) {
+					this.damage(Math.floor(curMon.baseMaxhp * 0.18), curMon);
+				} else {
+					this.damage(Math.floor(curMon.baseMaxhp * 0.12), curMon);
+				}
+			}
+		},
+	},
+
 	// Darth
 	guardianangel: {
 		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out. When switching in, this Pokemon's types are changed to resist the weakness of the last Pokemon in before it.",
