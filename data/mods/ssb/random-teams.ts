@@ -38,7 +38,7 @@ export const ssbSets: SSBSets = {
 		species: 'Latios', ability: 'Psychic Surge', item: 'Leftovers', gender: 'M',
 		moves: ['Psyshock', 'Calm Mind', 'Aura Sphere'],
 		signatureMove: 'Skystriker',
-		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
+		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 	},
 	Aeonic: {
 		species: 'Nosepass', ability: 'Arsene', item: 'Stone Plate', gender: 'M',
