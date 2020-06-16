@@ -109,7 +109,19 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			}
 		},
 	},
-	ckilgannon: {
+	chloe: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Chloe')}|hlelo`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Chloe')}|bubye`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Chloe')}|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`);
+    },
+  },
+  ckilgannon: {
 		noCopy: true,
 		onStart() {
 			this.add(`c|${getName('c.kilgannon')}|Take a look to the sky just before you die`);
