@@ -134,8 +134,8 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 
 	// c.kilgannon
 	pestilence: {
-		desc: "All Pokemon take 12% damage while this Pokemon is out. Fairies take 18% instead.",
-		shortDesc: "All Pokemon take 12% damage while this Pokemon is out. Fairies take 18% instead.",
+		desc: "All active Pokemon lose 12% of their maximum health at the end of each turn while this Pokemon is out. Fairy-types take 18% damage.",
+		shortDesc: "Active Pokemon lose 12% health each turn while this Pokemon is out. Fairy-types take 18%.",
 		name: "Pestilence",
 		onResidualOrder: 100,
 		onResidual() {
