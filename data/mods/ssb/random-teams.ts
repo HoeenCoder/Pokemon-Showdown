@@ -214,6 +214,14 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Dungeons & Dragons',
 		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 	},
+	quadrophenic: {
+		species: 'Porygon', ability: 'Adaptability', item: 'Eviolite', gender: 'N',
+		moves: [
+			'Tri Attack', 'Flamethrower', 'Surf', 'Energy Ball', 'Bug Buzz', 'Aeroblast', 'Thunderbolt', 'Ice Beam', 'Dragon Pulse', 'Power Gem', 'Earth Power', 'Moonblast', 'Dark Pulse', 'Shadow Ball', 'Psychic', 'Aura Sphere', 'Flash Cannon', 'Sludge Bomb',
+		],
+		signatureMove: 'Extreme Ways',
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
+	},
 	Rabia: {
 		species: 'Mew', ability: 'Psychic Surge', item: 'Life Orb', gender: 'M',
 		moves: ['Nasty Plot', ['Flamethrower', 'Fire Blast'], 'Roost'],
@@ -323,6 +331,7 @@ export class RandomStaffBrosTeams extends RandomTeams {
 			set.moves.push(ssbSet.signatureMove);
 
 			// Any set specific tweaks occur here.
+			if (set.name === 'quadrophenic') set.moves[this.random(2) + 1] = 'Conversion';
 
 			team.push(set);
 

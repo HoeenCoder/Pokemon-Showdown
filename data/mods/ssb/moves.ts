@@ -287,7 +287,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Seed Flare', target);
 		},
 		target: "normal",
-		type: "Grass", 
+		type: "Grass",
 	},
 
 	// c.kilgannon
@@ -1110,6 +1110,83 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		target: "normal",
 		type: "Dragon",
+	},
+
+	// quadrophenic
+	extremeways: {
+		accuracy: 100,
+		basePower: 75,
+		category: "Special",
+		desc: "Super effective against pokemon that are supereffective against it. 20% chance do a random effect depending on user's type.",
+		shortDesc: "20% chance to a different effect depending on type.",
+		name: "Extreme Ways",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Spite', target);
+		},
+		onEffectiveness(typeMod, target, source) {
+			for (const type of target.types) {
+				if (this.dex.getEffectiveness(type, source) > 0) {
+					return 1;
+				}
+			}
+		},
+		secondary: {
+			chance: 20,
+			onHit(target, source) {
+				switch(toID(source.types[0])) {
+					'normal':
+						let type = ["Fighting", "Flying", "Poison", "Ground", "Rock",
+										"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
+										"Psychic", "Ice", "Dragon", "Dark", "Fairy"][this.random(17)];
+						source.types = [type];
+						this.add('-start', pokemon, 'typechange', type, '[silent]');
+					'fire':
+						target.trySetStatus('brn', source);
+					'water':
+						source.addVolatile('aquaring', source);
+					'grass':
+						if (target.hasType('Grass')) return;
+						target.addVolatile('leechseed', source);
+					'electric':
+						target.trySetStatus('par', source);
+					'bug':
+						target.side.addSideCondition('stickyweb');
+					'ice':
+						target.trySetStatus('frz', source);
+					'poison':
+						target.trySetStatus('tox', source);
+					'dark':
+						target.addVolatile('taunt', source);
+					'ghost':
+						target.trySetStatus('slp', source);
+					'psychic':
+						this.field.setTerrain('psychicterrain');
+					'flying':
+						source.side.addSideCondition('tailwind', source);
+					'dragon':
+						target.forceSwitchFlag = true;
+					'steel':
+						target.side.addSideCondition('gmaxsteelsurge');
+					'rock':
+						target.side.addSideCondition('stealthrock');
+					'ground':
+						target.side.addSideCondition('spikes');
+					'fairy':
+						this.field.setTerrain('mistyterrain');
+					'fighting':
+						source.addVolatile('focusenergy', source);
+				}
+			},
+		},
+		target: "normal",
+		type: "???",
 	},
 
 	// Rabia
