@@ -188,7 +188,31 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Ice",
 	},
 
-// Cake
+	// awa
+	awa: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		desc: "Sets up Sandstorm.",
+		shortDesc: "Sets up Sandstorm.",
+		name: "awa!",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
+		},
+		weather: 'Sandstorm',
+		secondary: null,
+		target: "normal",
+		type: "Rock",
+	},
+
+	// Cake
 	kevin: {
 		accuracy: 100,
 		basePower: 111,
@@ -287,7 +311,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Seed Flare', target);
 		},
 		target: "normal",
-		type: "Grass", 
+		type: "Grass",
 	},
 
 	// c.kilgannon
