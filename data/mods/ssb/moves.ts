@@ -188,6 +188,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Ice",
 	},
 
+	// Beowulf
 	buzzinspection: {
 		accuracy: true,
 		basePower: 0,
