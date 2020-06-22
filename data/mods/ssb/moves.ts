@@ -1472,7 +1472,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 					getMoveSlot('toxic'),
 					getMoveSlot('classchange', source.moveSlots[classChangeIndex].pp),
 				];
-				this.add('-message', `yuki\'s fast movements confuse ${target.name}!`);
+				this.add('-message', `yuki's fast movements confuse ${target.name}!`);
 				return;
 			case 'Dancer':
 				this.boost({atk: -2}, target, source, this.effect, false, true);
