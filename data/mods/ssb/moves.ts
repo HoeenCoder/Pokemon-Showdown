@@ -206,7 +206,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
 		},
-		weather: 'Sandstorm',
+		weather: 'sandstorm',
 		secondary: null,
 		target: "normal",
 		type: "Rock",
