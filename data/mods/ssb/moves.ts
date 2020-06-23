@@ -1167,12 +1167,16 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 						break;
 					'poison':
 						target.trySetStatus('tox', source);
+						break;
 					'dark':
 						target.addVolatile('taunt', source);
+						break;
 					'ghost':
 						target.trySetStatus('slp', source);
+						break;
 					'psychic':
 						this.field.setTerrain('psychicterrain');
+						break;
 					'flying':
 						source.side.addSideCondition('tailwind', source);
 						break;
