@@ -1148,6 +1148,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 						break;
 					'fire':
 						target.trySetStatus('brn', source);
+						break;
 					'water':
 						source.addVolatile('aquaring', source);
 					'grass':
