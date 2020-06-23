@@ -1175,10 +1175,13 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 						this.field.setTerrain('psychicterrain');
 					'flying':
 						source.side.addSideCondition('tailwind', source);
+						break;
 					'dragon':
 						target.forceSwitchFlag = true;
+						break;
 					'steel':
 						target.side.addSideCondition('gmaxsteelsurge');
+						break;
 					'rock':
 						target.side.addSideCondition('stealthrock');
 					'ground':
