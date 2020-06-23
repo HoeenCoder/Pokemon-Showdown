@@ -208,7 +208,9 @@ export const ssbSets: SSBSets = {
 		species: 'Polteageist', ability: 'Wild Magic Surge', item: 'Expert Belt', gender: 'F',
 		moves: [
 			'Moongeist Beam', 'Spacial Rend', [
-				'Tri Attack', 'Fiery Dance', 'Scald', 'Discharge', 'Apple Acid', 'Ice Beam', 'Aura Sphere', 'Sludge Bomb', 'Earth Power', 'Oblivion Wing', 'Psyshock', 'Bug Buzz', 'Power Gem', 'Dark Pulse', 'Flash Cannon', 'Dazzling Gleam',
+				'Tri Attack', 'Fiery Dance', 'Scald', 'Discharge', 'Apple Acid', 'Ice Beam',
+				'Aura Sphere', 'Sludge Bomb', 'Earth Power', 'Oblivion Wing', 'Psyshock', 'Bug Buzz',
+				'Power Gem', 'Dark Pulse', 'Flash Cannon', 'Dazzling Gleam',
 			],
 		],
 		signatureMove: 'Dungeons & Dragons',
@@ -217,7 +219,9 @@ export const ssbSets: SSBSets = {
 	quadrophenic: {
 		species: 'Porygon', ability: 'Adaptability', item: 'Eviolite', gender: 'N',
 		moves: [
-			'Tri Attack', 'Flamethrower', 'Surf', 'Energy Ball', 'Bug Buzz', 'Aeroblast', 'Thunderbolt', 'Ice Beam', 'Dragon Pulse', 'Power Gem', 'Earth Power', 'Moonblast', 'Dark Pulse', 'Shadow Ball', 'Psychic', 'Aura Sphere', 'Flash Cannon', 'Sludge Bomb',
+			'Tri Attack', 'Flamethrower', 'Surf', 'Energy Ball', 'Bug Buzz', 'Aeroblast',
+			'Thunderbolt', 'Ice Beam', 'Dragon Pulse', 'Power Gem', 'Earth Power', 'Moonblast',
+			'Dark Pulse', 'Shadow Ball', 'Psychic', 'Aura Sphere', 'Flash Cannon', 'Sludge Bomb',
 		],
 		signatureMove: 'Extreme Ways',
 		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
