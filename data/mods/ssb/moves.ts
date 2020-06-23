@@ -188,7 +188,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Ice",
 	},
 
-// Cake
+	// Cake
 	kevin: {
 		accuracy: 100,
 		basePower: 111,
