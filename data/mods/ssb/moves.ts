@@ -1142,9 +1142,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			onHit(target, source) {
 				switch(toID(source.types[0])) {
 					'normal':
-						let type = ["Fighting", "Flying", "Poison", "Ground", "Rock",
-										"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
-										"Psychic", "Ice", "Dragon", "Dark", "Fairy"][this.random(17)];
+						const type = this.sample(Object.values(Dex.data.TypeChart));
 						source.types = [type];
 						this.add('-start', pokemon, 'typechange', type, '[silent]');
 					'fire':
