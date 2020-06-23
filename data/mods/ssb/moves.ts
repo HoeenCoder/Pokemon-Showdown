@@ -1151,6 +1151,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 						break;
 					'water':
 						source.addVolatile('aquaring', source);
+						break;
 					'grass':
 						if (target.hasType('Grass')) return;
 						target.addVolatile('leechseed', source);
