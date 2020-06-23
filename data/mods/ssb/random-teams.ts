@@ -58,6 +58,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Blizzard',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
 	},
+	Beowulf: {
+		species: 'Beedrill', ability: 'Intrepid Sword', item: 'Beedrillite', gender: '',
+		moves: ['Megahorn', 'Gunk Shot', ['Precipice Blades', 'Head Smash']],
+		signatureMove: 'Buzz Inspection',
+		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly', shiny: 2,
+	},
 	Cake: {
 		species: 'Dunsparce', ability: 'h', item: 'Leftovers', gender: 'M',
 		moves: ['Toxic', 'Spiky Shield', 'Skill Swap'],
@@ -174,6 +180,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Terraforming',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 	},
+	n10siT: {
+		species: 'Hoopa', ability: 'Greedy Magician', item: 'Focus Sash', gender: 'N',
+		moves: ['Hyperspace Hole', 'Shadow Ball', 'Aura Sphere'],
+		signatureMove: 'Unbind',
+		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+	},
 	'OM~!': {
 		species: 'Magneton', ability: 'Triage', item: 'Metronome', gender: 'N',
 		moves: ['Parabolic Charge', 'Oblivion Wing', 'Giga Drain'],
@@ -255,6 +267,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Psychic', 'Shadow Ball', 'Aura Sphere'],
 		signatureMove: 'Ten',
 		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+	},
+	yuki: {
+		species: 'Pikachu-Cosplay', ability: 'Combat Training', item: 'Light Ball', gender: 'F',
+		moves: ['Quick Attack'],
+		signatureMove: 'Class Change',
+		evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: ['Modest', 'Timid'],
 	},
 	Zodiax: {
 		species: 'Oricorio-Pom-Pom', ability: 'Primordial Sea', item: 'Heavy-Duty Boots', gender: 'M',

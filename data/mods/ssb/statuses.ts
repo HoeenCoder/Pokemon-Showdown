@@ -87,6 +87,21 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('Alpha')}|caio`);
 		},
 	},
+	beowulf: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Beowulf')}|:^)`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Beowulf')}|/me buzzes`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Beowulf')}|time for my own isekai`);
+		},
+		onSourceFaint() {
+			this.add(`c|${getName('Beowulf')}|another one reincarnating into an isekai`);
+		},
+	},
 	cake: {
 		noCopy: true,
 		onStart(target, source) {
@@ -95,7 +110,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			// Cake innate
 			this.boost({atk: 1, def: 1, spa: 1, spd: 1, spe: 1}, source, source);
 		},
-		onSwitchOut() {
+		onSwitchOut(pokemon) {
 			this.add(`c|${getName('Cake')}|${pokemon.side.name} is a nerd`);
 		},
 		onFaint() {
@@ -377,6 +392,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('Mitsuki')}|THIS WORLD SHALL KNOW P A I N`);
 		},
 	},
+	n10sit: {
+		noCopy: true,
+		onStart(source) {
+			this.add(`c|${getName('n10siT')}|Heheheh... were you surprised?`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('n10siT')}|Heheheh... did I scare you?`);
+		},
+		onFaint() {
+			this.add(`c|${getName('n10siT')}|Hoopa never saw one of those!`);
+		},
+	},
 	overneat: {
 		noCopy: true,
 		onStart(source) {
@@ -539,6 +566,32 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Teclis')}|Magic never dies. It merely fades away.`);
+		},
+	},
+	yuki: {
+		noCopy: true,
+		onStart(target, pokemon) {
+			let bst = 0;
+			for (const stat of Object.values(pokemon.species.baseStats)) {
+				bst += stat;
+			}
+			let targetBst = 0;
+			for (const stat of Object.values(target.species.baseStats)) {
+				targetBst += stat;
+			}
+			let message: string;
+			if (bst > targetBst) {
+				message = 'You dare challenge me!?';
+			} else {
+				message = 'Sometimes, you go for it';
+			}
+			this.add(`c|${getName('yuki')}|${message}`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('yuki')}|Catch me if you can!`);
+		},
+		onFaint() {
+			this.add(`c|${getName('yuki')}|You'll never extinguish our hopes!`);
 		},
 	},
 	zodiax: {
