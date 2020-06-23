@@ -1145,6 +1145,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 						const type = this.sample(Object.values(Dex.data.TypeChart));
 						source.types = [type];
 						this.add('-start', pokemon, 'typechange', type, '[silent]');
+						break;
 					'fire':
 						target.trySetStatus('brn', source);
 					'water':
