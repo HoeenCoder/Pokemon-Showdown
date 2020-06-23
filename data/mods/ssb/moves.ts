@@ -1188,12 +1188,16 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 						break;
 					'rock':
 						target.side.addSideCondition('stealthrock');
+						break;
 					'ground':
 						target.side.addSideCondition('spikes');
+						break;
 					'fairy':
 						this.field.setTerrain('mistyterrain');
+						break;
 					'fighting':
 						source.addVolatile('focusenergy', source);
+						break;
 				}
 			},
 		},
