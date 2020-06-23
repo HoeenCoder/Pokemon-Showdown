@@ -1153,8 +1153,9 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 						source.addVolatile('aquaring', source);
 						break;
 					'grass':
-						if (target.hasType('Grass')) return;
+						if (target.hasType('Grass')) break;
 						target.addVolatile('leechseed', source);
+						break;
 					'electric':
 						target.trySetStatus('par', source);
 					'bug':
