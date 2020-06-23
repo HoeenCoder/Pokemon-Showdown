@@ -1130,9 +1130,11 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Spite', target);
 		},
-		onEffectiveness(typeMod, target, source) {
-			for (const type of target.types) {
-				if (this.dex.getEffectiveness(type, source) > 0) {
+		onEffectiveness(typeMod, target, type) {
+			if (!target) return;
+			let source = target.side.foe.active[0];
+			for (const foeType of target.types) {
+				if (this.dex.getImmunity(foeType, source) && this.dex.getEffectiveness(foeType, source) > 0) {
 					return 1;
 				}
 			}
@@ -1141,61 +1143,64 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			chance: 20,
 			onHit(target, source) {
 				switch(toID(source.types[0])) {
-					'normal':
-						const type = this.sample(Object.values(Dex.data.TypeChart));
-						source.types = [type];
-						this.add('-start', pokemon, 'typechange', type, '[silent]');
+					case 'normal':
+						const typeList = ["Fighting", "Flying", "Poison", "Ground", "Rock",
+								"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
+								"Psychic", "Ice", "Dragon", "Dark", "Fairy"];
+						const newType = typeList[this.random(typeList.length)];
+						source.types = [newType];
+						this.add('-start', source, 'typechange', newType);
 						break;
-					'fire':
+					case 'fire':
 						target.trySetStatus('brn', source);
 						break;
-					'water':
+					case 'water':
 						source.addVolatile('aquaring', source);
 						break;
-					'grass':
+					case 'grass':
 						if (target.hasType('Grass')) break;
 						target.addVolatile('leechseed', source);
 						break;
-					'electric':
+					case 'electric':
 						target.trySetStatus('par', source);
 						break;
-					'bug':
+					case 'bug':
 						target.side.addSideCondition('stickyweb');
 						break;
-					'ice':
+					case 'ice':
 						target.trySetStatus('frz', source);
 						break;
-					'poison':
+					case 'poison':
 						target.trySetStatus('tox', source);
 						break;
-					'dark':
+					case 'dark':
 						target.addVolatile('taunt', source);
 						break;
-					'ghost':
+					case 'ghost':
 						target.trySetStatus('slp', source);
 						break;
-					'psychic':
+					case 'psychic':
 						this.field.setTerrain('psychicterrain');
 						break;
-					'flying':
+					case 'flying':
 						source.side.addSideCondition('tailwind', source);
 						break;
-					'dragon':
+					case 'dragon':
 						target.forceSwitchFlag = true;
 						break;
-					'steel':
+					case 'steel':
 						target.side.addSideCondition('gmaxsteelsurge');
 						break;
-					'rock':
+					case 'rock':
 						target.side.addSideCondition('stealthrock');
 						break;
-					'ground':
+					case 'ground':
 						target.side.addSideCondition('spikes');
 						break;
-					'fairy':
+					case 'fairy':
 						this.field.setTerrain('mistyterrain');
 						break;
-					'fighting':
+					case 'fighting':
 						source.addVolatile('focusenergy', source);
 						break;
 				}
