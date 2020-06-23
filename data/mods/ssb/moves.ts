@@ -1158,10 +1158,13 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 						break;
 					'electric':
 						target.trySetStatus('par', source);
+						break;
 					'bug':
 						target.side.addSideCondition('stickyweb');
+						break;
 					'ice':
 						target.trySetStatus('frz', source);
+						break;
 					'poison':
 						target.trySetStatus('tox', source);
 					'dark':
