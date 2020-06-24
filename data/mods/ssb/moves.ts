@@ -1205,12 +1205,10 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		secondary: {
 			chance: 20,
 			onHit(target, source) {
-				switch(toID(source.types[0])) { 
-					case 'normal':
-					const typeList = ["Fighting", "Flying", "Poison", "Ground", "Rock",
-							"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
-							"Psychic", "Ice", "Dragon", "Dark", "Fairy"];
-					const newType = typeList[this.random(typeList.length)];
+				switch (toID(source.types[0])) {
+				case 'normal':
+					const typeList = Object.keys(this.dex.data.TypeChart);
+					const newType = this.sample(typeList);
 					source.types = [newType];
 					this.add('-start', source, 'typechange', newType);
 					break;
