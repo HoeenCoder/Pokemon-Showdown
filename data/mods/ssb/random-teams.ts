@@ -69,7 +69,6 @@ export const ssbSets: SSBSets = {
 		moves: ['Megahorn', 'Gunk Shot', ['Precipice Blades', 'Head Smash']],
 		signatureMove: 'Buzz Inspection',
 		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly', shiny: 2,
-
 	},
 	Cake: {
 		species: 'Dunsparce', ability: 'h', item: 'Leftovers', gender: 'M',
