@@ -616,7 +616,6 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('Zalm')}|Run for the hills!`);
 		},
 		onFaint(pokemon) {
-			const name = pokemon.side.foe.name;
 			this.add(`c|${getName('Zalm')}|Woah`);
 		},
 	},
