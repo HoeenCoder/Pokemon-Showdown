@@ -199,18 +199,18 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1},
-    onTryMovePriority: 100,
+		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-    onPrepareHit(target, source) {
-      this.add('-anim', source, 'Let\'s Snuggle Forever', target);
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
 		},
 		weather: 'sandstorm',
 		secondary: null,
 		target: "normal",
 		type: "Rock",
-  },
+	},
 
 	// Beowulf
 	buzzinspection: {
