@@ -70,6 +70,11 @@ export const BattlePokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		types: ["Ghost", "Ice"],
 	},
+	// quadrophenic
+	porygon: {
+		inherit: true,
+		baseStats: {hp: 85, atk: 80, def: 90, spa: 105, spd: 95, spe: 60},
+	},
 	// Robb576
 	necrozmadawnwings: {
 		inherit: true,
@@ -87,5 +92,36 @@ export const BattlePokedex: {[k: string]: ModdedSpeciesData} = {
 	charizardmegax: {
 		inherit: true,
 		abilities: {0: "One For All"},
+	},
+	// yuki
+	pikachucosplay: {
+		inherit: true,
+		baseStats: {hp: 60, atk: 85, def: 50, spa: 95, spd: 85, spe: 110},
+		abilities: {0: "Combat Training"},
+	},
+	pikachuphd: {
+		inherit: true,
+		baseStats: {hp: 60, atk: 85, def: 50, spa: 95, spd: 85, spe: 110},
+		abilities: {0: "Triage"},
+	},
+	pikachulibre: {
+		inherit: true,
+		baseStats: {hp: 60, atk: 85, def: 50, spa: 95, spd: 85, spe: 110},
+		abilities: {0: "White Smoke"},
+	},
+	pikachupopstar: {
+		inherit: true,
+		baseStats: {hp: 60, atk: 85, def: 50, spa: 95, spd: 85, spe: 110},
+		abilities: {0: "Dancer"},
+	},
+	pikachurockstar: {
+		inherit: true,
+		baseStats: {hp: 60, atk: 85, def: 50, spa: 95, spd: 85, spe: 110},
+		abilities: {0: "Punk Rock"},
+	},
+	pikachubelle: {
+		inherit: true,
+		baseStats: {hp: 60, atk: 85, def: 50, spa: 95, spd: 85, spe: 110},
+		abilities: {0: "Tangled Feet"},
 	},
 };

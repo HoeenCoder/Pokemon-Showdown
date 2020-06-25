@@ -199,17 +199,46 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1},
-		onTryMovePriority: 100,
+    onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
+    onPrepareHit(target, source) {
+      this.add('-anim', source, 'Let\'s Snuggle Forever', target);
 		},
 		weather: 'sandstorm',
 		secondary: null,
 		target: "normal",
 		type: "Rock",
+  },
+
+	// Beowulf
+	buzzinspection: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "Gains the ability Compound Eyes and then switches out",
+		shortDesc: "Gains Compound Eyes and switches",
+		name: "Buzz Inspection",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Night Shade', source);
+		},
+		onHit(pokemon) {
+			pokemon.baseAbility = 'compoundeyes' as ID;
+			pokemon.setAbility('compoundeyes');
+			this.add('-ability', pokemon, pokemon.getAbility().name, '[from] move: Buzz Inspection');
+		},
+		selfSwitch: true,
+		secondary: null,
+		target: "self",
+		type: "Bug",
 	},
 
 	// Cake
@@ -240,7 +269,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		onEffectiveness(typeMod, target, type, move) {
 			if (!target) return;
-			let pokemon = target.side.foe.active[0];
+			const pokemon = target.side.foe.active[0];
 			if (pokemon.types[1]) {
 				return typeMod + this.dex.getEffectiveness(pokemon.types[1], type);
 			}
@@ -910,6 +939,40 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Rock",
 	},
 
+	// n10siT
+	"unbind": {
+		accuracy: 100,
+		basePower: 60,
+		category: "Special",
+		desc: "",
+		shortDesc: "",
+		name: "Unbind",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Hyperspace Hole', source);
+			this.add('-anim', source, 'Hyperspace Fury', source);
+		},
+		onHit(target, pokemon, move) {
+			if (pokemon.baseSpecies.baseSpecies === 'Hoopa') {
+				const forme = pokemon.species.forme === 'Unbound' ? '' : '-Unbound';
+				pokemon.formeChange(`Hoopa${forme}`, this.effect, false, '[msg]');
+				this.boost({spe: 1}, pokemon, pokemon, move);
+			}
+		},
+		onModifyType(move, pokemon) {
+			if (pokemon.baseSpecies.baseSpecies !== 'Hoopa') return;
+			move.type = pokemon.species.name === 'Hoopa-Unbound' ? 'Dark' : 'Psychic';
+		},
+		secondary: null,
+		target: "normal",
+		type: "Psychic",
+	},
+
 	// OM~!
 	mechomnism: {
 		accuracy: 95,
@@ -1136,6 +1199,102 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Dragon",
 	},
 
+	// quadrophenic
+	extremeways: {
+		accuracy: 100,
+		basePower: 75,
+		category: "Special",
+		desc: "Super effective against pokemon that are supereffective against it. 20% chance do a random effect depending on user's type.",
+		shortDesc: "20% chance to a different effect depending on type.",
+		name: "Extreme Ways",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Spite', target);
+		},
+		onEffectiveness(typeMod, target, type) {
+			if (!target) return;
+			const source = target.side.foe.active[0];
+			for (const foeType of target.types) {
+				if (this.dex.getImmunity(foeType, source) && this.dex.getEffectiveness(foeType, source) > 0) {
+					return 1;
+				}
+			}
+		},
+		secondary: {
+			chance: 20,
+			onHit(target, source) {
+				switch (toID(source.types[0])) {
+				case 'normal':
+					const typeList = Object.keys(this.dex.data.TypeChart);
+					const newType = this.sample(typeList);
+					source.types = [newType];
+					this.add('-start', source, 'typechange', newType);
+					break;
+				case 'fire':
+					target.trySetStatus('brn', source);
+					break;
+				case 'water':
+					source.addVolatile('aquaring', source);
+					break;
+				case 'grass':
+					if (target.hasType('Grass')) break;
+					target.addVolatile('leechseed', source);
+					break;
+				case 'electric':
+					target.trySetStatus('par', source);
+					break;
+				case 'bug':
+					target.side.addSideCondition('stickyweb');
+					break;
+				case 'ice':
+					target.trySetStatus('frz', source);
+					break;
+				case 'poison':
+					target.trySetStatus('tox', source);
+					break;
+				case 'dark':
+					target.addVolatile('taunt', source);
+					break;
+				case 'ghost':
+					target.trySetStatus('slp', source);
+					break;
+				case 'psychic':
+					this.field.setTerrain('psychicterrain');
+					break;
+				case 'flying':
+					source.side.addSideCondition('tailwind', source);
+					break;
+				case 'dragon':
+					target.forceSwitchFlag = true;
+					break;
+				case 'steel':
+					target.side.addSideCondition('gmaxsteelsurge');
+					break;
+				case 'rock':
+					target.side.addSideCondition('stealthrock');
+					break;
+				case 'ground':
+					target.side.addSideCondition('spikes');
+					break;
+				case 'fairy':
+					this.field.setTerrain('mistyterrain');
+					break;
+				case 'fighting':
+					source.addVolatile('focusenergy', source);
+					break;
+				}
+			},
+		},
+		target: "normal",
+		type: "???",
+	},
+
 	// Rabia
 	psychodrive: {
 		accuracy: 100,
@@ -1351,6 +1510,174 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "self",
 		type: "Psychic",
+	},
+
+	// tiki
+	rightoncue: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "25% chance of setting up a layer of spikes. 25% chance of using Heal Bell. 25% chance of using Leech Seed. 25% chance of using Tailwind. 25% chance of using Octolock.",
+		shortDesc: "5 independent chances of rolling different effects.",
+		name: "Right. On. Cue!",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		onHit(target, source) {
+			let effects = 0;
+			if (this.randomChance(1, 4)) {
+				this.useMove('Spikes', source, target);
+				effects++;
+			}
+			if (this.randomChance(1, 4)) {
+				this.useMove('Heal Bell', source);
+				effects++;
+			}
+			if (this.randomChance(1, 4)) {
+				this.useMove('Leech Seed', source, target);
+				effects++;
+			}
+			if (this.randomChance(1, 4)) {
+				this.useMove('Tailwind', source, target);
+				effects++;
+			}
+			if (this.randomChance(1, 4)) {
+				this.useMove('Octolock', source);
+				effects++;
+			}
+			if (effects <= 0) {
+				this.add(`c|${getName('tiki')}|truly a dumpster fire`);
+			} else if (effects >= 3) {
+				this.add(`c|${getName('tiki')}|whos ${source.side.foe.name}?`);
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+	},
+
+	// yuki
+	classchange: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "If the user is a cosplay Pikachu forme, it randomly changes forme and effect.",
+		shortDesc: "Pikachu: Random forme and effect.",
+		name: "Class Change",
+		pp: 6,
+		noPPBoosts: true,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(foe, source, move) {
+			let animation: string;
+			const formes = ['Cleric', 'Ninja', 'Dancer', 'Songstress', 'Jester'];
+			source.m.yukiCosplayForme = this.sample(formes);
+			switch (source.m.yukiCosplayForme) {
+			case 'Cleric':
+				animation = 'Strength Sap';
+				break;
+			case 'Ninja':
+				animation = 'Confuse Ray';
+				break;
+			case 'Dancer':
+				animation = 'Feather Dance';
+				break;
+			case 'Songstress':
+				animation = 'Sing';
+				break;
+			case 'Jester':
+				animation = 'Charm';
+				break;
+			default:
+				animation = 'Tackle';
+				break;
+			}
+			this.add('-anim', source, animation, foe);
+		},
+		onHit(target, source) {
+			if (source.baseSpecies.baseSpecies !== 'Pikachu') return;
+			let classChangeIndex = source.moveSlots.map(x => x.id).indexOf('classchange' as ID);
+			if (classChangeIndex < 0) classChangeIndex = 1;
+			const getMoveSlot = (k: string, curMovePP?: number) => {
+				const move = this.dex.getMove(k);
+				return {
+					id: move.id,
+					move: move.name,
+					pp: curMovePP || move.pp * 8 / 5,
+					maxpp: move.pp * 8 / 5,
+					disabled: false,
+					used: false,
+				};
+			};
+			switch (source.m.yukiCosplayForme) {
+			case 'Cleric':
+				if (target.boosts.atk === -6) return false;
+				const atk = target.getStat('atk', false, true);
+				const success = this.boost({atk: -1}, target, source, null, false, true);
+				source.formeChange('pikachuphd', this.effect, true);
+				source.moveSlots = [
+					getMoveSlot('paraboliccharge'),
+					getMoveSlot('wish'),
+					getMoveSlot('batonpass'),
+					getMoveSlot('classchange', source.moveSlots[classChangeIndex].pp),
+				];
+				this.add('-message', 'yuki patches up her wounds!');
+				return !!(this.heal(atk, source, target) || success);
+			case 'Ninja':
+				target.addVolatile('confusion');
+				source.formeChange('pikachulibre', this.effect, true);
+				source.moveSlots = [
+					getMoveSlot('watershuriken'),
+					getMoveSlot('acrobatics'),
+					getMoveSlot('toxic'),
+					getMoveSlot('classchange', source.moveSlots[classChangeIndex].pp),
+				];
+				this.add('-message', `yuki's fast movements confuse ${target.name}!`);
+				return;
+			case 'Dancer':
+				this.boost({atk: -2}, target, source, this.effect, false, true);
+				source.formeChange('pikachupopstar', this.effect, true);
+				source.moveSlots = [
+					getMoveSlot('fierydance'),
+					getMoveSlot('revelationdance'),
+					getMoveSlot('lunardance'),
+					getMoveSlot('classchange', source.moveSlots[classChangeIndex].pp),
+				];
+				this.add('-message', `yuki dazzles ${target.name} with her moves!`);
+				return;
+			case 'Songstress':
+				target.trySetStatus('slp');
+				source.formeChange('pikachurockstar', this.effect, true);
+				source.moveSlots = [
+					getMoveSlot('hypervoice'),
+					getMoveSlot('overdrive'),
+					getMoveSlot('sing'),
+					getMoveSlot('classchange', source.moveSlots[classChangeIndex].pp),
+				];
+				this.add('-message', `yuki sang an entrancing melody!`);
+				return;
+			case 'Jester':
+				this.boost({atk: -2}, target, source, this.effect, false, true);
+				source.formeChange('pikachubelle', this.effect, true);
+				source.moveSlots = [
+					getMoveSlot('present'),
+					getMoveSlot('metronome'),
+					getMoveSlot('teeterdance'),
+					getMoveSlot('classchange', source.moveSlots[classChangeIndex].pp),
+				];
+				this.add('-message', `yuki tries her best to impress ${target.name}!`);
+				return;
+			default:
+				return;
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
 	},
 
 	// Zodiax

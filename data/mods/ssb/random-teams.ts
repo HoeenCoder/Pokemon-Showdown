@@ -63,6 +63,13 @@ export const ssbSets: SSBSets = {
 		moves: ['Earthquake', 'Close Combat', 'Swords Dance'],
 		signatureMove: 'awa!',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant',
+  },
+	Beowulf: {
+		species: 'Beedrill', ability: 'Intrepid Sword', item: 'Beedrillite', gender: '',
+		moves: ['Megahorn', 'Gunk Shot', ['Precipice Blades', 'Head Smash']],
+		signatureMove: 'Buzz Inspection',
+		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly', shiny: 2,
+
 	},
 	Cake: {
 		species: 'Dunsparce', ability: 'h', item: 'Leftovers', gender: 'M',
@@ -180,6 +187,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Terraforming',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 	},
+	n10siT: {
+		species: 'Hoopa', ability: 'Greedy Magician', item: 'Focus Sash', gender: 'N',
+		moves: ['Hyperspace Hole', 'Shadow Ball', 'Aura Sphere'],
+		signatureMove: 'Unbind',
+		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+	},
 	'OM~!': {
 		species: 'Magneton', ability: 'Triage', item: 'Metronome', gender: 'N',
 		moves: ['Parabolic Charge', 'Oblivion Wing', 'Giga Drain'],
@@ -214,11 +227,23 @@ export const ssbSets: SSBSets = {
 		species: 'Polteageist', ability: 'Wild Magic Surge', item: 'Expert Belt', gender: 'F',
 		moves: [
 			'Moongeist Beam', 'Spacial Rend', [
-				'Tri Attack', 'Fiery Dance', 'Scald', 'Discharge', 'Apple Acid', 'Ice Beam', 'Aura Sphere', 'Sludge Bomb', 'Earth Power', 'Oblivion Wing', 'Psyshock', 'Bug Buzz', 'Power Gem', 'Dark Pulse', 'Flash Cannon', 'Dazzling Gleam',
+				'Tri Attack', 'Fiery Dance', 'Scald', 'Discharge', 'Apple Acid', 'Ice Beam',
+				'Aura Sphere', 'Sludge Bomb', 'Earth Power', 'Oblivion Wing', 'Psyshock', 'Bug Buzz',
+				'Power Gem', 'Dark Pulse', 'Flash Cannon', 'Dazzling Gleam',
 			],
 		],
 		signatureMove: 'Dungeons & Dragons',
 		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+	},
+	quadrophenic: {
+		species: 'Porygon', ability: 'Adaptability', item: 'Eviolite', gender: 'N',
+		moves: [
+			'Tri Attack', 'Flamethrower', 'Surf', 'Energy Ball', 'Bug Buzz', 'Aeroblast',
+			'Thunderbolt', 'Ice Beam', 'Dragon Pulse', 'Power Gem', 'Earth Power', 'Moonblast',
+			'Dark Pulse', 'Shadow Ball', 'Psychic', 'Aura Sphere', 'Flash Cannon', 'Sludge Bomb',
+		],
+		signatureMove: 'Extreme Ways',
+		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
 	},
 	Rabia: {
 		species: 'Mew', ability: 'Psychic Surge', item: 'Life Orb', gender: 'M',
@@ -249,6 +274,18 @@ export const ssbSets: SSBSets = {
 		moves: ['Psychic', 'Shadow Ball', 'Aura Sphere'],
 		signatureMove: 'Ten',
 		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+	},
+	tiki: {
+		species: 'Snom', ability: 'True Grit', item: 'Eviolite', gender: 'M',
+		moves: ['Toxic', 'Strength Sap', 'U-turn'],
+		signatureMove: 'Right. On. Cue!',
+		evs: {hp: 128, def: 144, spd: 236}, ivs: {atk: 0}, nature: 'Bold',
+	},
+	yuki: {
+		species: 'Pikachu-Cosplay', ability: 'Combat Training', item: 'Light Ball', gender: 'F',
+		moves: ['Quick Attack'],
+		signatureMove: 'Class Change',
+		evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: ['Modest', 'Timid'],
 	},
 	Zodiax: {
 		species: 'Oricorio-Pom-Pom', ability: 'Primordial Sea', item: 'Heavy-Duty Boots', gender: 'M',
@@ -329,6 +366,7 @@ export class RandomStaffBrosTeams extends RandomTeams {
 			set.moves.push(ssbSet.signatureMove);
 
 			// Any set specific tweaks occur here.
+			if (set.name === 'quadrophenic') set.moves[this.random(2) + 1] = 'Conversion';
 
 			team.push(set);
 

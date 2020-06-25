@@ -70,18 +70,18 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	},
 
 	// Cake
-  h: {
+	h: {
 		desc: "On switch-in and at the ened of every turn, this Pokemon changes to a random typing.",
 		shortDesc: "On switch-in & every turn, random type.",
 		name: "h",
 		onSwitchIn(pokemon) {
-			let typeList = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock",
-								"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
-								"Psychic", "Ice", "Dragon", "Dark", "Fairy"];
+			const typeList = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock",
+				"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
+				"Psychic", "Ice", "Dragon", "Dark", "Fairy"];
 			this.prng.shuffle(typeList);
-			let firstType = typeList[0];
+			const firstType = typeList[0];
 			this.prng.shuffle(typeList);
-			let secondType = typeList[0];
+			const secondType = typeList[0];
 			let newTypes = [];
 			if (firstType === secondType) {
 				newTypes = [firstType];
@@ -96,13 +96,13 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		onResidualSubOrder: 1,
 		onResidual(pokemon) {
 			if (pokemon.activeTurns) {
-				let typeList = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock",
-									"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
-									"Psychic", "Ice", "Dragon", "Dark", "Fairy"];
+				const typeList = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock",
+					"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
+					"Psychic", "Ice", "Dragon", "Dark", "Fairy"];
 				this.prng.shuffle(typeList);
-				let firstType = typeList[0];
+				const firstType = typeList[0];
 				this.prng.shuffle(typeList);
-				let secondType = typeList[0];
+				const secondType = typeList[0];
 				let newTypes = [];
 				if (firstType === secondType) {
 					newTypes = [firstType];
@@ -393,6 +393,25 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// n10siT
+	greedymagician: {
+		desc: "This Pokemon steals the item off a Pokemon it hits with an attack. If you already have an item, it is replaced with the stolen item. Does not affect Doom Desire and Future Sight.",
+		shortDesc: "This Pokemon steals the item off a Pokemon it hits with an attack; existing item gets replaced with the stolen item.",
+		name: "Greedy Magician",
+		onSourceHit(target, source, move) {
+			if (!move || !target) return;
+			if (target !== source && move.category !== 'Status') {
+				const yourItem = target.takeItem(source);
+				if (!yourItem) return;
+				if (!source.setItem(yourItem)) {
+					target.item = yourItem.id;
+					return;
+				}
+				this.add('-item', source, yourItem, '[from] ability: Greedy Magician', '[of] ' + target);
+			}
+		},
+	},
+
 	// Overneat
 	darkestwings: {
 		desc: "This Pokemon's contact moves have their power multiplied by 1.3. This Pokemon's Defense is doubled.",
@@ -575,6 +594,82 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		onSourceAfterFaint(length, target, source, effect) {
 			if (effect?.effectType === 'Move' && effect?.recoil) this.heal(source.baseMaxhp / 4);
 		},
+	},
+
+	// tiki
+	truegrit: {
+		desc: "This Pokemon receives 1/2 damage from special attacks. This Pokemon ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage.",
+		shortDesc: "Takes 1/2 damage from special moves and ignores boosts.",
+		name: "True Grit",
+		onSourceModifyDamage(damage, source, target, move) {
+			if (move.category === 'Special') {
+				return this.chainModify(0.5);
+			}
+		},
+		onAnyModifyBoost(boosts, pokemon) {
+			const unawareUser = this.effectData.target;
+			if (unawareUser === pokemon) return;
+			if (unawareUser === this.activePokemon && pokemon === this.activeTarget) {
+				boosts['def'] = 0;
+				boosts['spd'] = 0;
+				boosts['evasion'] = 0;
+			}
+			if (pokemon === this.activePokemon && unawareUser === this.activeTarget) {
+				boosts['atk'] = 0;
+				boosts['def'] = 0;
+				boosts['spa'] = 0;
+				boosts['accuracy'] = 0;
+			}
+		},
+	},
+
+	// yuki
+	combattraining: {
+		desc: "If this Pokemon is a Cosplay Pikachu forme, the first hit it takes in battle deals 0 neutral damage. Confusion damage also breaks the immunity.",
+		shortDesc: "(Pikachu-Cosplay only) First hit deals 0 damage.",
+		onDamagePriority: 1,
+		onDamage(damage, target, source, effect) {
+			const cosplayFormes = [
+				'pikachucosplay', 'pikachuphd', 'pikachulibre', 'pikachupopstar', 'pikachurockstar', 'pikachubelle',
+			];
+			if (
+				effect?.effectType === 'Move' &&
+				cosplayFormes.includes(target.species.id) && !target.transformed
+			) {
+				this.add('-activate', target, 'ability: Combat Training');
+				this.effectData.busted = true;
+				return 0;
+			}
+		},
+		onCriticalHit(target, source, move) {
+			if (!target) return;
+			const cosplayFormes = [
+				'pikachucosplay', 'pikachuphd', 'pikachulibre', 'pikachupopstar', 'pikachurockstar', 'pikachubelle',
+			];
+			if (!cosplayFormes.includes(target.species.id) || target.transformed) {
+				return;
+			}
+			const hitSub = target.volatiles['substitute'] && !move.flags['authentic'] && !(move.infiltrates && this.gen >= 6);
+			if (hitSub) return;
+
+			if (!target.runImmunity(move.type)) return;
+			return false;
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			if (!target) return;
+			const cosplayFormes = [
+				'pikachucosplay', 'pikachuphd', 'pikachulibre', 'pikachupopstar', 'pikachurockstar', 'pikachubelle',
+			];
+			if (!cosplayFormes.includes(target.species.id) || target.transformed) {
+				return;
+			}
+			const hitSub = target.volatiles['substitute'] && !move.flags['authentic'] && !(move.infiltrates && this.gen >= 6);
+			if (hitSub) return;
+
+			if (!target.runImmunity(move.type)) return;
+			return 0;
+		},
+		name: "Combat Training",
 	},
 	// Modified Illusion to support SSB volatiles
 	illusion: {
