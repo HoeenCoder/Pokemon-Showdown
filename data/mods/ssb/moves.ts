@@ -1656,6 +1656,36 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Normal",
 	},
 
+	// Zalm
+	ingredientforaging: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Special",
+		desc: "Heals 50% if foe is holding an item. Removes item and enables Belch.",
+		shortDesc: "If foe has item: Heal 50% and remove it.",
+		name: "Ingredient Foraging",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onAfterHit(target, source) {
+			if (source.hp) {
+				const item = target.takeItem();
+				if (item) {
+					this.add('-enditem', source, target.item, '[of] ' + target, '[eat]', '[silent]'); // Silent otherwise it says that the target ate the item
+					this.heal(Math.floor(source.baseMaxhp * 0.5));
+					this.add(`c|${getName('Zalm')}|Yum`);
+					source.ateBerry = true;
+				}
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Poison",
+	},
+
 	// Zodiax
 	bigstormcoming: {
 		accuracy: 100,
