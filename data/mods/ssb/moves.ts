@@ -1675,7 +1675,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				const item = target.takeItem();
 				if (item) {
 					this.add('-enditem', source, target.item, '[of] ' + target, '[eat]', '[silent]'); // Silent otherwise it says that the target ate the item
-					this.heal(Math.floor(source.baseMaxhp * 0.5));
+					this.heal(source.baseMaxhp / 2);
 					this.add(`c|${getName('Zalm')}|Yum`);
 					source.ateBerry = true;
 				}
