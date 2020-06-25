@@ -63,7 +63,7 @@ export const ssbSets: SSBSets = {
 		moves: ['Earthquake', 'Close Combat', 'Swords Dance'],
 		signatureMove: 'awa!',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant',
-  },
+	},
 	Beowulf: {
 		species: 'Beedrill', ability: 'Intrepid Sword', item: 'Beedrillite', gender: '',
 		moves: ['Megahorn', 'Gunk Shot', ['Precipice Blades', 'Head Smash']],
