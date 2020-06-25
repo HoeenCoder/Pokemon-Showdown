@@ -98,8 +98,8 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('awa!')}|awawa?! awa awawawa awawa >:(`);
-    },
-  },
+		},
+	},
 	beowulf: {
 		noCopy: true,
 		onStart() {
