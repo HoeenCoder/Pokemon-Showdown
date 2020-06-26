@@ -352,7 +352,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	
 	// Jordy
 	divinesandstorm: {
-		desc: "Sets sandstorm on switch-in and does not take recoil damage.",
+		desc: "This Pokemon does not take recoil damage besides Struggle/Life Orb/crash damage and switch-in, this Pokemon summons Sandstorm.",
 		shortDesc: "Sand Stream + Rock Head.",
 		name: "Divine Sandstorm",
 		onDamage: function(damage, target, source, effect) {
