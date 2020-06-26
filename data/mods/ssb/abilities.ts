@@ -351,10 +351,10 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	},
 	
 	// Jordy
-	archeopssrage: {
+	divinesandstorm: {
 		desc: "Sets sandstorm on switch-in and does not take recoil damage.",
 		shortDesc: "Sand Stream + Rock Head.",
-		name: "Archeops's Rage",
+		name: "Divine Sandstorm",
 		onDamage: function(damage, target, source, effect) {
 			if (effect.id === 'recoil') {
 				if (!this.activeMove) return;
