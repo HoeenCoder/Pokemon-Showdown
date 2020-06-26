@@ -349,6 +349,22 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 		name: "Venomize",
 	},
+	
+	// Jordy
+	archeopssrage: {
+		desc: "Sets sandstorm on switch-in and does not take recoil damage.",
+		shortDesc: "Sand Stream + Rock Head.",
+		name: "Archeops's Rage",
+		onDamage: function(damage, target, source, effect) {
+			if (effect.id === 'recoil') {
+				if (!this.activeMove) return;
+				if (this.activeMove.id !== 'struggle') return null;
+			}
+		},
+		onStart: function(pokemon) {
+			this.field.setWeather('sandstorm');
+		},
+	},
 
 	// Kaiju Bunny
 	secondwind: {
