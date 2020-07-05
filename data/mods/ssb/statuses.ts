@@ -142,9 +142,10 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 	},
 	fart: {
 		noCopy: true,
-		onStart() {
+		onStart(source) {
 			let activeMon;
-			activeMon = source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : activeMon = source.side.foe.active[0].name;
+			activeMon = source.side.foe.active[0];
+			activeMon = activeMon.illusion ? activeMon.illusion.name : activeMon.name;
 			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimm1ck', 'zalm', 'aelita', 'biggie', 'sundar'];
 			if (toID(activeMon) === 'hoeenhero') {
 				this.add(`c|${getName('fart')}|🎵 it's friday, friday, gotta get down on friday 🎵`);
@@ -161,7 +162,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		onSwitchOut() {
 			this.add(`c|${getName('fart')}|if I can't win this game, then I'll make it boring for everyone.`);
 		},
-		onFaint() {
+		onFaint(pokemon) {
 			let activeMon;
 			activeMon = toID(pokemon.side.foe.active[0].illusion ? pokemon.side.foe.active[0].illusion.name : activeMon = pokemon.side.foe.active[0].name);
 			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimm1ck', 'zalm', 'aelita', 'biggie', 'sundar'];
