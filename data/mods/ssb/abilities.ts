@@ -150,7 +150,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
-// fart
+	// fart
 	bipolar: {
 		desc: "When this Pokemon switches in, it changes to two random types and gets STAB.",
 		shortDesc: "2 random types + STAB on switch-in.",
@@ -173,9 +173,9 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 				Dark: "Jaw Lock",
 				Fairy: "Play Rough",
 			};
-			let types = Object.keys(typeMap);
+			const types = Object.keys(typeMap);
 			this.prng.shuffle(types);
-			let newTypes = [types[0], types[1]];
+			const newTypes = [types[0], types[1]];
 			this.add('-start', pokemon, 'typechange', newTypes.join('/'));
 			pokemon.setType(newTypes);
 			let move = this.dex.getMove(typeMap[newTypes[0]]);
