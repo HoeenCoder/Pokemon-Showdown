@@ -181,25 +181,25 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			let move = this.dex.getMove(typeMap[newTypes[0]]);
 			pokemon.moveSlots[3] = pokemon.moveSlots[1];
 			pokemon.moveSlots[1] = {
-					move: move.name,
-					id: move.id,
-					pp: move.pp,
-					maxpp: move.pp,
-					target: move.target,
-					disabled: false,
-					used: false,
-					virtual: true,
+				move: move.name,
+				id: move.id,
+				pp: move.pp,
+				maxpp: move.pp,
+				target: move.target,
+				disabled: false,
+				used: false,
+				virtual: true,
 			};
 			move = this.dex.getMove(typeMap[newTypes[1]]);
 			pokemon.moveSlots[2] = {
-					move: move.name,
-					id: move.id,
-					pp: move.pp,
-					maxpp: move.pp,
-					target: move.target,
-					disabled: false,
-					used: false,
-					virtual: true,
+				move: move.name,
+				id: move.id,
+				pp: move.pp,
+				maxpp: move.pp,
+				target: move.target,
+				disabled: false,
+				used: false,
+				virtual: true,
 			};
 		},
 	},
