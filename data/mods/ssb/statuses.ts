@@ -146,7 +146,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			let activeMon;
 			activeMon = source.side.foe.active[0];
 			activeMon = activeMon.illusion ? activeMon.illusion.name : activeMon.name;
-			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimmick', 'zalm', 'aelita', 'biggie', 'sundar'];
+			const family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimmick', 'zalm', 'aelita', 'biggie', 'sundar'];
 			if (toID(activeMon) === 'hoeenhero') {
 				this.add(`c|${getName('fart')}|🎵 it's friday, friday, gotta get down on friday 🎵`);
 			} else if (toID(activeMon) === 'grimauxiliatrix') {
@@ -166,7 +166,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			let activeMon;
 			activeMon = pokemon.side.foe.active[0];
 			activeMon = toID(activeMon.illusion ? activeMon.illusion.name : activeMon.name);
-			let family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimmick', 'zalm', 'aelita', 'biggie', 'sundar'];
+			const family = ['aethernum', 'flare', 'trickster', 'celestial', 'gimmick', 'zalm', 'aelita', 'biggie', 'sundar'];
 			if (family.includes(activeMon)) {
 				this.add(`c|${getName('fart')}|at least I wasn't boring, right?`);
 			} else {
