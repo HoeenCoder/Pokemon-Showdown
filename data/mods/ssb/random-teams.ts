@@ -178,7 +178,7 @@ export const ssbSets: SSBSets = {
 		species: 'Pangoro', ability: 'Bamboo Kingdom', item: 'Rocky Helmet', gender: 'M',
 		moves: ['Body Press', 'Spiky Shield', 'Shore Up'],
 		signatureMove: 'Clash of Pangoros',
-		evs: {hp: 252, atk: 4, def: 252}, nature: 'Impish', shiny: 1,
+		evs: {hp: 252, atk: 4, def: 252}, nature: 'Impish', shiny: true,
 	},
 	Kris: {
 		species: 'Unown', ability: 'Protean', item: 'Life Orb', gender: 'N',
