@@ -789,7 +789,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "self",
 		type: "Normal",
 	},
-	
+
 	// Jordy
 	archeopssrage: {
 		accuracy: 85,
