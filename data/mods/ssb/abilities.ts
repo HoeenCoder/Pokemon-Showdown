@@ -349,19 +349,19 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 		name: "Venomize",
 	},
-	
+
 	// Jordy
 	divinesandstorm: {
 		desc: "This Pokemon does not take recoil damage besides Struggle/Life Orb/crash damage and switch-in, this Pokemon summons Sandstorm.",
 		shortDesc: "Sand Stream + Rock Head.",
 		name: "Divine Sandstorm",
-		onDamage: function(damage, target, source, effect) {
+		onDamage(damage, target, source, effect) {
 			if (effect.id === 'recoil') {
 				if (!this.activeMove) return;
 				if (this.activeMove.id !== 'struggle') return null;
 			}
 		},
-		onStart: function(pokemon) {
+		onStart(pokemon) {
 			this.field.setWeather('sandstorm');
 		},
 	},
