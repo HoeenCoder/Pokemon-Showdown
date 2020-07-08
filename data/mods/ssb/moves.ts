@@ -799,7 +799,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		shortDesc: "+1 Speed upon hit.",
 		name: "Archeops's Rage",
 		pp: 5,
-		flags: {},
+		flags: {protect: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -807,8 +807,10 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Sunsteel Strike', target);
 		},
 		type: "Flying",
-		boosts: {
-			spe: 1,
+		self: {
+			boosts: {
+				spe: 1,
+			},
 		},
 	},
 
