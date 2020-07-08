@@ -800,6 +800,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		name: "Archeops's Rage",
 		pp: 5,
 		flags: {protect: 1},
+		priority: 0,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -813,6 +814,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			},
 		},
 		secondary: null,
+		target: "normal",
 	},
 
 	// Kris
