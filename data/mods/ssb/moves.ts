@@ -812,6 +812,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				spe: 1,
 			},
 		},
+		secondary: null,
 	},
 
 	// Kris
