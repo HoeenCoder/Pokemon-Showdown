@@ -717,6 +717,29 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Normal",
 	},
+	
+	// Hubriz
+	steroidanaphylaxia: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Inverts the target's stat stages..",
+		name: "Steroid Anaphylaxia",
+		pp: 20,
+		priority: 1,
+		flags: {snatch: 1},
+		onHit(target) {
+			let success = false;
+			let i: BoostName;
+			for (i in target.boosts) {
+				if (target.boosts[i] === 0) continue;
+				target.boosts[i] = -target.boosts[i];
+				success = true;
+			}
+			if (!success) return false;
+			this.add('-invertboost', target, '[from] move: Steroid Anaphylaxia');
+		},
+	},
 
 	// Instruct
 	hypergoner: {
