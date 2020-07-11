@@ -168,6 +168,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'The Hunt is On!',
 		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
 	},
+	Hubriz: {
+		species: 'Roserade', ability: 'Stakeout', item: 'Rose Incense', gender: 'F',
+		moves: [['Toxic Spikes', 'Spikes'], 'Leaf Storm', 'Sludge Bomb'],
+		signatureMove: 'Steroid Anaphylaxia',
+		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid'
+	},
 	Instruct: {
 		species: 'Cinderace', ability: 'Determination', item: 'Flame Plate', gender: 'N',
 		moves: ['Pyro Ball', 'Sacred Sword', 'Bolt Strike'],
