@@ -1140,6 +1140,32 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Rock",
 	},
 
+	// Morfent
+	owowutsdis: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		desc: "Has a 50% chance to torment the opponent.",
+		shortDesc: "Has a 50% chance to torment the opponent.",
+		name: "OwO wuts dis?",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Return', target);
+		},
+		secondary: {
+			chance: 50,
+			volatileStatus: 'torment',
+		},
+		target: "normal",
+		type: "Normal",
+	},
+
 	// n10siT
 	"unbind": {
 		accuracy: 100,
