@@ -205,7 +205,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			self: {
 				onHit(target, source, move) {
 					const boostName: string[] = ['atk', 'spe'];
-					let boost: {[key: string]: number} = {};
+					const boost: {[key: string]: number} = {};
 					boost[boostName[this.random(2)]] = 1;
 					this.boost(boost, target);
 				},
