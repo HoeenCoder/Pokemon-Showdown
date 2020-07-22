@@ -2080,6 +2080,37 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Fire",
 	},
+		
+	// xJoelituh
+	burnbone: {
+		accuracy: 90,
+		basePower: 0,
+		category: "Status",
+		desc: "",
+		shortDesc: "",
+		name: "Move Name",
+		pp: 10,
+		priority: 1,
+		flags: {protect:1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Will-O-Wisp', target);
+			this.add('-anim', source, 'Shadow Bone', target);
+		},
+		onHit(target, source) {
+			if (target.status && target.status === 'brn') return;
+			source.heal(source.baseMaxHp / 3);
+		},
+		secondary: {
+			chance: 100,
+			status: 'brn'
+		},
+		target: "normal",
+		type: "Fire",
+		
+	},
 
 	// yuki
 	classchange: {
