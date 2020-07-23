@@ -178,7 +178,7 @@ export const ssbSets: SSBSets = {
 		species: 'Gengar', ability: 'Pollo Diablo', item: 'Choice Specs', gender: 'F',
 		moves: ['Sludge Wave', 'Volt Switch', 'Fusion Flare'],
 		signatureMove: 'Patrona Attack',
-		evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true
+		evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
 	},
 	Jho: {
 		species: 'Toxtricity', ability: 'Punk Rock', item: 'Throat Spray', gender: 'M',
