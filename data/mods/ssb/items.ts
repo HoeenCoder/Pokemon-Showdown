@@ -47,6 +47,19 @@ export const BattleItems: {[k: string]: ModdedItemData} = {
 		gen: 8,
 		desc: "If held by a Robb576 with Photon Geyser, it can use Integer Overflow.",
 	},
+	// xJoelituh
+	rarebone: {
+		name: "Rare Bone",
+		onModifyAtk(atk, source) {
+			return this.chainModify(1.5);
+		},
+		onModifyDef(def, source) {
+			return this.chainModify(1.5);
+		},
+		onModifySpd(spd, source) {
+			return this.chainModify(1.5);
+		}
+	},
 	// Custom support for Perish Song's ability (Snowstorm)
 	safetygoggles: {
 		inherit: true,
