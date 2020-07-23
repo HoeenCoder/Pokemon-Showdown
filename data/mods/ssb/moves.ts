@@ -743,6 +743,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "???",
 	},
+
 	// iyatiro
 	patronaattack: {
 		accuracy: 100,
