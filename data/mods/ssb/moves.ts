@@ -656,7 +656,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				target.boosts[i] = -target.boosts[i];
 				success = true;
 			}
-			if (!success) {
+			if (success) {
 				this.add('-invertboost', target, '[from] move: Rigged Dice');
 			} else {
 				target.addVolatile("taunt");
