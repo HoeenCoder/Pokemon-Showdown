@@ -425,7 +425,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
-	
+
 	// iyarito
 	pollodiablo: {
 		shortDesc: "This Pokemon's Special Attack is 1.5x, but it can only select the first move it executes.",
@@ -447,10 +447,10 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			if (pokemon.abilityData.choiceLock || move.isZOrMaxPowered || move.id === 'struggle') return;
 			pokemon.abilityData.choiceLock = move.id;
 		},
-		onModifySpaPriority: 1,
-		onModifySpa(atk, pokemon) {
+		onModifySpAPriority: 1,
+		onModifySpA(spa, pokemon) {
 			if (pokemon.volatiles['dynamax']) return;
-			this.debug('Pollo Diablo Atk Boost');
+			this.debug('Pollo Diablo Spa Boost');
 			return this.chainModify(1.5);
 		},
 		onDisableMove(pokemon) {
