@@ -753,7 +753,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			onStart(pokemon) {
 				const typeList = Object.keys(this.dex.data.TypeChart);
 				const firstTypeIndex = this.random(typeList.length);
-				const secondType = typeList.slice(0, firstTypeIndex).concat(typeList.slice(firstTypeIndex + 1))[this.random(typeList.length - 1)];
+				const secondType = this.sample(typeList.slice(0, firstTypeIndex).concat(typeList.slice(firstTypeIndex + 1)));
 				this.effectData.immunities = [typeList[firstTypeIndex], secondType];
 				this.add("-message", `Shadecession is now immune to ${this.effectData.immunities[0]} and ${this.effectData.immunities[1]} types!`);
 			},
