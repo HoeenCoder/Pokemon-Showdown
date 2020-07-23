@@ -564,7 +564,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			if (source.illusion) return;
 			// hardcode since pokemon.ts is weird with 3 types
 			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
-			this.add('-start', source, 'typeadd', 'Flying', '[silent]')
+			this.add('-start', source, 'typeadd', 'Flying', '[silent]');
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('OM~!')}|Let me just ${['host murder for the 100th time', 'clean out scum zzz', 'ladder mnm rq'][this.random(3)]}`);

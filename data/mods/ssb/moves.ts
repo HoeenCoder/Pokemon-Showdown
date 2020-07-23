@@ -667,7 +667,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Ice",
 	},
-	
+
 	// Flare
 	krisenbon: {
 		accuracy: 100,
@@ -1790,7 +1790,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		self: {
 			onHit(source) {
-				let boost: {[k: string]: number} = {};
+				const boost: {[k: string]: number} = {};
 				boost[['def', 'spd'][this.random(2)]] = 1;
 				this.boost(boost, source);
 				this.add(`c|${getName('SectoniaServant')}|Jelly baby ;w;`);
