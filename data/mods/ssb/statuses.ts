@@ -20,7 +20,7 @@ export function getName(name: string): string {
 	return group + name;
 }
 
-export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
+export const BattleStatuses: { [k: string]: ModdedPureEffectData } = {
 	/*
 	// Example:
 	userid: {
@@ -254,6 +254,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Emeri')}|don't forget to chall SFG or Agarica in gen8ou`);
+		},
+	},
+	epiknikolai: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('EpikNikolai')}|I never give up until I get something right, which means destroying you ☜(ﾟヮﾟ☜)`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('EpikNikolai')}|This wasn't as fun as I thought it would be, I'm out ¯_( ͡~ ͜ʖ ͡°)_/¯`);
+		},
+		onFaint() {
+			this.add(`c|${getName('EpikNikolai')}|I like to keep a positive attitude even though it is hard sometimes <('o'<)~*/`);
 		},
 	},
 	fart: {
