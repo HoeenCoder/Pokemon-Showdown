@@ -570,7 +570,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Flying",
 	},
 
-	// EpikNikolai
+	// EpicNikolai
 	epicrage: {
 		accuracy: 95,
 		basePower: 120,
