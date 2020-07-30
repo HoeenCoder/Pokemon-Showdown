@@ -450,10 +450,12 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				if (!this.canSwitch(target.side) || target.forceSwitchFlag) return;
 				if (source.switchFlag === true) return;
 				target.switchFlag = true;
+				source.side.addSideCondition('archangelsrequiem');
 			}
 		},
 		effect: {
-			onSwap(target) {
+			duration: 1,
+			onSwitchIn(target) {
 				if (!target.fainted && target.hp < target.maxhp) {
 					this.add(`c|${getName('Darth')}|Take my place, serve the Angel of Stall!`);
 					target.heal(target.maxhp);
@@ -892,28 +894,21 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {},
 		volatileStatus: 'cozycuddle',
-		onTryMove() {
+		onTryMove(target) {
 			this.attrLastMove('[still]');
-		},
-		onTryHit(target, source, move) {
-			if (target.volatiles['cozycuddle']) return false;
-			if (target.volatiles['trapped']) {
-				delete move.volatileStatus;
-			}
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Flatter', target);
 			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
 		},
 		onHit(target, source, move) {
+			if (target.volatiles['cozycuddle']) return false;
 			this.boost({atk: -2, def: -2}, target, target);
+			if (source.isActive) target.addVolatile('trapped', source, move, 'trapper');
 		},
 		effect: {
-			onStart(pokemon, source) {
-				this.add('-start', pokemon, 'move: Cozy Cuddle', '[of]' + source.name);
-			},
-			onTrapPokemon(pokemon) {
-				if (this.effectData.source?.isActive) pokemon.tryTrap();
+			onStart(pokemon) {
+				this.add('-start', pokemon, 'Cozy Cuddle');
 			},
 		},
 		secondary: null,
@@ -1918,6 +1913,54 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Dark",
+	},
+
+	// Struchni
+	veto: {
+		accuracy: 100,
+		basePower: 120,
+		category: "Physical",
+		desc: "Struchni only. Move's base power and priority depends on effectiveness of previous move.",
+		shortDesc: "Struchni: Move BP and prio depends on eff of prev move.",
+		name: "veto",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1},
+		onTryMovePriority: 100,
+		onTryMove(source) {
+			this.attrLastMove('[still]');
+			if (source.name !== 'Struchni') {
+				this.add('-fail', source);
+				this.hint("Only Struchni can use Veto.");
+				return null;
+			}
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Head Smash', target);
+		},
+		onModifyType(move, pokemon) {
+			let type = pokemon.types[0];
+			if (type === "Bird") type = "???";
+			move.type = type;
+		},
+		onModifyPriority(priority, source, target, move) {
+			if (!source.m.typeEff) return priority;
+			if (source.m.typeEff < 0) {
+				return priority + 1;
+			} else if (source.m.typeEff >= 0) {
+				return priority - 1;
+			}
+		},
+		basePowerCallback(pokemon, target, move) {
+			if (!pokemon.m.typeEff) return move.basePower;
+			if (pokemon.m.typeEff < 0) {
+				return move.basePower * 2;
+			} else if (pokemon.m.typeEff >= 0) {
+				return move.basePower / 2;
+			}
+		},
+		target: "normal",
+		type: "Normal",
 	},
 
 	// Sunny

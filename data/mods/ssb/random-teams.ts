@@ -180,7 +180,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'The Hunt is On!',
 		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
 	},
-	iyarito: {
+	Iyarito: {
 		species: 'Gengar', ability: 'Pollo Diablo', item: 'Choice Specs', gender: 'F',
 		moves: ['Sludge Wave', 'Volt Switch', 'Fusion Flare'],
 		signatureMove: 'Patrona Attack',
@@ -333,6 +333,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Knock Off', 'Roost', 'Brave Bird'],
 		signatureMove: 'Shade Uppercut',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
+	},
+	Struchni: {
+		species: 'Aggron', ability: 'Overasked Clause', item: 'Choice Band', gender: 'M',
+		moves: ['Pursuit', 'U-Turn', 'Fishious Rend'],
+		signatureMove: 'Veto',
+		evs: {hp: 251, atk: 5, def: 11, spd: 241}, nature: 'Careful',
 	},
 	Sunny: {
 		species: 'Charizard', ability: 'Blaze', item: 'Charizardite X', gender: 'M',
