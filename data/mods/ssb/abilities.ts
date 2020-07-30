@@ -295,7 +295,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
-	// EpikNikolai
+	// EpicNikolai
 	dragonheart: {
 		desc: "Once per battle, at 25% or lower this pokemon heals 50% hp.",
 		shortDesc: "Heals 50% when 25% or lower once per battle.",
