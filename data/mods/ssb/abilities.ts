@@ -301,7 +301,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Heals 50% when 25% or lower once per battle.",
 		name: "Dragon Heart",
 		onDamage(damage, target, source, move) {
-			if (target.heartless) return;
+			if (target.m.heartless) return;
 			if (target.hp <= target.maxhp / 4) {
 				this.heal(target.baseMaxhp / 2);
 				target.m.heartless = true;
