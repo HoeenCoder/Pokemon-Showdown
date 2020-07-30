@@ -304,7 +304,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			if (target.heartless) return;
 			if (target.hp <= target.maxhp / 4) {
 				this.heal(target.baseMaxhp / 2);
-				target.heartless = true;
+				target.m.heartless = true;
 			}
 		},
 	},
