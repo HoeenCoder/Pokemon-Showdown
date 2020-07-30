@@ -260,6 +260,8 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		noCopy: true,
 		onStart() {
 			this.add(`c|${getName('EpicNikolai')}|I never give up until I get something right, which means destroying you ☜(ﾟヮﾟ☜)`);
+			if (source.species.id !== 'garchompmega' || source.illusion) return;
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('EpicNikolai')}|This wasn't as fun as I thought it would be, I'm out ¯_( ͡~ ͜ʖ ͡°)_/¯`);
