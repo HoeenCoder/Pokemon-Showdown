@@ -26,6 +26,17 @@ export const BattlePokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		types: ['Grass', 'Fairy'],
 	},
+	// EpicNikolai
+	garchompmega: {
+		inherit: true,
+		abilities: {0: "Dragon Heart"},
+		types: ['Dragon', 'Fire'],
+	},
+	// Felucia
+	uxie: {
+		inherit: true,
+		types: ["Psychic", "Normal"],
+	},
 	// Frostyicelad
 	frosmoth: {
 		inherit: true,
@@ -59,6 +70,11 @@ export const BattlePokedex: {[k: string]: ModdedSpeciesData} = {
 		// For reverting back to an Unown forme
 		abilities: {0: 'Protean'},
 	},
+	// Morfent
+	banette: {
+		inherit: true,
+		types: ["Ghost", "Normal"],
+	},
 	// OM~!
 	magneton: {
 		inherit: true,
@@ -69,11 +85,6 @@ export const BattlePokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: 'Darkest Wings'},
 		types: ['Dark', 'Fairy'],
-	},
-	// Perish Song
-	mismagius: {
-		inherit: true,
-		types: ["Ghost", "Ice"],
 	},
 	// quadrophenic
 	porygon: {

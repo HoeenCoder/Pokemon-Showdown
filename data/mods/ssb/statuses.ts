@@ -235,7 +235,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		onStart(target, pokemon) {
 			this.add(`c|${getName('Elgino')}|Time to save Hyrule!`);
 			if (pokemon.illusion) return;
-			this.add('-start', pokemon, 'typechange', 'Grass/Fairy');
+			this.add('-start', pokemon, 'typechange', pokemon.types.join('/'), '[silent]');
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('Elgino')}|Hold on I need to stock up on ${this.sample(['Bombs', 'Arrows', 'Magic', 'Seeds'])}`);
@@ -254,6 +254,20 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Emeri')}|don't forget to chall SFG or Agarica in gen8ou`);
+		},
+	},
+	epicnikolai: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('EpicNikolai')}|I never give up until I get something right, which means destroying you ☜(ﾟヮﾟ☜)`);
+			if (source.species.id !== 'garchompmega' || source.illusion) return;
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('EpicNikolai')}|This wasn't as fun as I thought it would be, I'm out ¯_( ͡~ ͜ʖ ͡°)_/¯`);
+		},
+		onFaint() {
+			this.add(`c|${getName('EpicNikolai')}|I like to keep a positive attitude even though it is hard sometimes <('o'<)~*/`);
 		},
 	},
 	fart: {
@@ -290,6 +304,20 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			}
 		},
 	},
+	felucia: {
+		noCopy: true,
+		onStart(source) {
+			this.add(`c|${getName('Felucia')}|battlesignup! I dropped my dice somewhere and now all I can do is make you play with them (join using %join one)`);
+			if (source.illusion) return;
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Felucia')}|battlesignup: I lost connection to a player so I guess I'll get a new one (/me in to sub)`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Felucia')}|%remp Felucia`);
+		},
+	},
 	flare: {
 		noCopy: true,
 		onStart() {
@@ -307,7 +335,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		onStart(source) {
 			this.add(`c|${getName('frostyicelad ❆')}|Oh i guess its my turn now! Time to sweep!`);
 			if (source.species.id !== 'frosmothmega' || source.illusion) return;
-			this.add('-start', source, 'typechange', 'Bug/Ice');
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
 		onSwitchOut(source) {
 			this.add(`c|${getName('frostyicelad ❆')}|Hey! ${source.side.name} why dont you keep me in and let me sweep? Mean.`);
@@ -340,16 +368,16 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('Hubriz')}|Delicate Flower Quest failed...`);
 		},
 	},
-	instruct: {
+	iyarito: {
 		noCopy: true,
 		onStart(source) {
-			this.add(`c|${getName('Instruct')}|Howdy! ${source.side.foe.name}, are you there? It's me, your best friend.`);
+			this.add(`c|${getName('iyarito')}|Madre de Dios, ¡es el Pollo Diablo!`);
 		},
 		onSwitchOut() {
-			this.add(`c|${getName('Instruct')}|Don't worry about me. Someone has to take care of these flowers.`);
+			this.add(`c|${getName('iyarito')}|Well, you're not taking me without a fight!`);
 		},
 		onFaint() {
-			this.add(`c|${getName('Instruct')}|I'm not ready to say goodbye to someone like you again...`);
+			this.add(`c|${getName('iyarito')}|RIP Patrona`);
 		},
 	},
 	jettxx: {
@@ -393,13 +421,25 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		onStart(source) {
 			this.add(`c|${getName('Kaiju Bunny')}|I heard SOMEONE wasn't getting enough affection! ￣( ÒㅅÓ)￣`);
 			if (source.species.id !== 'lopunnymega' || source.illusion) return;
-			this.add('-start', source, 'typechange', 'Normal/Fairy');
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('Kaiju Bunny')}|Brb, need more coffee ￣( =ㅅ=)￣`);
 		},
 		onFaint() {
 			this.add(`c|${getName('Kaiju Bunny')}|Wow, okay, r00d ￣(ಥㅅಥ)￣`);
+		},
+	},
+	kingbaruk: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Kingbaruk')}|:cute:`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Kingbaruk')}|//none`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Kingbaruk')}|Fijne avond nog`);
 		},
 	},
 	kingswordyt: {
@@ -499,6 +539,24 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('Mitsuki')}|THIS WORLD SHALL KNOW P A I N`);
 		},
 	},
+	morfent: {
+		noCopy: true,
+		onStart(target, source) {
+			this.add(`c|${getName('Morfent ( _̀> ̀)')}|le le 9gag army has arrived`);
+			if (source.illusion) return;
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
+		},
+		onFaint(source) {
+			this.add(`c|${getName('Morfent ( _̀> ̀)')}|mods pls ban ${source.side.foe.name}!!! they're hacking into ${source.side.name}'s account and making awful plays`);
+		},
+		// Prankster innate
+		onModifyPriority(priority, pokemon, target, move) {
+			if (move?.category === 'Status') {
+				move.pranksterBoosted = true;
+				return priority + 1;
+			}
+		},
+	},
 	n10sit: {
 		noCopy: true,
 		onStart(source) {
@@ -516,7 +574,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		onStart(source) {
 			this.add(`c|${getName('Overneat')}|Lets end this ${source.side.foe.name}!!`);
 			if (source.species.id !== 'absolmega' || source.illusion) return;
-			this.add('-start', source, 'typeadd', 'Fairy');
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('Overneat')}|I can do better!`);
@@ -530,7 +588,9 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		onStart(source) {
 			this.add(`c|${getName('OM~!')}|What's up gamers?`);
 			if (source.illusion) return;
-			this.add('-start', source, 'typeadd', 'Flying');
+			// hardcode since pokemon.ts is weird with 3 types
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
+			this.add('-start', source, 'typeadd', 'Flying', '[silent]');
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('OM~!')}|Let me just ${['host murder for the 100th time', 'clean out scum zzz', 'ladder mnm rq'][this.random(3)]}`);
@@ -553,16 +613,14 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 	},
 	perishsonguser: {
 		noCopy: true,
-		onStart(target, source) {
-			this.add(`c|${getName('Perish Song')}|From the Ghastly Eyrie I can see to the ends of the world, and from this vantage point I declare with utter certainty that this one is in the bag!`);
-			if (source.illusion) return;
-			this.add('-start', source, 'typeadd', 'Ice');
+		onStart() {
+			this.add(`c|${getName('Perish Song')}|(╯°□°）╯︵ ┻━┻`);
 		},
 		onSwitchOut() {
-			this.add(`c|${getName('Perish Song')}|This isn't the end.`);
+			this.add(`c|${getName('Perish Song')}|┬──┬◡ﾉ(° -°ﾉ)`);
 		},
 		onFaint() {
-			this.add(`c|${getName('Perish Song')}|Perished.`);
+			this.add(`c|${getName('Perish Song')}|Thanks for coming to my TED talk.`);
 		},
 	},
 	phiwings99: {
@@ -648,6 +706,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			}
 		},
 	},
+	sectoniaservant: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('SectoniaServant')}|I love one (1) queen bee`);
+		},
+		onSwitchOut(pokemon) {
+			this.add(`c|${getName('SectoniaServant')}|My search for my lost queen continues....`);
+		},
+		onFaint(pokemon) {
+			this.add(`c|${getName('SectoniaServant')}|NOOOOOO NOT THE JELLY BABY`);
+		},
+	},
 	segmr: {
 		noCopy: true,
 		onStart() {
@@ -663,6 +733,18 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			const name = pokemon.side.foe.active[0].illusion ?
 				pokemon.side.foe.active[0].illusion.name : pokemon.side.foe.active[0].name;
 			this.add(`c|${getName('Segmr')}|I'm sorry ${name} but could you please stop talking to me`);
+		},
+	},
+	shadecession: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Shadecession')}|Better put on my Shadecessions`);
+		},
+		onSwitchOut(pokemon) {
+			this.add(`c|${getName('Shadecession')}|⌐■_■`);
+		},
+		onFaint(pokemon) {
+			this.add(`c|${getName('Shadecession')}|ah, gg fam`);
 		},
 	},
 	sunny: {
@@ -714,6 +796,30 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add(`c|${getName('tiki')}|aksfgkjag o k`);
 		},
 	},
+	trickster: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Trickster')}|(¤﹏¤).`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Trickster')}|(︶︹︺)`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Trickster')}|(ಥ﹏ಥ)`);
+		},
+	},
+	vivalospride: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('vivalospride')}|hola mi amore`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('vivalospride')}|no hablo español`);
+		},
+		onFaint() {
+			this.add(`c|${getName('vivalospride')}|classic honestly`);
+		},
+	},
 	yuki: {
 		noCopy: true,
 		onStart(target, pokemon) {
@@ -755,10 +861,6 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 	zarel: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|${getName('Zarel')}|the melo-p represents PS's battles, and the melo-a represents PS's chatrooms`);
-			this.add(`c|${getName('Zarel')}|THIS melo-a represents kicking your ass, though`);
-		},
-		onFaint() {
 			this.add(`c|${getName('Zarel')}|the melo-p represents PS's battles, and the melo-a represents PS's chatrooms`);
 			this.add(`c|${getName('Zarel')}|THIS melo-a represents kicking your ass, though`);
 		},
@@ -841,35 +943,6 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		},
 		onEnd() {
 			this.add('-end', 'Heavy Hailstorm');
-		},
-	},
-	// Snowstorm status support for Perish Song's ability
-	snowstorm: {
-		name: 'Snowstorm',
-		effectType: 'Weather',
-		duration: 0,
-		onTryMovePriority: 1,
-		onTryMove(attacker, defender, move) {
-			if (move.type === 'Dark' && move.category !== 'Status') {
-				this.debug('Snowstorm dark suppress');
-				this.add('-fail', attacker, move, '[from] Snowstorm');
-				this.attrLastMove('[still]');
-				return null;
-			}
-		},
-		onStart(battle, source, effect) {
-			this.add('-weather', 'Snowstorm', '[from] ability: ' + effect, '[of] ' + source);
-		},
-		onResidualOrder: 1,
-		onResidual() {
-			this.add('-weather', 'Snowstorm', '[upkeep]');
-			this.eachEvent('Weather');
-		},
-		onWeather(target) {
-			if (!target.hasType('Ice')) this.damage(target.baseMaxhp / 16);
-		},
-		onEnd() {
-			this.add('-end', 'Snowstorm');
 		},
 	},
 	// Modified futuremove support for Segmr's move (Disconnect)
