@@ -765,6 +765,13 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			// No animation
+		},
 		secondary: {
 			chance: 30,
 			onHit(target) {
@@ -800,6 +807,13 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 20,
 		priority: 1,
 		flags: {protect: 1, reflectable: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			// No animation
+		},
 		onHit(target) {
 			let success = false;
 			let i: BoostName;
