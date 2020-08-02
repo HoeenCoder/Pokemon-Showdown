@@ -30,14 +30,14 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 
 	// Aethernum
 	rainyseason: {
-		desc: "On switch-in, the weather becomes heavy rain that prevents damaging Fire-type moves from executing, in addition to all the effects of Rain Dance. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream, Desolate Land, or Snowstorm. If Rain Dance is active, this Pokemon restores 1/8 of its maximum HP, rounded down, at the end of each turn. If this Pokemon is holding Big Root, it will restore 1/6 of its maximum HP, rounded down, at the end of the turn. If this Pokemon is holding Utility Umbrella, its HP does not get restored. This Pokemon collects raindrops.",
+		desc: "On switch-in, the weather becomes heavy rain that prevents damaging Fire-type moves from executing, in addition to all the effects of Rain Dance. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream, Desolate Land, or Heavy Hailstorm. If Rain Dance is active, this Pokemon restores 1/8 of its maximum HP, rounded down, at the end of each turn. If this Pokemon is holding Big Root, it will restore 1/6 of its maximum HP, rounded down, at the end of the turn. If this Pokemon is holding Utility Umbrella, its HP does not get restored. This Pokemon collects raindrops.",
 		shortDesc: "Primordial Sea + Swift Swim. Restore HP if raining. Collect raindrops.",
 		name: "Rainy Season",
 		onStart(source) {
 			this.field.setWeather('primordialsea');
 		},
 		onAnySetWeather(target, source, weather) {
-			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'snowstorm', 'heavyhailstorm'];
+			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'heavyhailstorm'];
 			if (this.field.getWeather().id === 'primordialsea' && !strongWeathers.includes(weather.id)) return false;
 		},
 		onEnd(pokemon) {
@@ -106,13 +106,10 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 
 	// Cake
 	h: {
-		desc: "On switch-in and at the ened of every turn, this Pokemon changes to a random typing.",
-		shortDesc: "On switch-in & every turn, random type.",
+		shortDesc: "On switch-in and at the end of every turn, this Pokemon changes to a random typing.",
 		name: "h",
 		onSwitchIn(pokemon) {
-			const typeList = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock",
-				"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
-				"Psychic", "Ice", "Dragon", "Dark", "Fairy"];
+			const typeList = Object.keys(this.dex.data.TypeChart);
 			this.prng.shuffle(typeList);
 			const firstType = typeList[0];
 			this.prng.shuffle(typeList);
@@ -131,9 +128,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		onResidualSubOrder: 1,
 		onResidual(pokemon) {
 			if (pokemon.activeTurns) {
-				const typeList = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock",
-					"Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric",
-					"Psychic", "Ice", "Dragon", "Dark", "Fairy"];
+				const typeList = Object.keys(this.dex.data.TypeChart);
 				this.prng.shuffle(typeList);
 				const firstType = typeList[0];
 				this.prng.shuffle(typeList);
@@ -300,6 +295,20 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// EpicNikolai
+	dragonheart: {
+		desc: "Once per battle, at 25% or lower this pokemon heals 50% hp.",
+		shortDesc: "Heals 50% when 25% or lower once per battle.",
+		name: "Dragon Heart",
+		onDamage(damage, target, source, move) {
+			if (target.m.heartless) return;
+			if (target.hp <= target.maxhp / 4) {
+				this.heal(target.baseMaxhp / 2);
+				target.m.heartless = true;
+			}
+		},
+	},
+
 	// fart
 	bipolar: {
 		desc: "When this Pokemon switches in, it changes to two random types and gets STAB.",
@@ -413,16 +422,44 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
-	// Instruct
-	determination: {
-		desc: "15% chance to live a hit on 1HP",
-		shortDesc: "15% chance to live a hit on 1HP",
-		name: "Determination",
-		onDamage(damage, target, source, effect) {
-			if (this.randomChance(1, 15) && damage >= target.hp && effect && effect.effectType === 'Move') {
-				this.add("-activate", target, "Ability: Determination");
-				return target.hp - 1;
+	// iyarito
+	pollodiablo: {
+		shortDesc: "This Pokemon's Special Attack is 1.5x, but it can only select the first move it executes.",
+		name: "Pollo Diablo",
+		onStart(pokemon) {
+			pokemon.abilityData.choiceLock = "";
+		},
+		onBeforeMove(pokemon, target, move) {
+			if (move.isZOrMaxPowered || move.id === 'struggle') return;
+			if (pokemon.abilityData.choiceLock && pokemon.abilityData.choiceLock !== move.id) {
+				this.addMove('move', pokemon, move.name);
+				this.attrLastMove('[still]');
+				this.debug("Disabled by Pollo Diablo");
+				this.add('-fail', pokemon);
+				return false;
 			}
+		},
+		onModifyMove(move, pokemon) {
+			if (pokemon.abilityData.choiceLock || move.isZOrMaxPowered || move.id === 'struggle') return;
+			pokemon.abilityData.choiceLock = move.id;
+		},
+		onModifySpAPriority: 1,
+		onModifySpA(spa, pokemon) {
+			if (pokemon.volatiles['dynamax']) return;
+			this.debug('Pollo Diablo Spa Boost');
+			return this.chainModify(1.5);
+		},
+		onDisableMove(pokemon) {
+			if (!pokemon.abilityData.choiceLock) return;
+			if (pokemon.volatiles['dynamax']) return;
+			for (const moveSlot of pokemon.moveSlots) {
+				if (moveSlot.id !== pokemon.abilityData.choiceLock) {
+					pokemon.disableMove(moveSlot.id, false, this.effectData.sourceEffect);
+				}
+			}
+		},
+		onEnd(pokemon) {
+			pokemon.abilityData.choiceLock = "";
 		},
 	},
 
@@ -582,28 +619,18 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	},
 
 	// Perish Song
-	snowstorm: {
-		desc: "On switch-in, the weather becomes an extremely intense snowstorm that prevents damaging Dark-type moves from executing, in addition to all the effects of Sunny Day. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream, Desolate Land, or Primordial Sea.",
-		shortDesc: "On switch-in, extremely intense hail begins until this Ability is not active in battle.",
-		onStart(source) {
-			this.field.setWeather('snowstorm');
-		},
-		onAnySetWeather(target, source, weather) {
-			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'snowstorm', 'heavyhailstorm'];
-			if (this.field.getWeather().id === 'snowstorm' && !strongWeathers.includes(weather.id)) return false;
-		},
-		onEnd(pokemon) {
-			if (this.field.weatherData.source !== pokemon) return;
-			for (const target of this.getAllActive()) {
-				if (target === pokemon) continue;
-				if (target.hasAbility('snowstorm')) {
-					this.field.weatherData.source = target;
-					return;
+	soupsipper: {
+		desc: "This Pokemon is immune to Water-type moves, restores 1/4 of its maximum HP, rounded down, when hit by a Water-type move, and boosts its Attack by 1 stage when hit by a Water-type move.",
+		shortDesc: "Heals 1/4 of its max HP and gains +1 Atk when hit by Water moves; Water immunity.",
+		onTryHit(target, source, move) {
+			if (target !== source && move.type === 'Water') {
+				if (!this.heal(target.baseMaxhp / 4) || !this.boost({atk: 1})) {
+					this.add('-immune', target, '[from] ability: Soup Sipper');
 				}
+				return null;
 			}
-			this.field.clearWeather();
 		},
-		name: "Snowstorm",
+		name: "Soup Sipper",
 	},
 
 	// phiwings99
@@ -758,7 +785,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			onStart(pokemon) {
 				const typeList = Object.keys(this.dex.data.TypeChart);
 				const firstTypeIndex = this.random(typeList.length);
-				const secondType = typeList.slice(0, firstTypeIndex).concat(typeList.slice(firstTypeIndex + 1))[this.random(typeList.length - 1)];
+				const secondType = this.sample(typeList.slice(0, firstTypeIndex).concat(typeList.slice(firstTypeIndex + 1)));
 				this.effectData.immunities = [typeList[firstTypeIndex], secondType];
 				this.add("-message", `Shadecession is now immune to ${this.effectData.immunities[0]} and ${this.effectData.immunities[1]} types!`);
 			},
@@ -784,7 +811,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		onSourceAfterFaint(length, target, source, effect) {
-			if (effect?.effectType === 'Move' && effect?.recoil) this.heal(source.baseMaxhp / 4);
+			if (effect && effect.effectType === 'Move' && !!effect.recoil) this.heal(source.baseMaxhp / 4, source);
 		},
 	},
 
@@ -936,22 +963,22 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
-	// Modified various abilities to support Perish Song's ability (Snowstorm)
+	// Modified various abilities to support Alpha's move
 	deltastream: {
 		inherit: true,
-		desc: "On switch-in, the weather becomes strong winds that remove the weaknesses of the Flying type from Flying-type Pokemon. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Desolate Land, Heavy Hailstorm, Primordial Sea, or Snowstorm.",
+		desc: "On switch-in, the weather becomes strong winds that remove the weaknesses of the Flying type from Flying-type Pokemon. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Desolate Land, Heavy Hailstorm, or Primordial Sea.",
 		shortDesc: "On switch-in, strong winds begin until this Ability is not active in battle.",
 		onAnySetWeather(target, source, weather) {
-			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'snowstorm', 'heavyhailstorm'];
+			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'heavyhailstorm'];
 			if (this.field.getWeather().id === 'deltastream' && !strongWeathers.includes(weather.id)) return false;
 		},
 	},
 	desolateland: {
 		inherit: true,
-		desc: "On switch-in, the weather becomes extremely harsh sunlight that prevents damaging Water-type moves from executing, in addition to all the effects of Sunny Day. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream, Heavy Hailstorm, Primordial Sea, or Snowstorm.",
+		desc: "On switch-in, the weather becomes extremely harsh sunlight that prevents damaging Water-type moves from executing, in addition to all the effects of Sunny Day. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream, Heavy Hailstorm, or Primordial Sea.",
 		shortDesc: "On switch-in, extremely harsh sunlight begins until this Ability is not active in battle.",
 		onAnySetWeather(target, source, weather) {
-			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'snowstorm', 'heavyhailstorm'];
+			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'heavyhailstorm'];
 			if (this.field.getWeather().id === 'desolateland' && !strongWeathers.includes(weather.id)) return false;
 		},
 	},
@@ -971,7 +998,6 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 				break;
 			case 'heavyhailstorm':
 			case 'hail':
-			case 'snowstorm':
 				if (pokemon.species.id !== 'castformsnowy') forme = 'Castform-Snowy';
 				break;
 			default:
@@ -985,23 +1011,23 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	},
 	icebody: {
 		inherit: true,
-		desc: "If Hail or Snowstorm is active, this Pokemon restores 1/16 of its maximum HP, rounded down, at the end of each turn. This Pokemon takes no damage from Hail or Snowstorm.",
-		shortDesc: "Hail/Snowstorm active: heals 1/16 max HP each turn; immunity to Hail and Snowstorm.",
+		desc: "If Hail or Heavy Hailstorm is active, this Pokemon restores 1/16 of its maximum HP, rounded down, at the end of each turn. This Pokemon takes no damage from Hail or Heavy Hailstorm.",
+		shortDesc: "Hail-like weather active: heals 1/16 max HP each turn; immunity to Hail-like weather.",
 		onWeather(target, source, effect) {
-			if (['heavyhailstorm', 'hail', 'snowstorm'].includes(effect.id)) {
+			if (['heavyhailstorm', 'hail'].includes(effect.id)) {
 				this.heal(target.baseMaxhp / 16);
 			}
 		},
 		onImmunity(type, pokemon) {
-			if (['heavyhailstorm', 'hail', 'snowstorm'].includes(type)) return false;
+			if (['heavyhailstorm', 'hail'].includes(type)) return false;
 		},
 	},
 	iceface: {
 		inherit: true,
-		desc: "If this Pokemon is an Eiscue, the first physical hit it takes in battle deals 0 neutral damage. Its ice face is then broken and it changes forme to Noice Face. Eiscue regains its Ice Face forme when Hail or Snowstorm begins or when Eiscue switches in while Hail or Snowstorm is active. Confusion damage also breaks the ice face.",
-		shortDesc: "If Eiscue, first physical hit taken deals 0 damage. Effect is restored in Hail/Snowstorm.",
+		desc: "If this Pokemon is an Eiscue, the first physical hit it takes in battle deals 0 neutral damage. Its ice face is then broken and it changes forme to Noice Face. Eiscue regains its Ice Face forme when Hail or Heavy Hailstorm begins or when Eiscue switches in while Hail or Heavy Hailstorm is active. Confusion damage also breaks the ice face.",
+		shortDesc: "If Eiscue, first physical hit taken deals 0 damage. Effect is restored in Hail-like weather.",
 		onStart(pokemon) {
-			if (this.field.isWeather(['heavyhailstorm', 'hail', 'snowstorm']) &&
+			if (this.field.isWeather(['heavyhailstorm', 'hail']) &&
 				pokemon.species.id === 'eiscuenoice' && !pokemon.transformed) {
 				this.add('-activate', pokemon, 'ability: Ice Face');
 				this.effectData.busted = false;
@@ -1010,7 +1036,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onAnyWeatherStart() {
 			const pokemon = this.effectData.target;
-			if (this.field.isWeather(['heavyhailstorm', 'hail', 'snowstorm']) &&
+			if (this.field.isWeather(['heavyhailstorm', 'hail']) &&
 				pokemon.species.id === 'eiscuenoice' && !pokemon.transformed) {
 				this.add('-activate', pokemon, 'ability: Ice Face');
 				this.effectData.busted = false;
@@ -1018,22 +1044,15 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
-	overcoat: {
-		inherit: true,
-		shortDesc: "This Pokemon is immune to powder moves and damage from Sandstorm, Hail, and Snowstorm.",
-		onImmunity(type, pokemon) {
-			if (['sandstorm', 'hail', 'snowstorm', 'powder'].includes(type)) return false;
-		},
-	},
 	primordialsea: {
 		inherit: true,
-		desc: "On switch-in, the weather becomes heavy rain that prevents damaging Fire-type moves from executing, in addition to all the effects of Rain Dance. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream, Desolate Land, Heavy Hailstorm, or Snowstorm.",
+		desc: "On switch-in, the weather becomes heavy rain that prevents damaging Fire-type moves from executing, in addition to all the effects of Rain Dance. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream, Desolate Land, or Heavy Hailstorm.",
 		shortDesc: "On switch-in, heavy rain begins until this Ability is not active in battle.",
 		onStart(source) {
 			this.field.setWeather('primordialsea');
 		},
 		onAnySetWeather(target, source, weather) {
-			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'snowstorm', 'heavyhailstorm'];
+			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'heavyhailstorm'];
 			if (this.field.getWeather().id === 'primordialsea' && !strongWeathers.includes(weather.id)) return false;
 		},
 	},
@@ -1041,21 +1060,21 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		inherit: true,
 		shortDesc: "If a Hail-like weather is active, this Pokemon's Speed is doubled.",
 		onModifySpe(spe, pokemon) {
-			if (this.field.isWeather(['heavyhailstorm', 'hail', 'snowstorm'])) {
+			if (this.field.isWeather(['heavyhailstorm', 'hail'])) {
 				return this.chainModify(2);
 			}
 		},
 	},
 	snowcloak: {
 		inherit: true,
-		desc: "If Heavy Hailstorm, Hail, or Snowstorm is active, this Pokemon's evasiveness is multiplied by 1.25. This Pokemon takes no damage from Heavy Hailstorm, Hail or Snowstorm.",
+		desc: "If Heavy Hailstorm or Hail is active, this Pokemon's evasiveness is multiplied by 1.25. This Pokemon takes no damage from Heavy Hailstorm or Hail.",
 		shortDesc: "If a Hail-like weather is active, 1.25x evasion; immunity to Hail-like weathers.",
 		onImmunity(type, pokemon) {
-			if (['heavyhailstorm', 'hail', 'snowstorm'].includes(type)) return false;
+			if (['heavyhailstorm', 'hail'].includes(type)) return false;
 		},
 		onModifyAccuracy(accuracy) {
 			if (typeof accuracy !== 'number') return;
-			if (this.field.isWeather(['heavyhailstorm', 'hail', 'snowstorm'])) {
+			if (this.field.isWeather(['heavyhailstorm', 'hail'])) {
 				this.debug('Snow Cloak - decreasing accuracy');
 				return accuracy * 0.8;
 			}

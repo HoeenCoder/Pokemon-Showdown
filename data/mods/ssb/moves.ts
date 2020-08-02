@@ -167,7 +167,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "On switch-in, the weather becomes extremely heavy hailstorm lasts for 3 turns that prevents damaging Steel-type moves from executing, causes Ice-type moves to be 50% stronger, causes all non-Ice-type Pokemon on the opposing side to take 1/8 damage from hail, and causes all moves to have a 10% chance to freeze. This weather bypasses Magic Guard and Overcoat. This weather remains in effect until the 3 turns are up, or the weather is changed by Delta Stream, Desolate Land, Primordial Sea, or Snowstorm.",
+		desc: "On switch-in, the weather becomes extremely heavy hailstorm lasts for 3 turns that prevents damaging Steel-type moves from executing, causes Ice-type moves to be 50% stronger, causes all non-Ice-type Pokemon on the opposing side to take 1/8 damage from hail, and causes all moves to have a 10% chance to freeze. This weather bypasses Magic Guard and Overcoat. This weather remains in effect until the 3 turns are up, or the weather is changed by Delta Stream, Desolate Land, or Primordial Sea.",
 		shortDesc: "3 Turns. Heavy Hailstorm. Steel fail. 1.5x Ice.",
 		name: "Blistering Ice Age",
 		pp: 1,
@@ -570,6 +570,41 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		type: "Flying",
 	},
 
+	// EpicNikolai
+	epicrage: {
+		accuracy: 95,
+		basePower: 120,
+		category: "Physical",
+		desc: "",
+		shortDesc: "",
+		name: "Epic Rage",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Draco Meteor', target);
+		},
+		onModifyMove(move, pokemon) {
+			if (!pokemon.types.includes('Fire')) return;
+			move.secondaries = [];
+			move.secondaries.push({
+				chance: 100,
+				status: 'brn',
+			});
+			move.recoil = [33, 100];
+		},
+		recoil: [2, 5],
+		secondary: {
+			chance: 100,
+			status: "par",
+		},
+		target: "normal",
+		type: "Fire",
+	},
 
 	// fart
 	soupstealing7starstrikeredux: {
@@ -656,7 +691,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				target.boosts[i] = -target.boosts[i];
 				success = true;
 			}
-			if (!success) {
+			if (success) {
 				this.add('-invertboost', target, '[from] move: Rigged Dice');
 			} else {
 				target.addVolatile("taunt");
@@ -667,7 +702,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Ice",
 	},
-	
+
 	// Flare
 	krisenbon: {
 		accuracy: 100,
@@ -730,6 +765,13 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			// No animation
+		},
 		secondary: {
 			chance: 30,
 			onHit(target) {
@@ -754,31 +796,55 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Normal",
 	},
-
-	// Instruct
-	hypergoner: {
-		accuracy: 85,
-		basePower: 130,
-		category: "Physical",
-		desc: "Always Super Effective. Will leave opponent on 1 HP.",
-		shortDesc: "Always Super Effective. Will leave opponent on 1 HP.",
-		name: "Hyper Goner",
-		pp: 5,
-		priority: 0,
-		flags: {protect: 1},
+	
+	// Hubriz
+	steroidanaphylaxia: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Inverts the target's stat stages.",
+		name: "Steroid Anaphylaxia",
+		pp: 20,
+		priority: 1,
+		flags: {protect: 1, reflectable: 1},
+		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Prismatic Laser', target);
+			// No animation
 		},
-		onEffectiveness(typeMod, target, type) {
-			return 1;
+		onHit(target) {
+			let success = false;
+			let i: BoostName;
+			for (i in target.boosts) {
+				if (target.boosts[i] === 0) continue;
+				target.boosts[i] = -target.boosts[i];
+				success = true;
+			}
+			if (!success) return false;
+			this.add('-invertboost', target, '[from] move: Steroid Anaphylaxia');
 		},
-		noFaint: true,
-		secondary: null,
+	},
+
+	// iyatiro
+	patronaattack: {
+		accuracy: 100,
+		basePower: 50,
+		category: "Special",
+		shortDesc: "No additional effect.",
+		name: "Patrona Attack",
+		pp: 20,
+		priority: 1,
+		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Moongeist Beam', target);
+		},
 		target: "normal",
-		type: "???",
+		type: "Ghost",
 	},
 
 	// Jett x_x
@@ -1405,43 +1471,55 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 
 	// Perish Song
-	sinistergaze: {
-		accuracy: 90,
-		basePower: 65,
-		basePowerCallback(pokemon, target, move) {
-			if (target.status || target.hasAbility('comatose')) return move.basePower * 2;
-			return move.basePower;
-		},
-		category: "Special",
-		desc: "Power doubles if the target has a major status condition. This move has a 40% chance to randomly burn, paralyze, or poison the target after each use if the target is not already inflicted with a status move.",
-		shortDesc: "40% chance BRN/PAR/PSN. 2x power if foe status.",
-		name: "Sinister Gaze",
+	shiftingrocks: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "Does damage to foes on switch in.",
+		shortDesc: "Stealth Rock but even more complicated.",
+		name: "Shifting Rocks",
 		pp: 15,
 		priority: 0,
-		flags: {protect: 1},
+		flags: {},
 		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Mean Look', target);
-			this.add('-anim', source, 'Black Hole Eclipse', target);
+			this.add('-anim', source, 'Stealth Rock', target);
+			this.add('-anim', source, 'Stealth Rock', target);
 		},
-		secondary: {
-			chance: 40,
-			onHit(target, source) {
-				const result = this.random(3);
-				if (result === 0) {
-					target.trySetStatus('brn', source);
-				} else if (result === 1) {
-					target.trySetStatus('par', source);
-				} else {
-					target.trySetStatus('psn', source);
+		sideCondition: 'shiftingrocks',
+		effect: {
+			// this is a side condition
+			onStart(side) {
+				this.add('-sidestart', side, 'Shifting Rocks');
+				this.effectData.damage = 7;
+			},
+			onSwitchIn(pokemon) {
+				if (pokemon.hasItem('heavydutyboots')) return;
+				if (this.effectData.damage >= 17) {
+					const activeMove = {
+						id: 'rocks' as ID,
+						basePower: 80,
+						type: 'Rock',
+						category: 'Physical',
+						willCrit: false,
+					};
+					const damage = this.getDamage(pokemon, pokemon, activeMove as ActiveMove);
+					if (typeof damage !== 'number') throw new Error("Shifting Rocks damage not dealt");
+					this.damage(damage);
+					this.effectData.damage = 7;
+					pokemon.side.removeSideCondition(`shiftingrocks`);
+					return false;
 				}
+				this.damage(this.effectData.damage * pokemon.maxhp / 100);
+				this.effectData.damage++;
 			},
 		},
-		target: "normal",
-		type: "Ghost",
+		secondary: null,
+		target: "foeSide",
+		type: "Rock",
 	},
 
 	// phiwings99
@@ -1790,7 +1868,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		self: {
 			onHit(source) {
-				let boost: {[k: string]: number} = {};
+				const boost: {[k: string]: number} = {};
 				boost[['def', 'spd'][this.random(2)]] = 1;
 				this.boost(boost, source);
 				this.add(`c|${getName('SectoniaServant')}|Jelly baby ;w;`);
@@ -2346,21 +2424,21 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Flying",
 	},
-	// These moves need modified to support Snowstorm (Perish Song's ability)
+	// These moves need modified to support Alpha's move
 	auroraveil: {
 		inherit: true,
-		desc: "For 5 turns, the user and its party members take 0.5x damage from physical and special attacks, or 0.66x damage if in a Double Battle; does not reduce damage further with Reflect or Light Screen. Critical hits ignore this protection. It is removed from the user's side if the user or an ally is successfully hit by Brick Break, Psychic Fangs, or Defog. Brick Break and Psychic Fangs remove the effect before damage is calculated. Lasts for 8 turns if the user is holding Light Clay. Fails unless the weather is Heavy Hailstorm, Hail, or Snowstorm.",
+		desc: "For 5 turns, the user and its party members take 0.5x damage from physical and special attacks, or 0.66x damage if in a Double Battle; does not reduce damage further with Reflect or Light Screen. Critical hits ignore this protection. It is removed from the user's side if the user or an ally is successfully hit by Brick Break, Psychic Fangs, or Defog. Brick Break and Psychic Fangs remove the effect before damage is calculated. Lasts for 8 turns if the user is holding Light Clay. Fails unless the weather is Heavy Hailstorm or Hail.",
 		shortDesc: "For 5 turns, damage to allies is halved. Hail-like weather only.",
 		onTryHitSide() {
-			if (!this.field.isWeather(['heavyhailstorm', 'hail', 'snowstorm'])) return false;
+			if (!this.field.isWeather(['heavyhailstorm', 'hail'])) return false;
 		},
 	},
 	blizzard: {
 		inherit: true,
-		desc: "Has a 10% chance to freeze the target. If the weather is Heavy Hailstorm, Hail, or Snowstorm, this move does not check accuracy.",
+		desc: "Has a 10% chance to freeze the target. If the weather is Heavy Hailstorm or Hail, this move does not check accuracy.",
 		shortDesc: "10% freeze foe(s). Can't miss in Hail-like weather.",
 		onModifyMove(move) {
-			if (this.field.isWeather(['heavyhailstorm', 'hail', 'snowstorm'])) move.accuracy = true;
+			if (this.field.isWeather(['heavyhailstorm', 'hail'])) move.accuracy = true;
 		},
 	},
 	dig: {
@@ -2368,7 +2446,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		effect: {
 			duration: 2,
 			onImmunity(type, pokemon) {
-				if (['sandstorm', 'heavyhailstorm', 'hail', 'snowstorm'].includes(type)) return false;
+				if (['sandstorm', 'heavyhailstorm', 'hail'].includes(type)) return false;
 			},
 			onInvulnerability(target, source, move) {
 				if (['earthquake', 'magnitude'].includes(move.id)) {
@@ -2388,7 +2466,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		effect: {
 			duration: 2,
 			onImmunity(type, pokemon) {
-				if (['sandstorm', 'heavyhailstorm', 'hail', 'snowstorm'].includes(type)) return false;
+				if (['sandstorm', 'heavyhailstorm', 'hail'].includes(type)) return false;
 			},
 			onInvulnerability(target, source, move) {
 				if (['surf', 'whirlpool'].includes(move.id)) {
@@ -2405,7 +2483,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	moonlight: {
 		inherit: true,
-		desc: "The user restores 1/2 of its maximum HP if Delta Stream or no weather conditions are in effect or if the user is holding Utility Umbrella, 2/3 of its maximum HP if the weather is Desolate Land or Sunny Day, and 1/4 of its maximum HP if the weather is Heavy Hailstorm, Hail, Primordial Sea, Rain Dance, Sandstorm, or Snowstorm, all rounded half down.",
+		desc: "The user restores 1/2 of its maximum HP if Delta Stream or no weather conditions are in effect or if the user is holding Utility Umbrella, 2/3 of its maximum HP if the weather is Desolate Land or Sunny Day, and 1/4 of its maximum HP if the weather is Heavy Hailstorm, Hail, Primordial Sea, Rain Dance, or Sandstorm, all rounded half down.",
 		onHit(pokemon) {
 			let factor = 0.5;
 			switch (pokemon.effectiveWeather()) {
@@ -2418,7 +2496,6 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			case 'sandstorm':
 			case 'heavyhailstorm':
 			case 'hail':
-			case 'snowstorm':
 				factor = 0.25;
 				break;
 			}
@@ -2427,7 +2504,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	morningsun: {
 		inherit: true,
-		desc: "The user restores 1/2 of its maximum HP if Delta Stream or no weather conditions are in effect or if the user is holding Utility Umbrella, 2/3 of its maximum HP if the weather is Desolate Land or Sunny Day, and 1/4 of its maximum HP if the weather is Heavy Hailstorm, Hail, Primordial Sea, Rain Dance, Sandstorm, or Snowstorm, all rounded half down.",
+		desc: "The user restores 1/2 of its maximum HP if Delta Stream or no weather conditions are in effect or if the user is holding Utility Umbrella, 2/3 of its maximum HP if the weather is Desolate Land or Sunny Day, and 1/4 of its maximum HP if the weather is Heavy Hailstorm, Hail, Primordial Sea, Rain Dance, or Sandstorm, all rounded half down.",
 		onHit(pokemon) {
 			let factor = 0.5;
 			switch (pokemon.effectiveWeather()) {
@@ -2440,7 +2517,6 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			case 'sandstorm':
 			case 'heavyhailstorm':
 			case 'hail':
-			case 'snowstorm':
 				factor = 0.25;
 				break;
 			}
@@ -2449,9 +2525,9 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	solarbeam: {
 		inherit: true,
-		desc: "This attack charges on the first turn and executes on the second. Power is halved if the weather is Heavy Hailstorm, Hail, Snowstorm, Primordial Sea, Rain Dance, or Sandstorm and the user is not holding Utility Umbrella. If the user is holding a Power Herb or the weather is Desolate Land or Sunny Day, the move completes in one turn. If the user is holding Utility Umbrella and the weather is Desolate Land or Sunny Day, the move still requires a turn to charge.",
+		desc: "This attack charges on the first turn and executes on the second. Power is halved if the weather is Heavy Hailstorm, Hail, Primordial Sea, Rain Dance, or Sandstorm and the user is not holding Utility Umbrella. If the user is holding a Power Herb or the weather is Desolate Land or Sunny Day, the move completes in one turn. If the user is holding Utility Umbrella and the weather is Desolate Land or Sunny Day, the move still requires a turn to charge.",
 		onBasePower(basePower, pokemon, target) {
-			const weathers = ['raindance', 'primordialsea', 'sandstorm', 'heavyhailstorm', 'hail', 'snowstorm'];
+			const weathers = ['raindance', 'primordialsea', 'sandstorm', 'heavyhailstorm', 'hail'];
 			if (weathers.includes(pokemon.effectiveWeather())) {
 				this.debug('weakened by weather');
 				return this.chainModify(0.5);
@@ -2460,9 +2536,9 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	solarblade: {
 		inherit: true,
-		desc: "This attack charges on the first turn and executes on the second. Power is halved if the weather is Heavy Hailstorm, Hail, Snowstorm, Primordial Sea, Rain Dance, or Sandstorm and the user is not holding Utility Umbrella. If the user is holding a Power Herb or the weather is Desolate Land or Sunny Day, the move completes in one turn. If the user is holding Utility Umbrella and the weather is Desolate Land or Sunny Day, the move still requires a turn to charge.",
+		desc: "This attack charges on the first turn and executes on the second. Power is halved if the weather is Heavy Hailstorm, Hail, Primordial Sea, Rain Dance, or Sandstorm and the user is not holding Utility Umbrella. If the user is holding a Power Herb or the weather is Desolate Land or Sunny Day, the move completes in one turn. If the user is holding Utility Umbrella and the weather is Desolate Land or Sunny Day, the move still requires a turn to charge.",
 		onBasePower(basePower, pokemon, target) {
-			const weathers = ['raindance', 'primordialsea', 'sandstorm', 'heavyhailstorm', 'hail', 'snowstorm'];
+			const weathers = ['raindance', 'primordialsea', 'sandstorm', 'heavyhailstorm', 'hail'];
 			if (weathers.includes(pokemon.effectiveWeather())) {
 				this.debug('weakened by weather');
 				return this.chainModify(0.5);
@@ -2471,7 +2547,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	synthesis: {
 		inherit: true,
-		desc: "The user restores 1/2 of its maximum HP if Delta Stream or no weather conditions are in effect or if the user is holding Utility Umbrella, 2/3 of its maximum HP if the weather is Desolate Land or Sunny Day, and 1/4 of its maximum HP if the weather is Heavy Hailstorm, Hail, Primordial Sea, Rain Dance, Sandstorm, or Snowstorm, all rounded half down.",
+		desc: "The user restores 1/2 of its maximum HP if Delta Stream or no weather conditions are in effect or if the user is holding Utility Umbrella, 2/3 of its maximum HP if the weather is Desolate Land or Sunny Day, and 1/4 of its maximum HP if the weather is Heavy Hailstorm, Hail, Primordial Sea, Rain Dance, or Sandstorm, all rounded half down.",
 		onHit(pokemon) {
 			let factor = 0.5;
 			switch (pokemon.effectiveWeather()) {
@@ -2484,7 +2560,6 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			case 'sandstorm':
 			case 'heavyhailstorm':
 			case 'hail':
-			case 'snowstorm':
 				factor = 0.25;
 				break;
 			}
@@ -2493,7 +2568,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	},
 	weatherball: {
 		inherit: true,
-		desc: "Power doubles if a weather condition other than Delta Stream is active, and this move's type changes to match. Ice type during Heavy Hailstorm, Hail, and Snowstorm, Water type during Primordial Sea or Rain Dance, Rock type during Sandstorm, and Fire type during Desolate Land or Sunny Day. If the user is holding Utility Umbrella and uses Weather Ball during Primordial Sea, Rain Dance, Desolate Land, or Sunny Day, the move is still Normal-type and does not have a base power boost.",
+		desc: "Power doubles if a weather condition other than Delta Stream is active, and this move's type changes to match. Ice type during Heavy Hailstorm or Hail, Water type during Primordial Sea or Rain Dance, Rock type during Sandstorm, and Fire type during Desolate Land or Sunny Day. If the user is holding Utility Umbrella and uses Weather Ball during Primordial Sea, Rain Dance, Desolate Land, or Sunny Day, the move is still Normal-type and does not have a base power boost.",
 		onModifyType(move, pokemon) {
 			switch (pokemon.effectiveWeather()) {
 			case 'sunnyday':
@@ -2509,7 +2584,6 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				break;
 			case 'heavyhailstorm':
 			case 'hail':
-			case 'snowstorm':
 				move.type = 'Ice';
 				break;
 			}
@@ -2529,7 +2603,6 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				break;
 			case 'heavyhailstorm':
 			case 'hail':
-			case 'snowstorm':
 				move.basePower *= 2;
 				break;
 			}

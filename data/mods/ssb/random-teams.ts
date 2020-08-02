@@ -138,6 +138,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Forced Landing',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 	},
+	EpicNikolai: {
+		species: 'Garchomp', ability: 'Dragon Heart', item: 'Garchompite', gender: 'M',
+		moves: ['Outrage', 'Earthquake', 'Swords Dance'],
+		signatureMove: 'Epic Rage',
+		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
+	},
 	fart: {
 		species: 'Kartana', ability: 'Bipolar', item: 'Metronome', gender: 'M',
 		moves: ['U-turn'],
@@ -174,11 +180,17 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'The Hunt is On!',
 		evs: {hp: 4, atk: 252, spe: 252}, nature: 'Jolly',
 	},
-	Instruct: {
-		species: 'Cinderace', ability: 'Determination', item: 'Flame Plate', gender: 'N',
-		moves: ['Pyro Ball', 'Sacred Sword', 'Bolt Strike'],
-		signatureMove: 'Hyper Goner',
-		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly',
+	Hubriz: {
+		species: 'Roserade', ability: 'Stakeout', item: 'Rose Incense', gender: 'F',
+		moves: [['Toxic Spikes', 'Spikes'], 'Leaf Storm', 'Sludge Bomb'],
+		signatureMove: 'Steroid Anaphylaxia',
+		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid'
+	},
+	iyarito: {
+		species: 'Gengar', ability: 'Pollo Diablo', item: 'Choice Specs', gender: 'F',
+		moves: ['Sludge Wave', 'Volt Switch', 'Fusion Flare'],
+		signatureMove: 'Patrona Attack',
+		evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
 	},
 	Jho: {
 		species: 'Toxtricity', ability: 'Punk Rock', item: 'Throat Spray', gender: 'M',
@@ -200,7 +212,7 @@ export const ssbSets: SSBSets = {
 	},
 	Kingbaruk: {
 		species: 'Stonjourner', ability: 'Sturdy', item: 'Heavy Duty Boots', gender: 'M',
-		moves: ['Diamond Storm', ['Superpower', 'Earthquake'], 'King\s Shield'],
+		moves: ['Diamond Storm', ['Superpower', 'Earthquake'], 'King\'s Shield'],
 		signatureMove: 'Leave it to the team!',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 	},
@@ -244,25 +256,25 @@ export const ssbSets: SSBSets = {
 		species: 'Magneton', ability: 'Triage', item: 'Metronome', gender: 'N',
 		moves: ['Parabolic Charge', 'Oblivion Wing', 'Giga Drain'],
 		signatureMove: 'MechOMnism',
-		evs: {hp: 252, spa: 252, spd: 4}, nature: 'Modest', level: 100, shiny: 1,
+		evs: {hp: 252, spa: 252, spd: 4}, nature: 'Modest', shiny: true,
 	},
 	Overneat: {
 		species: 'Absol', ability: 'Intimidate', item: 'Absolite', gender: 'M',
 		moves: ['Play Rough', 'U-turn', 'Close Combat'],
 		signatureMove: 'Healing you?',
-		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', level: 100,
+		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 	},
 	'Paradise ╱╲☼': {
 		species: 'Slaking', ability: 'Unaware', item: 'Choice Scarf', gender: '',
 		moves: ['Sacred Fire', 'Spectral Thief', 'Icicle Crash'],
 		signatureMove: 'Rapid Turn',
-		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', level: 100,
+		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 	},
 	'Perish Song': {
-		species: 'Mismagius', ability: 'Snowstorm', item: 'Icium Z', gender: 'M',
-		moves: ['Nasty Plot', 'Flamethrower', ['Blizzard', 'Freeze-Dry']],
-		signatureMove: 'Sinister Gaze',
-		evs: {spa: 252, spd: 4, spe: 252}, nature: 'Timid',
+		species: 'Rhydon', ability: 'Soup Sipper', item: 'Eviolite', gender: 'M',
+		moves: ['Swords Dance', 'Rock Blast', 'Earthquake'],
+		signatureMove: 'Shifting Rocks',
+		evs: {hp: 252, atk: 4, def: 252}, nature: 'Impish',
 	},
 	phiwings99: {
 		species: 'Froslass', ability: 'Plausible Deniability', item: 'Boatium Z', gender: 'M',
@@ -360,7 +372,7 @@ export const ssbSets: SSBSets = {
 	},
 	Trickster: {
 		species: 'Shiinotic', ability: 'Trillionage Roots', item: 'Leftovers', gender: '',
-		moves: ['Stremngth Sap', 'Cosmic Power', 'Knock Off'],
+		moves: ['Strength Sap', 'Cosmic Power', 'Knock Off'],
 		signatureMove: 'Soul-Shattering Stare',
 		evs: {hp: 252, def: 252, spd: 4}, nature: 'Bold', shiny: true,
 	},

@@ -26,6 +26,12 @@ export const BattlePokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		types: ['Grass', 'Fairy'],
 	},
+	// EpicNikolai
+	garchompmega: {
+		inherit: true,
+		abilities: {0: "Dragon Heart"},
+		types: ['Dragon', 'Fire'],
+	},
 	// Felucia
 	uxie: {
 		inherit: true,
@@ -79,11 +85,6 @@ export const BattlePokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: 'Darkest Wings'},
 		types: ['Dark', 'Fairy'],
-	},
-	// Perish Song
-	mismagius: {
-		inherit: true,
-		types: ["Ghost", "Ice"],
 	},
 	// quadrophenic
 	porygon: {
