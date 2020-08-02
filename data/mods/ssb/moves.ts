@@ -723,7 +723,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		shortDesc: "Inverts the target's stat stages..",
+		shortDesc: "Inverts the target's stat stages.",
 		name: "Steroid Anaphylaxia",
 		pp: 20,
 		priority: 1,
