@@ -727,7 +727,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		name: "Steroid Anaphylaxia",
 		pp: 20,
 		priority: 1,
-		flags: {protect: 1},
+		flags: {mirror: 1, protect: 1},
 		onHit(target) {
 			let success = false;
 			let i: BoostName;
