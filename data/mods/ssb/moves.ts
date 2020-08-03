@@ -931,21 +931,28 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {},
 		volatileStatus: 'cozycuddle',
-		onTryMove(target) {
+		onTryMove() {
 			this.attrLastMove('[still]');
+		},
+		onTryHit(target, source, move) {
+			if (target.volatiles['cozycuddle']) return false;
+			if (target.volatiles['trapped']) {
+				delete move.volatileStatus;
+			}
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Flatter', target);
 			this.add('-anim', source, 'Let\'s Snuggle Forever', target);
 		},
 		onHit(target, source, move) {
-			if (target.volatiles['cozycuddle']) return false;
 			this.boost({atk: -2, def: -2}, target, target);
-			if (source.isActive) target.addVolatile('trapped', source, move, 'trapper');
 		},
 		effect: {
-			onStart(pokemon) {
+			onStart(pokemon, source) {
 				this.add('-start', pokemon, 'Cozy Cuddle');
+			},
+			onTrapPokemon(pokemon) {
+				if (this.effectData.source?.isActive) pokemon.tryTrap();
 			},
 		},
 		secondary: null,
@@ -1994,6 +2001,14 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 				return move.basePower * 2;
 			} else if (pokemon.m.typeEff >= 0) {
 				return move.basePower / 2;
+			}
+		},
+		onHit(target, source) {
+			if (!source.m.typeEff) return;
+			if (source.m.typeEff < 0) {
+				this.add(`c|${getName('Struchni')}|**veto**`);
+			} else if (source.m.typeEff >= 0) {
+				this.add(`c|${getName('Struchni')}|** veto**`);
 			}
 		},
 		target: "normal",
