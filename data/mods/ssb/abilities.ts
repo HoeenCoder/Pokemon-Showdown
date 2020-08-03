@@ -181,8 +181,8 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 
 	// Darth
 	guardianangel: {
-		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out. When switching in, this Pokemon's types  and stats are changed to resist the weakness of the last and stats Pokemon in before it.",
-		shortDesc: "Switching out: Regenerator. Switching in: Stats & Resists Weaknesses of last Pokemon.",
+		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out. When switching in, this Pokemon's types are changed to resist the weakness of the last and stats Pokemon in before it.",
+		shortDesc: "Switching out: Regenerator. Switching in: Resists Weaknesses of last Pokemon.",
 		name: "Guardian Angel",
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.baseMaxhp / 3);
