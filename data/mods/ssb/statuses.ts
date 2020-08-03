@@ -264,6 +264,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
 		onSwitchOut() {
+			// @ts-ignore
 			this.add(`c|${getName('EpicNikolai')}|This wasn't as fun as I thought it would be, I'm out ¯_( ͡~ ͜ʖ ͡°)_/¯`);
 		},
 		onFaint() {
