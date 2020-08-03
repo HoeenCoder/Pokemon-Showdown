@@ -1988,11 +1988,12 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			move.type = type;
 		},
 		onModifyPriority(priority, source, target, move) {
-			if (!source.m.typeEff) return priority;
-			if (source.m.typeEff < 0) {
-				return priority + 1;
-			} else if (source.m.typeEff >= 0) {
-				return priority - 1;
+			if (source.m.typeEff)  {
+				if (source.m.typeEff < 0) {
+					return priority + 1;
+				} else if (source.m.typeEff >= 0) {
+					return priority - 1;
+				}
 			}
 		},
 		basePowerCallback(pokemon, target, move) {
