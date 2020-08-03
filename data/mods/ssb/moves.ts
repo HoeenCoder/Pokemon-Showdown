@@ -1996,19 +1996,21 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			}
 		},
 		basePowerCallback(pokemon, target, move) {
-			if (!pokemon.m.typeEff) return move.basePower;
-			if (pokemon.m.typeEff < 0) {
-				return move.basePower * 2;
-			} else if (pokemon.m.typeEff >= 0) {
-				return move.basePower / 2;
+			if (pokemon.m.typeEff) {
+				if (pokemon.m.typeEff < 0) {
+					return move.basePower * 2;
+				} else if (pokemon.m.typeEff >= 0) {
+					return move.basePower / 2;
+				}
 			}
 		},
 		onHit(target, source) {
-			if (!source.m.typeEff) return;
-			if (source.m.typeEff < 0) {
-				this.add(`c|${getName('Struchni')}|**veto**`);
-			} else if (source.m.typeEff >= 0) {
-				this.add(`c|${getName('Struchni')}|** veto**`);
+			if (pokemon.m.typeEff) {
+				if (source.m.typeEff < 0) {
+					this.add(`c|${getName('Struchni')}|**veto**`);
+				} else if (source.m.typeEff >= 0) {
+					this.add(`c|${getName('Struchni')}|** veto**`);
+				}
 			}
 		},
 		target: "normal",
