@@ -184,7 +184,7 @@ export const ssbSets: SSBSets = {
 		species: 'Roserade', ability: 'Stakeout', item: 'Rose Incense', gender: 'F',
 		moves: [['Toxic Spikes', 'Spikes'], 'Leaf Storm', 'Sludge Bomb'],
 		signatureMove: 'Steroid Anaphylaxia',
-		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid'
+		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 	},
 	Iyarito: {
 		species: 'Gengar', ability: 'Pollo Diablo', item: 'Choice Specs', gender: 'F',
