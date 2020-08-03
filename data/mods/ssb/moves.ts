@@ -798,7 +798,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Normal",
 	},
-	
+
 	// Hubriz
 	steroidanaphylaxia: {
 		accuracy: true,
