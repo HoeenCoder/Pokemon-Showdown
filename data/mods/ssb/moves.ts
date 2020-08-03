@@ -2006,7 +2006,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			}
 		},
 		onHit(target, source) {
-			if (pokemon.m.typeEff) {
+			if (source.m.typeEff) {
 				if (source.m.typeEff < 0) {
 					this.add(`c|${getName('Struchni')}|**veto**`);
 				} else if (source.m.typeEff >= 0) {
