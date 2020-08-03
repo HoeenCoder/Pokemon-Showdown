@@ -191,21 +191,17 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 			const possibleTypes = [];
 			const newTypes = [];
 			const weaknesses = [];
-			const combo = [];
 			const types = pokemon.side.sideConditions['tracker'].storedTypes;
 			if (!types) return;
 			for (const type in this.dex.data.TypeChart) {
 				const typeMod = this.dex.getEffectiveness(type, types);
 				if (typeMod > 0 && this.dex.getImmunity(type, types)) weaknesses.push(type);
 			}
-			combo.push(this.sample(weaknesses));
-			if (weaknesses.length > 1) combo.push(this.sample(weaknesses));
-			for (const u in types) {
-				for (const type in this.dex.data.TypeChart) {
-					const typeCheck = this.dex.data.TypeChart[type].damageTaken[combo[u]];
-					if (typeCheck === 2 || typeCheck === 3) {
-						possibleTypes.push(type);
-					}
+			const combo = this.sample(weaknesses);
+			for (const type in this.dex.data.TypeChart) {
+				const typeCheck = this.dex.data.TypeChart[type].damageTaken[combo];
+				if (typeCheck === 2 || typeCheck === 3) {
+					possibleTypes.push(type);
 				}
 			}
 			if (possibleTypes.length < 2) return;
