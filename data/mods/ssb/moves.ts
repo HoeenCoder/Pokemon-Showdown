@@ -827,6 +827,8 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			if (!success) return false;
 			this.add('-invertboost', target, '[from] move: Steroid Anaphylaxia');
 		},
+		target: "normal",
+		type: "Poison",
 	},
 
 	// iyatiro
@@ -2004,6 +2006,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 					return move.basePower / 2;
 				}
 			}
+			return move.basePower;
 		},
 		onHit(target, source) {
 			if (source.m.typeEff) {
