@@ -2454,7 +2454,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, dance: 1},
 		secondary: null,
-		onTryMove() {
+		onTryMove(pokemon, target, move) {
 			this.attrLastMove('[still]');
 			if (pokemon.species.baseSpecies === 'Meloetta') {
 				return;
