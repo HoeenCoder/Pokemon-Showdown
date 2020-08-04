@@ -455,12 +455,11 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		effect: {
 			duration: 1,
-			onSwitchIn(target) {
-				if (!target.fainted && target.hp < target.maxhp) {
-					this.add(`c|${getName('Darth')}|Take my place, serve the Angel of Stall!`);
-					target.heal(target.maxhp);
-					this.add('-heal', target, 33, '[from] move: Archangel\'s Requiem');
-				}
+			onSwitchInPriority: -1,
+			onSwitchIn(pokemon) {
+				this.add(`c|${getName('Darth')}|Take my place, serve the Angel of Stall!`);
+				pokemon.heal(pokemon.baseMaxhp / 3);
+				this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
 			},
 		},
 		selfSwitch: true,
@@ -754,6 +753,51 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "allAdjacentFoes",
 		type: "Ice",
+	},
+
+	// grimAuxiliatrix
+	donotsteel: {
+		accuracy: true,
+		basePower: 0,
+		category: "Special",
+		desc: "Randomly calls SSB and status moves.",
+		shortDesc: "Randomly calls SSB and status moves.",
+		name: "Do Not Steel",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		onTryMovePriority: 100,
+		onTryMove(target) {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Nasty plot', source);
+		},
+		onHit(target, source, move) {
+			const moves: MoveData[] = [];
+			for (let id in BattleMovedex) {
+				const callMove = BattleMovedex[id];
+				if (callMove.category === 'Status' || !callMove.num) {
+						moves.push(callMove);
+				}
+			}
+			let randomMove;
+			if (moves.length) {
+				moves.sort((a, b) => a.num! - b.num!);
+				randomMove = this.sample(moves).name;
+			}
+			if (!randomMove) {
+				console.log(moves);
+				return false;
+			}
+
+			this.useMove(randomMove, source);
+			// TODO: need to find a way to cancel a multihit move in effect
+		},
+		multihit: [1, 3],
+		secondary: null,
+		target: "normal",
+		type: "Steel",
 	},
 
 	// GXS
