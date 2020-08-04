@@ -781,16 +781,16 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			for (const member in ssbSets) {
 				// No way in hell am I letting this infinitely recurse
 				if (member === 'grimAuxiliatrix') continue;
-				let set = ssbSets[member];
-				for (let x = 0; x < set.moves.length; x++) {
-					let callMove = Array.isArray(set.moves[x]) ? this.dex.getMove(this.sample(set.moves[x])) : this.dex.getMove(set.moves[x]);
+				const set = ssbSets[member];
+				for (const moveSlot in set.moves) {
+					const callMove = Array.isArray(moveSlot) ? this.dex.getMove(this.sample(moveSlot)) : this.dex.getMove(moveSlot);
 					if (callMove.category === 'Status') {
 						moves.push(callMove);
 					}
 				}
 				moves.push(this.dex.getMove(set.signatureMove));
 			}
-			
+
 			let randomMove;
 			if (moves.length) {
 				moves.sort((a, b) => a.num! - b.num!);
