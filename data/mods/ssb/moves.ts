@@ -776,6 +776,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Nasty plot', source);
 		},
 		onHit(target, source, move) {
+			// @ts-ignore this is a really dumb hack
 			if (!move.curHits) move.curHits = 1;
 			const moves: MoveData[] = [];
 			for (const member in ssbSets) {
@@ -802,12 +803,13 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 
 			this.useMove(randomMove.name, source);
 			if (randomMove.category !== 'Status') {
-				move.onHit = null;
-				move.multihit = null;
+				delete move.onHit;
+				delete move.multihit;
+				// @ts-ignore this is a really dumb hack
 				this.add('-hitcount', source, move.curHits);
 				return;
 			}
-			// @ts-ignore this is a really dumb hack and idc
+			// @ts-ignore this is a really dumb hack
 			move.curHits++;
 		},
 		multihit: [1, 3],
