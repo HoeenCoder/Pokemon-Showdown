@@ -1,4 +1,6 @@
 import {getName} from './statuses';
+// Used for grimAuxiliatrix's move
+import {ssbSets} from "./random-teams";
 
 export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 	/*
@@ -774,25 +776,39 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Nasty plot', source);
 		},
 		onHit(target, source, move) {
+			if (!move.curHits) move.curHits = 1;
 			const moves: MoveData[] = [];
-			for (let id in BattleMovedex) {
-				const callMove = BattleMovedex[id];
-				if (callMove.category === 'Status' || !callMove.num) {
+			for (const member in ssbSets) {
+				// No way in hell am I letting this infinitely recurse
+				if (member === 'grimAuxiliatrix') continue;
+				let set = ssbSets[member];
+				for (let x = 0; x < set.moves.length; x++) {
+					let callMove = Array.isArray(set.moves[x]) ? this.dex.getMove(this.sample(set.moves[x])) : this.dex.getMove(set.moves[x]);
+					if (callMove.category === 'Status') {
 						moves.push(callMove);
+					}
 				}
+				moves.push(this.dex.getMove(set.signatureMove));
 			}
+			
 			let randomMove;
 			if (moves.length) {
 				moves.sort((a, b) => a.num! - b.num!);
-				randomMove = this.sample(moves).name;
+				randomMove = this.sample(moves);
 			}
 			if (!randomMove) {
-				console.log(moves);
 				return false;
 			}
 
-			this.useMove(randomMove, source);
-			// TODO: need to find a way to cancel a multihit move in effect
+			this.useMove(randomMove.name, source);
+			if (randomMove.category !== 'Status') {
+				move.onHit = null;
+				move.multihit = null;
+				this.add('-hitcount', source, move.curHits);
+				return;
+			}
+			// @ts-ignore this is a really dumb hack and idc
+			move.curHits++;
 		},
 		multihit: [1, 3],
 		secondary: null,
@@ -1379,18 +1395,24 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 60,
 		category: "Special",
-		desc: "",
-		shortDesc: "",
+		desc: "User gains +1 speed and changes form. Type depends on form",
+		shortDesc: "User gains +1 speed and changes form. Type depends on form",
 		name: "Unbind",
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
+			if (pokemon.species.baseSpecies === 'Hoopa') {
+				return;
+			}
+			this.add('-fail', pokemon, 'move: Unbind');
+			this.hint("Only a Pokemon whose form is Hoopa or Hoopa-Unbound can use this move.");
+			return null;
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Hyperspace Hole', source);
-			this.add('-anim', source, 'Hyperspace Fury', source);
+			this.add('-anim', source, 'Hyperspace Hole', target);
+			this.add('-anim', source, 'Hyperspace Fury', target);
 		},
 		onHit(target, pokemon, move) {
 			if (pokemon.baseSpecies.baseSpecies === 'Hoopa') {
@@ -2432,6 +2454,18 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, dance: 1},
 		secondary: null,
+		onTryMove() {
+			this.attrLastMove('[still]');
+			if (pokemon.species.baseSpecies === 'Meloetta') {
+				return;
+			}
+			this.add('-fail', pokemon, 'move: Unbind');
+			this.hint("Only a Pokemon whose form is Meloetta or Meloetta-Pirouette can use this move.");
+			return null;
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Relic Song', target);
+		},
 		onAfterMove(source) {
 			const formeMoves: {[key: string]: string[]} = {
 				meloetta: ["Quiver Dance", "Feather Dance", "Lunar Dance", "Relic Dance"],
