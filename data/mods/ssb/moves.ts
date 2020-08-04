@@ -1401,7 +1401,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1},
-		onTryMove() {
+		onTryMove(pokemon, target, move) {
 			this.attrLastMove('[still]');
 			if (pokemon.species.baseSpecies === 'Hoopa') {
 				return;
