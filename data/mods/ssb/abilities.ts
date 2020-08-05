@@ -436,7 +436,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	// grimAuxiliatrix
 	biosteel: {
 		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out and prevents other Pokemon from lowering this Pokemon's stat stages.",
-		shortDesc: "Restores 1/3 of its maximum HP when it switches out. Prevents other Pokemon from lowering its stat stages.",
+		shortDesc: "This Pokemon restores 1/3 max HP when it switches out. Other Pokemon can't lower this Pokemon's stat stages.",
 		name: "Bio-steel",
 		isUnbreakable: true,
 		onSwitchOut(pokemon) {
