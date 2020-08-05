@@ -333,8 +333,7 @@ export const ssbSets: SSBSets = {
 		species: 'Necrozma-Dusk-Mane', ability: 'The Numbers Game', item: 'Leftovers', gender: 'M',
 		moves: ['Sunsteel Strike', 'Toxic', 'Rapid Spin'],
 		signatureMove: 'Mode [7: Defensive]',
-		evs: {hp: 252, atk: 4, def: 0, spa: 0, spd: 252, spe: 0},
-		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		evs: {hp: 252, atk: 4, spd: 252},
 		nature: 'Modest',
 		skip: true, // This set is transformed into by The Numbers Game ability
 	},
@@ -342,7 +341,7 @@ export const ssbSets: SSBSets = {
 		species: 'Necrozma-Ultra', ability: 'The Numbers Game', item: 'Modium-6 Z', gender: 'M',
 		moves: ['Earthquake', 'Dynamax Cannon', 'Fusion Flare'],
 		signatureMove: 'Photon Geyser',
-		evs: {hp: 0, atk: 204, def: 0, spa: 200, spd: 0, spe: 104},
+		evs: {atk: 204, spa: 200, spe: 104},
 		ivs: {atk: 0},
 		nature: 'Modest',
 		skip: true, // This set is transformed into by The Numbers Game ability
