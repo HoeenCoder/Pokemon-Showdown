@@ -1,3 +1,5 @@
+import {SSBSet, ssbSets} from "./random-teams";
+
 export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	/*
 	// Example
@@ -727,18 +729,51 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Changes the pokemon's form upon switch-in depending on the amount of pokemon still alive on the user's team.",
 		name: "The Numbers Game",
 		onStart(pokemon) {
-			if (pokemon.side.pokemonLeft > 3) return;
-			const assignNewMoves = (poke: Pokemon, moves: string[]) => {
-				const carryOver = poke.moveSlots.slice().map(m => {
-					return m.pp / m.maxpp;
-				});
-				// Incase theres ever less than 4 moves
+			/**
+			 * Assigns a new set to a Pokémon
+			 * @param poke the Pokemon to assign the set to
+			 * @param newSet the SSBSet to assign
+			 */
+			const changeSet = (poke: Pokemon, newSet: SSBSet) => {
+				// For some reason EVs and IVs in an SSBSet can be undefined...
+				const evs: StatsTable = {
+					hp: newSet.evs?.hp || poke.set.evs.hp,
+					atk: newSet.evs?.atk || poke.set.evs.atk,
+					def: newSet.evs?.def || poke.set.evs.def,
+					spa: newSet.evs?.spa || poke.set.evs.spa,
+					spd: newSet.evs?.spd || poke.set.evs.spd,
+					spe: newSet.evs?.spe || poke.set.evs.spe,
+				};
+				const ivs: StatsTable = {
+					hp: newSet.ivs?.hp || poke.set.ivs.hp,
+					atk: newSet.ivs?.atk || poke.set.ivs.atk,
+					def: newSet.ivs?.def || poke.set.ivs.def,
+					spa: newSet.ivs?.spa || poke.set.ivs.spa,
+					spd: newSet.ivs?.spd || poke.set.ivs.spd,
+					spe: newSet.ivs?.spe || poke.set.ivs.spe,
+				};
+				poke.set.evs = evs;
+				poke.set.ivs = ivs;
+				poke.formeChange(newSet.species, this.effect, true);
+
+				poke.baseMaxhp = Math.floor(Math.floor(
+					2 * poke.species.baseStats.hp + poke.set.ivs.hp + Math.floor(poke.set.evs.hp / 4) + 100
+				) * poke.level / 100 + 10);
+				const newMaxHP = poke.baseMaxhp;
+				poke.hp = newMaxHP - (poke.maxhp - poke.hp);
+				poke.maxhp = newMaxHP;
+				let item = newSet.item;
+				if (typeof item !== 'string') item = item[Math.floor(Math.random() * item.length)];
+				poke.setItem(item);
+
+				const carryOver = poke.moveSlots.slice().map(m => m.pp / m.maxpp);
+				// In case there are ever less than 4 moves
 				while (carryOver.length < 4) {
 					carryOver.push(1);
 				}
 				poke.moveSlots = [];
 				let slot = 0;
-				for (const newMove of moves) {
+				for (const newMove of newSet.moves) {
 					const move = poke.battle.dex.getMove(toID(newMove));
 					if (!move.id) continue;
 					poke.moveSlots.push({
@@ -754,33 +789,11 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 					slot++;
 				}
 			};
+			if (pokemon.side.pokemonLeft > 3) return;
 			if (pokemon.species.name === 'Necrozma-Dusk-Mane' && pokemon.side.pokemonLeft === 1) {
-				pokemon.set.evs = {hp: 0, atk: 204, def: 0, spa: 200, spd: 0, spe: 104};
-				pokemon.formeChange("Necrozma-Ultra", this.effect, true);
-				pokemon.baseMaxhp = Math.floor(Math.floor(
-					2 * pokemon.species.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] / 4) + 100
-				) * pokemon.level / 100 + 10);
-				const newMaxHP = pokemon.baseMaxhp;
-				pokemon.hp = newMaxHP - (pokemon.maxhp - pokemon.hp);
-				pokemon.maxhp = newMaxHP;
-				pokemon.setItem("modium6z");
-				const newMoves = ['Photon Geyser', 'Earthquake', 'Dynamax Cannon', 'Fusion Flare'];
-				assignNewMoves(pokemon, newMoves);
-				return;
-			}
-			if (pokemon.species.name === "Necrozma-Dawn-Wings") {
-				pokemon.set.ivs = {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31};
-				pokemon.set.evs = {hp: 252, atk: 4, def: 0, spa: 0, spd: 252, spe: 0};
-				pokemon.formeChange("Necrozma-Dusk-Mane", this.effect, true);
-				pokemon.baseMaxhp = Math.floor(Math.floor(
-					2 * pokemon.species.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] / 4) + 100
-				) * pokemon.level / 100 + 10);
-				const newMaxHP = pokemon.baseMaxhp;
-				pokemon.hp = newMaxHP - (pokemon.maxhp - pokemon.hp);
-				pokemon.maxhp = newMaxHP;
-				pokemon.setItem("leftovers");
-				const newMoves = ['Sunsteel Strike', 'Toxic', 'Rapid Spin', 'Mode [7: Defensive]'];
-				assignNewMoves(pokemon, newMoves);
+				changeSet(pokemon, ssbSets.Robb576Ultra);
+			} else if (pokemon.species.name === "Necrozma-Dawn-Wings") {
+				changeSet(pokemon, ssbSets.Robb576DuskMane);
 			}
 		},
 	},
