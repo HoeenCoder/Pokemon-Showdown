@@ -2461,7 +2461,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			if (pokemon.species.baseSpecies === 'Meloetta') {
 				return;
 			}
-			this.add('-fail', pokemon, 'move: Unbind');
+			this.add('-fail', pokemon, 'move: Relic Dance');
 			this.hint("Only a Pokemon whose form is Meloetta or Meloetta-Pirouette can use this move.");
 			return null;
 		},
