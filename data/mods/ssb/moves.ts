@@ -2179,7 +2179,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		},
 		onHit(target, source, move) {
 			if (target.trySetStatus('brn', source, move)) {
-				source.heal(source.baseMaxHp / 3);
+				source.heal(source.baseMaxhp / 3);
 				return;
 			}
 			return false;
