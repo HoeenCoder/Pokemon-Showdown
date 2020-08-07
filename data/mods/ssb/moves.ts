@@ -2115,7 +2115,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		name: "Soul-Shattering Stare",
 		pp: 10,
 		priority: -7,
-		flags: {authentic: 1},
+		flags: {protect: 1, authentic: 1, reflectable: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -2158,7 +2158,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Fire",
 	},
-		
+
 	// xJoelituh
 	burnbone: {
 		accuracy: 90,
@@ -2169,7 +2169,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		name: "Burn Bone",
 		pp: 10,
 		priority: 1,
-		flags: {protect:1},
+		flags: {protect: 1, reflectable: 1},
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -2177,7 +2177,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Will-O-Wisp', target);
 			this.add('-anim', source, 'Shadow Bone', target);
 		},
-		onHit(target, source) {
+		onHit(target, source, move) {
 			if (target.trySetStatus('brn', source, move)) {
 				source.heal(source.baseMaxHp / 3);
 				return;
@@ -2187,7 +2187,6 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Fire",
-		
 	},
 
 	// yuki
