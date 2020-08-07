@@ -831,7 +831,7 @@ export const BattleStatuses: {[k: string]: ModdedPureEffectData} = {
 		onFaint() {
 			let str = '';
 			for (let x = 0; x < 10; x++) str += String.fromCharCode(48 + this.random(79));
-			this.add(`c|${getName('xJoelituh')}|${str}`);
+			this.add(`c|${getName('xJoelituh')}|${str} ok`);
 		},
 	},
 	yuki: {
