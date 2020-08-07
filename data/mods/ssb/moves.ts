@@ -2166,7 +2166,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		category: "Status",
 		desc: "",
 		shortDesc: "",
-		name: "Move Name",
+		name: "Burn Bone",
 		pp: 10,
 		priority: 1,
 		flags: {protect:1},
