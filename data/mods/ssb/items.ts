@@ -49,15 +49,19 @@ export const BattleItems: {[k: string]: ModdedItemData} = {
 	},
 	// xJoelituh
 	rarebone: {
-		name: "Rare Bone",
+		inherit: true,
+		onModifyAtkPriority: 2,
 		onModifyAtk(atk, source) {
 			return this.chainModify(1.5);
 		},
+		onModifyDefPriority: 2,
 		onModifyDef(def, source) {
 			return this.chainModify(1.5);
 		},
-		onModifySpd(spd, source) {
+		onModifySpDPriority: 2,
+		onModifySpD(spd, pokemon) {
 			return this.chainModify(1.5);
-		}
+		},
+		desc: "1.5x to Attack, Defense, and Special Defense.",
 	},
 };
