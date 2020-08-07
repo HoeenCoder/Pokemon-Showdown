@@ -2164,8 +2164,8 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		accuracy: 90,
 		basePower: 0,
 		category: "Status",
-		desc: "",
-		shortDesc: "",
+		desc: "This pokemon heals 33% of their health if this move burns this pokemon.",
+		shortDesc: "Heals 33% of their health if this move burns.",
 		name: "Burn Bone",
 		pp: 10,
 		priority: 1,
@@ -2178,13 +2178,13 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Shadow Bone', target);
 		},
 		onHit(target, source) {
-			if (target.status && target.status === 'brn') return;
-			source.heal(source.baseMaxHp / 3);
+			if (target.trySetStatus('brn', source, move)) {
+				source.heal(source.baseMaxHp / 3);
+				return;
+			}
+			return false;
 		},
-		secondary: {
-			chance: 100,
-			status: 'brn'
-		},
+		secondary: null,
 		target: "normal",
 		type: "Fire",
 		
