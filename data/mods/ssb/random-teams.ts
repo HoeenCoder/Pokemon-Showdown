@@ -386,7 +386,7 @@ export const ssbSets: SSBSets = {
 		species: 'Marowak-Alola', ability: 'Mountaineer', item: 'Rare Bone', gender: 'M',
 		moves: ['Poltergeist', 'Fire Punch', 'Stomping Tantrum'],
 		signatureMove: 'Burn Bone',
-		evs: {hp: 248, atk: 8, spd: 252}, nature: 'Careful', shiny: true
+		evs: {hp: 248, atk: 8, spd: 252}, nature: 'Careful', shiny: true,
 	},
 	yuki: {
 		species: 'Pikachu-Cosplay', ability: 'Combat Training', item: 'Light Ball', gender: 'F',
