@@ -332,7 +332,7 @@ export const BattleMovedex: {[k: string]: ModdedMoveData} = {
 		accuracy: true,
 		basePower: 100,
 		category: "Physical",
-		desc: "This move combines the user's current typing in its type effectiveness against the target. Can RBY miss.",
+		desc: "This move combines the user's current typing in its type effectiveness against the target.",
 		shortDesc: "Combines current types in its type effectiveness.",
 		name: "Kevin",
 		pp: 10,
