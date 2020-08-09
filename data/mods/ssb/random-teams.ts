@@ -134,7 +134,7 @@ export const ssbSets: SSBSets = {
 	'drampa\'s grandpa': {
 		species: 'Drampa', ability: 'Old Manpa', item: 'Wise Glasses', gender: 'M',
 		moves: [
-			['Spikes', 'Stealth Rock', 'Toxic Spikes'], 'Slack Off', ['Core Enforcer', 'Snarl', 'Lava Plume', 'Steam Eruption'],
+			['Spikes', 'Stealth Rock', 'Toxic Spikes'], 'Slack Off', ['Core Enforcer', 'Snarl', 'Lava Plume', 'Scorching Sands'],
 		],
 		signatureMove: 'GET OFF MY LAWN!',
 		evs: {hp: 248, def: 8, spa: 252}, ivs: {atk: 0}, nature: 'Modest',
