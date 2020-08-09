@@ -97,6 +97,51 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Flying",
 	},
 
+	// Aelita
+	xanaskeystolyoko: {
+		accuracy: 100,
+		basePower: 20,
+		basePowerCallback(pokemon, target, move) {
+			return move.basePower + 20 * pokemon.positiveBoosts();
+		},
+		category: "Physical",
+		desc: "Power is equal to 20+(X*20), where X is the user's total stat stage changes that are greater than 0. User raises a random stat if it has less than 5 positive stat changes.",
+		shortDesc: "+ 20 power for each of the user's stat boosts. Boosts a random stat if below 5 boosts.",
+		name: "XANA\'s Keys To Lyoko",
+		pp: 64,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Draco Meteor', target);
+		},
+		self: {
+			onHit(pokemon) {
+				if (pokemon.positiveBoosts() < 5) {
+					const stats: BoostName[] = [];
+					let stat: BoostName;
+					for (stat in pokemon.boosts) {
+						if (stat !== 'accuracy' && stat !== 'evasion' && pokemon.boosts[stat] < 6) {
+							stats.push(stat);
+						}
+					}
+					if (stats.length) {
+						const randomStat = this.sample(stats);
+						const boost: SparseBoostsTable = {};
+						boost[randomStat] = 2;
+						this.boost(boost);
+					}
+				}
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Flying",
+	},
+
 	// Aeonic
 	lookingcool: {
 		accuracy: true,
@@ -620,8 +665,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 95,
 		basePower: 120,
 		category: "Physical",
-		desc: "",
-		shortDesc: "",
+		desc: "Paralyzes target, and take 40% recoil. If the user is fire-type, it burns the target and take 33% recoil.",
+		shortDesc: "Paralyzes target + 40% recoil. Fire: burns target + 33% recoil.",
 		name: "Epic Rage",
 		pp: 5,
 		priority: 0,
@@ -642,7 +687,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			});
 			move.recoil = [33, 100];
 		},
-		recoil: [2, 5],
+		recoil: [4, 10],
 		secondary: {
 			chance: 100,
 			status: "par",
