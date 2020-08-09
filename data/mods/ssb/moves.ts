@@ -107,7 +107,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		category: "Physical",
 		desc: "Power is equal to 20+(X*20), where X is the user's total stat stage changes that are greater than 0. User raises a random stat if it has less than 5 positive stat changes.",
 		shortDesc: "+ 20 power for each of the user's stat boosts. Boosts a random stat if below 5 boosts.",
-		name: "XANA\'s Keys To Lyoko",
+		name: "XANA's Keys To Lyoko",
 		pp: 40,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
