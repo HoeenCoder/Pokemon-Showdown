@@ -483,6 +483,21 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
+	// Inactive
+	dragonscale: {
+		shortDesc: "If this Pokemon gets statused, its Def is 1.5x and it restores 25% HP.",
+		onModifyDefPriority: 6,
+		onModifyDef(def, pokemon) {
+			if (pokemon.status) {
+				return this.chainModify(1.5);
+			}
+		},
+		onSetStatus(status, target, source, effect) {
+			target.heal(target.baseMaxhp / 4);
+		},
+		name: "Dragon Scale",
+	},
+
 	// Iyarito
 	pollodiablo: {
 		shortDesc: "This Pokemon's Special Attack is 1.5x, but it can only select the first move it executes.",
