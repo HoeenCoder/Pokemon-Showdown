@@ -17,12 +17,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		desc: "This clears everything on both sides on switch in. This Pokemon's moves ignore abilities. If this Pokemon is a Zygarde in its 10% or 50% Forme, it changes to Complete Forme when it has 1/2 or less of its maximum HP at the end of the turn.",
 		shortDesc: "Clears everything on both sides. Moves ignore abilities. Zygarde can become 100% form.",
 		name: "Scyphozoa",
-		onStart(source) {
+		onSwitchIn(source) {
 			this.add('-ability', source, 'Scyphozoa');
 			const target = source.side.foe.active[0];
 
 			const removeAll = [
-				'reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb',
+				'reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'shiftingrocks', 'stickyweb',
 			];
 			const silentRemove = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist'];
 			for (const sideCondition of removeAll) {
@@ -55,7 +55,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onResidual(pokemon) {
 			if (pokemon.baseSpecies.baseSpecies !== 'Zygarde' || pokemon.transformed || !pokemon.hp) return;
 			if (pokemon.species.id === 'zygardecomplete' || pokemon.hp > pokemon.maxhp / 2) return;
-			this.add('-activate', pokemon, 'ability: Power Construct');
+			this.add('-activate', pokemon, 'ability: Scyphozoa');
 			pokemon.formeChange('Zygarde-Complete', this.effect, true);
 			pokemon.baseMaxhp = Math.floor(Math.floor(
 				2 * pokemon.species.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] / 4) + 100
@@ -228,7 +228,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.baseMaxhp / 3);
 		},
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			const possibleTypes = [];
 			const newTypes = [];
 			const weaknesses = [];
@@ -886,7 +886,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		desc: "When switching in, become a random type that resists the last move the opponent used. If no move was used or if it's the first turn, pick a random type. If hit by a move that is not very effective, become Aggron-Mega (but keep the same type).",
 		shortDesc: "I dont even know how to shortdesc this",
 		name: "Overasked Clause",
-		onStart(source) {
+		onSwitchIn(source) {
 			const target = source.side.foe.active[0];
 			if (!target || !target.lastMove) {
 				const typeList = Object.keys(this.dex.data.TypeChart);
