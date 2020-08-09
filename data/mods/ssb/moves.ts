@@ -1618,7 +1618,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Shifting Rocks",
 		pp: 15,
 		priority: 0,
-		flags: {},
+		flags: {reflectable: 1},
 		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
