@@ -9,7 +9,7 @@ export interface SSBSet {
 	signatureMove: string;
 	evs?: {hp?: number, atk?: number, def?: number, spa?: number, spd?: number, spe?: number};
 	ivs?: {hp?: number, atk?: number, def?: number, spa?: number, spd?: number, spe?: number};
-	nature: string | string[];
+	nature?: string | string[];
 	shiny?: number | boolean;
 	level?: number;
 	happiness?: number;
@@ -521,7 +521,7 @@ export class RandomStaffBrosTeams extends RandomTeams {
 				item: Array.isArray(ssbSet.item) ? this.sampleNoReplace(ssbSet.item) : ssbSet.item,
 				ability: Array.isArray(ssbSet.ability) ? this.sampleNoReplace(ssbSet.ability) : ssbSet.ability,
 				moves: [],
-				nature: Array.isArray(ssbSet.nature) ? this.sampleNoReplace(ssbSet.nature) : ssbSet.nature,
+				nature: ssbSet.nature ? Array.isArray(ssbSet.nature) ? this.sampleNoReplace(ssbSet.nature) : ssbSet.nature : 'Serious',
 				gender: ssbSet.gender,
 				evs: Object.assign({hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0}, ssbSet.evs),
 				ivs: Object.assign({hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31}, ssbSet.ivs),
