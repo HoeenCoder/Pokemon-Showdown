@@ -25,7 +25,7 @@ export function changeSet(context: Battle, pokemon: Pokemon, newSet: SSBSet) {
 	};
 	pokemon.set.evs = evs;
 	pokemon.set.ivs = ivs;
-	pokemon.set.nature = Array.isArray(newSet.nature) ? context.sample(newSet.nature) : newSet.nature;
+	if (newSet.nature) pokemon.set.nature = Array.isArray(newSet.nature) ? context.sample(newSet.nature) : newSet.nature;
 	pokemon.formeChange(newSet.species, context.effect, true);
 
 	pokemon.baseMaxhp = Math.floor(Math.floor(
