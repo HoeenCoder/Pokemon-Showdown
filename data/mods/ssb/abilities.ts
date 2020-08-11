@@ -57,7 +57,7 @@ export function changeMoves(context: Battle, pokemon: Pokemon, newSet: SSBSet) {
 	let slot = 0;
 	for (const newMove of newSet.moves.concat(newSet.signatureMove)) {
 		const moveName = Array.isArray(newMove) ? newMove[context.random(newMove.length)] : newMove;
-		const move = pokemon.battle.dex.getMove(this.toID(moveName));
+		const move = pokemon.battle.dex.getMove(context.toID(moveName));
 		if (!move.id) continue;
 		const moveSlot = {
 			move: move.name,
