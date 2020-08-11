@@ -279,7 +279,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onHit(target, source, move) {
 			for (const pokemon of this.getAllActive()) {
 				changeMoves(this, pokemon, ssbSets[pokemon.name]);
-				this.add('-message', `Annika refactored ${pokemon === target ? `herself` : `the opposing ${pokemon.name}`}!`);
+				this.add('-message', `${source.name} refactored ${pokemon === target ? `themself` : `the opposing ${pokemon.name}`}!`);
 			}
 		},
 		target: "self",
