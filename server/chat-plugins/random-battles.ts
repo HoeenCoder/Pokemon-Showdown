@@ -325,7 +325,9 @@ function SSBSets(target: string) {
 			}
 			buf += `<li>EVs: ${evs.join(" / ")}</li>`;
 		}
-		if (set.nature) buf += `<li>${Array.isArray(set.nature) ? set.nature.join(" / ") : formatNature(set.nature)} Nature</li>`;
+		if (set.nature) {
+			buf += `<li>${Array.isArray(set.nature) ? set.nature.join(" / ") : formatNature(set.nature)} Nature</li>`;
+		}
 		if (set.ivs) {
 			const ivs: string[] = [];
 			let iv: StatName;
