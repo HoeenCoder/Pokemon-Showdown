@@ -340,6 +340,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', target, 'Subzero Slammer', target);
 			this.add('-anim', source, 'Subzero Slammer', source);
 		},
+		isZ: "caioniumz",
 		secondary: null,
 		weather: 'heavyhailstorm',
 		target: "all",
@@ -365,6 +366,32 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		target: "self",
 		type: "Psychic",
+	},
+
+	// A Quag To The Past
+	bountyplace: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "Puts a bounty on the target. If the target is KOed by a direct attack, the attacker will gain +1 Attack, Defense, Special Attack, Special Defense, and Speed. If the target has a major status condition, it cannot have a bounty placed on it.",
+		shortDesc: "Puts a bounty on the target.",
+		name: "Bounty Place",
+		pp: 1,
+		priority: 0,
+		flags: {},
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Pay Day', target);
+			this.add('-anim', source, 'Block', target);
+		},
+		status: "bounty",
+		isZ: "quagniumz",
+		secondary: null,
+		target: "normal",
+		type: "Ground",
 	},
 
 	// a random duck

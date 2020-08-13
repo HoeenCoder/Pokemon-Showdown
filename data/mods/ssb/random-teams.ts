@@ -83,6 +83,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Refactor',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Quirky', shiny: true,
 	},
+	'A Quag To The Past': {
+		species: 'Quagsire', ability: 'Carefree', item: 'Quagnium Z', gender: 'M',
+		moves: ['Shore Up', 'Flip Turn', ['Haze', 'Toxic']],
+		signatureMove: 'Scorching Sands',
+		evs: {hp: 252, def: 252, spd: 4}, ivs: {spe: 0}, nature: 'Relaxed',
+	},
 	'a random duck': {
 		species: 'Ducklett', ability: 'Gale Wings v1', item: 'Heavy Duty Boots', gender: 'M',
 		moves: ['Thousand Waves', 'Liquidation', ['Brave Bird', 'Dragon Ascent']],

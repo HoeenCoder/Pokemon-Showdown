@@ -65,7 +65,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 	},
 	aegii: {
 		noCopy: true,
-		onStart(pokemon) {
+		onStart() {
 			this.add(`c|${getName('aegii')}|${[`stream fiesta!!! https://youtu.be/eDEFolvLn0A`, `stream more&more!!! https://youtu.be/mH0_XpSHkZo`, `stream wannabe!!! https://youtu.be/fE2h3lGlOsk`, `stream love bomb!!! https://youtu.be/-SK6cvkK4c0`][this.random(4)]}`);
 		},
 		onSwitchOut() {
@@ -133,6 +133,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Annika')}|oh, I crashed the server again...`);
+		},
+	},
+	aquagtothepast: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('A Quag To The Past')}|Whatever happens, happens.`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('A Quag To The Past')}|See you space cowboy...`);
+		},
+		onFaint() {
+			this.add(`c|${getName('A Quag To The Past')}|You're gonna carry that weight.`);
 		},
 	},
 	arandomduck: {
@@ -1268,6 +1280,31 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		onSwitchIn(pokemon) {
 			if (pokemon.name !== 'Darth') {
 				this.effectData.storedTypes = pokemon.getTypes();
+			}
+		},
+	},
+	// Custom status for A Quag To The Past's signature move
+	bounty: {
+		name: 'bounty',
+		effectType: 'Status',
+		onStart(target, source, sourceEffect) {
+			if (sourceEffect.effectType === 'Ability') {
+				this.add('-start', target, 'bounty', '[from] ability: ' + sourceEffect.name, '[of] ' + source);
+			} else {
+				this.add('-start', target, 'bounty');
+			}
+			// this.add('-start', target, 'bounty', '[silent]');
+		},
+		onSwitchIn(pokemon) {
+			if (pokemon.status === 'bounty') {
+				this.add('-start', pokemon, 'bounty');
+			}
+		},
+		onFaint(target, source, effect) {
+			if (effect.effectType !== 'Move') return;
+			if (source) {
+				this.add('-activate', target, 'ability: Bounty');
+				this.boost({atk: 1, def: 1, spa: 1, spd: 1, spe: 1}, source, target, effect);
 			}
 		},
 	},

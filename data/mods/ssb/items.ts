@@ -11,6 +11,18 @@ export const Items: {[k: string]: ModdedItemData} = {
 		desc: "If held by an Aurorus with Blizzard, it can use Blistering Ice Age.",
 	},
 
+	// A Quag To The Past
+	quagniumz: {
+		name: "Quagnium Z",
+		isNonstandard: "Custom",
+		onTakeItem: false,
+		zMove: "Bounty Place",
+		zMoveFrom: "Scorching Sands",
+		itemUser: ["Quagsire"],
+		gen: 8,
+		desc: "If held by a Quagsire with Scorching Sands, it can use Bounty Place.",
+	},
+
 	// frostyicelad ❆
 	icestone: {
 		inherit: true,
