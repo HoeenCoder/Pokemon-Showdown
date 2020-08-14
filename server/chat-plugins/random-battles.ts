@@ -308,6 +308,7 @@ function SSBSets(target: string) {
 	let buf = '';
 	for (const name of names) {
 		if (buf) buf += `<hr>`;
+		buf += `<details><summary>${displayName === 'yuki' ? name : displayName}</summary>`;
 		const set = ssbSets[name];
 		const mutatedSpecies = dex.getSpecies(set.species);
 		buf += `<img src="https://${Config.routes.client}/sprites/ani/${mutatedSpecies.spriteid}.gif" />`;
@@ -399,6 +400,7 @@ function SSBSets(target: string) {
 			}
 			buf += `<p><strong>Custom Base Stats</strong>: ${stats.join(` / `)}</p>`;
 		}
+		buf += `</details>`;
 	}
 	return buf;
 }
