@@ -279,6 +279,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			pokemon.formeChange('Shaymin-Sky', this.effect);
 		},
 	},
+	// Celine
+	guardianarmor: {
+		shortDesc: "Raises Defense and Special Defense by two stages upon switch in.",
+		isNonstandard: "Custom",
+		onModifyDef(def) {
+			return this.chainModify(2);
+		},
+		onModifySpD(spd) {
+			return this.chainModify(2);
+		},
+		name: "Guardian Armor",
+	},
 	// Darth
 	seraphicregeneration: {
 		desc: "When this Pokemon switches out, it regains 33% of its HP, then its replacement recovers 33% of its HP.",

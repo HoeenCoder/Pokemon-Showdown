@@ -201,6 +201,12 @@ export class RandomStaffBrosTeams extends RandomTeams {
 				signatureMove: 'Hyperforce Strike',
 				evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
 			},
+			Celine: {
+				species: 'Lucario', ability: 'Guardian Armor', item: 'Leftovers', gender: 'F',
+				moves: ['Wish', 'Teleport', 'Drain Punch'],
+				signatureMove: 'Status Guard',
+				evs: {hp: 248, def: 252, spd: 8}, nature: 'Impish',
+			},
 			Ceteris: {
 				species: 'Greninja', ability: 'Protean', item: 'Expert Belt', gender: 'M',
 				moves: ['Dark Pulse', 'Origin Pulse', 'Gunk Shot', 'Shadow Sneak'],

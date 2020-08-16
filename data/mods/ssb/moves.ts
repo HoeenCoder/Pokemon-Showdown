@@ -1082,6 +1082,37 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Ice",
 	},
+	// Celine
+	statusguard: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		desc: "Protects from physical moves. If hit by physical move, opponent is either badly poisoned, burned, or paralyzed at random and is forced out. Special attacks and status moves go through this protect.",
+		shortDesc: "If opponent uses physical attack, then gets status and phazed. User is protected.",
+		name: "Status Guard",
+		pp: 10,
+		priority: 4,
+		flags: {protect: 1},
+		onTryMovePriority: 100,  // don't understand this and next line
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Protect', source);
+		},
+		onModifyMove(move, pokemon) {
+			move.secondaries = [];
+			const statuses = ['brn', 'par', 'tox'];
+			move.secondaries.push({
+				chance: 100,
+				status: this.sample(statuses),
+			});
+		},
+		forceSwitch: true,
+		secondary: null,
+		target: "self",
+		type: "Normal",
+	},
 	// Ceteris
 	bringerofdarkness: {
 		accuracy: true,
