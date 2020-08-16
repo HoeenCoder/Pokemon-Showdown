@@ -1,381 +1,298 @@
+import {FS} from '../../../lib/fs';
+import {toID} from '../../../sim/dex-data';
+
+// Similar to User.usergroups. Cannot import here due to users.ts requiring Chat
+// This also acts as a cache, meaning ranks will only update when a hotpatch/restart occurs
+const usergroups: {[userid: string]: string} = {};
+const usergroupData = FS('config/usergroups.csv').readIfExistsSync().split('\n');
+for (const row of usergroupData) {
+	if (!toID(row)) continue;
+
+	const cells = row.split(',');
+	usergroups[toID(cells[0])] = cells[1] || ' ';
+}
+
+export function getName(name: string): string {
+	const userid = toID(name);
+	if (!userid) throw new Error('No/Invalid name passed to getSymbol');
+
+	const group = usergroups[userid] || ' ';
+	return group + name;
+}
+
 export const Conditions: {[k: string]: ModdedConditionData} = {
 	/*
 	// Example:
 	userid: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+Username|Switch In Message`);
+			this.add(`c|${getName('Username')}|Switch In Message`);
 		},
 		onSwitchOut() {
-			this.add(`c|+Username|Switch Out Message`);
+			this.add(`c|${getName('Username')}|Switch Out Message`);
 		},
 		onFaint() {
-			this.add(`c|+Username|Faint Message`);
+			this.add(`c|${getName('Username')}|Faint Message`);
 		},
 		// Innate effects go here
 	},
+	IMPORTANT: Obtain the username from getName
 	*/
 	// Please keep statuses organized alphabetically based on staff member name!
-	'2xthetap': { // No single quotes causes issues
+	adri: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+2xTheTap|Time for a heckin' battle.`);
+			this.add(`c|${getName('Adri')}|This time will definitely be the one !`);
 		},
 		onSwitchOut() {
-			this.add(`c|+2xTheTap|Doin' me a heckin' concern.`);
+			this.add(`c|${getName('Adri')}|//afk`);
 		},
 		onFaint() {
-			this.add(`c|+2xTheTap|Doin' me the final bamboozle.`);
-		},
-	},
-	'5gen': {
-		noCopy: true,
-		onStart(source) {
-			this.add(`c|+5gen|Someone asked for extra sauce?`);
-			if (source.illusion) return;
-			this.field.setWeather('sunnyday', source);
-		},
-		onSwitchOut() {
-			this.add(`c|+5gen|Need to get some from the back.`);
-		},
-		onFaint() {
-			this.add(`c|+5gen|I'm not dead yet, just changing formes.`);
+			this.add(`c|${getName('Adri')}|Until next time...`);
 		},
 	},
 	aelita: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Aelita|Transfer, Aelita! Scanner, Aelita! Virtualization!`);
+			this.add(`c|${getName('Aelita')}|The Scyphozoa's absorbing Aelita's memories!`);
 		},
 		onSwitchOut() {
-			this.add(`c|@Aelita|I have a tower to deactivate. See ya!`);
+			this.add(`c|${getName('Aelita')}|We scared it away but it will be back. We can't let it get ahold of Aelita's memories.`);
 		},
 		onFaint() {
-			this.add(`c|@Aelita|CODE: LYOKO . Tower deactivated... Return to the past, now!`);
+			this.add(`c|${getName('Aelita')}|X.A.N.A. is finally finished for good.`);
+		},
+	},
+	aegii: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('aegii')}|${[`stream fiesta!!! https://youtu.be/eDEFolvLn0A`, `stream more&more!!! https://youtu.be/mH0_XpSHkZo`, `stream wannabe!!! https://youtu.be/fE2h3lGlOsk`, `stream love bomb!!! https://youtu.be/-SK6cvkK4c0`][this.random(4)]}`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('aegii')}|${[`brb, buying albums`, `brb, buying albums`, `brb, streaming mvs`, `brb, learning choreos`][this.random(4)]}`);
+		},
+		onFaint() {
+			this.add(`c|${getName('aegii')}|i forgot to stan loona...`);
 		},
 	},
 	aeonic: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|&Aeonic|Guys the emoji movie wasn't __that__ bad`);
+			this.add(`c|${getName('Aeonic')}|What's bonkin?`);
 		},
 		onSwitchOut() {
-			this.add(`c|&Aeonic|Still better than kie btw`);
+			this.add(`c|${getName('Aeonic')}|I am thou, thou art I`);
 		},
 		onFaint() {
-			this.add(`c|&Aeonic|Don't forget me`);
+			this.add(`c|${getName('Aeonic')}|Guys the emoji movie wasn't __that bad__`);
 		},
 	},
 	aethernum: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Aethernum|I am __Eterno__, fear me! ...or not...but you should! ...or not...`);
+			this.add(`c|${getName('Aethernum')}|Hlelo ^_^ Lotad is so cute, don't you think? But don't underestimate him!`);
 		},
 		onSwitchOut() {
-			this.add(`c|@Aethernum|I'm not defeated, i'm just afk :^)`);
+			this.add(`c|${getName('Aethernum')}|Sinking in this sea of possibilities for now...but i'll float back once again!`);
 		},
 		onFaint() {
-			this.add(`c|@Aethernum| Has been fun! But i'm too lazy to keep fighting ^_^'`);
-		},
-	},
-	akiamara: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Akiamara|alguem br?`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Akiamara|Pode me multar que já volto`);
-		},
-		onFaint() {
-			this.add(`c|+Akiamara|I'm going to report you to my big fren Mitsuki`);
+			this.add(`c|${getName('Aethernum')}|Ok, ok, i have procrastinated enough here, time to go ^_^' See ya around!`);
 		},
 	},
 	akir: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|%Akir|hey whats up`);
+			this.add(`c|${getName('Akir')}|hey whats up`);
 		},
-		onSwitchOut(pokemon) {
-			this.add(`c|%Akir|sorry need to build more`);
-			if (pokemon.illusion) return;
-			pokemon.heal(pokemon.baseMaxhp / 3);
+		onSwitchOut() {
+			this.add(`c|${getName('Akir')}|let me get back to you`);
 		},
 		onFaint() {
-			this.add(`c|%Akir|too sleepy, c ya`);
-		},
-		onSourceModifyDamage(damage, source, target, move) {
-			if (target.getMoveHitData(move) && !target.illusion) {
-				this.debug('Mushroom Guard halves damage.');
-				return this.chainModify(0.5);
-			}
+			this.add(`c|${getName('Akir')}|ah well maybe next time`);
 		},
 	},
 	alpha: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Alpha|MAMMA MIA! It's me, ALPHA!`);
+			this.add(`c|${getName('Alpha')}|eccomi dimmi`);
 		},
 		onSwitchOut() {
-			this.add(`c|@Alpha|brb gonna eat some pizza`);
+			this.add(`c|${getName('Alpha')}|FRATM FACI FRIDDU`);
 		},
 		onFaint() {
-			this.add(`c|@Alpha|PER LA PATRIA!`);
+			this.add(`c|${getName('Alpha')}|caio`);
 		},
 	},
-	andrew: {
+	annika: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Andrew|Hah! You better have BURN HEAL!`);
+			this.add(`c|${getName('Annika')}|The circumstances of one's birth are irrelevant; it is what you do with the gift of life that determines who you are.`);
 		},
 		onSwitchOut() {
-			this.add(`c|@Andrew|brb kuncing`);
+			this.add(`c|${getName('Annika')}|I'll be stronger when I'm back ^_^`);
 		},
 		onFaint() {
-			this.add(`c|@Andrew|<_<`);
-		},
-	},
-	anubis: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Anubis|hi ur qt`);
-			// In loving memory of the SSB programming team's sanity.
-			if (this.random(300) === 272) this.add(`c|&HoeenHero|Anubis's set is OP against programmer sanity.`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Anubis|brb making coffee`);
-		},
-		onFaint() {
-			this.add(`c|+Anubis|worthless evildoer :(`);
+			this.add(`c|${getName('Annika')}|oh, I crashed the server again...`);
 		},
 	},
 	aquagtothepast: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+A Quag to The Past|The Goons are all here`);
+			this.add(`c|${getName('A Quag To The Past')}|Whatever happens, happens.`);
 		},
 		onSwitchOut() {
-			this.add(`c|+A Quag to The Past|um no`);
+			this.add(`c|${getName('A Quag To The Past')}|See you space cowboy...`);
 		},
 		onFaint() {
-			this.add(`c|+A Quag to The Past|Wait, this isn't the groupchat...`);
+			this.add(`c|${getName('A Quag To The Past')}|You're gonna carry that weight.`);
 		},
 	},
 	arandomduck: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+a random duck|SWANNA LOSE???`);
-		},
-		onSwitchOut() {
-			this.add(`c|+a random duck|YEET`);
+			this.add(`c|${getName('a random duck')}|Hey! Got any grapes??`);
 		},
 		onFaint() {
-			this.add(`c|+a random duck|I guess that was my swan song`);
+			this.add(`c|${getName('a random duck')}|and he waddled away... bum bum bum`);
 		},
 	},
-	arcticblast: {
+	archastl: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|%Arcticblast|My trash friend can do no wrong`);
+			this.add(`c|${getName('ArchasTL')}|Ready the main batteries, gentlemen! Hit ‘em hard and fast!`);
 		},
-		onModifyMove(move) {
-			if (move.id === 'knockoff') {
-				move.onAfterHit = function (target, source) {
-					if (source.hp) {
-						const item = target.takeItem();
-						if (item) {
-							this.add('-enditem', target, item.name, '[from] move: Knock Off', '[of] ' + source);
-							this.add(`c|%Arcticblast|+20 ;)`);
-						}
-					}
-				};
-			}
+		onSwitchOut() {
+			this.add(`c|${getName('ArchasTL')}|Helmsman, full reverse at speed!`);
 		},
-		onFaint(pokemon) {
-			const activeMon = pokemon.side.foe.active[0].species.id;
-			if (activeMon === 'greninja') {
-				this.add(`c|%Arcticblast|FRIENDS DON’T const FRIENDS PLAY FROGS`);
-			} else if (activeMon === 'pumpkaboosuper') {
-				this.add(`c|%Arcticblast|WHY IS MY KAREN PRIZED`);
-			} else {
-				this.add(`c|%Arcticblast|FREE SKYMIN`);
-			}
+		onFaint() {
+			this.add(`c|${getName('ArchasTL')}|They say the captain always goes down with the ship...`);
 		},
-		onSourceFaint(target) {
-			if (target.species.id === 'greninja') {
-				this.add(`c|%Arcticblast|FRIENDS DON’T const FRIENDS PLAY FROGS`);
-			}
+		onSwitchIn(pokemon) {
+			if (pokemon.illusion) return;
+			if (!pokemon.m.indomitableActivated) pokemon.m.indomitableActivated = false;
 		},
 	},
 	arsenal: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|+Arsenal|Wenger In`);
+		onStart(pokemon) {
+			this.add(`c|${getName('Arsenal')}|Wenger Out`);
+			// Innate
+			if (pokemon.illusion) return;
+			this.boost({atk: 1}, pokemon);
 		},
 		onSwitchOut() {
-			this.add(`c|+Arsenal|Time to watch anime`);
+			this.add(`c|${getName('Arsenal')}|Wait.. Wenger is gone?? STAN OUT`);
 		},
 		onFaint() {
-			this.add(`c|+Arsenal|Wenger Out`);
+			this.add(`c|${getName('Arsenal')}|Next Year...`);
 		},
 	},
-	asheviere: {
+	awauser: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+Asheviere|Blessings to you.`);
+			this.add(`c|${getName('awa!')}|awa!`);
 		},
 		onSwitchOut() {
-			this.add(`c|+Asheviere|Don't trade me for someone else :(`);
+			this.add(`c|${getName('awa!')}|well, at least i didn't lose the game`);
+			this.add(`c|${getName('awa!')}|or did i?`);
 		},
 		onFaint() {
-			this.add(`c|+Asheviere|Who will lead my kingdom now?`);
-		},
-	},
-	averardo: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Averardo|ECCOMI`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Averardo|Scillato (PA)`);
-		},
-		onFaint() {
-			this.add(`c|+Averardo|Non mi sporcare più i MP`);
+			this.add(`c|${getName('awa!')}|awawa?! awa awawawa awawa >:(`);
 		},
 	},
 	beowulf: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|%Beowulf|/me BUZZES LOUDLY`);
+			this.add(`c|${getName('Beowulf')}|:^)`);
 		},
 		onSwitchOut() {
-			this.add(`c|%Beowulf|/me BUZZES LOUDLY`);
+			this.add(`c|${getName('Beowulf')}|/me buzzes`);
 		},
 		onFaint() {
-			this.add(`c|%Beowulf|BUZZ BUZZ BUZZ BUZZ`);
+			this.add(`c|${getName('Beowulf')}|time for my own isekai`);
+		},
+		onSourceFaint() {
+			this.add(`c|${getName('Beowulf')}|another one reincarnating into an isekai`);
 		},
 	},
 	biggie: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@biggie|Gamin' on ya`);
+			this.add(`c|${getName('biggie')}|gonna take you for a ride`);
 		},
 		onSwitchOut() {
-			this.add(`c|@biggie|Mission complete!`);
+			this.add(`c|${getName('biggie')}|mahvel baybee!`);
 		},
 		onFaint() {
-			this.add(`c|@biggie|It was all a dream`);
-		},
-	},
-	birdy: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Birdy~!|And I oop- uh, I mean, hi!`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Birdy~!|Be like that, then. Don't blame ME if you lose.`);
-		},
-		onFaint() {
-			this.add(`c|+Birdy~!|My last words will always be that I don't spam.`);
-		},
-		// Feather Tuft Innate
-		onModifyDefPriority: 6,
-		onModifyDef(def, pokemon) {
-			if (!pokemon.transformed && !pokemon.illusion) {
-				return this.chainModify(1.5);
-			}
-		},
-		onModifySpDPriority: 6,
-		onModifySpD(spd, pokemon) {
-			if (!pokemon.transformed && !pokemon.illusion) {
-				return this.chainModify(1.5);
-			}
-		},
-	},
-	bobochan: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|@bobochan|Pika Pika! Just kidding, it's just a knock off clone.`);
-		},
-		onSwitchOut() {
-			this.add(`c|@bobochan|Time to skedaddle!`);
-		},
-		onFaint() {
-			this.add(`c|@bobochan|You cruel trainer for killing an innocent pokemon!`);
-		},
-	},
-	brandon: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%Brandon|Let's put the petal to the medal!`);
-		},
-		onSwitchOut() {
-			this.add(`c|%Brandon|I gotta charge my phone brb`);
-		},
-		onFaint() {
-			this.add(`c|%Brandon|I need a nap`);
+			this.add(`c|${getName('biggie')}|it was all a dream`);
 		},
 	},
 	cake: {
 		noCopy: true,
-		onStart(source) {
-			this.add(`c|+Cake|h`);
-			if (source.illusion) return;
-			this.add('-start', source, 'typeadd', 'Ghost');
+		onStart(target, pokemon) {
+			this.add(`c|${getName('Cake')}|AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`);
+			// h innate
+			if (pokemon.illusion) return;
+			const typeList = Object.keys(this.dex.data.TypeChart);
+			this.prng.shuffle(typeList);
+			const firstType = typeList[0];
+			this.prng.shuffle(typeList);
+			const secondType = typeList[0];
+			let newTypes = [];
+			if (firstType === secondType) {
+				newTypes = [firstType];
+			} else {
+				newTypes = [firstType, secondType];
+			}
+			this.add('html|<b>h</b>');
+			this.add('-start', pokemon, 'typechange', newTypes.join('/'), '[silent]');
+			pokemon.setType(newTypes);
 		},
-		onSwitchOut(source) {
-			this.add(`c|+Cake|${source.side.name} is a nerd`);
+		onSwitchOut(pokemon) {
+			this.add(`c|${getName('Cake')}|${pokemon.side.name} is a nerd`);
 		},
 		onFaint() {
-			this.add(`c|+Cake|According to all known laws of aviation, there is no way that Dunsparce should be able to fly. Its wings are too small to get its fat little body off the ground. Dunsparce, of course, does not learn Fly for this reason. It does learn Roost, though. Cute li'l winged snake thing.`);
+			this.add(`c|${getName('Cake')}|Chowder was a good show`);
 		},
-		// Fat Snake Innate
-		onModifyDefPriority: 6,
-		onModifyDef(def, pokemon) {
-			if (!pokemon.transformed && !pokemon.illusion) {
-				return this.chainModify(1.5);
-			}
-		},
-		onModifySpDPriority: 6,
-		onModifySpD(spd, pokemon) {
-			if (!pokemon.transformed && !pokemon.illusion) {
-				return this.chainModify(1.5);
+		onResidualOrder: 26,
+		onResidualSubOrder: 1,
+		onResidual(pokemon) {
+			if (pokemon.illusion) return;
+			if (pokemon.activeTurns) {
+				const typeList = Object.keys(this.dex.data.TypeChart);
+				this.prng.shuffle(typeList);
+				const firstType = typeList[0];
+				this.prng.shuffle(typeList);
+				const secondType = typeList[0];
+				let newTypes = [];
+				if (firstType === secondType) {
+					newTypes = [firstType];
+				} else {
+					newTypes = [firstType, secondType];
+				}
+				this.add('html|<b>h</b>');
+				this.add('-start', pokemon, 'typechange', newTypes.join('/'), '[silent]');
+				pokemon.setType(newTypes);
 			}
 		},
 	},
 	cantsay: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@cant say|(´・ω・\`)`);
+			this.add(`c|${getName('cant say')}|haha volc go brrrr`);
 		},
 		onSwitchOut() {
-			this.add(`c|@cant say|wow CTed lol`);
+			this.add(`c|${getName('cant say')}|lol CTed`);
 		},
 		onFaint() {
-			this.add(`c|@cant say|bg haxor :(`);
+			this.add(`c|${getName('cant say')}|${['imagine taking pokemon seriously when you can just get haxed', '/me plays curb your enthusiasm theme', 'bad players always get lucky'][this.random(3)]}`);
 		},
-	},
-	catalystic: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Catalystic|The Birb is here!`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Catalystic|The Birb will be back!`);
-		},
-		onFaint() {
-			this.add(`c|+Catalystic|The Birb is never lucky.`);
-		},
-	},
-	celestial: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%Celestial|**Time to electrify you**`);
-		},
-		onSwitchOut() {
-			this.add(`c|%Celestial|__I'll be coming back for you!__`);
-		},
-		onFaint() {
-			this.add(`c|%Celestial|I'm shocked that you mere mortal actually defeated __me__`);
+		// Magic Guard Innate
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
 		},
 	},
 	celine: {
@@ -390,1743 +307,1061 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('Celine')}|'Tis only a flesh wound!`);
 		},
 	},
-	ceteris: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Ceteris|Your loss is inevitable, you best forfeit the battle if you know what's good for you. ╰(⇀︿⇀)つ-]═───`);
-		},
-		onSwitchOut(source) {
-			this.add(`c|+Ceteris|Saving the best for last, ${source.side.name}, a wise choice my friend.`);
-		},
-		onFaint() {
-			this.add(`c|+Ceteris|IMPOSSIBLE!! THIS IS AN OUTRAGE!! I WILL EXACT MY REVENGE ON YOU ONE DAY (◣_◢)`);
-		},
-	},
-	chaos: {
-		noCopy: true,
-		// No phrases provided
-	},
 	chloe: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Chloe|hlelo`);
+			this.add(`c|${getName('Chloe')}|hlelo`);
 		},
 		onSwitchOut() {
-			this.add(`c|@Chloe|bubye`);
+			this.add(`c|${getName('Chloe')}|bubye`);
 		},
 		onFaint() {
-			this.add(`c|@Chloe|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`);
+			this.add(`c|${getName('Chloe')}|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`);
 		},
 	},
 	ckilgannon: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|%c.kilgannon|Hope you're not afraid of the dark!`);
+			this.add(`c|${getName('c.kilgannon')}|Take a look to the sky just before you die`);
 		},
 		onSwitchOut() {
-			this.add(`c|%c.kilgannon|/me growls`);
+			this.add(`c|${getName('c.kilgannon')}|/me growls`);
 		},
 		onFaint() {
-			this.add(`c|%c.kilgannon|Your time will come.`);
+			this.add(`c|${getName('c.kilgannon')}|Your time will come.`);
 		},
+	},
+	coconut: {
+		noCopy: true,
+		// no quotes
 	},
 	darth: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+Darth|The angel of stall descends upon the battlefield.`);
+			this.add(`c|${getName('Darth')}|Let the Guardian Angel protect thee!`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Darth')}|Well, everyone needs a break at some point.`);
+		},
+	},
+	drampasgrandpa: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('drampa\'s grandpa')}|Where are my glasses?`);
 		},
 		onSwitchOut() {
-			this.add(`c|+Darth|The angel of stall has decided upon a tactical retreat.`);
+			this.add(`c|${getName('drampa\'s grandpa')}|Darn kids...`);
 		},
 		onFaint() {
-			this.add(`c|+Darth|Regenerator is a perfectly balanced ability.`);
+			this.add(`c|${getName('drampa\'s grandpa')}|Bah humbug!`);
 		},
 	},
-	dawoblefet: {
+	dream: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|&DaWoblefet|What's going on guys? This is DaWoblefet, and welcome to Mechanics Monday.`);
+			this.add(`c|${getName('dream')}|It's Prime Time`);
 		},
 		onSwitchOut() {
-			this.add(`c|&DaWoblefet|Until next time, have a good one.`);
+			this.add(`c|${getName('dream')}|oh no please god tell me we're dreaming`);
 		},
 		onFaint() {
-			this.add(`c|&DaWoblefet|mished`);
-		},
-	},
-	decem: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%Decem|:D`);
-		},
-		onSwitchOut() {
-			this.add(`c|%Decem|bye`);
-		},
-		onFaint() {
-			this.add(`c|%Decem|>:(`);
-		},
-	},
-	deetah: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+deetah|I can see right through you.`);
-		},
-		onSwitchOut() {
-			this.add(`c|+deetah|Meow :3`);
-		},
-		onFaint() {
-			this.add(`c|+deetah|I have 8 lives left, you can't get rid of me that easily.`);
-		},
-	},
-	dragonwhale: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+DragonWhale|i would switch to chomper here`);
-		},
-	},
-	e4flint: {
-		// Fire type when mega evolving implemented in scripts.js
-		noCopy: true,
-		onStart(target, source) {
-			this.add(`c|@E4 Flint|How many Fire-Types do I have now`);
-			if (source.species.id !== 'steelixmega' || source.illusion) return;
-			this.add('-start', source, 'typeadd', 'Fire');
-		},
-		onFaint() {
-			this.add(`c|@E4 Flint|lul ok`);
-		},
-	},
-	eien: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Eien|umu!`);
-		},
-		onFaint() {
-			this.add(`c|+Eien|This game is Bad Civilization...`);
+			this.add(`c|${getName('dream')}|perdemos`);
 		},
 	},
 	elgino: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|+Elgino|I'm about to solve this puzzle.`);
+		onStart(target, pokemon) {
+			this.add(`c|${getName('Elgino')}|Time to save Hyrule!`);
+			if (pokemon.illusion) return;
+			this.add('-start', pokemon, 'typechange', pokemon.types.join('/'), '[silent]');
 		},
 		onSwitchOut() {
-			this.add(`c|+Elgino|uh I need some hints for this one, I'll try again later`);
+			this.add(`c|${getName('Elgino')}|Hold on I need to stock up on ${this.sample(['Bombs', 'Arrows', 'Magic', 'Seeds'])}`);
 		},
 		onFaint() {
-			this.add(`c|+Elgino|Frankly, I'm... ashamed.`);
-		},
-		onDamagePriority: 1,
-		onDamage(damage, target, source, effect) {
-			if (effect?.effectType === 'Move' && ['mimikyu', 'mimikyutotem'].includes(target.species.id) && !target.transformed) {
-				this.add('-activate', target, 'ability: Disguise');
-				this.effectData.busted = true;
-				return 0;
-			}
-		},
-		onEffectiveness(typeMod, target, type, move) {
-			if (!target) return;
-			if (
-				!['mimikyu', 'mimikyutotem'].includes(target.species.id) || target.transformed ||
-				(target.volatiles['substitute'] && !(move.flags['authentic'] || move.infiltrates))
-			) {
-				return;
-			}
-			if (!target.runImmunity(move.type)) return;
-			return 0;
-		},
-		onUpdate(pokemon) {
-			if (['mimikyu', 'mimikyutotem'].includes(pokemon.species.id) && this.effectData.busted) {
-				const speciesid = pokemon.species.id === 'mimikyutotem' ? 'Mimikyu-Busted-Totem' : 'Mimikyu-Busted';
-				pokemon.formeChange(speciesid, this.effect, true);
-			}
+			this.add(`c|${getName('Elgino')}|I'm out of fairies D:!`);
 		},
 	},
-	eternally: {
+	emeri: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@eternally|quack`);
-		},
-		onFaint() {
-			this.add(`c|@eternally|quack`);
-		},
-		onTryHit(target, source, move) {
-			if (target.illusion) return;
-			if (target !== source && move.type === 'Water') {
-				if (!this.heal(target.baseMaxhp / 4)) {
-					this.add('-immune', target, '[from] ability: Water Absorb');
-				}
-				return null;
-			}
-		},
-	},
-	explodingdaisies: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%explodingdaisies|For today's weather: DOOOOOM!`);
+			this.add(`c|${getName('Emeri')}|hey !`);
 		},
 		onSwitchOut() {
-			this.add(`c|%explodingdaisies|I WILL DESTROY YOU.......BUT LATER!`);
+			this.add(`c|${getName('Emeri')}|//busy`);
 		},
 		onFaint() {
-			this.add(`c|%explodingdaisies|MY PEOPLE NEED ME!`);
+			this.add(`c|${getName('Emeri')}|don't forget to chall SFG or Agarica in gen8ou`);
 		},
 	},
-	false: {
+	epicnikolai: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|+false|٩(•̤̀ᵕ•̤́๑)ᵒᵏᵎᵎᵎᵎ`);
+		onStart(source) {
+			this.add(`c|${getName('EpicNikolai')}|I never give up until I get something right, which means destroying you ☜(ﾟヮﾟ☜)`);
+			if (source.species.id !== 'garchompmega' || source.illusion) return;
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
 		onSwitchOut() {
-			this.add(`c|+false|٩(๑•◡-๑)۶ⒽⓤⒼ❤`);
+			this.add(`c|${getName('EpicNikolai')}|This wasn't as fun as I thought it would be, I'm out ¯_( ͡~ ͜ʖ ͡°)_/¯`); // eslint-disable-line no-irregular-whitespace
 		},
 		onFaint() {
-			this.add(`c|+false|ɢ∞פ⋆ᖙᵒᵝ ٩꒰”̮*ू꒱`);
+			this.add(`c|${getName('EpicNikolai')}|I like to keep a positive attitude even though it is hard sometimes <('o'<)~*/`);
 		},
 	},
 	fart: {
 		noCopy: true,
-		onStart(target, source) {
-			this.add('-start', source, 'typechange', `Fairy/Steel`);
-			const activeMon = this.toID(
-				source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : source.side.foe.active[0].name
-			);
-			const family = [
-				'aethernum', 'ceteris', 'ransei', 'trickster', 'gimm1ck', 'zalm', 'aelita', 'biggie', 'deetah', 'birdy', 'sundar', 'celestial',
-			];
-			if (activeMon === 'hoeenhero' || activeMon === 'instruct') {
-				 this.add(`c|%fart|what song should I sing?`);
-			} else if (activeMon === 'lifeisdank' || activeMon === 'nui' || activeMon === 'grimauxiliatrix') {
-				this.add(`c|%fart|the gang's all here!`);
-			} else if (family.includes(activeMon)) {
-				this.add(`c|%fart|what's cookin', good lookin'?`);
+		onStart(source) {
+			let activeMon;
+			activeMon = source.side.foe.active[0];
+			activeMon = activeMon.illusion ? activeMon.illusion.name : activeMon.name;
+			const family = ['aethernum', 'trickster', 'celestial', 'gimmick', 'zalm', 'aelita', 'biggie', 'sundar'];
+			if (this.toID(activeMon) === 'hoeenhero') {
+				this.add(`c|${getName('fart')}|🎵 it's friday, friday, gotta get down on friday 🎵`);
+			} else if (this.toID(activeMon) === 'grimauxiliatrix') {
+				this.add(`c|${getName('fart')}|howdy ho, neighbor`);
+			} else if (this.toID(activeMon) === 'fart') {
+				this.add(`c|${getName('fart')}|How Can Mirrors Be Real If Our Eyes Aren't Real`);
+			} else if (family.includes(this.toID(activeMon))) {
+				this.add(`c|${getName('fart')}|hey, hey, hey. ${activeMon} is OK`);
 			} else {
-				this.add(`c|%fart|it's fukken raw`);
+				this.add(`c|${getName('fart')}|rats, rats, we are the rats`);
 			}
 		},
 		onSwitchOut() {
-			this.add(`c|%fart|this boy is not correct. he is **flawed.**`);
+			this.add(`c|${getName('fart')}|if I can't win this game, then I'll make it boring for everyone.`);
 		},
 		onFaint(pokemon) {
-			const activeMon = this.toID(
-				pokemon.side.foe.active[0].illusion ? pokemon.side.foe.active[0].illusion.name : pokemon.side.foe.active[0].name
-			);
-			if (activeMon === 'felucia') {
-				this.add(`c|%fart|Felucia I'm deleting your mon`);
+			let activeMon;
+			activeMon = pokemon.side.foe.active[0];
+			activeMon = this.toID(activeMon.illusion ? activeMon.illusion.name : activeMon.name);
+			const family = ['aethernum', 'trickster', 'celestial', 'gimmick', 'zalm', 'aelita', 'biggie', 'sundar'];
+			if (family.includes(activeMon)) {
+				this.add(`c|${getName('fart')}|at least I wasn't boring, right?`);
 			} else {
-				this.add(`c|%fart|the things I do for love...`);
+				this.add(`c|${getName('fart')}|oy, I die`);
 			}
 		},
 	},
 	felucia: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|%Felucia|Hi I'm here to participate in a totally serious conversation`);
+		onStart(source) {
+			this.add(`c|${getName('Felucia')}|battlesignup! I dropped my dice somewhere and now all I can do is make you play with them (join using %join one)`);
+			if (source.illusion) return;
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
 		onSwitchOut() {
-			this.add(`c|%Felucia|Okay that's enough shitposting for now`);
+			this.add(`c|${getName('Felucia')}|battlesignup: I lost connection to a player so I guess I'll get a new one (/me in to sub)`);
 		},
 		onFaint() {
-			this.add(`c|%Felucia|Fine I'll go back to work...`);
+			this.add(`c|${getName('Felucia')}|%remp Felucia`);
 		},
 	},
-	fomg: {
+	frostyicelad: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|@FOMG|You got this, my friend!`);
+		onStart(source) {
+			this.add(`c|${getName('frostyicelad ❆')}|Oh i guess its my turn now! Time to sweep!`);
+			if (source.species.id !== 'frosmothmega' || source.illusion) return;
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
-		onSwitchOut() {
-			this.add(`c|@FOMG|/me rolls out`);
+		onSwitchOut(source) {
+			this.add(`c|${getName('frostyicelad ❆')}|Hey! ${source.side.name} why dont you keep me in and let me sweep? Mean.`);
 		},
 		onFaint() {
-			this.add(`c|@FOMG|Rock in peace...`);
-		},
-	},
-	gallantspear: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Gallant Spear|*Trombe! override intensifies*`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Gallant Spear|*neigh* *snort*`);
-		},
-		onFaint() {
-			this.add(`c|+Gallant Spear|UNIVAAAAAAAAAAAAAAASE!!`);
-		},
-	},
-	gimm1ck: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%Gimm1ck|Давай!`);
-		},
-		onSwitchOut() {
-			this.add(`c|%Gimm1ck|Must get more semechki`);
-		},
-		onFaint() {
-			this.add(`c|%Gimm1ck|Ran out of vodka`);
-		},
-	},
-	gmars: {
-		noCopy: true,
-		onStart(target) {
-			this.add(`c|&GMars|It's ya boy GEEEEEEEEMARS`);
-			if (target.illusion || !target.m.miniorColor) return;
-			this.add('-formechange', target, `Minior${target.m.miniorColor}`);
-		},
-		onSwitchOut() {
-			this.add(`c|&GMars|I like 'em crisp`);
-		},
-		onFaint() {
-			this.add(`c|&GMars|Don't forget to check out my bandcamp`);
+			this.add(`c|${getName('frostyicelad ❆')}|So c-c-cold`);
 		},
 	},
 	grimauxiliatrix: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@grimAuxiliatrix|${['A BRAWL IS SURELY BREWING!', 'GOOD DAY FOR A SWELL BATTLE!', 'THIS MATCH WILL GET RED HOT!'][this.random(3)]}`);
+			this.add(`c|${getName('grimAuxiliatrix')}|${['THE JUICE IS LOOSE', 'TOOTHPASTE\'S OUT OF THE TUBE', 'PREPARE TO DISCORPORATE'][this.random(3)]}`);
 		},
 		onFaint() {
-			this.add(`c|@grimAuxiliatrix|**KNOCKOUT!**`);
+			this.add(`c|${getName('grimAuxiliatrix')}|${['NOT LIKE THIS', 'HALT - MODULE CORE HEMORRHAGE', 'AAAAAAAAAAAAAAAAAAA'][this.random(3)]}`);
 		},
 	},
-	guishark: {
+	gxs: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+guishark|Let's go hunt doodoodoodoodoodoo!`);
+			this.add(`c|${getName('GXS')}|Upl0ad1ng V1ru$ BzZT!!`);
 		},
 		onSwitchOut() {
-			this.add(`c|+guishark|Run away doodoodoodoodoodoo!`);
+			this.add(`c|${getName('GXS')}|Buff3r1ng BzZT!!`);
 		},
 		onFaint() {
-			this.add(`c|+guishark|It's the end doodoodoodoodoodoo!`);
-		},
-	},
-	// Cant use the exact name because its a pokemon's name
-	hippopotasuser: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Hippopotas|Something broke. If you're seeing this message, please PM a staff member about it.`);
-			this.add(`c|&HoeenHero|No, its not a bug Hippopotas, stop telling people to PM staff, its annoying.`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Hippopotas|Something broke. If you're seeing this message, please PM a staff member about it.`);
-			this.add(`c|&HoeenHero|There's still no bug!`);
-		},
-		onFaint() {
-			this.add(`c|+Hippopotas|Something broke. If you're seeing this message, please PM a staff member about it.`);
-			this.add(`c|&HoeenHero|My PMs are flooded with bug reports :(`);
-		},
-	},
-	hoeenhero: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|&HoeenHero|My scripts will lead me to victory!`);
-		},
-		onSwitchOut() {
-			this.add(`c|&HoeenHero|I need to look something up, hold on...`);
-		},
-		onFaint() {
-			this.add(`c|&HoeenHero|There must have been a bug in my script ;-;`);
+			this.add(`c|${getName('GXS')}|A Critical Error Has Occurred. Would You Like To Send A Report? Sending Report.`);
 		},
 	},
 	hubriz: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|%Hubriz|Just a harmless flower...`);
+			this.add(`c|${getName('Hubriz')}|Free hugs!`);
 		},
 		onSwitchOut() {
-			this.add(`c|%Hubriz|I'll bloom once more soon enough!`);
+			this.add(`c|${getName('Hubriz')}|The soil's pH level is too high. I'm out!`);
 		},
 		onFaint() {
-			this.add(`c|%Hubriz|I burn, I pine, I perish.`);
+			this.add(`c|${getName('Hubriz')}|Delicate Flower Quest failed...`);
+		},
+	},
+	hydro: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c|${getName('Hydro')}|Person reading this is a qt nerd and there is absolutely NOTHING u can do about it :)`);
+			if (pokemon.illusion) return;
+			this.add('-start', pokemon, 'typechange', pokemon.types.join('/'), '[silent]');
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Hydro')}|brb, taking a break from ur nerdiness`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Hydro')}|RUUUUUDEEE`);
 		},
 	},
 	inactive: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+inactive|I just can't wait to face you.`);
+			this.add(`c|${getName('Inactive')}|Are you my nightmare? Or am I yours?`);
 		},
 		onSwitchOut() {
-			this.add(`c|+inactive|I'll keep an eye out for you next time...`);
+			this.add(`c|${getName('Inactive')}|This is not the end...`);
 		},
 		onFaint() {
-			this.add(`c|+inactive|/me turns to stone and crumbles`);
-		},
-	},
-	instruct: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Instruct|I am here to bully Aroma Electra`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Instruct|Remember these two things: Lucario•1582 will always be cute, and Swagn will never be able to dab`);
-		},
-		onFaint() {
-			this.add(`c|+Instruct|Noctrine help this isn't working as well as we planned`);
-		},
-	},
-	irritated: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+irritated|Glhf`);
-		},
-		onFaint() {
-			this.add(`c|+irritated|wtf hax`);
+			this.add(`c|${getName('Inactive')}|/me turns to stone and crumbles`);
 		},
 	},
 	iyarito: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|&Iyarito|Iyarito is always right`);
+			this.add(`c|${getName('Iyarito')}|Madre de Dios, ¡es el Pollo Diablo!`);
 		},
 		onSwitchOut() {
-			this.add(`c|&Iyarito|It's all Iyarito's fault`);
+			this.add(`c|${getName('Iyarito')}|Well, you're not taking me without a fight!`);
 		},
 		onFaint() {
-			this.add(`c|&Iyarito|RIP Patrona`);
+			this.add(`c|${getName('Iyarito')}|RIP Patrona`);
+		},
+	},
+	jettxx: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Jett x~x')}|It's a good day for a hunt.`);
+		},
+		onSwitchOut(source) {
+			this.add(`c|${getName('Jett x~x')}|I'll be back for more.`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Jett x~x')}|They got lucky.`);
+		},
+	},
+	jho: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Jho')}|Hey there party people`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Jho')}|The Terminator(1984), 00:57:10`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Jho')}|Unfortunately, CAP no longer accepts custom elements`);
+		},
+	},
+	jordy: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Jordy')}|I heard there's a badge here. Please give it to me immediately.`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Jordy')}|Au Revoir. Was that right?`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Jordy')}|hjb`);
 		},
 	},
 	kaijubunny: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|@Kaiju Bunny|￣( ÒㅅÓ)￣ Thump Thump Motherfucker`);
+		onStart(source) {
+			this.add(`c|${getName('Kaiju Bunny')}|I heard SOMEONE wasn't getting enough affection! ￣( ÒㅅÓ)￣`);
+			if (source.species.id !== 'lopunnymega' || source.illusion) return;
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
 		onSwitchOut() {
-			this.add(`c|@Kaiju Bunny|￣( >ㅅ>)￣ Holding me back, I see how it is`);
+			this.add(`c|${getName('Kaiju Bunny')}|Brb, need more coffee ￣( =ㅅ=)￣`);
 		},
 		onFaint() {
-			this.add(`c|@Kaiju Bunny|￣( ‘xㅅx)￣Time to take a 10 hour power nap`);
-		},
-		// Kaiju Rage Innate
-		// onUpdate so toxic orb can activate after. Code mainly copied from Power Construct.
-		onUpdate(pokemon) {
-			if (pokemon.species.id !== 'gligar' || pokemon.transformed || pokemon.illusion || !pokemon.hp) return;
-			if (pokemon.hp > pokemon.maxhp / 2) return;
-			this.add('-activate', pokemon, 'ability: Kaiju Rage');
-			pokemon.formeChange('Gliscor', this.effect, true);
-			const newHP = Math.floor(
-				Math.floor(
-					2 * pokemon.species.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] / 4) + 100
-				) * pokemon.level / 100 +
-				10
-			);
-			pokemon.hp = newHP - (pokemon.maxhp - pokemon.hp);
-			pokemon.maxhp = newHP;
-			pokemon.heal(pokemon.baseMaxhp / 4);
-			this.add('-heal', pokemon, pokemon.getHealth);
-			pokemon.takeItem();
-			pokemon.setItem('toxicorb');
-			this.add('-message', pokemon.name + '\'s item is now a Toxic Orb!');
-			this.add('-message', pokemon.name + '\'s ability is now Poison Heal!');
-			this.boost({atk: 2, spe: 1}, pokemon);
+			this.add(`c|${getName('Kaiju Bunny')}|Wow, okay, r00d ￣(ಥㅅಥ)￣`);
 		},
 	},
 	kalalokki: {
 		noCopy: true,
-		onStart(target) {
-			this.add(`c|@Kalalokki|(•_•)`);
-			this.add(`c|@Kalalokki|( •_•)>⌐■-■`);
-			this.add(`c|@Kalalokki|(⌐■_■)`);
-			if (target.illusion) return;
-			this.field.setWeather('raindance');
-		},
-		onFaint() {
-			this.add(`c|@Kalalokki|(⌐■_■)`);
-			this.add(`c|@Kalalokki|( •_•)>⌐■-■`);
-			this.add(`c|@Kalalokki|(x_x)`);
-		},
-	},
-	kaori: {
-		noCopy: true,
-		onStart(pokemon) {
-			this.add(`c|+kaori|(~￣³￣)~`);
-			if (pokemon.illusion) return;
-			this.boost({spd: 2}, pokemon);
-		},
-		onSwitchOut() {
-			this.add(`c|+kaori|ಠ_ಠ`);
-		},
-		onFaint() {
-			this.add(`c|+kaori|(◕ ᥥ ◕✿)`);
-		},
-	},
-	kay: {
-		noCopy: true,
 		onStart() {
-			this.add(`c|+kay|Every kiss begins with Kay`);
-		},
-		onSwitchOut() {
-			this.add(`c|+kay|くコ:彡`);
+			this.add(`c|${getName('Kalalokki')}|(•_•)`);
+			this.add(`c|${getName('Kalalokki')}|( •_•)>⌐■-■`);
+			this.add(`c|${getName('Kalalokki')}|(⌐■_■)`);
 		},
 		onFaint() {
-			this.add(`c|+kay|'kay bye!くコ:彡`);
+			this.add(`c|${getName('Kalalokki')}|(⌐■_■)`);
+			this.add(`c|${getName('Kalalokki')}|( •_•)>⌐■-■`);
+			this.add(`c|${getName('Kalalokki')}|(x_x)`);
 		},
-		// Simple Innate
-		onBoost(boost, target, source, effect) {
-			if (target?.illusion) return;
-			if (effect?.id === 'zpower') return;
-			let i: BoostName;
-			for (i in boost) {
-				boost[i]! *= 2;
+		onTryHit(pokemon, target, move) {
+			if (move.ohko) {
+				this.add('-immune', pokemon, '[from] ability: Sturdy');
+				return null;
+			}
+		},
+		onDamagePriority: -100,
+		onDamage(damage, target, source, effect) {
+			if (target.hp === target.maxhp && damage >= target.hp && effect && effect.effectType === 'Move') {
+				this.add('-ability', target, 'Sturdy');
+				return target.hp - 1;
 			}
 		},
 	},
-	kie: {
+	kennedylfc: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|%Kie|Wherever there is hope, there is most definitely despair.`);
+			this.add(`c|${getName('KennedyLFC')}|up the reds`);
 		},
 		onSwitchOut() {
-			this.add(`c|%Kie|Still better than Aeonic, btw.`);
+			this.add(`c|${getName('KennedyLFC')}|brb Jayi is PMing me (again) -_-`);
 		},
 		onFaint() {
-			this.add(`c|%Kie|https://www.youtube.com/watch?v=Hyw6kKMjp5A`);
+			this.add(`c|${getName('KennedyLFC')}|I'm not meant to score goals anyway, I'm a defensive striker.`);
+		},
+	},
+	kingbaruk: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Kingbaruk')}|:cute:`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Kingbaruk')}|//none`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Kingbaruk')}|Fijne avond nog`);
 		},
 	},
 	kingswordyt: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|@KingSwordYT|You're the master of your destiny, take destiny by the horns and have fun!`);
+		onStart(source) {
+			this.add(`c|${getName('KingSwordYT')}|Mucho texto`);
 		},
 		onSwitchOut() {
-			this.add(`c|@KingSwordYT|I eat when im upset, and i gotta eat`);
+			this.add(`c|${getName('KingSwordYT')}|Hasta la próximaaaa`);
 		},
 		onFaint() {
-			this.add(`c|@KingSwordYT|BUAAAAAA IYA AYÚDAME :(`);
-		},
-	},
-	kipkluif: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%Kipkluif|I like bacon.`);
-		},
-		onSwitchOut() {
-			this.add(`c|%Kipkluif|Run away da, run run away da`);
-		},
-		onFaint() {
-			this.add(`c|%Kipkluif|Aah! Well, at least I have chicken.`);
-		},
-		// Footballer innate
-		onBasePowerPriority: 8,
-		onBasePower(basePower, pokemon, target, move) {
-			if (move.name.includes('Kick') && !pokemon.transformed && !pokemon.illusion) {
-				this.chainModify(1.75);
-			}
+			this.add(`c|${getName('KingSwordYT')}|**__Se anula el host__**`);
 		},
 	},
 	kris: {
 		noCopy: true,
-		onStart(pokemon) {
-			this.add(`c|+Kris|wjat poppin ;)))))`);
-			if (pokemon.illusion) return;
-			for (const target of pokemon.side.foe.active) {
-				if (!target || target.fainted) continue;
-				for (const moveSlot of target.moveSlots) {
-					const move = this.dex.getMove(moveSlot.move);
-					const moveType = move.id === 'hiddenpower' ? target.hpType : move.type;
-					if (move.category !== 'Status' && (
-						this.dex.getImmunity(moveType, pokemon) && this.dex.getEffectiveness(moveType, pokemon) > 0 || move.ohko
-					)) {
-						this.add('-ability', pokemon, 'Anticipation');
-						return;
-					}
-				}
-			}
+		onStart(source) {
+			const foeName = source.side.foe.active[0].illusion ?
+				source.side.foe.active[0].illusion.name : source.side.foe.active[0].name;
+			this.add(`c|${getName('Kris')}|hi ${foeName}`);
 		},
-		onSwitchOut() {
-			this.add(`c|+Kris|vbye`);
+		onSwitchOut(source) {
+			const foeName = source.side.foe.active[0].illusion ?
+				source.side.foe.active[0].illusion.name : source.side.foe.active[0].name;
+			this.add(`c|${getName('Kris')}|bye ${foeName}`);
 		},
 		onFaint() {
-			this.add(`c|+Kris|thats weird but ok`);
+			this.add(`c|${getName('Kris')}|Fortnite Battle Royale`);
 		},
-	},
-	level51: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Level 51|Calculating chance of victory!`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Level 51|chance_victory < 1. Recalibrating...`);
-		},
-		onFaint() {
-			this.add(`c|+Level 51|**IndexError**: list index out of range`);
-		},
-	},
-	lifeisdank: {
-		noCopy: true,
-		onStart(target) {
-			this.add(`c|+LifeisDANK|!!!ლ(⁰⊖⁰ლ) Peent Peent.`);
+		// phuck innate
+		onDamage(damage, target, source, effect) { // Magic Guard
+			if (effect.id === 'heavyhailstorm') return;
 			if (target.illusion) return;
-			this.boost({spe: 2}, target);
-		},
-		onSwitchOut() {
-			this.add(`c|+LifeisDANK|!(•⌔• ) Peent Peent.`);
-		},
-		onFaint() {
-			this.add(`c|+LifeisDANK|(•⌔•. ) Peent.`);
-		},
-		// Mountaineer innate
-		onDamage(damage, target, source, effect) {
-			if (effect?.id === 'stealthrock') {
+			if (!target.species.id.includes('unown')) return;
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
 				return false;
 			}
 		},
-		onTryHit(target, source, move) {
-			if (move.type === 'Rock' && !target.activeTurns) {
-				this.add('-immune', target, '[from] ability: Mountaineer');
-				return null;
+		onResidual(pokemon) {
+			if (pokemon.illusion) return;
+			if (!pokemon.species.id.includes('unown')) return;
+			// So this doesn't activate upon switching in
+			if (pokemon.activeTurns < 1) return;
+			const unownLetters = 'abcdefghijklmnopgrstuvwxyz'.split('');
+			const currentFormeID = this.toID(pokemon.set.species);
+			const currentLetter = currentFormeID.charAt(5) || 'a';
+			const chosenLetter = this.sample(unownLetters.filter(letter => {
+				return letter !== currentLetter;
+			}));
+			// Change is permanent so when you switch out you keep the letter
+			this.add(`c|${getName('Kris')}|watch this`);
+			if (chosenLetter === 'w') {
+				this.add('-activate', pokemon, 'ability: phuck');
+				pokemon.formeChange(`unownw`, this.effect, true);
+				this.add(`c|${getName('Kris')}|W? More like L`);
+				this.add('-activate', pokemon, 'ability: phuck');
+				pokemon.formeChange(`unownl`, this.effect, true);
+				this.hint(`There are no W Pokemon that work with Kris's signature move, so we're counting this as a loss`);
+			} else if (chosenLetter === 'u') {
+				this.add('-activate', pokemon, 'ability: phuck');
+				pokemon.formeChange(`unownu`, this.effect, true);
+				this.add(`c|${getName('Kris')}|U? I'm already an Unown, no`);
+				this.add('-activate', pokemon, 'ability: phuck');
+				const chosenLetter2 = this.sample(unownLetters.filter(letter => {
+					return letter !== 'u' && letter !== 'w';
+				}));
+				pokemon.formeChange(`unown${chosenLetter2}`, this.effect, true);
+				this.hint(`There are no U Pokemon that work with Kris's signature move, so we're counting this as a loss`);
+			} else {
+				this.add('-activate', pokemon, 'ability: phuck');
+				pokemon.formeChange(`unown${chosenLetter === 'a' ? '' : chosenLetter}`, this.effect, true);
 			}
 		},
 	},
-	lostseso: {
-		noCopy: true,
-		onStart(pokemon) {
-			this.add(`c|+Lost Seso|<3 ( ͡° ͜ʖ ͡°) DANCE WITH ME ( ͡° ͜ʖ ͡°) <3`);
-			if (pokemon.illusion) return;
-			this.effectData.danceMultiplier = 0;
-		},
-		onAfterMove(pokemon, target, move) {
-			if (pokemon.illusion) return;
-			if (move.flags.dance) this.effectData.danceMultiplier++;
-		},
-		onSwitchOut() {
-			this.add(`c|+Lost Seso|Ran out of ramen, brb`);
-		},
-		onFaint() {
-			this.add(`c|+Lost Seso|└[ ─ ಎ ─ ]┘ 0% Battery, feed me ramen please`);
-		},
-	},
-	macchaeger: {
+	lionyx: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+MacChaeger|What are you gonna do with that big bat? Gonna hit me? Better make it count. Better make it hurt. Better kill me in one shot.`);
-		},
-		onFaint() {
-			this.add(`c|+MacChaeger|im gonna pyuk`);
-		},
-	},
-	madmonty: {
-		noCopy: true,
-		onStart(pokemon) {
-			this.add(`c|+Mad Monty ¾°|/me puts on a coat, to protect himself from the cold.`);
-			this.add(`c|+Mad Monty ¾°|Don't get eaten by llamas!`);
+			this.add(`c|${getName('Lionyx')}|Hi, this is ps-chan, how may I help you, user-kun? (｡◕‿‿◕｡)`);
 		},
 		onSwitchOut() {
-			this.add(`c|+Mad Monty ¾°|Oh, I see how it is. Ok, fine. Be that way. I'll just be over here, then.`);
+			this.add(`c|${getName('Lionyx')}|Teclis au secours`);
 		},
 		onFaint() {
-			this.add(`c|+Mad Monty ¾°|I take it back- I hope you DO get eaten by llamas. Toodles!`);
+			this.add(`c|${getName('Lionyx')}|The cold never bothered me anyway...`);
 		},
 	},
 	majorbowman: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@MajorBowman|I'm MajorBowman and I'm here to make it clear.`);
+			this.add(`c|${getName('MajorBowman')}|Aaaand Cracktion!`);
 		},
 		onSwitchOut() {
-			this.add(`c|@MajorBowman|Witty catch phrase, you know what I mean?`);
+			this.add(`c|${getName('MajorBowman')}|This isn't Maury Povich!`);
 		},
 		onFaint() {
-			this.add(`c|@MajorBowman|THEY GOT ME, GAL`);
+			this.add(`c|${getName('MajorBowman')}|Never loved ya.`);
 		},
 	},
-	marshmallon: {
+	marashmallon: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Marshmallon|What a wonderful day at the beach!`);
+			this.add(`c|${getName('Marshmallon')}|I'm hungry. Are you edible? c:`);
 		},
 		onSwitchOut() {
-			this.add(`c|@Marshmallon|__C..c...cooold >w<__`);
+			this.add(`c|${getName('Marshmallon')}|RAWWWR`);
 		},
 		onFaint() {
-			this.add(`c|@Marshmallon|I got hit by a thunderbolt!`);
-		},
-	},
-	martha: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+martha|in to lose r1`);
-		},
-		onSwitchOut() {
-			this.add(`c|+martha|bad`);
-		},
-	},
-	marty: {
-		noCopy: true,
-		// No phrases provided
-	},
-	meicoo: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%Meicoo|/joinhunt`);
-		},
-		onSwitchOut() {
-			this.add(`c|%Meicoo|/leavehunt`);
-		},
-		onFaint() {
-			this.add(`c|%Meicoo|"That is not the answer - try again!"`);
-		},
-	},
-	megazard: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|@Megazard|Almond top of the world!`);
-		},
-		onSwitchOut() {
-			this.add(`c|@Megazard|Change of plants`);
-		},
-		onFaint() {
-			this.add(`c|@Megazard|Better luck next thyme`);
+			this.add(`c|${getName('Marshmallon')}|I'm still hungry. rawr. :c`);
 		},
 	},
 	mitsuki: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Mitsuki|SSSSSSSSSSSSS`);
+			this.add(`c|${getName('Mitsuki')}|alguem quer batalha?????`);
 		},
-		onSwitchOut() {
-			this.add(`c|@Mitsuki|sssssssssssss`);
+		onSwitchOut(source) {
+			this.add(`c|${getName('Mitsuki')}|You're weak, ${source.side.foe.name}. Why? Because you lack... hatred.`);
 		},
 		onFaint() {
-			this.add(`c|@Mitsuki|sss`);
+			this.add(`c|${getName('Mitsuki')}|THIS WORLD SHALL KNOW P A I N`);
 		},
 	},
 	morfent: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|@Morfent ( _̀> ̀)|──────▀█████▄──────▲`);
-			this.add(`c|@Morfent ( _̀> ̀)|───▄███████████▄──◀█▶`);
-			this.add(`c|@Morfent ( _̀> ̀)|─────▄████▀█▄──────█`);
-			this.add(`c|@Morfent ( _̀> ̀)|───▄█████████████████▄ -I`);
-			this.add(`c|@Morfent ( _̀> ̀)|─▄█████.▼.▼.▼.▼.▼.▼.▼  -cast`);
-			this.add(`c|@Morfent ( _̀> ̀)|▄███████▄.▲.▲.▲.▲.▲.▲  -magic`);
-			this.add(`c|@Morfent ( _̀> ̀)|█████████████████████▀▀-shitpost`);
+		onStart(target, source) {
+			this.add(`c|${getName('Morfent ( _̀> ̀)')}|le le 9gag army has arrived`);
+			if (source.illusion) return;
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
-		onFaint() {
-			// Morfent returns something so im doing it this way
-			const endquote = this.random(3);
-			if (endquote === 1) {
-				this.add(`c|@Morfent ( _̀> ̀)|Hacking claims the lives of over 2,000 registered laddering alts every day.`);
-			} else if (endquote === 2) {
-				this.add(`c|@Morfent ( _̀> ̀)|Every 60 seconds in Africa, a minute passes. Together we can stop this. Please spread the word.`);
-			} else {
-				this.add(`c|@Morfent ( _̀> ̀)|!dt morfent's husbando`);
-				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col numcol">UU</span> <span class="col iconcol"><span class="picon" style="background: transparent url(&quot;//${Config.routes.client}/sprites/smicons-sheet.png?a4&quot;) no-repeat scroll -400px -210px"></span></span> <span class="col pokemonnamecol" style="white-space: nowrap"><a href="https://${Config.routes.dex}/pokemon/gengar" target="_blank" rel="noopener">Gengar</a></span> <span class="col typecol"><img src="https://${Config.routes.client}/sprites/types/Ghost.png" alt="Ghost" height="14" width="32"><img src="https://${Config.routes.client}/sprites/types/Poison.png" alt="Poison" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">Cursed Body</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>60</span> <span class="col statcol"><em>Atk</em><br>65</span> <span class="col statcol"><em>Def</em><br>60</span> <span class="col statcol"><em>SpA</em><br>130</span> <span class="col statcol"><em>SpD</em><br>75</span> <span class="col statcol"><em>Spe</em><br>110</span> <span class="col bstcol"><em>BST<br>500</em></span> </span></li><li style="clear: both"></li></ul>`);
-				this.add(`raw|<font size="1"><font color="#686868">Dex#:</font> 94&nbsp;|  <font color="#686868">Gen:</font> 1&nbsp;|  <font color="#686868">Height:</font> 1.5 m&nbsp;|  <font color="#686868">Weight:</font> 40.5 kg <em>(60 BP)</em>&nbsp;|  <font color="#686868">Dex Colour:</font> Purple&nbsp;|  <font color="#686868">Egg Group(s):</font> Amorphous&nbsp;|  <font color="#686868">Does Not Evolve</font></font>`);
+		onFaint(source) {
+			this.add(`c|${getName('Morfent ( _̀> ̀)')}|mods pls ban ${source.side.foe.name}!!! they're hacking into ${source.side.name}'s account and making awful plays`);
+		},
+		// Prankster innate
+		onModifyPriority(priority, pokemon, target, move) {
+			if (move?.category === 'Status') {
+				move.pranksterBoosted = true;
+				return priority + 1;
 			}
 		},
 	},
-	nui: {
+	n10sit: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|&nui|（*＾3＾）`);
+		onStart(source) {
+			this.add(`c|${getName('n10siT')}|Heheheh... were you surprised?`);
 		},
 		onSwitchOut() {
-			this.add(`c|&nui|(´◔‸◔\`) **??+ !`);
+			this.add(`c|${getName('n10siT')}|Heheheh... did I scare you?`);
 		},
 		onFaint() {
-			this.add(`c|&nui|(◕︿◕✿)`);
+			this.add(`c|${getName('n10siT')}|Hoopa never saw one of those!`);
 		},
 	},
-	om: {
+	nolali: {
 		noCopy: true,
-		onStart(target, source) {
-			this.add(`c|@OM|use shift gear`);
-			if (source.illusion) return;
-			this.add('-start', source, 'typeadd', 'Fairy');
+		onStart(source) {
+			this.add(`c|${getName('Nolali')}|What's up nerds`);
 		},
 		onSwitchOut() {
-			this.add(`c|@OM|Ok brb I'm gonna ${["ladder Mix and Mega", "roll battle some surv regs real quick", "sweep y'all in mafia let's get it"][this.random(3)]}`);
+			this.add(`c|${getName('Nolali')}|cya nerds later`);
 		},
 		onFaint() {
-			this.add(`c|@OM|${["Oh god I rolled a 1", "Killed Night 1, seriously?"][this.random(2)]}`);
+			this.add(`c|${getName('Nolali')}|nerd`);
+		},
+		// Innate Prankster and Eviolite
+		onModifyPriority(priority, pokemon, target, move) {
+			if (move?.category === 'Status') {
+				move.pranksterBoosted = true;
+				return priority + 1;
+			}
+		},
+		onModifyDefPriority: 2,
+		onModifyDef(def, pokemon) {
+			if (pokemon.baseSpecies.nfe) {
+				return this.chainModify(1.5);
+			}
+		},
+		onModifySpDPriority: 2,
+		onModifySpD(spd, pokemon) {
+			if (pokemon.baseSpecies.nfe) {
+				return this.chainModify(1.5);
+			}
 		},
 	},
 	overneat: {
 		noCopy: true,
 		onStart(source) {
-			this.add(`c|+Overneat|[muffled eurobeat playing in the distance]`);
+			this.add(`c|${getName('Overneat')}|Lets end this ${source.side.foe.name}!!`);
 			if (source.species.id !== 'absolmega' || source.illusion) return;
-			this.add('-start', source, 'typeadd', 'Fairy');
+			this.add('-start', source, 'typechange', source.types.join('/'), '[silent]');
 		},
 		onSwitchOut() {
-			this.add(`c|+Overneat|Time to take a siesta.`);
+			this.add(`c|${getName('Overneat')}|I can do better!`);
 		},
 		onFaint() {
-			this.add(`c|+Overneat|I gotta go, but friendly reminder to drink water after this battle.`);
+			this.add(`c|${getName('Overneat')}|I was to cocky...`);
 		},
 	},
-	pablo: {
+	om: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+Pablo|Let's get this party started.`);
+			this.add(`c|${getName('OM~!')}|What's up gamers?`);
 		},
 		onSwitchOut() {
-			this.add(`c|+Pablo|I need a break, this is getting boring.`);
+			this.add(`c|${getName('OM~!')}|Let me just ${['host murder for the 100th time', 'clean out scum zzz', 'ladder mnm rq'][this.random(3)]}`);
 		},
 		onFaint() {
-			this.add(`c|+Pablo|It's cool, I didn't wanna battle anyway.`);
+			this.add(`c|${getName('OM~!')}|ugh, I ${['rolled a 1, damnit.', 'got killed night 1, seriously?', 'got critfroze by ice beam asfgegkhalfewgihons'][this.random(3)]}`);
 		},
 	},
 	paradise: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Paradise|⠠⠺⠓⠁⠞⠀⠞⠓⠑⠀⠋⠥⠉⠅⠀⠙⠊⠙⠀⠽⠕⠥⠀⠚⠥⠎⠞⠀⠋⠥⠉⠅⠊⠝⠛⠀⠎⠁⠽⠀⠁⠃⠕⠥⠞⠀⠍⠑,⠀⠽⠕⠥⠀⠇⠊⠞⠞⠇⠑⠀⠃⠊⠞⠉⠓?`);
+			this.add(`c|${getName('Paradise ╱╲☼')}|You ever notice that the first thing a PS tryhard does is put their PS auth in their smogon signature?`);
 		},
 		onSwitchOut() {
-			this.add(`c|@Paradise|Braille is the only language you need.`);
+			this.add(`c|${getName('Paradise ╱╲☼')}|Pokemon Showdown copypastas have to be among the worst I've seen on any website. People spam garbage over and over until eventually the mods get fed up and clamp down on spam. I don't blame them for it. Have you ever seen a copypasta fail as hard as the dead memes on this website? There are mods on here who still think that "Harambe" and "Damn Daniel" are the peak of comedy. Not to mention that there are rooms on here that don't even talk about pokemon lol. Yeah, I don't see this website lasting more than 2 years, I'd suggest becoming a mod somewhere else.`);
+		},
+		onFaint(pokemon) {
+			this.add(`c|${getName('Paradise ╱╲☼')}|Paradise has been kicked, not banned, therefore you could still potentially invite them back. However, do not do this @${pokemon.side.name}, unless of course, you want to be banned too, because if you invite them back you and Paradise will both be banned.`);
+		},
+	},
+	perishsonguser: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Perish Song')}|(╯°□°）╯︵ ┻━┻`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Perish Song')}|┬──┬◡ﾉ(° -°ﾉ)`);
 		},
 		onFaint() {
-			this.add(`c|@Paradise|⠠⠽⠕⠥’⠗⠑⠀⠋⠥⠉⠅⠊⠝⠛⠀⠙⠑⠁⠙,⠀⠅⠊⠙⠙⠕.`);
+			this.add(`c|${getName('Perish Song')}|Thanks for coming to my TED talk.`);
+		},
+	},
+	phiwings99: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('phiwings99')}|Pick.`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('phiwings99')}|The fact you're switching this out means you probably didn't use the Z-Move right.`);
+		},
+		onFaint() {
+			this.add(`c|${getName('phiwings99')}|I'm boated.`);
 		},
 	},
 	pirateprincess: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|%Pirate Princess|Ahoy!`);
+			this.add(`c|${getName('PiraTe Princess')}|Ahoy! o/`);
 		},
 		onSwitchOut() {
-			this.add(`c|%Pirate Princess|You will always remember this as the day that you almost caught Captain Ja- Pirate Princess!`);
+			this.add(`c|${getName('PiraTe Princess')}|brb making tea`);
 		},
 		onFaint() {
-			this.add(`c|%Pirate Princess|Erm… Parley?`);
+			this.add(`c|${getName('PiraTe Princess')}|I failed my death save`);
 		},
-	},
-	pluviometer: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+pluviometer|${["Need a GP check?", "I'm a switch-in and I'm switching in #hyphenation"][this.random(2)]}`);
-		},
-		onSwitchOut() {
-			this.add(`c|+pluviometer|${["I wish this were a better matchup #subjunctive", "GP 1/2", "GP 2/2"][this.random(3)]}`);
-		},
-		onFaint() {
-			this.add(`c|+pluviometer|${["Follow SmogonU on Facebook! https://www.facebook.com/SmogonU", "Follow SmogonU on Twitter! https://twitter.com/SmogonU"][this.random(2)]}`);
-		},
-	},
-	pohjis: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Pohjis|thats pohjis`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Pohjis|ÖPÖOLÖL`);
-		},
-		onFaint() {
-			this.add(`c|+Pohjis|rly enjoyed that`);
-		},
-	},
-	pre: {
-		noCopy: true,
-		onStart(source) {
-			this.add(`c|&pre|let's go, in and out, 20 minute adventure`);
-			// Easter Egg
-			const activeMon = this.toID(
-				source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : source.side.foe.active[0].name
-			);
-			if (activeMon === 'anubis') {
-				this.add(`c|+Anubis|ohey it's pre`);
-				this.add(`c|+Anubis|!showimage https://pokemonshowdown.com/images/ssbkitten.jpg`);
-				this.add(`raw|<img src="https://pokemonshowdown.com/images/ssbkitten.jpg" style="width: 300px; height: 400px" />`);
-				this.add(`c|&pre|<3`);
-			}
-		},
-		onSwitchOut() {
-			this.add(`c|&pre|sometimes science is more art than science`);
-		},
-		onFaint() {
-			this.add(`c|&pre|LAMBS TO THE COSMIC SLAUGHTER!!`);
-		},
-	},
-	psynergy: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%Psynergy|oh`);
-		},
-		onSwitchOut() {
-			this.add(`c|%Psynergy|Joe doesn't pay me enough for this`);
-		},
-		onFaint() {
-			this.add(`c|%Psynergy|I'm going to be late...`);
-		},
-	},
-	ptoad: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%ptoad⚬|Make it rain!`);
-		},
-		onSwitchOut() {
-			this.add(`c|%ptoad⚬|Oh. You're switching me out. No, it's fine, I "toad"ally get it.`);
-		},
-		onFaint() {
-			this.add(`c|%ptoad⚬|Wow. Way to rain on my parade.`);
-		},
-	},
-	quitequiet: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|@Quite Quiet|spooky :d`);
-		},
-		onFaint() {
-			this.add(`c|@Quite Quiet|:'(`);
-		},
-		onModifyDefPriority: 6,
-		onModifyDef(def, pokemon) {
-			if (pokemon.illusion) return;
-			if (!pokemon.transformed) {
-				return this.chainModify(1.5);
-			}
-		},
-		onModifySpDPriority: 6,
-		onModifySpD(spd, pokemon) {
-			if (pokemon.illusion) return;
-			if (!pokemon.transformed) {
-				return this.chainModify(1.5);
+		onHit(target, source, move) {
+			if (move?.effectType === 'Move' && target.getMoveHitData(move).crit) {
+				this.add(`c|${getName('PiraTe Princess')}|NATURAL 20!!!`);
 			}
 		},
 	},
-	rach: {
+	quadrophenic: {
 		noCopy: true,
-		onStart(target, source) {
-			this.add(`c|%Rach|BURN IT DOWN!`);
-			if (source.illusion) return;
-			this.add('-start', source, 'typeadd', 'Fighting');
-			this.boost({spe: 1}, source);
-		},
-		onSwitchOut() {
-			this.add(`c|%Rach|Tag!`);
-		},
-		onFaint() {
-			this.add(`c|%Rach|I oversold your move`);
-		},
+		// No quotes requested
 	},
-	rageuser: {
+	rabia: {
 		noCopy: true,
-		onStart(pokemon) {
-			this.add(`c|%Rage|I'm about to ruin this mans whole career`);
+		onStart() {
+			this.add(`c|${getName('Rabia')}|eternally`);
 		},
 		onSwitchOut() {
-			this.add(`c|%Rage|Ain't supposed to be like that chief, we out`);
+			this.add(`c|${getName('Rabia')}|rabia`);
 		},
 		onFaint() {
-			this.add(`c|%Rage|/me quits`);
+			this.add(`c|${getName('Rabia')}|im top 500 in relevant tiers and lead gp, i have 8 badges, im fine, gg`);
 		},
 	},
 	ransei: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Ransei| Sup! I have been brought from the world of Hackmons to give you a preview of our characteristics. I’ve been genetically engineered to beat you at all costs. Expect to lose this fight!`);
+			this.add(`c|${getName('Ransei')}|Sup! This is Gen 8 so imma run an Eternamax set. Best of luck. You’ll need it :^)`);
 		},
-		onFaint() {
-			this.add(`c|@Ransei|ripsei`);
-		},
-	},
-	rorymercury: {
-		noCopy: true,
-		onStart(pokemon) {
-			this.add(`c|+Rory Mercury|guess I'm in charge now`);
-			if (pokemon.illusion) return;
-			this.boost({atk: 1}, pokemon);
-		},
-		onSwitchOut() {
-			this.add(`c|+Rory Mercury|brb running low on battery`);
-		},
-		onFaint() {
-			this.add(`c|+Rory Mercury|pressing charges for battery`);
-		},
-	},
-	samjo: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+SamJo|Heyo/ Hope your day's been fantasthicc! Woo!`);
-		},
-		onSwitchOut() {
-			this.add(`c|+SamJo|Catch ya later, stay thicc my friends o/`);
-		},
-		onFaint() {
-			this.add(`c|+SamJo|Oof, gotta get thiccer……. ;(`);
-		},
-	},
-	schiavetto: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|%Schiavetto|Aight, sis, guess I'm parking.`);
-		},
-		onSwitchOut() {
-			this.add(`c|%Schiavetto|Someone help me press this.`);
-		},
-		onFaint() {
-			this.add(`c|%Schiavetto|Read my ISOs when I'm dead`);
-		},
-	},
-	scotteh: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|@Scotteh|─────▄▄████▀█▄`);
-			this.add(`c|@Scotteh|───▄██████████████████▄`);
-			this.add(`c|@Scotteh|─▄█████.▼.▼.▼.▼.▼.▼.▼`);
-		},
-		onSwitchOut() {
-			this.add(`c|@Scotteh|▄███████▄.▲.▲.▲.▲.▲.▲`);
-			this.add(`c|@Scotteh|█████████████████████▀▀`);
-		},
-		onFaint() {
-			this.add(`c|@Scotteh|▄███████▄.▲.▲.▲.▲.▲.▲`);
-			this.add(`c|@Scotteh|█████████████████████▀▀`);
-		},
-	},
-	shiba: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Shiba|LINDA IS INDA`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Shiba|gotta buy an alt rq brb`);
-		},
-	},
-	slowbroth: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Slowbroth|DETECTING FOREIGN SPECIES...`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Slowbroth|TELEPORTING TO ALTERNATE DIMENSION...`);
-		},
-		onFaint() {
-			this.add(`c|+Slowbroth|HARDWARE DAMAGE PERMANENT...`);
-		},
-	},
-	snaquaza: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Snaquaza|Snaq is baq... with a vengeance!`);
-		},
-		onSwitchOut(pokemon) {
-			this.add(`c|+Snaquaza|Lynch Hoeen while I'm away...`);
-			if (pokemon.m.claimHP) {
-				pokemon.hp = pokemon.m.claimHP;
-				pokemon.m.claimHP = null;
+		onFaint(pokemon) {
+			const target = pokemon.side.foe.active[0];
+			if (!target || target.fainted || target.hp <= 0) {
+				this.add(`c|${getName('Ransei')}|Ahah yes you got rekt! Welcome to Hackmons! gg m8!`);
+			} else {
+				this.add(`c|${getName('Ransei')}|ripsei... Ok look you might’ve won this time but I kid you not you’re losing next game!`);
 			}
 		},
-		onFaint() {
-			this.add(`c|+Snaquaza|How did you know I was scum?`);
+	},
+	robb576: {
+		noCopy: true,
+		onStart(target, pokemon) {
+			if (pokemon.side.pokemonLeft === 1) {
+				this.add(`c|${getName('Robb576')}|This is our last stand. Give it everything you got ${pokemon.side.name}!`);
+			} else {
+				this.add(`c|${getName('Robb576')}|1, 2, 3, 4, dunno how to count no more!`);
+			}
 		},
-		onDamage(damage, pokemon) {
-			// Hack for Snaquaza's Z move
-			if (!pokemon.m.claimHP) return;
-			// Prevent Snaquaza from fainting while using a fake claim to prevent visual bug
-			if (pokemon.hp - damage <= 0) return (pokemon.hp - 1);
+		onSwitchOut(pokemon) {
+			if (pokemon.side.pokemonLeft === 1) { // pls contacc
+				this.add(`c|${getName('Robb576')}|Something went wrong. Please contact HoeenHero to fix this`);
+			} else {
+				this.add(`c|${getName('Robb576')}|5, 7, 6, I will be right back into the mix!`);
+			}
 		},
-		onDamagingHit(damage, pokemon) {
-			// Hack for Snaquaza's Z move
-			if (!pokemon.m.claimHP || pokemon.hp > 1) return;
-			// Now we handle the fake claim "fainting"
-			pokemon.hp = pokemon.m.claimHP;
-			pokemon.formeChange(pokemon.baseSpecies.id);
-			pokemon.moveSlots = pokemon.moveSlots.slice(0, 4);
-			this.add('message', `${pokemon.name}'s fake claim was uncovered!`);
-			pokemon.m.claimHP = null;
-			this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
+		onFaint(pokemon) {
+			if (pokemon.species.name === "Necrozma-Ultra") {
+				this.add(`c|${getName('Robb576')}|gg better luck next time. Sorry I couldn't handle them all :^(`);
+			} else {
+				this.add(`c|${getName('Robb576')}|8, 9, 10, it has been a pleasure man!`);
+			}
 		},
 	},
-	sparksblade: {
+	sectoniaservant: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|%sparksblade|this team looks marsh weak`);
+			this.add(`c|${getName('SectoniaServant')}|I love one (1) queen bee`);
 		},
-		onSwitchOut() {
-			this.add(`c|%sparksblade|we lose`);
+		onSwitchOut(pokemon) {
+			this.add(`c|${getName('SectoniaServant')}|My search for my lost queen continues....`);
 		},
-		onFaint() {
-			this.add(`c|%sparksblade|i don't even play this game`);
+		onFaint(pokemon) {
+			this.add(`c|${getName('SectoniaServant')}|NOOOOOO NOT THE JELLY BABY`);
 		},
 	},
-	sundar: {
+	segmr: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+Sundar|Now, we are really going to have a bad time. >:)`);
+			this.add(`c|${getName('Segmr')}|*awakens conquerors haki* Greetings.`);
+		},
+		onSwitchOut(pokemon) {
+			if (!pokemon.switchFlag || pokemon.switchFlag !== 'disconnect') {
+				this.add(`c|${getName('Segmr')}|The beauty of a stable internet connection is it allows you to`);
+			}
+			this.add(`l|Segmr`);
+		},
+		onFaint(pokemon) {
+			const name = pokemon.side.foe.active[0].illusion ?
+				pokemon.side.foe.active[0].illusion.name : pokemon.side.foe.active[0].name;
+			this.add(`c|${getName('Segmr')}|I'm sorry ${name} but could you please stop talking to me`);
+		},
+	},
+	shadecession: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Shadecession')}|Better put on my Shadecessions`);
+		},
+		onSwitchOut(pokemon) {
+			this.add(`c|${getName('Shadecession')}|⌐■_■`);
+		},
+		onFaint(pokemon) {
+			this.add(`c|${getName('Shadecession')}|ah, gg fam`);
+		},
+	},
+	struchni: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Struchni')}|~tt newgame`);
+		},
+		onSwitchOut(source) {
+			this.add(`c|${getName('Struchni')}|~tt endgame`);
+			if (source.m.typeEff) delete source.m.typeEff;
+		},
+		onFaint(pokemon) {
+			this.add(`c|${getName('Struchni')}|**selfveto**`);
+		},
+		// Needed for Veto move
+		onHit(target, source, move) {
+			target.m.typeEff = target.getMoveHitData(move).typeMod;
+		},
+	},
+	sunny: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Sunny')}|I will live up to the hopes of those who supported me. That's why I'm giving it everything I got, for everyone!`);
 		},
 		onSwitchOut() {
-			this.add(`c|+Sundar|I'll spare you for now.`);
+			this.add(`c|${getName('Sunny')}|I can't just keep getting help from others. I have to hurry and learn to control my powers.`);
 		},
 		onFaint() {
-			this.add(`c|+Sundar|..that's it, huh? Don't say I didn't warn you.`);
+			this.add(`c|${getName('Sunny')}|All men are not created equal. That was the reality I learned about society in general.`);
 		},
 	},
 	teclis: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Teclis|The Emperor protects.`);
+			this.add(`c|${getName('Teclis')}|A little magic can go a long way.`);
 		},
 		onSwitchOut() {
-			this.add(`c|@Teclis|Only in death does duty end.`);
+			this.add(`c|${getName('Teclis')}|But magic can sometimes just be an illusion.`);
 		},
 		onFaint() {
-			this.add(`c|@Teclis|Success is commemorated; Failure merely remembered.`);
+			this.add(`c|${getName('Teclis')}|Magic never dies. It merely fades away.`);
 		},
 	},
-	tennisace: {
+	tenshi: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@tennisace|VIVA LOS TIGRES`);
+			this.add(`c|${getName('Tenshi')}|Hi gm`);
 		},
 		onSwitchOut() {
-			this.add(`c|@tennisace|wtf is this shit even`);
+			this.add(`c|${getName('Tenshi')}|Ight Imma head out`);
 		},
 		onFaint() {
-			this.add(`c|@tennisace|maybe next season n_n`);
+			this.add(`c|${getName('Tenshi')}|Grr bork bork :(`);
 		},
 	},
-	teremiare: {
-		noCopy: true,
-		onStart(source) {
-			this.add(`c|+Teremiare|<('o'<)`);
-			if (source.illusion) return;
-			const target = source.side.foe.active[0];
-
-			const removeAll = [
-				'reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'stickyweb',
-			];
-			const silentRemove = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist'];
-			for (const sideCondition of removeAll) {
-				if (target.side.removeSideCondition(sideCondition)) {
-					if (!(silentRemove.includes(sideCondition))) {
-						this.add('-sideend', target.side, this.dex.getEffect(sideCondition).name, '[from] move: No Fun Zone', '[of] ' + source);
-					}
-				}
-				if (source.side.removeSideCondition(sideCondition)) {
-					if (!(silentRemove.includes(sideCondition))) {
-						this.add('-sideend', source.side, this.dex.getEffect(sideCondition).name, '[from] move: No Fun Zone', '[of] ' + source);
-					}
-				}
-			}
-			this.add('-clearallboost');
-			for (const pokemon of this.getAllActive()) {
-				pokemon.clearBoosts();
-			}
-			for (const clear in this.field.pseudoWeather) {
-				if (clear.endsWith('mod') || clear.endsWith('clause')) continue;
-				this.field.removePseudoWeather(clear);
-			}
-			this.field.clearWeather();
-			this.field.clearTerrain();
-		},
-		onFaint() {
-			this.add(`c|+Teremiare|(>'o')>`);
-		},
-	},
-	theimmortal: {
+	tiki: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|&The Immortal|h-hi`);
+			this.add(`c|${getName('tiki')}|just tiki.`);
 		},
 		onSwitchOut() {
-			this.add(`c|&The Immortal|ok`);
+			this.add(`c|${getName('tiki')}|`);
+			this.add(`raw|<img src="https://www.smogon.com/forums/attachments/cat-custom-png.254830/" />`);
 		},
 		onFaint() {
-			this.add(`c|&The Immortal|zzz`);
+			this.add(`c|${getName('tiki')}|aksfgkjag o k`);
 		},
 	},
-	theleprechaun: {
+	trace: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+The Leprechaun|Let's get this bread`);
+			this.add(`c|${getName('trace')}|Daishouri!`);
 		},
 		onSwitchOut() {
-			this.add(`c|+The Leprechaun|I'm out this mutherfucker`);
+			this.add(`c|${getName('trace')}|¯\\_(ツ)_/¯`);
 		},
 		onFaint() {
-			this.add(`c|+The Leprechaun|This ain't it chief`);
-		},
-	},
-	tony: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|@Tony|Greed!`);
-		},
-		onSwitchOut() {
-			this.add(`c|@Tony|Greed!`);
-		},
-		onFaint() {
-			this.add(`c|@Tony|Greed..`);
-		},
-		// Innate levitate implemented in data/mods/ssb/scripts.js#pokemon#isGrounded
-	},
-	torkool: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+torkool|:peepodetective:`);
-		},
-		onSwitchOut() {
-			this.add(`c|+torkool|i cba`);
-		},
-		onFaint() {
-			this.add(`c|+torkool|I don't deserve this...`);
+			this.add(`c|${getName('trace')}|sucks to sucks`);
 		},
 	},
 	trickster: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|@Trickster|(◕‿◕✿)`);
+			this.add(`c|${getName('Trickster')}|(¤﹏¤).`);
 		},
 		onSwitchOut() {
-			this.add(`c|@Trickster|(◠﹏◠✿)`);
+			this.add(`c|${getName('Trickster')}|(︶︹︺)`);
 		},
 		onFaint() {
-			this.add(`c|@Trickster|(✖﹏✖✿)`);
+			this.add(`c|${getName('Trickster')}|(ಥ﹏ಥ)`);
 		},
 	},
 	vivalospride: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|%vivalospride|bet`);
+			this.add(`c|${getName('vivalospride')}|hola mi amore`);
 		},
 		onSwitchOut() {
-			this.add(`c|%vivalospride|tuh`);
+			this.add(`c|${getName('vivalospride')}|no hablo español`);
 		},
 		onFaint() {
-			this.add(`c|%vivalospride|THERE IT IS!!`);
+			this.add(`c|${getName('vivalospride')}|classic honestly`);
 		},
 	},
-	volco: {
+	vooper: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+Volco|Get Ready, I'm going to take you down!`);
+			this.add(`c|${getName('vooper')}|${['Paws out, claws out!', 'Ready for the prowl!'][this.random(2)]}`);
 		},
 		onSwitchOut() {
-			this.add(`c|+Volco|I've decided to spare you, lucky you.`);
+			this.add(`c|${getName('vooper')}|Must... eat... bamboo...`);
 		},
 		onFaint() {
-			this.add(`c|+Volco|Well, seems I was taken down instead.`);
-		},
-	},
-	xayah: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+Xayah|Let's dance!`);
-		},
-		onSwitchOut() {
-			this.add(`c|+Xayah|Fine, I'll go.`);
-		},
-		onFaint() {
-			this.add(`c|+Xayah|All out of second dances...`);
-		},
-	},
-	xfix: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+xfix|destroy the world!`);
-		},
-		onSwitchOut() {
-			this.add(`c|+xfix|brb i need to rethink my plan`);
-		},
-		onFaint() {
-			this.add(`c|+xfix|but the world refused`);
+			this.add(`c|${getName('vooper')}|I guess Kung Fu isn't for everyone...`);
 		},
 	},
 	xjoelituh: {
 		noCopy: true,
 		onStart(source) {
-			this.add(`c|@xJoelituh|h-hi, im joel, not joe, tyvm`);
-			// Terrifying Demeanor Innate
-			if (source.illusion) return;
-			const target = source.side.foe.active[0];
-			if (target.getStat('spe', true, true) > source.getStat('spe', true, true)) this.boost({spe: -1}, target, source);
+			this.add(`c|${getName('xJoelituh')}|Hey, how can I help you?`);
 		},
 		onSwitchOut() {
-			this.add(`c|@xJoelituh|if that's what you want, s-sure`);
+			this.add(`c|${getName('xJoelituh')}|Hold on, I need a second opinion.`);
 		},
 		onFaint() {
-			// Random Gibberish Generator
-			let gibberish = '';
-			for (let j = 0; j < 10; j++) gibberish += String.fromCharCode(48 + this.random(79));
-			this.add(`c|@xJoelituh|${gibberish}`);
-		},
-	},
-	xprienzo: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|+XpRienzo ☑◡☑|Bleh`);
-		},
-		onSwitchOut() {
-			this.add(`c|+XpRienzo ☑◡☑|>.>`);
-		},
-		onFaint() {
-			this.add(`c|+XpRienzo ☑◡☑|Wait what?`);
+			let str = '';
+			for (let x = 0; x < 10; x++) str += String.fromCharCode(48 + this.random(79));
+			this.add(`c|${getName('xJoelituh')}|${str} ok`);
 		},
 	},
 	yuki: {
 		noCopy: true,
-		onStart() {
-			this.add(`c|%Yuki|My ice may be a little __cold__, but your plan has been put completely on __hold__!`);
+		onStart(target, pokemon) {
+			let bst = 0;
+			for (const stat of Object.values(pokemon.species.baseStats)) {
+				bst += stat;
+			}
+			let targetBst = 0;
+			for (const stat of Object.values(target.species.baseStats)) {
+				targetBst += stat;
+			}
+			let message: string;
+			if (bst > targetBst) {
+				message = 'You dare challenge me!?';
+			} else {
+				message = 'Sometimes, you go for it';
+			}
+			this.add(`c|${getName('yuki')}|${message}`);
 		},
 		onSwitchOut() {
-			this.add(`c|%Yuki|I-It's too hot in here!`);
+			this.add(`c|${getName('yuki')}|Catch me if you can!`);
 		},
 		onFaint() {
-			this.add(`c|%Yuki|I'm melting...`);
+			this.add(`c|${getName('yuki')}|You'll never extinguish our hopes!`);
 		},
 	},
 	zalm: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+Zalm|<(:O)000>`);
+			this.add(`c|${getName('Zalm')}|<(:O)000>`);
 		},
-		onSwitchOut() {
-			this.add(`c|+Zalm|Woah`);
+		onSwitchOut(pokemon) {
+			this.add(`c|${getName('Zalm')}|Run for the hills!`);
 		},
-		onFaint() {
-			this.add(`c|+Zalm|Tfw still no mega weedle`);
+		onFaint(pokemon) {
+			this.add(`c|${getName('Zalm')}|Woah`);
 		},
 	},
 	zarel: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|&Zarel|Your mom`);
-		},
-		onFaint() {
-			this.add(`c|&Zarel|Your mom`);
-			// message is shown after the "Zarel Fainted!" message
-			this.add('message', 'Zarel used your mom!');
+			this.add(`c|${getName('Zarel')}|the melo-p represents PS's battles, and the melo-a represents PS's chatrooms`);
+			this.add(`c|${getName('Zarel')}|THIS melo-a represents kicking your ass, though`);
 		},
 	},
-	zyguser: {
+	zodiax: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|+Zyg|/me sighs`);
+			this.add(`c|${getName('Zodiax')}|Zodiax is here to Zodihax`);
 		},
-		onSwitchOut() {
-			this.add(`c|+Zyg|/me sighs`);
+		onSwitchOut(pokemon) {
+			this.add(`c|${getName('Zodiax')}|Don't worry I'll be back again`);
 		},
-		onFaint() {
-			this.add(`c|+Zyg|Brexit means Brexit`);
+		onFaint(pokemon) {
+			const name = pokemon.side.foe.name;
+			this.add(`c|${getName('Zodiax')}|${name}, Why would you hurt this poor little pompombirb :(`);
 		},
-	},
-	// boostreplacement condition for nui's zmove
-	boostreplacement: {
-		// this is a side condition
-		name: 'boostreplacement',
-		onStart(side, source) {
-			this.effectData.position = source.position;
+		onPrepareHit(source, target, move) {
+			if (move.name === 'Big Storm Coming') {
+				this.add(`c|${getName('Zodiax')}|There is a hail no storm okayyyyyy`);
+			}
 		},
-		onSwitchInPriority: 1,
-		onSwitchIn(target) {
-			if (!target.fainted && target.position === this.effectData.position) {
-				this.boost({def: 1, spd: 1});
-				target.side.removeSideCondition('boostreplacement');
+		// Big Storm Coming base power reduction effect
+		onBasePower(basePower, pokemon, target, move) {
+			if (pokemon.m.bigstormcoming) {
+				return this.chainModify([0x4CC, 0x1000]);
 			}
 		},
 	},
-	// Prevents glitch out from running more than once per turn per pokemon & boosts base power
-	glitchout: {
-		name: "Glitch Out",
-		duration: 1,
-		onTryHit(target, source, move) {
-			if (move.basePower) {
-				move.basePower += 20;
-				this.debug('glitch out base power boost');
-			}
-		},
-	},
-	// Modified type setup for arceus
-	arceus: {
-		inherit: true,
-		onType(types, pokemon) {
-			if (pokemon.transformed) return types;
-			let type: string | undefined = 'Normal';
-			if (pokemon.ability === 'multitype' || pokemon.ability === 'logia') {
-				type = pokemon.getItem().onPlate;
-				if (!type) {
-					type = 'Normal';
-				}
-			}
-			return [type];
-		},
-	},
-	// weight doubling volatile for trickster
-	weightdoubler: {
-		name: "Weight Doubler",
-		noCopy: true,
-		onStart(pokemon) {
-			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s weight has doubled.`);
-			pokemon.weighthg *= 2;
-		},
-	},
-	// Gooey volatile for Decem's move
-	gooey: {
-		name: "Gooey",
-		onStart(pokemon, source) {
-			this.add('-start', pokemon, 'Gooey', '[of] ' + source);
-			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name} was covered in corrosive goo!`);
-		},
-		onResidualOrder: 10,
-		onResidual(pokemon) {
-			this.damage(pokemon.baseMaxhp / 6);
-			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name} was damaged by the corrosive goo!`);
-		},
-	},
-	// Custom Acid Rain weather for Pirate Princess
-	acidrain: {
-		name: 'Acid Rain',
+	// Heavy Hailstorm status support for Alpha
+	heavyhailstorm: {
+		name: 'HeavyHailstorm',
 		effectType: 'Weather',
-		duration: 5,
-		onModifySpDPriority: 10,
-		onModifySpD(spd, pokemon) {
-			if (pokemon.hasType('Poison') && this.field.isWeather('acidrain')) {
-				return this.modify(spd, 1.5);
+		duration: 3,
+		onTryMovePriority: 1,
+		onTryMove(attacker, defender, move) {
+			if (move.type === 'Steel' && move.category !== 'Status') {
+				this.debug('Heavy Hailstorm Steel suppress');
+				this.add('-fail', attacker, move, '[from] Heavy Hailstorm');
+				this.attrLastMove('[still]');
+				return null;
+			}
+		},
+		onWeatherModifyDamage(damage, attacker, defender, move) {
+			if (move.type === 'Ice') {
+				this.debug('Heavy Hailstorm ice boost');
+				return this.chainModify(1.5);
 			}
 		},
 		onStart(battle, source, effect) {
-			if (effect?.effectType === 'Ability') {
-				if (this.gen <= 5) this.effectData.duration = 0;
-				this.add('-weather', 'AcidRain', '[from] ability: ' + effect, '[of] ' + source);
-			} else {
-				this.add('-weather', 'AcidRain');
+			this.add('-weather', 'Heavy Hailstorm');
+			this.effectData.source = source;
+		},
+		onModifyMove(move, pokemon, target) {
+			if (!this.field.isWeather('heavyhailstorm')) return;
+			if (move.category !== "Status") {
+				this.debug('Adding Heavy Hailstorm freeze');
+				if (!move.secondaries) move.secondaries = [];
+				for (const secondary of move.secondaries) {
+					if (secondary.status === 'frz') return;
+				}
+				move.secondaries.push({
+					chance: 10,
+					status: 'frz',
+				});
 			}
-			this.add('-message', 'Acid Rain began to fall.');
+		},
+		onAnySetWeather(target, source, weather) {
+			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream', 'snowstorm', 'heavyhailstorm'];
+			if (this.field.getWeather().id === 'heavyhailstorm' && !strongWeathers.includes(weather.id)) return false;
 		},
 		onResidualOrder: 1,
 		onResidual() {
-			this.add('-weather', 'AcidRain', '[upkeep]');
-			if (this.field.isWeather('acidrain')) this.eachEvent('Weather');
+			this.add('-weather', 'Heavy Hailstorm', '[upkeep]');
+			if (this.field.isWeather('heavyhailstorm')) this.eachEvent('Weather');
 		},
-		onWeather(target) {
-			if (target.hasType('Poison')) return;
-			this.damage(target.baseMaxhp / 16);
-		},
-		onModifyMovePriority: -5,
-		onModifyMove(move) {
-			if (!move.ignoreImmunity) move.ignoreImmunity = {};
-			if (move.ignoreImmunity !== true) {
-				move.ignoreImmunity['Steel'] = true;
-			}
+		onWeather(target, source, effect) {
+			if (target.side === this.effectData.source.side) return;
+			// Hail is strongerfrom Heavy Hailstormnone
+			if (!target.hasType('Ice')) this.damage(target.baseMaxhp / 8);
 		},
 		onEnd() {
-			this.add('-weather', 'none');
-			this.add('-message', 'The Acid Rain subsided.');
+			this.add('-end', 'Heavy Hailstorm');
 		},
 	},
-	// Custom effect for Rage's multihit
-	enrageeeeed: {
-		name: "Enrageeeeed",
-		onStart(pokemon, source) {
-			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s next attack will hit multiple times!`);
-		},
-		onPrepareHit(source, target, move) {
-			// beat up relies on its multihit being the number of valid allies
-			if (move.category !== 'Status' && move.id !== 'beatup') {
-				move.multihit = [2, 5];
-				move.basePower = 25;
-				this.effectData.usedup = true;
-			}
-		},
-		onAfterMove(pokemon, source) {
-			if (this.effectData.usedup) pokemon.removeVolatile('enrageeeeed');
-		},
-	},
-	// Custom effect for Yuki
-	cutietrap: {
-		name: "Cutie Trap",
-		duration: 5,
-		noCopy: true,
-		onStart(pokemon, source) {
-			if (!this.runEvent('Attract', pokemon, source)) {
-				this.debug('Attract event failed');
-				return false;
-			}
-			this.add('-start', pokemon, 'Attract', '[from] move: Cutie Trap', '[of] ' + source);
-			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name} was trapped by love!`);
-		},
-		onBeforeMovePriority: 2,
-		onBeforeMove(pokemon) {
-			this.add('-activate', pokemon, 'move: Attract', '[of] ' + this.effectData.source);
-			if (this.randomChance(1, 2)) {
-				this.add('cant', pokemon, 'Attract');
-				return false;
-			}
-		},
-		onTrapPokemon(pokemon) {
-			pokemon.tryTrap();
-		},
-		onEnd(pokemon) {
-			this.add('-end', pokemon, 'Attract', '[silent]');
-			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name} is no longer trapped by love.`);
-		},
-	},
-	// Modified hail for Yuki
-	hail: {
-		inherit: true,
-		onStart(battle, source, effect) {
-			if (effect?.effectType === 'Ability') {
-				if (this.gen <= 5 || effect.id === 'snowstorm') this.effectData.duration = 0;
-				this.add('-weather', 'Hail', '[from] ability: ' + effect, '[of] ' + source);
-			} else {
-				this.add('-weather', 'Hail');
-			}
-		},
-	},
-	// Special volatile that is applied to pokemon using a custom move with the effects of baton pass so that boosts/volatiles are shown on client.
-	batonpasshelper: {
-		name: "Baton Pass Helper",
-		duration: 1,
-		onSwitchInPriority: 1000,
-		onSwitchIn(target) {
-			let boost: BoostName;
-			for (boost in target.boosts) {
-				if (target.boosts[boost]) this.add('-boost', target, boost, target.boosts[boost], '[silent]');
-			}
-			for (const v in target.volatiles) {
-				if (v !== this.toID(target.name) && v !== 'batonpasshelper') this.add('-start', target, target.volatiles[v].id);
-			}
-		},
-	},
-	// Modded hazard moves to fail when Prismatic terrain is active
-	auroraveil: {
-		name: "Aurora Veil",
-		duration: 5,
-		durationCallback(target, source, effect) {
-			if (source?.hasItem('lightclay')) {
-				return 8;
-			}
-			return 5;
-		},
-		onAnyModifyDamage(damage, source, target, move) {
-			if (target !== source && target.side === this.effectData.target) {
-				if ((target.side.getSideCondition('reflect') && this.getCategory(move) === 'Physical') ||
-						(target.side.getSideCondition('lightscreen') && this.getCategory(move) === 'Special')) {
-					return;
-				}
-				if (!target.getMoveHitData(move).crit && !move.infiltrates) {
-					this.debug('Aurora Veil weaken');
-					if (target.side.active.length > 1) return this.chainModify([0xAAC, 0x1000]);
-					return this.chainModify(0.5);
-				}
-			}
-		},
-		onStart(side) {
-			if (this.field.isTerrain('prismaticterrain')) {
-				this.add('-message', `Prismatic Terrain prevented Aurora Veil from starting!`);
-				return null;
-			}
-			this.add('-sidestart', side, 'move: Aurora Veil');
-		},
-		onResidualOrder: 21,
-		onResidualSubOrder: 1,
-		onEnd(side) {
-			this.add('-sideend', side, 'move: Aurora Veil');
-		},
-	},
-	lightscreen: {
-		name: "Light Screen",
-		duration: 5,
-		durationCallback(target, source, effect) {
-			if (source?.hasItem('lightclay')) {
-				return 8;
-			}
-			return 5;
-		},
-		onAnyModifyDamage(damage, source, target, move) {
-			if (target !== source && target.side === this.effectData.target && this.getCategory(move) === 'Special') {
-				if (!target.getMoveHitData(move).crit && !move.infiltrates) {
-					this.debug('Light Screen weaken');
-					if (target.side.active.length > 1) return this.chainModify([0xAAC, 0x1000]);
-					return this.chainModify(0.5);
-				}
-			}
-		},
-		onStart(side) {
-			if (this.field.isTerrain('prismaticterrain')) {
-				this.add('-message', `Prismatic Terrain prevented Light Screen from starting!`);
-				return null;
-			}
-			this.add('-sidestart', side, 'move: Light Screen');
-		},
-		onResidualOrder: 21,
-		onResidualSubOrder: 1,
-		onEnd(side) {
-			this.add('-sideend', side, 'move: Light Screen');
-		},
-	},
-	mist: {
-		name: "Mist",
-		duration: 5,
-		onBoost(boost, target, source, effect) {
-			if (effect.effectType === 'Move' && effect.infiltrates && target.side !== source.side) return;
-			if (source && target !== source) {
-				let showMsg = false;
-				let i: BoostName;
-				for (i in boost) {
-					if (boost[i]! < 0) {
-						delete boost[i];
-						showMsg = true;
-					}
-				}
-				if (showMsg && !(effect as ActiveMove).secondaries) {
-					this.add('-activate', target, 'move: Mist');
-				}
-			}
-		},
-		onStart(side) {
-			if (this.field.isTerrain('prismaticterrain')) {
-				this.add('-message', `Prismatic Terrain prevented Mist from starting!`);
-				return null;
-			}
-			this.add('-sidestart', side, 'move: Mist');
-		},
-		onResidualOrder: 21,
-		onResidualSubOrder: 3,
-		onEnd(side) {
-			this.add('-sideend', side, 'Mist');
-		},
-	},
-	reflect: {
-		name: "Reflect",
-		duration: 5,
-		durationCallback(target, source, effect) {
-			if (source?.hasItem('lightclay')) {
-				return 8;
-			}
-			return 5;
-		},
-		onAnyModifyDamage(damage, source, target, move) {
-			if (target !== source && target.side === this.effectData.target && this.getCategory(move) === 'Physical') {
-				if (!target.getMoveHitData(move).crit && !move.infiltrates) {
-					this.debug('Reflect weaken');
-					if (target.side.active.length > 1) return this.chainModify([0xAAC, 0x1000]);
-					return this.chainModify(0.5);
-				}
-			}
-		},
-		onStart(side) {
-			if (this.field.isTerrain('prismaticterrain')) {
-				this.add('-message', `Prismatic Terrain prevented Reflect from starting!`);
-				return null;
-			}
-			this.add('-sidestart', side, 'Reflect');
-		},
-		onResidualOrder: 21,
-		onEnd(side) {
-			this.add('-sideend', side, 'Reflect');
-		},
-	},
-	safeguard: {
-		name: "Safeguard",
-		duration: 5,
-		durationCallback(target, source, effect) {
-			if (source?.hasAbility('persistent')) {
-				this.add('-activate', source, 'ability: Persistent', effect);
-				return 7;
-			}
-			return 5;
-		},
-		onSetStatus(status, target, source, effect) {
-			if (!effect || !source) return;
-			if (effect.effectType === 'Move' && effect.infiltrates && target.side !== source.side) return;
-			if (target !== source) {
-				this.debug('interrupting setStatus');
-				if (effect.id === 'synchronize' || (effect.effectType === 'Move' && !effect.secondaries)) {
-					this.add('-activate', target, 'move: Safeguard');
-				}
-				return null;
-			}
-		},
-		onTryAddVolatile(status, target, source, effect) {
-			if (!effect || !source) return;
-			if (effect.effectType === 'Move' && effect.infiltrates && target.side !== source.side) return;
-			if ((status.id === 'confusion' || status.id === 'yawn') && target !== source) {
-				if (effect.effectType === 'Move' && !effect.secondaries) this.add('-activate', target, 'move: Safeguard');
-				return null;
-			}
-		},
-		onStart(side) {
-			if (this.field.isTerrain('prismaticterrain')) {
-				this.add('-message', `Prismatic Terrain prevented Safeguard from starting!`);
-				return null;
-			}
-			this.add('-sidestart', side, 'move: Safeguard');
-		},
-		onResidualOrder: 21,
-		onResidualSubOrder: 2,
-		onEnd(side) {
-			this.add('-sideend', side, 'Safeguard');
-		},
-	},
-	spikes: {
-		name: "Spikes",
-		onStart(side) {
-			if (this.field.isTerrain('prismaticterrain')) {
-				this.add('-message', `Prismatic Terrain prevented Spikes from starting!`);
-				return null;
-			}
-			this.effectData.layers = 1;
-			this.add('-sidestart', side, 'move: Spikes');
-		},
-		onRestart(side) {
-			if (this.effectData.layers >= 3) return false;
-			this.add('-sidestart', side, 'Spikes');
-			this.effectData.layers++;
-		},
-		onSwitchIn(pokemon) {
-			if (!pokemon.isGrounded()) return;
-			const damageAmounts = [0, 3, 4, 6]; // 1/8, 1/6, 1/4
-			this.damage(damageAmounts[this.effectData.layers] * pokemon.maxhp / 24);
-		},
-	},
-	stealthrock: {
-		name: "Stealth Rock",
-		onStart(side) {
-			if (this.field.isTerrain('prismaticterrain')) {
-				this.add('-message', `Prismatic Terrain prevented Stealth Rock from starting!`);
-				return null;
-			}
-			this.add('-sidestart', side, 'move: Stealth Rock');
-		},
-		onSwitchIn(pokemon) {
-			const typeMod = this.clampIntRange(pokemon.runEffectiveness(this.dex.getActiveMove('stealthrock')), -6, 6);
-			this.damage(pokemon.maxhp * Math.pow(2, typeMod) / 8);
-		},
-	},
-	stickyweb: {
-		name: "Sticky Web",
-		onStart(side) {
-			if (this.field.isTerrain('prismaticterrain')) {
-				this.add('-message', `Prismatic Terrain prevented Sticky Web from starting!`);
-				return null;
-			}
-			this.add('-sidestart', side, 'move: Sticky Web');
-		},
-		onSwitchIn(pokemon) {
-			if (!pokemon.isGrounded()) return;
-			this.add('-activate', pokemon, 'move: Sticky Web');
-			this.boost({spe: -1}, pokemon, pokemon.side.foe.active[0], this.dex.getActiveMove('stickyweb'));
-		},
-	},
-	toxicspikes: {
-		name: "Toxic Spikes",
-		onStart(side) {
-			if (this.field.isTerrain('prismaticterrain')) {
-				this.add('-message', `Prismatic Terrain prevented Toxic Spikes from starting!`);
-				return null;
-			}
-			this.add('-sidestart', side, 'move: Toxic Spikes');
-			this.effectData.layers = 1;
-		},
-		onRestart(side) {
-			if (this.effectData.layers >= 2) return false;
-			this.add('-sidestart', side, 'move: Toxic Spikes');
-			this.effectData.layers++;
-		},
-		onSwitchIn(pokemon) {
-			if (!pokemon.isGrounded()) return;
-			if (pokemon.hasType('Poison')) {
-				this.add('-sideend', pokemon.side, 'move: Toxic Spikes', '[of] ' + pokemon);
-				pokemon.side.removeSideCondition('toxicspikes');
-			} else if (pokemon.hasType('Steel')) {
+	// Modified futuremove support for Segmr's move (Disconnect)
+	futuremove: {
+		// this is a slot condition
+		name: 'futuremove',
+		duration: 3,
+		onResidualOrder: 3,
+		onEnd(target) {
+			const data = this.effectData;
+			// time's up; time to hit! :D
+			const move = this.dex.getMove(data.move);
+			if (target.fainted || target === data.source) {
+				this.hint(`${move.name} did not hit because the target is ${(data.fainted ? 'fainted' : 'the user')}.`);
 				return;
-			} else if (this.effectData.layers >= 2) {
-				pokemon.trySetStatus('tox', pokemon.side.foe.active[0]);
+			}
+
+			this.add('-end', target, 'move: ' + move.name);
+			target.removeVolatile('Protect');
+			target.removeVolatile('Endure');
+
+			if (data.source.hasAbility('infiltrator') && this.gen >= 6) {
+				data.moveData.infiltrates = true;
+			}
+			if (data.source.hasAbility('normalize') && this.gen >= 6) {
+				data.moveData.type = 'Normal';
+			}
+			if (data.source.hasAbility('adaptability') && this.gen >= 6) {
+				data.moveData.stab = 2;
+			}
+			// @ts-ignore
+			const hitMove: ActiveMove = new this.dex.Data.Move(data.moveData);
+
+			// Support for Segmr's custom move
+			if (move.name === 'Disconnect') this.add(`j|${getName('Segmr')}`);
+			this.trySpreadMoveHit([target], data.source, hitMove);
+			// Support for Segmr's custom move
+			if (move.name === 'Disconnect') this.add(`c|${getName('Segmr')}|so as i was saying, then move hits`);
+		},
+	},
+	raindrop: {
+		name: 'Raindrop',
+		noCopy: true,
+		onStart(target) {
+			if (target.activeTurns < 1) return;
+			this.effectData.layers = 1;
+			this.effectData.def = 0;
+			this.effectData.spd = 0;
+			this.add('-start', target, 'Raindrop');
+			const [curDef, curSpD] = [target.boosts.def, target.boosts.spd];
+			this.boost({def: 1, spd: 1}, target, target);
+			if (curDef !== target.boosts.def) this.effectData.def--;
+			if (curSpD !== target.boosts.spd) this.effectData.spd--;
+		},
+		onResidual(target) {
+			if (this.effectData.def >= 6 && this.effectData.spd >= 6) return false;
+			if (target.activeTurns < 1) return;
+			this.effectData.layers++;
+			this.add('-start', target, 'Raindrop');
+			const curDef = target.boosts.def;
+			const curSpD = target.boosts.spd;
+			this.boost({def: 1, spd: 1}, target, target);
+			if (curDef !== target.boosts.def) this.effectData.def--;
+			if (curSpD !== target.boosts.spd) this.effectData.spd--;
+		},
+		onEnd(target) {
+			if (this.effectData.def || this.effectData.spd) {
+				const boosts: SparseBoostsTable = {};
+				if (this.effectData.def) boosts.def = this.effectData.def;
+				if (this.effectData.spd) boosts.spd = this.effectData.spd;
+				this.boost(boosts, target, target);
+			}
+			this.add('-end', target, 'Raindrop');
+			if (this.effectData.def !== this.effectData.layers * -1 || this.effectData.spd !== this.effectData.layers * -1) {
+				this.hint("Raindrop keeps track of how many times it successfully altered each stat individually.");
+			}
+		},
+	},
+	// Custom side condition to allow the ability to track what mon was last in for Darth's Ability.
+	tracker: {
+		onStart(source) {
+			const mon = source.active[0];
+			if (mon.name !== 'Darth') {
+				this.effectData.storedTypes = mon.getTypes();
+			}
+		},
+		onSwitchIn(pokemon) {
+			if (pokemon.name !== 'Darth') {
+				this.effectData.storedTypes = pokemon.getTypes();
+			}
+		},
+	},
+	// Custom status for A Quag To The Past's signature move
+	bounty: {
+		name: 'bounty',
+		effectType: 'Status',
+		onStart(target, source, sourceEffect) {
+			if (sourceEffect.effectType === 'Ability') {
+				this.add('-start', target, 'bounty', '[from] ability: ' + sourceEffect.name, '[of] ' + source);
 			} else {
-				pokemon.trySetStatus('psn', pokemon.side.foe.active[0]);
+				this.add('-start', target, 'bounty');
+			}
+			// this.add('-start', target, 'bounty', '[silent]');
+		},
+		onSwitchIn(pokemon) {
+			if (pokemon.status === 'bounty') {
+				this.add('-start', pokemon, 'bounty');
+			}
+		},
+		onFaint(target, source, effect) {
+			if (effect.effectType !== 'Move') return;
+			if (source) {
+				this.add('-activate', target, 'ability: Bounty');
+				this.boost({atk: 1, def: 1, spa: 1, spd: 1, spe: 1}, source, target, effect);
 			}
 		},
 	},
