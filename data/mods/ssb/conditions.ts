@@ -1089,6 +1089,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('Tenshi')}|Grr bork bork :(`);
 		},
 	},
+	thewaffleman: {
+      noCopy: true,
+      onStart() {
+          this.add(`c|${getName('thewaffleman')}|Whats Good Youtube its your boy thewaffleman`);
+      },
+        onSwitchOut() {
+          this.add(`c|${getName('thewaffleman')}|Never Gonna Give You Up`);
+      },
+      onFaint() {
+          this.add(`c|${getName('thewaffleman')}|coyg`);
+      },
+   },
 	tiki: {
 		noCopy: true,
 		onStart() {
