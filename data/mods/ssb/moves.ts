@@ -3103,37 +3103,36 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		target: "normal",
 		type: "Electric",
 	},
+
 	// thewaffleman
 	icepress: {
-        accuracy: 100, 
-        basePower: 80,
-        category: "Physical",
-        desc: "Uses user's Def stat as Atk in damage calculation. Supereffective against Fire types. 10% chance to Freeze",
-        shortDesc: "Uses user's Def stat as Atk in damage calculation.",
-        name: "Ice Press",
-        isNonstandard: "Custom",
-        gen: 8,
-        },
-        pp: 16,
-        priority: 0,
-        flags: {protect: 1, mirror: 1, contact: 1},
-        onTryMove() {
-            this.attrLastMove('[still]');
-        },
-        onPrepareHit(target, source) {
-            this.add('-anim', source, 'Body Press', target);
-        },
-	onEffectiveness(typeMod, target, type) {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		desc: "Uses user's Def stat as Atk in damage calculation. Supereffective against Fire types. 10% chance to Freeze",
+		shortDesc: "Uses user's Def stat as Atk in damage calculation.",
+		name: "Ice Press",
+		isNonstandard: "Custom",
+		gen: 8,
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, contact: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Body Press', target);
+		},
+		onEffectiveness(typeMod, target, type) {
 			if (type === 'Fire') return 1;
 		},
-        secondary: {
-            status: "frz",
-            chance: 10,
-        },
-        target: "normal", 
-        type: "Ice", 
-	useSourceDefensiveAsOffensive: true,
-    },
+		secondary: {
+			chance: 10,
+			status: "frz",
+		},
+		target: "normal",
+		type: "Ice",
+	},	
 	// tiki
 	rightoncue: {
 		accuracy: true,
