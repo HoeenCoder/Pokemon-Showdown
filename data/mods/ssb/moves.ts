@@ -1151,33 +1151,34 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		target: "normal",
 		type: "Fire",
 	},
+
 	// explodingdaisies
-	"youhavenohope": {
-        accuracy: 100, 
-        basePower: 0,
-	damageCallback(pokemon, target) {
-            return target.getUndynamaxedHP() - pokemon.hp;
-        },
-        category: "Physical",
-        desc: "Lowers the target's HP to the user's HP. Goes thru Substitute", 
-        shortDesc: "Lowers the target's HP to the user's HP.",
-        name: "You Have No Hope!",
-        pp: 1,
-        priority: 0,
-        flags: {authentic: 1, contact: 1, protect: 1, mirror: 1},
- 	isNonstandard: "Custom",
-        gen: 8,
-        onTryMove() {
-            this.attrLastMove('[still]');
-        },
-        onPrepareHit(target, source) {
-            this.add('-anim', source, 'Endeavor', target);
-        },
-        secondary: null,
-        target: "normal",
-        type: "Normal", 
-        noPPBoosts: true, 
-    },
+	youhavenohope: {
+		accuracy: 100,
+		basePower: 0,
+		damageCallback(pokemon, target) {
+			return target.getUndynamaxedHP() - pokemon.hp;
+		},
+		category: "Physical",
+		desc: "Lowers the target's HP to the user's HP. Goes thru Substitute",
+		shortDesc: "Lowers the target's HP to the user's HP.",
+		name: "You Have No Hope!",
+		pp: 1,
+		priority: 0,
+		flags: {authentic: 1, contact: 1, protect: 1, mirror: 1},
+		isNonstandard: "Custom",
+		gen: 8,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Endeavor', target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+		noPPBoosts: true,
+	},
 	// fart
 	soupstealing7starstrikeredux: {
 		accuracy: 100,
