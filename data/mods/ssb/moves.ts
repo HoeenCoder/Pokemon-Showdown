@@ -3132,7 +3132,8 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		},
 		target: "normal",
 		type: "Ice",
-	},	
+	},
+
 	// tiki
 	rightoncue: {
 		accuracy: true,
