@@ -1159,6 +1159,9 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		damageCallback(pokemon, target) {
 			return target.getUndynamaxedHP() - pokemon.hp;
 		},
+		onTryImmunity(target, pokemon) {
+			return pokemon.hp < target.hp;
+		},
 		category: "Physical",
 		desc: "Lowers the target's HP to the user's HP. Goes thru Substitute",
 		shortDesc: "Lowers the target's HP to the user's HP.",
@@ -1173,6 +1176,9 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Endeavor', target);
+		},
+		onHit(target, source) {
+			this.add(`c|${getName('explodingdaisies')}|You have no hope ${target.name}!`);
 		},
 		secondary: null,
 		target: "normal",
