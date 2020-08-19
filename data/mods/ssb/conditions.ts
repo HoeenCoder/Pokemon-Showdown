@@ -412,17 +412,17 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 	},
 	explodingdaisies: {
-        noCopy: true,
-        onStart() {
-            this.add(`c|${getName('explodingdaisies')}|Turn and run now, and I will mercifully pretend this never happened.`);
-        },
+		noCopy: true,
+		onStart() {
+			  this.add(`c|${getName('explodingdaisies')}|Turn and run now, and I will mercifully pretend this never happened.`);
+		  },
         onSwitchOut() {
-            this.add(`c|${getName('explodingdaisies')}|You are beneath me, and it shows.`);
-        },
+			  this.add(`c|${getName('explodingdaisies')}|You are beneath me, and it shows.`);
+		  },
         onFaint() {
-            this.add(`c|${getName('explodingdaisies')}|Unacceptable!`);
-        },
-    },
+			  this.add(`c|${getName('explodingdaisies')}|Unacceptable!`);
+		  },
+	},
 	fart: {
 		noCopy: true,
 		onStart(source) {
