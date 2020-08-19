@@ -1090,17 +1090,17 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 	},
 	thewaffleman: {
-      noCopy: true,
-      onStart() {
-          this.add(`c|${getName('thewaffleman')}|Whats Good Youtube its your boy thewaffleman`);
-      },
-        onSwitchOut() {
-          this.add(`c|${getName('thewaffleman')}|Never Gonna Give You Up`);
-      },
-      onFaint() {
-          this.add(`c|${getName('thewaffleman')}|coyg`);
-      },
-   },
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('thewaffleman')}|Whats Good Youtube its your boy thewaffleman`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('thewaffleman')}|Never Gonna Give You Up`);
+		},
+		onFaint() {
+			this.add(`c|${getName('thewaffleman')}|coyg`);
+		},
+	},
 	tiki: {
 		noCopy: true,
 		onStart() {
