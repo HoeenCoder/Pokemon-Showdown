@@ -422,16 +422,20 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		priority: 0,
 		flags: {heal: 1},
 		heal: [1, 2],
-		secondary: {
-			chance: 50,
-			self: {
-				onHit(target, source, move) {
-					const boostName: string[] = ['atk', 'spe'];
-					const boost: {[key: string]: number} = {};
-					boost[boostName[this.random(2)]] = 1;
-					this.boost(boost, target);
-				},
-			},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Splash', source);
+			this.add('-anim', source, 'Dragon Dance', target);
+			this.add('-anim', source, 'Roost', target);
+		},
+		onHit(target, source, move) {
+			if (!this.randomChance(1, 2)) return;
+			const boostName: string[] = ['atk', 'spe'];
+			const boost: {[key: string]: number} = {};
+			boost[boostName[this.random(2)]] = 1;
+			this.boost(boost, target);
 		},
 		target: "self",
 		type: "Flying",
