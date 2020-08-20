@@ -614,7 +614,6 @@ export const Abilities: {[k: string]: ModdedAbilityData & {gen?: number}} = {
 		isNonstandard: "Custom",
 		gen: 8,
 	},
-	
 	// fart
 	bipolar: {
 		desc: "When this Pokemon switches in, it changes to two random types and gets STAB.",
