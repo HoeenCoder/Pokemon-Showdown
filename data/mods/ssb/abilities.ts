@@ -1147,7 +1147,7 @@ export const Abilities: {[k: string]: ModdedAbilityData & {gen?: number}} = {
 		desc: "This Pokemon is immune to Grass- and Water-type moves, restores 1/4 of its maximum HP, rounded down, when hit by these types, and boosts its Attack by 1 stage when hit by these types.",
 		shortDesc: "Heals 1/4 of its max HP and gains +1 Atk when hit by Water and Grass moves; Water and Grass immunity.",
 		onTryHit(target, source, move) {
-			if (target !== source && move.type === 'Water' || move.type === 'Grass') {
+			if (target !== source && ['Water', 'Grass'].includes(move.type)) {
 				if (!this.heal(target.baseMaxhp / 4) || !this.boost({atk: 1})) {
 					this.add('-immune', target, '[from] ability: Soup Sipper');
 				}
