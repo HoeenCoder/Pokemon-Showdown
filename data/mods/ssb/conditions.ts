@@ -412,17 +412,17 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 	},
 	estarossa: {
-        noCopy: true,
-        onStart() {
-            this.add(`c|${getName('estarossa')}|honestly best pairing for hazard coverage wtih molt is like molt + tsareena/dhelmise`);
-        },
-        onSwitchOut() {
-            this.add(`c|${getName('estarossa')}|sand balance <333`);
-        },
-        onFaint() {
-            this.add(`c|${getName('estarossa')}|*eurgh*`);
-        },
-    },
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('estarossa')}|honestly best pairing for hazard coverage wtih molt is like molt + tsareena/dhelmise`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('estarossa')}|sand balance <333`);
+		},
+		onFaint() {
+			this.add(`c|${getName('estarossa')}|*eurgh*`);
+		},
+	},
 	explodingdaisies: {
 		noCopy: true,
 		onStart() {
