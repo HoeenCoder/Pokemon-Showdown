@@ -1151,33 +1151,33 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		target: "normal",
 		type: "Fire",
 	},
-	
+
 	// estarossa
 	sandbalance: {
-        accuracy: true,
-        basePower: 0, 
-        category: "Status",
-        desc: "Hippowdon uses Roar, then switches out after forcing out the opposing Pokemon.", 
-        shortDesc: "Hippowdon uses Roar, switches out after.",
-        name: "Sand Balance",
-        isNonstandard: "Custom",
-        gen: 8,
-        pp: 16,
-        priority: -6, 
-        flags: {authentic: 1, protect: 1, mirror: 1, sound: 1, refractable: 1},
-        onTryMove() {
-            this.attrLastMove('[still]'); 
-        },
-        onPrepareHit(target, source) {
-            this.add('-anim', source, 'Roar', foe);
-            this.add('-anim', source, 'Parting Shot', foe);
-        }, 
-	forceSwitch: true,
-	selfSwitch: true,
-        secondary: null, 
-        target: "normal", 
-        type: "Ground", 
-    },
+		accuracy: true,
+		basePower: 0, 
+		category: "Status",
+		desc: "Hippowdon uses Roar, then switches out after forcing out the opposing Pokemon.",
+		shortDesc: "Hippowdon uses Roar, switches out after.",
+		name: "Sand Balance",
+		isNonstandard: "Custom",
+		gen: 8,
+		pp: 10,
+		priority: -6,
+		flags: {authentic: 1, protect: 1, mirror: 1, sound: 1, refractable: 1},
+		onTryMove() {
+            this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+            this.add('-anim', source, 'Roar', target);
+            this.add('-anim', source, 'Parting Shot', target);
+		}, 
+		forceSwitch: true,
+		selfSwitch: true,
+		secondary: null,
+		target: "normal",
+		type: "Ground",
+	},
 
 	// explodingdaisies
 	youhavenohope: {
