@@ -1532,7 +1532,7 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Origin Pulse', target);
-			this.add('-anim', source, 'Crarge Beam', target);
+			this.add('-anim', source, 'Charge Beam', target);
 		},
 		secondaries: [
 			{
