@@ -427,8 +427,8 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		},
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Splash', source);
-			this.add('-anim', source, 'Dragon Dance', target);
-			this.add('-anim', source, 'Roost', target);
+			this.add('-anim', source, 'Dragon Dance', source);
+			this.add('-anim', source, 'Roost', source);
 		},
 		onHit(target, source, move) {
 			if (!this.randomChance(1, 2)) return;
