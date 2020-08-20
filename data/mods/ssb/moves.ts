@@ -1159,7 +1159,7 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 	// estarossa
 	sandbalance: {
 		accuracy: true,
-		basePower: 0, 
+		basePower: 0,
 		category: "Status",
 		desc: "Hippowdon uses Roar, then switches out after forcing out the opposing Pokemon.",
 		shortDesc: "Hippowdon uses Roar, switches out after.",
@@ -1170,12 +1170,12 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		priority: -6,
 		flags: {authentic: 1, protect: 1, mirror: 1, sound: 1, refractable: 1},
 		onTryMove() {
-            this.attrLastMove('[still]');
+			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-            this.add('-anim', source, 'Roar', target);
-            this.add('-anim', source, 'Parting Shot', target);
-		}, 
+			this.add('-anim', source, 'Roar', target);
+			this.add('-anim', source, 'Parting Shot', target);
+		},
 		forceSwitch: true,
 		selfSwitch: true,
 		secondary: null,
