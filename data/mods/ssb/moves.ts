@@ -2624,12 +2624,30 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onPrepareHit(target, source) {
+		onPrepareHit(target, source, move) {
 			this.add('-anim', source, 'Splash', source);
+			const stats: BoostName[] = [];
+			let stat: BoostName;
+			const exclude: string[] = ['accuracy', 'evasion'];
+			for (stat in source.boosts) {
+				if (source.boosts[stat] < 6 && !exclude.includes(stat)) {
+					stats.push(stat);
+				}
+			}
+			if (stats.length) {
+				let randomStat = this.sample(stats);
+				const boost: SparseBoostsTable = {};
+				boost[randomStat] = 1;
+				if (stats.length > 1) {
+					stats.splice(stats.indexOf(randomStat), 1);
+					randomStat = this.sample(stats);
+					boost[randomStat] = 1;
+				}
+				this.boost(boost, source, source, move);
+			}
 			this.add('-anim', source, 'Hyper Voice', source);
 		},
 		secondary: null,
-		// boost before move implemented in conditions.ts
 		target: "normal",
 		type: "Water",
 	},

@@ -973,29 +973,6 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 				return false;
 			}
 		},
-		onBeforeMove(source, target, move) {
-			if (move.id === 'croak') {
-				const stats: BoostName[] = [];
-				let stat: BoostName;
-				const exclude: string[] = ['accuracy', 'evasion'];
-				for (stat in source.boosts) {
-					if (source.boosts[stat] < 6 && !exclude.includes(stat)) {
-						stats.push(stat);
-					}
-				}
-				if (stats.length) {
-					let randomStat = this.sample(stats);
-					const boost: SparseBoostsTable = {};
-					boost[randomStat] = 1;
-					if (stats.length > 1) {
-						stats.splice(stats.indexOf(randomStat), 1);
-						randomStat = this.sample(stats);
-						boost[randomStat] = 1;
-					}
-					this.boost(boost, source, source, move);
-				}
-			}
-		},
 	},
 	quadrophenic: {
 		noCopy: true,
