@@ -81,7 +81,7 @@ export function changeMoves(context: Battle, pokemon: Pokemon, newMoves: (string
 	return result;
 }
 
-export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = {
+export const Abilities: {[k: string]: ModdedAbilityData & {gen?: number}} = {
 	/*
 	// Example
 	"abilityid": {
@@ -578,7 +578,7 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 				}
 				if (stats.length) {
 					const randomStat = this.sample(stats);
-					const boost: { [k: string]: number } = {};
+					const boost: {[k: string]: number} = {};
 					boost[randomStat] = 1;
 					this.boost(boost, pokemon);
 				} else {
@@ -656,7 +656,7 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 		shortDesc: "2 random types + STAB on switch-in.",
 		name: "Bipolar",
 		onSwitchIn(pokemon) {
-			const typeMap: { [key: string]: string } = {
+			const typeMap: {[key: string]: string} = {
 				Normal: "Return",
 				Fighting: "Sacred Sword",
 				Flying: "Drill Peck",
