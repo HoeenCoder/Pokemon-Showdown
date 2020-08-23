@@ -261,7 +261,7 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 		desc: "If this Pokemon is the last unfainted team member, its Speed is raised by 1 stage.",
 		shortDesc: "+1 Speed on switch-in if all other team members have fainted.",
 		onSwitchIn(pokemon) {
-			if (pokemon.side.pokemonLeft === 1) this.boost({ spe: 1 });
+			if (pokemon.side.pokemonLeft === 1) this.boost({spe: 1});
 		},
 		name: "Overprotective",
 		isNonstandard: "Custom",
@@ -437,7 +437,7 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 				this.add('-ability', pokemon, 'Rage Quit', 'boost');
 				pokemon.faint();
 				if (pokemon.side.foe.active[0]) {
-					this.boost({ atk: -2, spa: -2 }, pokemon.side.foe.active[0], pokemon);
+					this.boost({atk: -2, spa: -2}, pokemon.side.foe.active[0], pokemon);
 				}
 			}
 		},
@@ -452,13 +452,13 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 		name: "Speed Control",
 		onAfterBoost(boost, target, source, effect) {
 			if (effect.id === 'speedcontrol') return;
-			this.boost({ spe: 1 });
+			this.boost({spe: 1});
 		},
 		onFoeAfterBoost(boost, target, source, effect) {
 			const pokemon = target.side.foe.active[0];
 			// Infinite Loop preventer
 			if (effect.id === 'speedcontrol' || effect.id === 'stubbornness') return;
-			this.boost({ spe: 1 }, pokemon);
+			this.boost({spe: 1}, pokemon);
 		},
 		isNonstandard: "Custom",
 		gen: 8,
@@ -470,7 +470,7 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 		shortDesc: "+2 Def and SpD on switch in.",
 		name: "Guardian Armor",
 		onStart(pokemon) {
-			this.boost({ def: 2, spd: 2 }, pokemon);
+			this.boost({def: 2, spd: 2}, pokemon);
 		},
 		isNonstandard: "Custom",
 		gen: 8,
@@ -549,7 +549,7 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 			}
 		},
 		onStart(pokemon) {
-			this.boost({ def: 1, spd: 1 });
+			this.boost({def: 1, spd: 1});
 		},
 		isNonstandard: "Custom",
 		gen: 8,
@@ -800,7 +800,7 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 		},
 		onTryHit(target, source, move) {
 			if (target !== source && ['Water', 'Electric'].includes(move.type)) {
-				if (!this.boost({ spa: 1 })) {
+				if (!this.boost({spa: 1})) {
 					this.add('-immune', target, '[from] ability: Hydrostatic');
 				}
 				return null;
@@ -982,7 +982,7 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 		shortDesc: "+1 Def/SpD. -7 priority on attacks. 1/8 recoil when hit with physical move, 1/16 when hit with special move.",
 		name: "Bamboo Kingdom",
 		onStart(pokemon) {
-			this.boost({ def: 1, spd: 1 }, pokemon);
+			this.boost({def: 1, spd: 1}, pokemon);
 		},
 		onModifyPriority(priority, pokemon, target, move) {
 			if (move?.category !== 'Status') return -7;
@@ -1067,10 +1067,10 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 			if (effect.id === 'speedcontrol' || effect.id === 'stubbornness') return;
 			if (success) {
 				if (!pokemon.m.happened) {
-					this.boost({ atk: 1, def: 1, spd: 1 }, pokemon);
+					this.boost({atk: 1, def: 1, spd: 1}, pokemon);
 					pokemon.m.happened = true;
 				} else {
-					this.boost({ atk: 1 }, pokemon);
+					this.boost({atk: 1}, pokemon);
 				}
 			}
 		},
@@ -1180,7 +1180,7 @@ export const Abilities: { [k: string]: ModdedAbilityData & { gen?: number } } = 
 		shortDesc: "Heals 1/4 of its max HP and gains +1 Atk when hit by Water and Grass moves; Water and Grass immunity.",
 		onTryHit(target, source, move) {
 			if (target !== source && ['Water', 'Grass'].includes(move.type)) {
-				if (!this.heal(target.baseMaxhp / 4) || !this.boost({ atk: 1 })) {
+				if (!this.heal(target.baseMaxhp / 4) || !this.boost({atk: 1})) {
 					this.add('-immune', target, '[from] ability: Soup Sipper');
 				}
 				return null;
