@@ -1240,7 +1240,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			}
 		},
 	},
-	zyg: {
+	zyguser: {
 		noCopy: true,
 		onStart() {
 			this.add(`c|${getName('Zyg')}|Free Swirlyder.`);
