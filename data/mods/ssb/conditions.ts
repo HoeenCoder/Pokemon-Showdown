@@ -1240,6 +1240,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			}
 		},
 	},
+	zyg: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Zyg')}|Free Swirlyder.`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Zyg')}|/me sighs... what is there to say?`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Zyg')}|At least I have a tier.`);
+		},
+	},
 	// Heavy Hailstorm status support for Alpha
 	heavyhailstorm: {
 		name: 'HeavyHailstorm',
