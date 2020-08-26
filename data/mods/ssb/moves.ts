@@ -3568,9 +3568,9 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 	},
 	// Zyg
 	luckofthedraw: {
-		accuracy: true
-		basePower: 0
-		category: "Status"
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
 		desc: " Boosts the users Speed, Attack and Defense by 1 stage",
 		shortDesc: "Raises the user's Attack, Defense, Speed by 1",
 		name: "Luck of the Draw",
