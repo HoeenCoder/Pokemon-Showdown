@@ -413,7 +413,7 @@ export const ssbSets: SSBSets = {
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant',
 	},
 	Naziel: {
-		species: "Kirlia", ability: 'Prankster', item: 'Eviolite', gender: ['M', 'F'],
+		species: "Kirlia", ability: 'Prankster', item: 'Eviolite', gender: '',
 		moves: ['Glare', 'Defog', 'Swagger'],
 		signatureMove: 'Not-so-worthy Pirouette',
 		evs: {hp: 252, def: 200, spd: 56}, ivs: {atk: 0}, nature: 'Calm', shiny: true,
