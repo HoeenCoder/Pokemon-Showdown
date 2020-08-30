@@ -2592,13 +2592,11 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 			this.add('-anim', source, "High Jump Kick", target);
 		},
 		onHit(target, source) {
-			let koed: Pokemon;
 			if (this.random() < 0.55) {
-				koed = target;
+				target.faint();
 			} else {
-				koed = source;
+				source.faint();
 			}
-			koed.faint();
 		},
 		secondary: null,
 		target: "normal",
