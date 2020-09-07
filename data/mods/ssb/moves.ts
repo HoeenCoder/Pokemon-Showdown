@@ -721,7 +721,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 
 	// Used for Brandon's ability
 	baneterrain: {
-		num: 580,
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
@@ -4055,7 +4054,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 
 	// used for Soft Flex's ability
 	tempestterrain: {
-		num: 604,
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
