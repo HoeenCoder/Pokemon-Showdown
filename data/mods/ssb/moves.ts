@@ -4045,7 +4045,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: {
 			chance: 100,
 			onHit(target) {
-				if (target.hasType('Flying') || target.hasType('Ground') || target.volatiles['ingrain']) return false;
+				if (target.hasType(['Flying', 'Ground']) || target.volatiles['ingrain']) return false;
 				target.addVolatile('Updraft');
 			},
 		},
