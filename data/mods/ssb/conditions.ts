@@ -2036,7 +2036,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 				this.heal(target.baseMaxhp / 16);
 				return;
 			}
-			if (!target.hasType('Electric') && (target.hasType('Flying') || target.hasType('Steel'))) {
+			if (!target.hasType('Electric') && target.hasType(['Flying', 'Steel'])) {
 				this.damage(target.baseMaxhp / 8);
 			}
 		},
