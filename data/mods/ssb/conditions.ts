@@ -71,7 +71,8 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		onStart(source) {
 			this.add(`c|${getName('aegii')}|${[`stream fiesta!!! https://youtu.be/eDEFolvLn0A`, `stream more&more!!! https://youtu.be/mH0_XpSHkZo`, `stream wannabe!!! https://youtu.be/fE2h3lGlOsk`, `stream love bomb!!! https://youtu.be/-SK6cvkK4c0`][this.random(4)]}`);
 			source.m.swapSets = function (random: boolean) {
-				const sets = [["Shadow Ball", "Flash Cannon", "Shadow Sneak", "Reset"], ["Shadow Claw", "Iron Head", "Shadow Sneak", "Reset"]];
+				const sets = [["Shadow Ball", "Flash Cannon", "Shadow Sneak", "Reset"],
+					["Shadow Claw", "Iron Head", "Shadow Sneak", "Reset"]];
 				const pp = source.moveSlots.map(move => {
 					return move.pp / move.maxpp;
 				});
@@ -96,14 +97,14 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 						used: false,
 					});
 					u++;
-				};
+				}
 				if (num) {
 					source.m.curSet = "Physical";
 				} else {
 					source.m.curSet = "Special";
 				}
 				source.battle.add('-message', `${source.side.name}'s aegii currently has a ${source.m.curSet} attacking set.`);
-			}
+			};
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('aegii')}|${[`brb, buying albums`, `brb, buying albums`, `brb, streaming mvs`, `brb, learning choreos`][this.random(4)]}`);

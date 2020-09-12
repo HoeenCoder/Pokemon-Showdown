@@ -156,8 +156,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					this.boost({spa: -1}, source, target, this.dex.getActiveMove("Reset"));
 				} else if (move.category === "Physical" && move.flags["contact"]) {
 					this.boost({atk: -1}, source, target, this.dex.getActiveMove("Reset"));
-            }
-            return this.NOT_FAIL;
+				}
+				return this.NOT_FAIL;
 			},
 		},
 		secondary: null,
