@@ -127,6 +127,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onHit(pokemon) {
 			pokemon.addVolatile('stall');
+			if (pokemon.species.baseSpecies !== 'Aegislash') return;
 			pokemon.m.swapSets();
 		},
 		condition: {
