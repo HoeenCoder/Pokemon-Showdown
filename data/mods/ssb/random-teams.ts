@@ -772,7 +772,7 @@ export const ssbSets: SSBSets = {
 export class RandomStaffBrosTeams extends RandomTeams {
 	randomStaffBrosTeam(options: {inBattle?: boolean} = {}) {
 		const team: PokemonSet[] = [];
-		const debug: string[] = []; // Set this to a list of SSB sets to override the normal pool for debugging.
+		const debug: string[] = ['aegii', 'Morfent ( _̀> ̀)', 'trace']; // Set this to a list of SSB sets to override the normal pool for debugging.
 		const pool = debug.length ? debug : Object.keys(ssbSets);
 		const typePool: {[k: string]: number} = {};
 		let depth = 0;
@@ -781,7 +781,7 @@ export class RandomStaffBrosTeams extends RandomTeams {
 			depth++;
 			const name = this.sampleNoReplace(pool);
 			const ssbSet: SSBSet = this.dex.deepClone(ssbSets[name]);
-			if (ssbSet.skip) continue;
+			// if (ssbSet.skip) continue;
 
 			// Enforce typing limits
 			if (!debug.length) { // Type limits are ignored when debugging

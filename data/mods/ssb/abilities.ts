@@ -152,9 +152,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// aegii
 	setthestage: {
-		desc: "Stance Change; Haze, Heal Bell and Embargo start on switch in.",
-		shortDesc: "Stance Change; Haze, Heal Bell and Embargo start on switch in.",
+		desc: "Stance Change + Adaptability, on switch in, selects physical or special set.",
+		shortDesc: "Stance Change + Adaptability, on switch in, selects physical or special set.",
 		onStart(source) {
+			if (source.species.baseSpecies !== 'Aegislash') return;
 			source.m.swapSets(true);
 		},
 		onModifyMove(move) {
