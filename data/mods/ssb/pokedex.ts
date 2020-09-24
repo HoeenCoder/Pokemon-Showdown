@@ -141,7 +141,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	// Meicoo
 	venusaurmega: {
 		inherit: true,
-		abilities: { 0: 'Unaware' },
+		abilities: {0: 'Unaware'},
 	},
 	// Morfent
 	banette: {
