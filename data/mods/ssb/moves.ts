@@ -2807,7 +2807,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		/* onPrepareHit(target, source) {
 			this.add('-anim', source, 'TBD', source);
 		}, */
-		// fuck this move. fuck this move. fuck this move. fuck this move. fuck this move. fuck this move. fuck this move. fuck this move. fuck this move. fuck this move. fuck this move. fuck this move. FUCK THIS MOVE!
+		// fruit this move.
 		onHit(target, source) {
 			source.addVolatile('spamguess'); // apparently adding it with self {} doesn't add it in time but if it wasn't with self {} it would add it instantly to the foe
 			this.add('-message', `${source.side.name}'s ${source.name} called upon the effects of Haze.`);
