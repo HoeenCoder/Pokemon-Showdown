@@ -5437,4 +5437,14 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			},
 		},
 	},
+	// modified for meicoo's move calling struggle with adjusted basePower
+	struggle: {
+		inherit: true,
+		basePowerCallback(pokemon, target, move) {
+			if (pokemon.volatiles["spamguess"] && pokemon.volatiles["spamguess"].failCount) {
+				return move.basePower + (40 * pokemon.volatiles["spamguess"].failCount);
+			}
+			return move.basePower;
+		},
+	},
 };
