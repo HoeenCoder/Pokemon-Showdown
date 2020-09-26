@@ -882,11 +882,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onTakeItem(item, pokemon, source) {
 			if (this.suppressingAttackEvents(pokemon) || !pokemon.hp || pokemon.item === 'stickybarb') return;
-				if (!this.activeMove) throw new Error("Battle.activeMove is null");
-				if ((source && source !== pokemon) || this.activeMove.id === 'knockoff') {
-					this.add('-activate', pokemon, 'ability: Sticky Hold');
-					return false;
-				}
+			if (!this.activeMove) throw new Error("Battle.activeMove is null");
+			if ((source && source !== pokemon) || this.activeMove.id === 'knockoff') {
+				this.add('-activate', pokemon, 'ability: Sticky Hold');
+				return false;
+			}
 		},
 		isNonstandard: "Custom",
 		gen: 8,
