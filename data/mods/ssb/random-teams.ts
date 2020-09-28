@@ -270,7 +270,7 @@ export const ssbSets: SSBSets = {
 		evs: {hp: 252, def: 64, spa: 64, spd: 64, spe: 64}, ivs: {atk: 0}, nature: 'Serious',
 	},
 	'frostyicelad ❆': {
-		species: 'Lapras', ability: 'Ice Shield', item: 'Life Orb', gender: 'M',
+		species: 'Lapras-Gmax', ability: 'Ice Shield', item: 'Life Orb', gender: 'M',
 		moves: ['Quiver Dance', 'Sparkling Aria', 'Recover'],
 		signatureMove: 'Frosty Wave',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
