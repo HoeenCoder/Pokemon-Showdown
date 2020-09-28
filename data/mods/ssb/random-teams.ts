@@ -279,7 +279,7 @@ export const ssbSets: SSBSets = {
 		species: 'Orbeetle', ability: 'Armor Time', item: ['Life Orb', 'Heavy-Duty Boots'], gender: 'M',
 		moves: ['Bug Buzz', 'Nasty Plot', 'Snipe Shot'],
 		signatureMove: 'King Giri Giri Slash',
-		evs: {hp: 252, def: 4, spe: 252}, nature: 'Timid'
+		evs: {hp: 252, def: 4, spe: 252}, nature: 'Timid',
 	},
 	Gimmick: {
 		species: 'Eelektrik', ability: 'What a Gimmick', item: 'Eviolite', gender: 'M',
