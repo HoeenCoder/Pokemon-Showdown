@@ -923,7 +923,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		isNonstandard: "Custom",
 		gen: 8,
-	},		
+	},
 
 	// Gimmick
 	whatagimmick: {
