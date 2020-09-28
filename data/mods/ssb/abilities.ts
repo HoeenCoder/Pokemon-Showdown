@@ -1981,15 +1981,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.boost({spe: 1}, source);
 			}
 		},
-		onModifyMove(move, pokemon) {
-			if (move.thawsTarget) {
-				delete move.thawsTarget;
-			}
-			if (move.flags["defrost"]) {
-				delete move.flags["defrost"];
-			}
-		},
-		onFoeModifyMove(move, pokemon) {
+		onAnyModifyMove(move, pokemon) {
 			if (move.thawsTarget) {
 				delete move.thawsTarget;
 			}
