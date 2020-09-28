@@ -1751,9 +1751,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 				return;
 			}
 			this.add(`c|${getName('Volco')}|Looks like the game fro-`);
-			this.add(`raw|<div class="broadcast-red">` +
-				`<strong>This Pokemon Showdown battle has froze!</strong><br />Don't worry, we're working on fixing it so just carry on like you never saw this.` +
-				`</div>`);
+			this.add(`raw|<div class="broadcast-red"><strong>This Pokemon Showdown battle has frozen!</strong><br />Don't worry, we're working on fixing it, so just carry on like you never saw this.</div>`);
 		},
 	},
 	vooper: {
