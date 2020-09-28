@@ -4696,11 +4696,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Tackle', source);
 			this.add('-anim', source, 'Blue Flare', target);
 		},
-		onHit(target, source) {
+		onHit(target, source, move) {
 			const random = this.random(4096);
 			if (random === 1) {
-				target.faint();
-				source.faint();
+				target.faint(source, move);
+				source.faint(source, move);
 			} else if ([1024, 2048, 3072, 4096].includes(random)) {
 				this.add(`c|${getName('Volco')}|haha memory corruption go brrr...`);
 				target.forceSwitchFlag = true;

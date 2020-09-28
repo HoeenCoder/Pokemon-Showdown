@@ -1746,8 +1746,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('Volco')}|/me controller clicking fades`);
 		},
 		onFaint(source, target, effect) {
-			// I know this will play whenever the ``faint`` function is called.
-			if (effect === null) {
+			if (effect.id === 'glitchexploiting') {
 				this.add(`c|${getName('Volco')}|Dammit, time for a reset.`);
 				return;
 			}
