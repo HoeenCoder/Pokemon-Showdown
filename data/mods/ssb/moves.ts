@@ -1683,9 +1683,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 			if (move.type === 'Rock') move.volatileStatus = 'smackdown';
 			if (this.random(10)) {
-				if (move.type === 'Fire') move.status = 'brn';
+				if (move.type === 'Fire') move.status = 'brn' as ID;
 				if (move.type === 'Steel') move.volatileStatus = 'flinch';
-				if (move.type === 'Electric') move.status = 'par';
+				if (move.type === 'Electric') move.status = 'par' as ID;
 			}
 		},
 		onPrepareHit(target, source) {
