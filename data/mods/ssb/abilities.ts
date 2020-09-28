@@ -869,7 +869,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 8,
 	},
 
-	// frostyicelad
+	// Frostyicelad
 	iceshield: {
 		desc: "This Pokemon can only be damaged by direct attacks. This Pokemon cannot lose its held item due to another Pokemon's attack.",
 		shortDesc: "Can only be damaged by direct attacks. Cannot lose its held item.",
@@ -884,7 +884,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (this.suppressingAttackEvents(pokemon) || !pokemon.hp || pokemon.item === 'stickybarb') return;
 			if (!this.activeMove) throw new Error("Battle.activeMove is null");
 			if ((source && source !== pokemon) || this.activeMove.id === 'knockoff') {
-				this.add('-activate', pokemon, 'ability: Sticky Hold');
+				this.add('-activate', pokemon, 'ability: Ice Shield');
 				return false;
 			}
 		},
