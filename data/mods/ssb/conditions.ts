@@ -1528,8 +1528,9 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 	},
 	rb220: {
 		noCopy: true,
-		onStart() {
+		onStart(source) {
 			this.add(`c|${getName('rb220')}|Time to win this :)`);
+			source.faint();
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('rb220')}|MSU need a sub`);
