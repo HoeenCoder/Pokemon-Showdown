@@ -4712,7 +4712,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				chance: 20,
 				onHit(target, source) {
 					if (this.randomChance(1, 10)) {
-						const status = ['frz', 'par'][this.random(2)];
+						const status = this.sample(['frz', 'par']);
 						this.add(`c|${getName('Volco')}|Ever just screw up the trick and corrupt the memory and cause the wrong thing to happen possibly ruining a run? No? Just me? okay...`);
 						if (this.randomChance(1, 2)) {
 							target.trySetStatus(status);
