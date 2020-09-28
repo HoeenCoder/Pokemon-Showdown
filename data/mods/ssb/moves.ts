@@ -1658,8 +1658,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	// gallant's pear
 	kinggirigirislash: {
 		accuracy: 100,
- 		basePower: 100,
- 		category: "Special",
+		basePower: 100,
+		category: "Special",
 		shortDesc: "Breaks barriers. Secondary depends on type.",
 		name: "King Giri Giri Slash",
 		isNonstandard: "Custom",
