@@ -522,7 +522,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Rapid Turn',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 	},
-	peapodc: {
+	'peapod c': {
 		species: 'Dragapult', ability: 'Stealth Black', item: 'Leftovers', gender: 'M',
 		moves: ['Hex', 'Dragon Darts', 'Work Up'],
 		signatureMove: 'Submartingale',
