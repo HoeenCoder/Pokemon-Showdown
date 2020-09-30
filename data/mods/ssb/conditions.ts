@@ -1372,7 +1372,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('Paradise ╱╲☼')}|Paradise has been kicked, not banned, therefore you could still potentially invite them back. However, do not do this @${pokemon.side.name}, unless of course, you want to be banned too, because if you invite them back you and Paradise will both be banned.`);
 		},
 	},
-	peapod: {
+	peapodc: {
 		noCopy: true,
 		onStart() {
 			this.add(`c|${getName('peapod c')}|/me sprints into the room`);
