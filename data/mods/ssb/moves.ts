@@ -3397,11 +3397,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, "Dark Void", target);
 			this.add('-anim', source, "Celebrate", target);
 		},
+		onTryHit(target, source) {
+			this.useMove('Substitute', source);
+		},
 		onHit(target, source) {
 			target.trySetStatus('brn', source);
 			target.trySetStatus('tox', source);
 			target.trySetStatus('par', source);
-			this.useMove('Substitute', source);
 		},
 		secondary: null,
 		target: "normal",
