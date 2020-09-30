@@ -1375,10 +1375,10 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 	peapod: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|${getName('peapod c')}|/me Sprints into the room`);
+			this.add(`c|${getName('peapod c')}|/me sprints into the room`);
 		},
-		onSwitchOut(source) {
-			this.add(`c|${getName('peapod c')}|brb getting m o m e n t u m​`);
+		onSwitchOut() {
+			this.add(`c|${getName('peapod c')}|Must maintain momentum!`);
 		},
 		onFaint() {
 			this.add(`c|${getName('peapod c')}|They say sleep is the cousin of death...but even ghosts need to sleep!​`);
