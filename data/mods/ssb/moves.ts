@@ -3378,6 +3378,36 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Normal",
 	},
 
+	// peapod
+	submartingale: {
+		accuracy: 100,
+		basePower: 0,
+		category: "Status",
+		desc: "Inflicts opponent with paralysis, burn, or toxic. Then sets up a Substitute.",
+		shortDesc: "Inflicts par/brn/tox. Makes Substitute.",
+		name: "Submartingale",
+		isNonstandard: "Custom",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, "Dark Void", target);
+			this.add('-anim', source, "Celebrate", target);
+		},
+		onHit(target, source) {
+			target.trySetStatus('brn', source);
+			target.trySetStatus('tox', source);
+			target.trySetStatus('par', source);
+			this.useMove('Substitute', source);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Dark",
+	},
+
 	// Perish Song
 	shiftingrocks: {
 		accuracy: true,
