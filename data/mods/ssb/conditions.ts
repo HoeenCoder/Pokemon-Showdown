@@ -1381,7 +1381,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('peapod c')}|Must maintain momentum!`);
 		},
 		onFaint() {
-			this.add(`c|${getName('peapod c')}|They say sleep is the cousin of death...but even ghosts need to sleep!​`);
+			this.add(`c|${getName('peapod c')}|They say sleep is the cousin of death — but even ghosts need to sleep!`);
 		},
 	},
 	perishsonguser: {
