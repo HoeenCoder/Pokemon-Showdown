@@ -446,8 +446,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				while (newMoveIDs.length < 4) {
 					const randomIndex = Math.floor(Math.random() * ssbSets[pokemon.name].moves.length);
 					const move = ssbSets[pokemon.name].moves[randomIndex];
-					if (pokemon.moves.includes(toID(move)))
-					newMoveIDs.push(move);
+					if (!newMoveIDs.includes(move)) {
+						newMoveIDs.push(move);
+					}
 				}
 				const newMoves = changeMoves(this, pokemon, newMoveIDs);
 				pokemon.moveSlots = newMoves;
