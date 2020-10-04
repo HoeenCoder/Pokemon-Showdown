@@ -384,23 +384,23 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	indomitable: {
 		desc: "This Pokemon cures itself if it is confused or has a major status condition. Single use.",
 		onTryAddVolatile(status, pokemon) {
-			if (status.id === 'confusion' && !pokemon.m.indomitableActivated) {
-				pokemon.m.indomitableActivated = true;
+			if (status.id === 'confusion' && !this.effectData.indomitableActivated) {
+				this.effectData.indomitableActivated = true;
 				return null;
 			}
 		},
 		onSetStatus(status, target, source, effect) {
 			if (!target.status) return;
-			if (target.m.indomitableActivated) return;
+			if (this.effectData.indomitableActivated) return;
 			this.add('-immune', target, '[from] ability: Indomitable');
-			target.m.indomitableActivated = true;
+			this.effectData.indomitableActivated = true;
 			return false;
 		},
 		onUpdate(pokemon) {
-			if ((pokemon.status || pokemon.volatiles['confusion']) && !pokemon.m.indomitableActivated) {
+			if ((pokemon.status || pokemon.volatiles['confusion']) && !this.effectData.indomitableActivated) {
 				this.add('-activate', pokemon, 'ability: Indomitable');
 				pokemon.cureStatus();
-				pokemon.m.indomitableActivated = true;
+				this.effectData.indomitableActivated = true;
 			}
 		},
 		name: "Indomitable",
@@ -734,8 +734,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Heals 50% when 25% or lower once per battle.",
 		name: "Dragon Heart",
 		onDamagingHit(damage, target, source, move) {
-			if (move && target.hp > 0 && target.hp < target.maxhp / 4 && !target.m.dragonheart) {
-				target.m.dragonheart = true;
+			if (move && target.hp > 0 && target.hp < target.maxhp / 4 && !this.effectData.dragonheart) {
+				this.effectData.dragonheart = true;
 				this.heal(target.maxhp / 2);
 			}
 		},
@@ -1073,8 +1073,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify(1.5);
 			}
 		},
-		onSetStatus(status, target, source, effect) {
-			target.heal(target.baseMaxhp / 4);
+		onModifyMove(move) {
+			move.drain = [1, 4];
 		},
 		name: "Dragon Scale",
 		isNonstandard: "Custom",
@@ -1188,8 +1188,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "If hit below 1/4 HP, heal 1/2 max HP. One time.",
 		name: "Second Wind",
 		onDamagingHit(damage, target, source, move) {
-			if (move && target.hp > 0 && target.hp < target.maxhp / 4 && !target.m.secondwind) {
-				target.m.secondwind = true;
+			if (move && target.hp > 0 && target.hp < target.maxhp / 4 && !this.effectData.secondwind) {
+				this.effectData.secondwind = true;
 				this.heal(target.maxhp / 2);
 			}
 		},
@@ -1428,7 +1428,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		onSwitchOut(pokemon) {
-			if (pokemon.m.happened) delete pokemon.m.happened;
+			if (this.effectData.happened) delete this.effectData.happened;
 		},
 		onFoeAfterBoost(boost, target, source, effect) {
 			const pokemon = target.side.foe.active[0];
@@ -1442,9 +1442,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			// Infinite Loop preventer
 			if (effect.id === 'speedcontrol' || effect.id === 'stubbornness') return;
 			if (success) {
-				if (!pokemon.m.happened) {
+				if (!this.effectData.happened) {
 					this.boost({atk: 1, def: 1, spd: 1}, pokemon);
-					pokemon.m.happened = true;
+					this.effectData.happened = true;
 				} else {
 					this.boost({atk: 1}, pokemon);
 				}
@@ -1809,14 +1809,14 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(target) {
 			if (target.baseSpecies.baseSpecies !== 'Necrozma' || target.transformed) return;
 			if (target.side.pokemonLeft <= 3) {
-				if (target.species.name === 'Necrozma-Dusk-Mane' && target.side.pokemonLeft === 1 && target.m.flag2) {
+				if (target.species.name === 'Necrozma-Dusk-Mane' && target.side.pokemonLeft === 1 && this.effectData.flag2) {
 					changeSet(this, target, ssbSets.Robb576Ultra);
-				} else if (target.species.name === "Necrozma-Dawn-Wings" && target.m.flag1) {
+				} else if (target.species.name === "Necrozma-Dawn-Wings" && this.effectData.flag1) {
 					changeSet(this, target, ssbSets.Robb576DuskMane);
-					target.m.flag2 = true;
+					this.effectData.flag2 = true;
 				}
 			}
-			target.m.flag1 = true;
+			this.effectData.flag1 = true;
 		},
 		isNonstandard: "Custom",
 		gen: 8,
