@@ -2086,7 +2086,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Soul Heart + Weak moves get a 25 Base Power buff. Moves cannot defrost, only natural thaws.",
 		onAnyFaintPriority: 1,
 		onAnyFaint() {
-			this.boost({ spa: 1 }, this.effectData.target);
+			this.boost({spa: 1}, this.effectData.target);
 		},
 		onAnyModifyMove(move, pokemon) {
 			if (move.thawsTarget) {
