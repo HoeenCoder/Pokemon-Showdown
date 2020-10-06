@@ -176,7 +176,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (move.smartTarget) {
 					move.smartTarget = false;
 				} else {
-					this.add('-activate', target, 'move: Reset');
+					this.add('-activate', target, 'move: Protect');
 				}
 				const lockedmove = source.getVolatile('lockedmove');
 				if (lockedmove) {
@@ -1061,7 +1061,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 0,
 		category: "Status",
 		desc: "Protects from physical moves. If hit by physical move, opponent is either badly poisoned, burned, or paralyzed at random and is forced out. Special attacks and status moves go through this protect.",
-		shortDesc: "Protected from physical attacks. Contact: burn, par, or tox.",
+		shortDesc: "Protected from physical moves. Contact: brn/par/tox.",
 		name: "Status Guard",
 		isNonstandard: "Custom",
 		gen: 8,
@@ -1085,7 +1085,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		condition: {
 			duration: 1,
 			onStart(target) {
-				this.add('-singleturn', target, 'move: Status Guard');
+				this.add('-singleturn', target, 'Protect');
 			},
 			onTryHitPriority: 3,
 			onTryHit(target, source, move) {
@@ -1098,7 +1098,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				} else if (move.smartTarget) {
 					move.smartTarget = false;
 				} else {
-					this.add('-activate', target, 'move: Status Guard');
+					this.add('-activate', target, 'move: Protect');
 				}
 				const lockedmove = source.getVolatile('lockedmove');
 				if (lockedmove) {
@@ -4680,7 +4680,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 70,
 		category: "Physical",
 		desc: "Struchni only. Move's base power and priority depends on effectiveness of previous move.",
-		shortDesc: "Struchni: Move BP and prio depends on eff of prev move.",
+		shortDesc: "Struchni: BP/priority depend on prev. move's eff.",
 		name: "Veto",
 		isNonstandard: "Custom",
 		gen: 8,

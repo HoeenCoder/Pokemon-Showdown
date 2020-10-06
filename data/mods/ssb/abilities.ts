@@ -914,16 +914,16 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-start', source, 'typechange', type.join('/'), '[from] ability: Armor Time');
 			switch (type[1]) {
 			case 'Fire':
-				this.boost({spa: 1}, source);
 				this.add('-message', 'Armor Time: Fire Armor!');
+				this.boost({spa: 1}, source);
 				break;
 			case 'Steel':
-				this.boost({def: 1}, source);
 				this.add('-message', 'Armor Time: Steel Armor!');
+				this.boost({def: 1}, source);
 				break;
 			case 'Rock':
 				this.add('-message', 'Armor Time: Rock Armor!');
-				this.boost({spa: 1}, source);
+				this.boost({spd: 1}, source);
 				break;
 			case 'Electric':
 				this.add('-message', 'Armor Time: Electric Armor!');
@@ -1810,9 +1810,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (target.baseSpecies.baseSpecies !== 'Necrozma' || target.transformed) return;
 			if (target.side.pokemonLeft <= 3) {
 				if (target.species.name === 'Necrozma-Dusk-Mane' && target.side.pokemonLeft === 1 && this.effectData.flag2) {
-					changeSet(this, target, ssbSets.Robb576Ultra);
+					changeSet(this, target, ssbSets['Robb576-Ultra']);
 				} else if (target.species.name === "Necrozma-Dawn-Wings" && this.effectData.flag1) {
-					changeSet(this, target, ssbSets.Robb576DuskMane);
+					changeSet(this, target, ssbSets['Robb576-Dusk-Mane']);
 					this.effectData.flag2 = true;
 				}
 			}
@@ -2082,12 +2082,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Volco
 	speedrunning: {
-		desc: "This Pokemon's speed stat is raised by 1 stage if it attacks and knocks out another Pokemon. Moves that are 60 Base Power or lower gain an additional 25 Base Power. Freezes can only be broken out of naturally, no moves can defrost a frozen Pokemon while this one is active.",
-		shortDesc: "Speed +1 on kill, Weak moves get a 25 Base Power buff. Moves cannot defrost, only natural thaws.",
-		onSourceAfterFaint(length, target, source, effect) {
-			if (effect && effect.effectType === 'Move') {
-				this.boost({spe: 1}, source);
-			}
+		desc: "Soul Heart + Moves that are 60 Base Power or lower gain an additional 25 Base Power. Freezes can only be broken out of naturally, no moves can defrost a frozen Pokemon while this one is active.",
+		shortDesc: "Soul Heart + Weak moves get a 25 Base Power buff. Moves cannot defrost, only natural thaws.",
+		onAnyFaintPriority: 1,
+		onAnyFaint() {
+			this.boost({spa: 1}, this.effectData.target);
 		},
 		onAnyModifyMove(move, pokemon) {
 			if (move.thawsTarget) {
