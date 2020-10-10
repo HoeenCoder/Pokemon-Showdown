@@ -478,7 +478,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 0,
 		category: "Status",
 		desc: "Replaces the target's moveset with four competitively viable moves. 100% chance to cause the target to flinch.",
-		shortDesc: "Gives foe four new moves; flinches. Almost always goes first.",
+		shortDesc: "Gives foe 4 new moves; flinches. +3 priority.",
 		name: "Data Corruption",
 		isNonstandard: "Custom",
 		gen: 8,
