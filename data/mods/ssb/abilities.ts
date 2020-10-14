@@ -1073,8 +1073,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify(1.5);
 			}
 		},
-		onModifyMove(move) {
-			move.drain = [1, 4];
+		onModifyMove(move, attacker) {
+			if (attacker.status) move.drain = [1, 4];
 		},
 		name: "Dragon Scale",
 		isNonstandard: "Custom",
