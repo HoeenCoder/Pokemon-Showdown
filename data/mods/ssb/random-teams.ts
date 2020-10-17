@@ -628,7 +628,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Mode [5: Offensive]',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
 	},
-	'Robb576-Dusk Mane': {
+	'Robb576-Dusk-Mane': {
 		species: 'Necrozma-Dusk-Mane', ability: 'The Numbers Game', item: 'Leftovers', gender: 'M',
 		moves: ['Sunsteel Strike', 'Toxic', 'Rapid Spin'],
 		signatureMove: 'Mode [7: Defensive]',
@@ -902,12 +902,6 @@ export class RandomStaffBrosTeams extends RandomTeams {
 			if (team.length === 6 && set.ability === 'Illusion') {
 				team[5] = team[4];
 				team[4] = set;
-			}
-			// Requested by Darth to not go first in team preview ever
-			if (team.length === 6 && team[0].name === 'Darth') {
-				const temporary = team[0];
-				team[0] = team[1];
-				team[1] = temporary;
 			}
 		}
 		return team;
