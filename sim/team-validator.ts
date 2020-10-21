@@ -1334,6 +1334,11 @@ export class TeamValidator {
 			if (banReason === '') return null;
 		}
 
+		// Only pokemon that can gigantamax should have the Gmax flag
+		if (!tierSpecies.canGigantamax && set.gigantamax) {
+			return `${tierSpecies.name} cannot Gigantamax but is flagged as being able to.`;
+		}
+
 		// Special casing for Pokemon that can Gmax, but their Gmax factor cannot be legally obtained
 		if (tierSpecies.gmaxUnreleased && set.gigantamax) {
 			banReason = ruleTable.check('pokemontag:unobtainable');
