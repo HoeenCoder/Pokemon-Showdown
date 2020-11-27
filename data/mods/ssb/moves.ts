@@ -653,6 +653,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 						}
 					}
 				}
+				this.add('-message', `Hazards were removed by the terrain!`);
 			},
 			onResidualOrder: 5,
 			onResidualSubOrder: 3,
@@ -3810,6 +3811,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if ((pokemon.hasType('Water') || pokemon.hasType('Ground')) && pokemon.isGrounded() && !pokemon.isSemiInvulnerable()) {
 					this.debug('Pokemon is grounded and a Water or Ground type, healing through Swampy Terrain.');
 					this.heal(pokemon.baseMaxhp / 16, pokemon, pokemon);
+					this.add('-message', `${pokemon.name} was healed by the terrain!`);
 				}
 			},
 			onEnd() {
@@ -4161,12 +4163,14 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (!target.hp || target.species.name !== 'Mismagius') return;
 				if (move?.effectType === 'Move' && move.category !== 'Status') {
 					this.boost({spe: 1}, target);
+					this.add('-message', `${target.name} got a boost by the terrain!`);
 				}
 			},
 			onSwitchInPriority: -1,
 			onSwitchIn(target) {
 				if (target?.species.name === 'Mismagius') {
 					this.boost({spa: 1, spd: 1}, target);
+					this.add('-message', `${target.name} got a boost by the terrain!`);
 				}
 			},
 			onStart(battle, source, effect) {
@@ -4178,6 +4182,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				this.add('-message', 'The battlefield became dark!');
 				if (source?.species.name === 'Mismagius') {
 					this.boost({spa: 1, spd: 1}, source);
+					this.add('-message', `${source.name} got a boost by the terrain!`);
 				}
 			},
 			onResidualOrder: 5,
@@ -4189,6 +4194,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (!pokemon.isSemiInvulnerable()) {
 					if (pokemon && !pokemon.hasType('Ghost')) {
 						this.damage(pokemon.baseMaxhp / 16, pokemon);
+						this.add('-message', `${pokemon.name} was hurt by the terrain!`);
 					}
 				}
 			},
@@ -4620,8 +4626,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (pokemon.hasType('Ground')) return;
 				if (pokemon.hasType('Electric')) {
 					this.heal(pokemon.baseMaxhp / 8, pokemon);
+					this.add('-message', `${pokemon.name} was healed by the terrain!`);
 				} else if (!pokemon.hasType('Electric') && (pokemon.hasType(['Flying', 'Steel']) || pokemon.hasAbility('levitate'))) {
 					this.damage(pokemon.baseMaxhp / 8, pokemon);
+					this.add('-message', `${pokemon.name} was hurt by the terrain!`);
 				}
 			},
 			onStart(battle, source, effect) {
@@ -4791,8 +4799,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (pokemon.isGrounded() && !pokemon.isSemiInvulnerable()) {
 					if (pokemon && !pokemon.hasType('Fire')) {
 						this.damage(pokemon.baseMaxhp / 8, pokemon);
+						this.add('-message', `${pokemon.name} was hurt by the terrain!`);
 					} else if (pokemon) {
 						this.heal(pokemon.baseMaxhp / 8, pokemon, pokemon);
+						this.add('-message', `${pokemon.name} was healed by the terrain!`);
 					}
 				}
 			},
