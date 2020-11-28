@@ -1381,7 +1381,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			const dazzlingHolder = this.effectData.target;
 			if ((source.side === dazzlingHolder.side || move.target === 'all') && move.priority > 0.1) {
 				this.attrLastMove('[still]');
-				this.add('cant', dazzlingHolder, 'ability: Dark Royalty', move, '[of] ' + target);
+				this.add('-ability', dazzlingHolder, 'Dark Royalty');
+				this.add('cant', target, move, '[of] ' + dazzlingHolder);
 				return false;
 			}
 		},
@@ -1559,9 +1560,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Unaware + Regenerator. If hit, foe is Leech Seeded. If KOed, foe is Cursed.",
 		name: 'Ghost Spores',
 		onDamagingHit(damage, target, source, move) {
-			source.addVolatile('leechseed', target);
 			if (!target.hp) {
 				source.addVolatile('curse');
+			} else {
+				source.addVolatile('leechseed', target);
 			}
 		},
 		onAnyModifyBoost(boosts, pokemon) {
@@ -1602,7 +1604,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Heals 1/4 of its max HP and gains +1 Atk when hit by Water and Grass moves; Water and Grass immunity.",
 		onTryHit(target, source, move) {
 			if (target !== source && ['Water', 'Grass'].includes(move.type)) {
-				if (!this.heal(target.baseMaxhp / 4) || !this.boost({atk: 1})) {
+				if (!this.heal(target.baseMaxhp / 4) && !this.boost({atk: 1})) {
 					this.add('-immune', target, '[from] ability: Soup Sipper');
 				}
 				return null;
@@ -1908,7 +1910,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				const firstTypeIndex = this.random(typeList.length);
 				const secondType = this.sample(typeList.slice(0, firstTypeIndex).concat(typeList.slice(firstTypeIndex + 1)));
 				this.effectData.immunities = [typeList[firstTypeIndex], secondType];
-				this.add("-message", `Shadecession is now immune to ${this.effectData.immunities[0]} and ${this.effectData.immunities[1]} types!`);
+				this.add('-start', pokemon, `${this.effectData.immunities[0]} Immunity`, '[silent]');
+				this.add('-start', pokemon, `${this.effectData.immunities[1]} Immunity`, '[silent]');
+				this.add("-message", `Shadecession is now immune to ${this.effectData.immunities[0]} and ${this.effectData.immunities[1]} type attacks!`);
 			},
 			onTryHit(target, source, move) {
 				if (target !== source && this.effectData.immunities.includes(move.type)) {

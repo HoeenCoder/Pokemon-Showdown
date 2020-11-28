@@ -1973,6 +1973,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			if (message) this.add(`c|${getName('GMars')}|${message}`);
 			target.setAbility('capsulearmor');
 			target.baseAbility = target.ability;
+			if (target.set.shiny) return;
 			if (forme === 'Minior-Indigo') {
 				this.boost({atk: 1, spa: 1}, target.side.foe.active[0]);
 			} else if (forme === 'Minior') {
@@ -3391,42 +3392,22 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			target.setStatus('brn', source, null, true);
 		},
 		self: {
-			sideCondition: 'wistfulthoughts',
+			sideCondition: 'givewistfulthinking',
+		},
+		condition: {
+			onStart(pokemon) {
+				this.add('-singleturn', pokemon, 'move: Wistful Thinking');
+			},
+			onResidualOrder: 5,
+			onResidualSubOrder: 5,
+			onResidual(pokemon) {
+				this.heal(pokemon.baseMaxhp / 16);
+			},
 		},
 		flags: {protect: 1, reflectable: 1},
-		selfSwitch: 'copyvolatile',
+		selfSwitch: true,
 		secondary: null,
 		target: "normal",
-		type: "Ghost",
-	},
-
-	// Side condition for pants' healing
-	wistfulthoughts: {
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		name: "Wistful Thoughts",
-		pp: 20,
-		priority: 0,
-		flags: {snatch: 1},
-		sideCondition: 'wistfulthoughts',
-		condition: {
-			duration: 5,
-			onStart(side) {
-				this.add('-sidestart', side, 'Wistful Thoughts');
-			},
-			onResidualOrder: 21,
-			onResidual(targetSide) {
-				for (const pokemon of targetSide.active) {
-					this.heal(pokemon.baseMaxhp / 16, pokemon);
-				}
-			},
-			onEnd(side) {
-				this.add('-sideend', side, 'Wistful Thoughts');
-			},
-		},
-		secondary: null,
-		target: "allySide",
 		type: "Ghost",
 	},
 

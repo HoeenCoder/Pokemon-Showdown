@@ -678,62 +678,6 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		onFaint() {
 			this.add(`c|${getName('GMars')}|Follow me on bandcamp`);
 		},
-		// Special Forme Effects
-		onBeforeMove(pokemon) {
-			if (pokemon.species.id === "miniorviolet") {
-				this.add(`${getName("GMars")} is thinking...`);
-				if (this.random(3) === 2) {
-					this.add('cant', pokemon, 'ability: Truant');
-					return false;
-				}
-			}
-		},
-		onSwitchIn(pokemon) {
-			if (pokemon.species.id === 'miniorindigo') {
-				this.boost({atk: 1, spa: 1}, pokemon.side.foe.active[0]);
-			} else if (pokemon.species.id === 'miniorgreen') {
-				this.boost({atk: 1}, pokemon);
-			}
-		},
-		onBoost(boost, target, source, effect) {
-			if (source && target === source) return;
-			if (target.species.id !== 'miniorblue') return;
-			let showMsg = false;
-			let i: BoostName;
-			for (i in boost) {
-				if (boost[i]! < 0) {
-					delete boost[i];
-					showMsg = true;
-				}
-			}
-			if (showMsg && !(effect as ActiveMove).secondaries && effect.id !== 'octolock') {
-				this.add("-fail", target, "unboost", "[from] ability: Minior-Blue", "[of] " + target);
-			}
-		},
-		onFoeTryMove(target, source, move) {
-			if (move.id === 'haze' && target.species.id === 'miniorblue') {
-				move.onHitField = function (this: Battle) {
-					this.add('-clearallboost');
-					for (const pokemon of this.getAllActive()) {
-						if (pokemon.species.id === 'miniorblue') continue;
-						pokemon.clearBoosts();
-					}
-				}.bind(this);
-				return;
-			}
-			const dazzlingHolder = this.effectData.target;
-			if (!dazzlingHolder.set.shiny && dazzlingHolder.species.id !== 'minior') return;
-			const targetAllExceptions = ['perishsong', 'flowershield', 'rototiller'];
-			if (move.target === 'foeSide' || (move.target === 'all' && !targetAllExceptions.includes(move.id))) {
-				return;
-			}
-
-			if ((source.side === dazzlingHolder.side || move.target === 'all') && move.priority > 0.1) {
-				this.attrLastMove('[still]');
-				this.add('cant', dazzlingHolder, 'ability: Minior-Shiny', move, '[of] ' + target);
-				return false;
-			}
-		},
 	},
 	grimauxiliatrix: {
 		noCopy: true,
@@ -1276,7 +1220,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('pants')}|neat`);
 		},
 		onSwitchOut(source) {
-			if (source.side.slotConditions) {
+			if (source.side.sideConditions.givewistfulthinking) {
 				this.add(`c|${getName('pants')}|brb contemplating things`);
 			} else {
 				this.add(`c|${getName('pants')}|brb dying a little`);
@@ -2059,6 +2003,14 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add('-end', pokemon, 'Haunting');
 		},
 	},
+	// for pants' move
+	givewistfulthinking: {
+		duration: 1,
+		onSwitchInPriority: 1,
+		onSwitchIn(pokemon) {
+			pokemon.addVolatile('wistfulthinking');
+		},
+	},
 	// boost for LittEleven's move
 	nexthuntcheck: {
 		duration: 1,
@@ -2068,6 +2020,75 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		onHit(pokemon, source, move) {
 			if (move.category !== 'Status') {
 				pokemon.volatiles['nexthuntcheck'].lostFocus = true;
+			}
+		},
+	},
+	// For Gmars' Effects
+	minior: {
+		noCopy: true,
+		name: 'Minior',
+		// Special Forme Effects
+		onBeforeMove(pokemon) {
+			if (pokemon.set.shiny) return;
+			if (pokemon.species.id === "miniorviolet") {
+				this.add(`${getName("GMars")} is thinking...`);
+				if (this.random(3) === 2) {
+					this.add('cant', pokemon, 'ability: Truant');
+					return false;
+				}
+			}
+		},
+		onSwitchIn(pokemon) {
+			if (pokemon.set.shiny) return;
+			if (pokemon.species.id === 'miniorindigo') {
+				this.boost({atk: 1, spa: 1}, pokemon.side.foe.active[0]);
+			} else if (pokemon.species.id === 'miniorgreen') {
+				this.boost({atk: 1}, pokemon);
+			} else if (pokemon.species.id === 'minior') {
+				pokemon.side.foe.active[0].addVolatile('taunt');
+			} else if (pokemon.species.id === 'minioryellow') {
+				pokemon.side.foe.active[0].trySetStatus('par');
+			}
+		},
+		onBoost(boost, target, source, effect) {
+			if (target.set.shiny) return;
+			if (source && target === source) return;
+			if (target.species.id !== 'miniorblue') return;
+			let showMsg = false;
+			let i: BoostName;
+			for (i in boost) {
+				if (boost[i]! < 0) {
+					delete boost[i];
+					showMsg = true;
+				}
+			}
+			if (showMsg && !(effect as ActiveMove).secondaries && effect.id !== 'octolock') {
+				this.add("-fail", target, "unboost", "[from] ability: Minior-Blue", "[of] " + target);
+			}
+		},
+		onFoeTryMove(target, source, move) {
+			if (move.id === 'haze' && target.species.id === 'miniorblue' && !target.set.shiny) {
+				move.onHitField = function (this: Battle) {
+					this.add('-clearallboost');
+					for (const pokemon of this.getAllActive()) {
+						if (pokemon.species.id === 'miniorblue') continue;
+						pokemon.clearBoosts();
+					}
+				}.bind(this);
+				return;
+			}
+			const dazzlingHolder = this.effectData.target;
+			if (!dazzlingHolder.set.shiny && dazzlingHolder.species.id !== 'minior') return;
+			const targetAllExceptions = ['perishsong', 'flowershield', 'rototiller'];
+			if (move.target === 'foeSide' || (move.target === 'all' && !targetAllExceptions.includes(move.id))) {
+				return;
+			}
+
+			if ((source.side === dazzlingHolder.side || move.target === 'all') && move.priority > 0.1) {
+				this.attrLastMove('[still]');
+				this.add('message', 'Minior dazzles!');
+				this.add('cant', target, move, '[of] ' + dazzlingHolder);
+				return false;
 			}
 		},
 	},
