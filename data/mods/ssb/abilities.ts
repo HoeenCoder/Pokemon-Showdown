@@ -1909,10 +1909,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.effectData.immunities = [typeList[firstTypeIndex], secondType];
 			this.add('-start', pokemon, `${this.effectData.immunities[0]} Immunity`, '[silent]');
 			this.add('-start', pokemon, `${this.effectData.immunities[1]} Immunity`, '[silent]');
-			this.add("-message", `Shadecession is now immune to ${this.effectData.immunities[0]} and ${this.effectData.immunities[1]} type attacks!`);
+			this.add("-message", `${pokemon.name} is now immune to ${this.effectData.immunities[0]} and ${this.effectData.immunities[1]} type attacks!`);
 		},
 		onTryHit(target, source, move) {
-			if (target !== source && this.effectData.immunities.includes(move.type)) {
+			if (target !== source && this.effectData.immunities?.includes(move.type)) {
 				this.add('-immune', target, '[from] ability: Shady Deal');
 				return null;
 			}
