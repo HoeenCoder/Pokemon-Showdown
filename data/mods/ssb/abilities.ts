@@ -1902,24 +1902,25 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				boost[randomStat] = 1;
 				this.boost(boost);
 			}
-			pokemon.addVolatile('shadydeal');
+			if (this.effectData.immunities) return;
+			const typeList = Object.keys(this.dex.data.TypeChart);
+			const firstTypeIndex = this.random(typeList.length);
+			const secondType = this.sample(typeList.slice(0, firstTypeIndex).concat(typeList.slice(firstTypeIndex + 1)));
+			this.effectData.immunities = [typeList[firstTypeIndex], secondType];
+			this.add('-start', pokemon, `${this.effectData.immunities[0]} Immunity`, '[silent]');
+			this.add('-start', pokemon, `${this.effectData.immunities[1]} Immunity`, '[silent]');
+			this.add("-message", `Shadecession is now immune to ${this.effectData.immunities[0]} and ${this.effectData.immunities[1]} type attacks!`);
 		},
-		condition: {
-			onStart(pokemon) {
-				const typeList = Object.keys(this.dex.data.TypeChart);
-				const firstTypeIndex = this.random(typeList.length);
-				const secondType = this.sample(typeList.slice(0, firstTypeIndex).concat(typeList.slice(firstTypeIndex + 1)));
-				this.effectData.immunities = [typeList[firstTypeIndex], secondType];
-				this.add('-start', pokemon, `${this.effectData.immunities[0]} Immunity`, '[silent]');
-				this.add('-start', pokemon, `${this.effectData.immunities[1]} Immunity`, '[silent]');
-				this.add("-message", `Shadecession is now immune to ${this.effectData.immunities[0]} and ${this.effectData.immunities[1]} type attacks!`);
-			},
-			onTryHit(target, source, move) {
-				if (target !== source && this.effectData.immunities.includes(move.type)) {
-					this.add('-immune', target, '[from] ability: Shady Deal');
-					return null;
-				}
-			},
+		onTryHit(target, source, move) {
+			if (target !== source && this.effectData.immunities.includes(move.type)) {
+				this.add('-immune', target, '[from] ability: Shady Deal');
+				return null;
+			}
+		},
+		onEnd(pokemon) {
+			this.add('-end', pokemon, `${this.effectData.immunities[0]} Immunity`, '[silent]');
+			this.add('-end', pokemon, `${this.effectData.immunities[1]} Immunity`, '[silent]');
+			delete this.effectData.immunities;
 		},
 		name: "Shady Deal",
 		isNonstandard: "Custom",
