@@ -1382,7 +1382,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				def: 1,
 			},
 		},
-		heal: [1, 4],
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			this.heal(pokemon.maxhp / 4, pokemon, pokemon, move);
+		},
 		secondary: null,
 		zMove: {boost: {spe: 1}},
 		target: "self",
@@ -1525,7 +1527,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {heal: 1},
-		heal: [1, 2],
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			this.heal(pokemon.maxhp / 2, pokemon, pokemon, move);
+		},
 		pseudoWeather: 'gravity',
 		onTryMove() {
 			this.attrLastMove('[still]');
