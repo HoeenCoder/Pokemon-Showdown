@@ -270,7 +270,7 @@ export const ssbSets: SSBSets = {
 		species: 'Kartana', ability: 'Bipolar', item: 'Metronome', gender: 'M',
 		moves: ['U-turn'],
 		signatureMove: 'Soup-Stealing 7-Star Strike: Redux',
-		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', level: 100, shiny: 1,
+		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', level: 100, shiny: true,
 	},
 	Felucia: {
 		species: 'Uxie', ability: 'Regenerator', item: 'Red Card', gender: 'F',
@@ -400,7 +400,7 @@ export const ssbSets: SSBSets = {
 		species: 'Lopunny', ability: 'Second Wind', item: 'Lopunnite', gender: 'F',
 		moves: ['Return', 'Play Rough', ['Drain Punch', 'High Jump Kick']],
 		signatureMove: 'Cozy Cuddle',
-		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: 1,
+		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
 	},
 	Kalalokki: {
 		species: 'Wingull', ability: 'Magic Guard', item: 'Kalalokkium Z', gender: 'M',

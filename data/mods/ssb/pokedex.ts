@@ -159,6 +159,11 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: 'Fur Coat'},
 		types: ['Dark', 'Fairy'],
 	},
+	// PartMan
+	chandelure: {
+		inherit: true,
+		abilities: {0: 'Hecatomb'},
+	},
 	// Psynergy
 	rayquaza: {
 		inherit: true,
