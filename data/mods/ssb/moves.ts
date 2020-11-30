@@ -1941,6 +1941,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				forme = "Minior";
 			}
 			target.formeChange(forme, move, true);
+			const details = target.species.name + (target.level === 100 ? '' : ', L' + target.level) +
+				(target.gender === '' ? '' : ', ' + target.gender) + (target.set.shiny ? ', shiny' : '');
+			this.add('replace', pokemon, details);
 			if (message) this.add(`c|${getName('GMars')}|${message}`);
 			target.setAbility('capsulearmor');
 			target.baseAbility = target.ability;
@@ -3430,6 +3433,46 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Normal",
+	},
+
+	// PartMan
+	balefulblaze: {
+		accuracy: 100,
+		basePower: 75,
+		basePowerCallback(pokemon) {
+			if (pokemon.set.shiny) {
+				return 95;
+			}
+			return 75;
+		},
+		category: "Special",
+		desc: "Raises the user's Special Attack by 1 stage if this move knocks out the target. If you are shiny, the base power becomes 95.",
+		shortDesc: "Raises user's SpA by 1 if this KOes the target. Shiny: BP=95",
+		name: "Baleful Blaze",
+		isNonstandard: "Custom",
+		gen: 8,
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, defrost: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Inferno', target);
+			this.add('-anim', source, 'Hex', target);
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Ghost', type);
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (!target || target.fainted || target.hp <= 0) {
+				this.add(`c|${getName('PartMan')}|FOR SNOM!`);
+				this.boost({spa: 1}, pokemon, pokemon, move);
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fire",
 	},
 
 	// peapod

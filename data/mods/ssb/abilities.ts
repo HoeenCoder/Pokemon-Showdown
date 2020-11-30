@@ -29,7 +29,11 @@ export function changeSet(context: Battle, pokemon: Pokemon, newSet: SSBSet, cha
 	pokemon.set.evs = evs;
 	pokemon.set.ivs = ivs;
 	if (newSet.nature) pokemon.set.nature = Array.isArray(newSet.nature) ? context.sample(newSet.nature) : newSet.nature;
+	pokemon.set.shiny = (typeof newSet.shiny === 'number') ? this.randomChance(1, newSet.shiny) : !!newSet.shiny;
 	pokemon.formeChange(newSet.species, context.effect, true);
+	const details = pokemon.species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
+		(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+	pokemon.battle.add('replace', pokemon, details);
 	if (changeAbility) pokemon.setAbility(newSet.ability as string);
 
 	pokemon.baseMaxhp = Math.floor(Math.floor(
@@ -1572,6 +1576,24 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.baseMaxhp / 3);
 		},
+	},
+
+	// PartMan
+	hecatomb: {
+		desc: "This Pokemon's Attack is raised by 1 stage if it attacks and knocks out another Pokemon. If the pokemon is Chandelure and is not shiny, it changes set.",
+		shortDesc: "This Pokemon's Attack is raised by 1 stage if it attacks and KOes another Pokemon. PartMan: changes sets.",
+		name: 'Hecatomb',
+		onSourceAfterFaint(length, target, source, effect) {
+			if (effect && effect.effectType === 'Move') {
+				this.boost({spe: length}, source);
+				if (source.species.baseSpecies !== 'Chandelure') return;
+				if (source.set.shiny) return;
+				this.add('-message', 'THE LIGHT! IT BURNS!');
+				changeSet(this, source, ssbSets['PartMan-Shiny']);
+			}
+		},
+		isNonstandard: "Custom",
+		gen: 8,
 	},
 
 	// peapod

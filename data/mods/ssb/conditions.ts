@@ -732,17 +732,14 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 	instructuser: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|${getName('Swagn')}|Hey, Instruct. Here's those 15,000 walls of text you ordered. :3`);
-			this.add(`c|${getName('INStruct')}|no thx`);
-			this.add(`c|${getName('INStruct')}|anywaysies time to get myself kille— I mean fight`);
+			this.add(`c|${getName('INStruct')}|fuck`);
+			this.add(`c|${getName('INStruct')}|well this shouldn't take long`);
 		},
 		onSwitchOut() {
-			this.add(`c|${getName('INStruct')}|OK so ${['my UberEats order has arrived', 'I ran out of Coca-Cola', 'bobochan wants me to play roomtours in the Chinese room', 'I need to pm HoeenHero'][this.random(4)]}`);
-			this.add(`c|${getName('INStruct')}|im gonna bee are bee`);
+			this.add(`c|${getName('INStruct')}|whatever ill just do it tomorrow`);
 		},
 		onFaint(source) {
-			this.add(`c|${getName('INStruct')}|bg :^(`);
-			this.add(`c|${getName('INStruct')}|/log ${source.side.name} was reported by INStruct. (throwing)`);
+			this.add(`c|${getName('INStruct')}|its ok ill just use leppacycle blissey stall next time :3`);
 		},
 		// name: "Extinction Level Event",
 		shortDesc: "Deals 50% of their max hp to those who made contact upon death",
@@ -1231,6 +1228,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 		onFaint(pokemon) {
 			this.add(`c|${getName('Paradise ╱╲☼')}|Paradise has been kicked, not banned, therefore you could still potentially invite them back. However, do not do this @${pokemon.side.name}, unless of course, you want to be banned too, because if you invite them back you and Paradise will both be banned.`);
+		},
+	},
+	partman: {
+		noCopy: true,
+		onStart(source) {
+			this.add(`c|${getName('PartMan')}|${[`OMA HI ${source.side.name.toUpperCase()} BIG FAN`, `HYDRO IS A NERD`][this.random(2)]}`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('PartMan')}|/me flees`);
+		},
+		onFaint() {
+			this.add(`c|${getName('PartMan')}|B-booli. >.<`);
 		},
 	},
 	peapodc: {
@@ -2525,7 +2534,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 
 				this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
 			}
-			this.add(`c|${getName('INStruct')}|Hey ${pokemon.side.name}, dynamax is banned in SSB4, and neither custom challenges nor tournaments won't save you from that fact. Get dunked on lmao.`);
+			this.add('-message', 'Dynamax is not allowed in SSB4, and custom challenges or tournaments won\'t save you from that fact.');
 			pokemon.removeVolatile('dynamax');
 			this.queue.cancelMove(pokemon);
 			// Actually its to prvent the user from using a Max Move in case of a crash. But this is funnier.

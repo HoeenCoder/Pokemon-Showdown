@@ -550,6 +550,19 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Rapid Turn',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly',
 	},
+	PartMan: {
+		species: 'Chandelure', ability: 'Hecatomb', item: 'Focus Sash', gender: 'M',
+		moves: ['Nasty Plot', 'Draining Kiss', 'Dark Pulse'],
+		signatureMove: 'Baleful Blaze',
+		evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+	},
+	'PartMan-Shiny': {
+		species: 'Chandelure', ability: 'Hecatomb', item: 'Focus Sash', gender: 'M',
+		moves: ['Nasty Plot', 'Light of Ruin', 'Fiery Wrath'],
+		signatureMove: 'Baleful Blaze',
+		evs: {hp: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Timid', shiny: true,
+		skip: 'PartMan',
+	},
 	'peapod c': {
 		species: 'Dragapult', ability: 'Stealth Black', item: 'Leftovers', gender: 'M',
 		moves: ['Hex', 'Dragon Darts', 'Work Up'],
