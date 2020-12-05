@@ -1783,6 +1783,28 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 8,
 	},
 
+	// Raihan Kibana
+	royalcoat: {
+		desc: "If Sandstorm is active, this Pokemon's Speed is doubled and its Special Defense is multiplied by 1.5. This Pokemon takes no damage from Sandstorm.",
+		shortDesc: "If Sandstorm, Speed x2 and SpD x1.5; immunity to Sandstorm.",
+		name: "Royal Coat",
+		onModifySpe(spe, pokemon) {
+			if (this.field.isWeather('sandstorm')) {
+				return this.chainModify(2);
+			}
+		},
+		onModifySpD(spd, pokemon) {
+			if (this.field.isWeather('sandstorm')) {
+				return this.chainModify(1.5);
+			}
+		},
+		onImmunity(type, pokemon) {
+			if (type === 'sandstorm') return false;
+		},
+		isNonstandard: "Custom",
+		gen: 8,
+	},
+
 	// RavioliQueen
 	phantomplane: {
 		shortDesc: "On switch-in, this Pokemon summons Pitch Black Terrain.",
@@ -1978,28 +2000,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify(0.5);
 			}
 		},
-	},
-
-	// Tenshi
-	royalcoat: {
-		desc: "If Sandstorm is active, this Pokemon's Speed is doubled and its Special Defense is multiplied by 1.5. This Pokemon takes no damage from Sandstorm.",
-		shortDesc: "If Sandstorm, Speed x2 and SpD x1.5; immunity to Sandstorm.",
-		name: "Royal Coat",
-		onModifySpe(spe, pokemon) {
-			if (this.field.isWeather('sandstorm')) {
-				return this.chainModify(2);
-			}
-		},
-		onModifySpD(spd, pokemon) {
-			if (this.field.isWeather('sandstorm')) {
-				return this.chainModify(1.5);
-			}
-		},
-		onImmunity(type, pokemon) {
-			if (type === 'sandstorm') return false;
-		},
-		isNonstandard: "Custom",
-		gen: 8,
 	},
 
 	// temp

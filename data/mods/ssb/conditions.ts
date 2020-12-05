@@ -1397,6 +1397,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('Rage')}|/me quits`);
 		},
 	},
+	raihankibana: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Raihan Kibana')}|Hi gm`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Raihan Kibana')}|Ight Imma head out`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Raihan Kibana')}|Grr bork bork :(`);
+		},
+	},
 	rajshoot: {
 		noCopy: true,
 		onStart() {
@@ -1561,18 +1573,6 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Teclis')}|You set my soul on fire!`);
-		},
-	},
-	tenshi: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|${getName('Tenshi')}|Hi gm`);
-		},
-		onSwitchOut() {
-			this.add(`c|${getName('Tenshi')}|Ight Imma head out`);
-		},
-		onFaint() {
-			this.add(`c|${getName('Tenshi')}|Grr bork bork :(`);
 		},
 	},
 	temp: {

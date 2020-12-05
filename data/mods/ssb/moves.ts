@@ -656,6 +656,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', target, 'Close Combat', target);
 			this.add('-anim', target, 'Earthquake', target);
 		},
+		onHit() {
+			this.add(`c|${getName('Archas')}|Fire all guns! Fiiiiire!`);
+		},
 		onEffectiveness(typeMod, target, type) {
 			if (type === 'Steel') return 1;
 		},
@@ -4040,6 +4043,35 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 
+	// Raihan Kibana
+	stonykibbles: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		desc: "For 5 turns, the weather becomes Sandstorm. At the end of each turn except the last, all active Pokemon lose 1/16 of their maximum HP, rounded down, unless they are a Ground, Rock, or Steel type, or have the Magic Guard, Overcoat, Sand Force, Sand Rush, or Sand Veil Abilities. During the effect, the Special Defense of Rock-type Pokemon is multiplied by 1.5 when taking damage from a special attack. Lasts for 8 turns if the user is holding Smooth Rock. Fails if the current weather is Sandstorm.",
+		shortDesc: "For 5 turns, a sandstorm rages.",
+		name: "Stony Kibbles",
+		isNonstandard: "Custom",
+		gen: 8,
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onHit() {
+			this.add(`c|${getName('Raihan Kibana')}|Let the winds blow! Stream forward, Sandstorm!`);
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Rock Slide', target);
+			this.add('-anim', source, 'Crunch', target);
+			this.add('-anim', source, 'Sandstorm', target);
+		},
+		weather: 'Sandstorm',
+		target: "normal",
+		type: "Normal",
+	},
+
 	// Raj.Shoot
 	fanservice: {
 		accuracy: 100,
@@ -4815,32 +4847,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "all",
 		type: "Fire",
-	},
-
-	// Tenshi
-	stonykibbles: {
-		accuracy: 100,
-		basePower: 90,
-		category: "Physical",
-		desc: "For 5 turns, the weather becomes Sandstorm. At the end of each turn except the last, all active Pokemon lose 1/16 of their maximum HP, rounded down, unless they are a Ground, Rock, or Steel type, or have the Magic Guard, Overcoat, Sand Force, Sand Rush, or Sand Veil Abilities. During the effect, the Special Defense of Rock-type Pokemon is multiplied by 1.5 when taking damage from a special attack. Lasts for 8 turns if the user is holding Smooth Rock. Fails if the current weather is Sandstorm.",
-		shortDesc: "For 5 turns, a sandstorm rages.",
-		name: "Stony Kibbles",
-		isNonstandard: "Custom",
-		gen: 8,
-		pp: 10,
-		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Rock Slide', target);
-			this.add('-anim', source, 'Crunch', target);
-			this.add('-anim', source, 'Sandstorm', target);
-		},
-		weather: 'Sandstorm',
-		target: "normal",
-		type: "Normal",
 	},
 
 	// temp

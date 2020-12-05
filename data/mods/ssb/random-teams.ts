@@ -635,6 +635,12 @@ export const ssbSets: SSBSets = {
 		signatureMove: ':shockedlapras:',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
 	},
+	'Raihan Kibana': {
+		species: 'Stoutland', ability: 'Royal Coat', item: 'Leftovers', gender: 'M',
+		moves: ['Knock Off', 'Thousand Waves', ['Play Rough', 'Power Whip']],
+		signatureMove: 'Stony Kibbles',
+		evs: {atk: 128, spd: 252, spe: 128}, nature: 'Jolly',
+	},
 	'Raj.Shoot': {
 		species: 'Charizard', ability: 'Tough Claws', item: 'Heavy-Duty Boots', gender: 'N',
 		moves: ['Flare Blitz', 'Dragon Claw', 'Roost'],
@@ -726,12 +732,6 @@ export const ssbSets: SSBSets = {
 		moves: ['Earth Power', 'Seed Flare', 'Spiky Shield'],
 		signatureMove: 'Kaboom',
 		evs: {def: 4, spa: 252, spe: 252}, ivs: {atk: 0}, nature: 'Modest',
-	},
-	Tenshi: {
-		species: 'Stoutland', ability: 'Royal Coat', item: 'Leftovers', gender: 'M',
-		moves: ['Knock Off', 'Thousand Waves', ['Play Rough', 'Power Whip']],
-		signatureMove: 'Stony Kibbles',
-		evs: {atk: 128, spd: 252, spe: 128}, nature: 'Jolly',
 	},
 	temp: {
 		species: 'Latias', ability: 'Charged Up', item: 'Dragon Fang', gender: 'F',
