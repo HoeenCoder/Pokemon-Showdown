@@ -187,7 +187,7 @@ export const ssbSets: SSBSets = {
 		evs: {hp: 248, def: 36, spe: 224}, ivs: {atk: 0}, nature: 'Timid',
 	},
 	Celestial: {
-		species: 'Dragonite', ability: 'Speed Control', item: 'Metal Coat', gender: '',
+		species: 'Dragonite', ability: 'Speed Boost', item: 'Metal Coat', gender: '',
 		moves: ['Swords Dance', 'Thousand Arrows', 'Double Iron Bash'],
 		signatureMove: 'Pandora\'s Box',
 		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', shiny: 2,
