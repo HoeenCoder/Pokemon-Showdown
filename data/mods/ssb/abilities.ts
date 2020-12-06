@@ -936,7 +936,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			},
 			onBasePowerPriority: 24,
 			onBasePower(basePower, pokemon, target, move) {
-				if (move.id === 'boomburst') return;
+				if (move.refrigerateBoosted) return;
 				const dmgMod = [1, 2, 3, 4, 5];
 				const numConsecutive = this.effectData.numConsecutive > 4 ? 4 : this.effectData.numConsecutive;
 				console.log(dmgMod[numConsecutive]);
@@ -975,7 +975,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out, and other Pokemon cannot lower this Pokemon's stat stages.",
 		shortDesc: "Regenerator + Clear Body.",
 		name: "Bio-steel",
-		isUnbreakable: true,
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.baseMaxhp / 3);
 		},
