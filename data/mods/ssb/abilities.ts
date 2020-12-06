@@ -95,8 +95,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Please keep abilites organized alphabetically based on staff member name!
 	// Aelita
 	scyphozoa: {
-		desc: "This clears everything on both sides on switch in. This Pokemon's moves ignore abilities. If this Pokemon is a Zygarde in its 10% or 50% Forme, it changes to Complete Forme when it has 1/2 or less of its maximum HP at the end of the turn.",
-		shortDesc: "Clears everything on both sides. Moves ignore abilities. Zygarde can become 100% form.",
+		desc: "On switch-in, this Pokemon removes all field conditions, entry hazards, and stat boosts on both sides, gaining one random boost for every field condition, entry hazard, or boosted stat that gets cleared. This Pokemon's moves ignore abilities. If this Pokemon is a Zygarde in its 10% or 50% Forme, it changes to Complete Forme when it has 1/2 or less of its maximum HP at the end of the turn.",
+		shortDesc: "Power Construct + Mold Breaker. On switch-in, clears everything for random boosts.",
 		name: "Scyphozoa",
 		onSwitchIn(source) {
 			const stats: BoostName[] = [];
@@ -238,8 +238,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// aegii
 	setthestage: {
-		desc: "Stance Change + Adaptability, on switch in, selects physical or special set.",
-		shortDesc: "Stance Change + Adaptability, on switch in, selects physical or special set.",
+		desc: "If this Pokemon is an Aegislash, it changes to Blade Forme before attempting to use an attacking move, and changes to Shield Forme before attempting to use King's Shield. This Pokemon's moves that match one of its types have a same-type attack bonus (STAB) of 2 instead of 1.5. On switch-in, this Pokemon selects a physical or special set.",
+		shortDesc: "Stance Change + Adaptability; on switch-in, selects physical or special set.",
 		isPermanent: true,
 		onSwitchIn(pokemon) {
 			if (pokemon.species.baseSpecies !== 'Aegislash') return;
@@ -288,8 +288,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Aethernum
 	rainyseason: {
-		desc: "On switch-in, the weather becomes heavy rain that prevents damaging Fire-type moves from executing, in addition to all the effects of Rain Dance. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream, Desolate Land, or Heavy Hailstorm. If Rain Dance is active, this Pokemon restores 1/8 of its maximum HP, rounded down, at the end of each turn. If this Pokemon is holding Big Root, it will restore 1/6 of its maximum HP, rounded down, at the end of the turn. If this Pokemon is holding Utility Umbrella, its HP does not get restored. This Pokemon collects raindrops.",
-		shortDesc: "Primordial Sea + Swift Swim. Restore HP if raining. Collect raindrops.",
+		desc: "On switch-in, this Pokemon summons Rain Dance. If Rain Dance or Heavy Rain is active, this Pokemon has doubled Speed, collects a raindrop, and restores 1/8 of its maximum HP, rounded down, at the end of each turn. If this Pokemon is holding Big Root, it will restore 1/6 of its maximum HP, rounded down, at the end of the turn. If this Pokemon is holding Utility Umbrella, its HP does not get restored and it does not collect raindrops. Each raindrop raises this Pokemon's Defense and Special Defense by 1 stage while it is collected.",
+		shortDesc: "Drizzle + Swift Swim. Restore HP if raining. Collect raindrops.",
 		name: "Rainy Season",
 		isPermanent: true,
 		onStart(source) {
@@ -317,8 +317,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Akir
 	fortifications: {
-		desc: "Opponent takes 1/8 damage if makes contact; Restores 1/16 of its max HP every turn.",
-		shortDesc: "Opponent takes 1/8 damage if makes contact; Restores 1/16 of its max HP every turn.",
+		desc: "Pokemon making contact with this Pokemon lose 1/8 of their maximum HP, rounded down. At the end of every turn, this Pokemon Restores 1/16 of its max HP.",
+		shortDesc: "Foe loses 1/8 HP if makes contact; Restores 1/16 of its max HP every turn.",
 		onDamagingHitOrder: 1,
 		onDamagingHit(damage, target, source, move) {
 			if (move.flags['contact']) {
@@ -347,6 +347,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// A Quag To The Past
 	carefree: {
+		desc: "This Pokemon blocks certain status moves and instead uses the move against the original user. This Pokemon ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage.",
 		shortDesc: "Magic Bounce + Unaware.",
 		onAnyModifyBoost(boosts, pokemon) {
 			const unawareUser = this.effectData.target;
@@ -395,7 +396,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Arby
 	wavesurge: {
-		shortDesc: "On switch-in, this Pokemon summons Wave Terrain.",
+		desc: "On switch-in, this Pokemon summons Wave Terrain for 5 turns. During the effect, the accuracy of Water-type moves is multiplied by 1.2, all current entry hazards are removed, and no entry hazards can be set.",
+		shortDesc: "On switch-in, 5 turns: no hazards; Water move acc 1.2x.",
 		onStart(source) {
 			this.field.setTerrain('waveterrain');
 		},
@@ -434,6 +436,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Averardo
 	magichat: {
+		desc: "This Pokemon can only be damaged by direct attacks. This Pokemon blocks certain status moves and instead uses the move against the original user.",
 		shortDesc: "Magic Guard + Magic Bounce.",
 		onDamage(damage, target, source, effect) {
 			if (effect.id === 'heavyhailstorm') return;
@@ -473,7 +476,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// biggie
 	superarmor: {
-		shortDesc: "Reduces damage taken from physical moves by 25% if the user has not yet attacked.",
+		desc: "Reduces damage taken from physical moves by 25% if the user has not yet attacked.",
 		onSourceModifyDamage(damage, source, target, move) {
 			if (this.queue.willMove(target) && move.category === 'Physical') {
 				return this.chainModify(0.75);
@@ -486,6 +489,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Billo
 	proofpolicy: {
+		desc: "Pokemon making contact with this Pokemon have the effects of Yawn, Taunt, and Torment applied to them.",
 		shortDesc: "Upon contact, opposing Pokemon is made drowsy and applies Taunt + Torment.",
 		onDamagingHit(damage, target, source, move) {
 			if (move.flags['contact']) {
@@ -502,7 +506,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Blaz
 	whyworry: {
 		desc: "This Pokemon receives 3/4 damage from supereffective attacks and does not take damage from poison.",
-		shortDesc: "This Pokemon takes 3/4 damage from supereffective moves. Doesn't take poison damage.",
+		shortDesc: "This Pokemon takes 3/4 damage from supereffective moves. Not hurt by poison.",
 		onSourceModifyDamage(damage, source, target, move) {
 			if (target.getMoveHitData(move).typeMod > 0) {
 				this.debug('Solid Rock neutralize');
@@ -521,7 +525,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Brandon
 	banesurge: {
-		shortDesc: "On switch-in, this Pokemon summons Bane Terrain.",
+		desc: "On switch-in, this Pokemon summons Bane Terrain for 5 turns. For the duration of the effect, all Pokemon use their weaker offensive stat for all attacks. The move category used does not change."
+		shortDesc: "On switch-in, 5 turns: all Pokemon use weaker offensive stat.",
 		onStart(source) {
 			this.field.setTerrain('baneterrain');
 		},
@@ -532,7 +537,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// brouha
 	turbulence: {
-		shortDesc: "Clears terrain/hazards at end of each turn. Non-Flying lose 6% HP. Flying get 1.5x Def.",
+		desc: "While this Pokemon is on the field, all entry hazards and terrains are removed at the end of each turn, non-Flying-type Pokemon lose 6% of their HP, rounded down, at the end of each turn, and Flying-type Pokemon have their Defense multiplied by 1.5x.",
+		shortDesc: "Flying get 1.5x Def. End of each turn: clears terrain/hazards, non-Flying lose 6% HP.",
 		onStart(source) {
 			this.field.setWeather('turbulence');
 		},
@@ -557,8 +563,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// cant say
 	ragequit: {
-		desc: "If Pokemon with this ability uses a move that misses or fails it faints and gives -2 Atk / -2 SpA to foe",
-		shortDesc: "If move misses or fails, apply memento.",
+		desc: "If a Pokemon with this ability uses a move that misses or fails, the Pokemon faints and reduces the foe's Attack and Special Attack by 2 stages",
+		shortDesc: "If move misses or fails, use Memento.",
 		name: "Rage Quit",
 		onAfterMove(pokemon, target, move) {
 			if (pokemon.moveThisTurnResult === false) {
@@ -573,29 +579,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 8,
 	},
 
-	// Celestial
-	speedcontrol: {
-		desc: "Any time any stat is changed (increased or decreased by any number of stages), this pokemon's speed is raised by 1 stage.",
-		shortDesc: "Any time any stat is changed, this pokemon's speed is raised by 1 stage.",
-		name: "Speed Control",
-		onAfterBoost(boost, target, source, effect) {
-			if (effect.id === 'speedcontrol') return;
-			this.boost({spe: 1});
-		},
-		onFoeAfterBoost(boost, target, source, effect) {
-			const pokemon = target.side.foe.active[0];
-			// Infinite Loop preventer
-			if (effect.id === 'speedcontrol' || effect.id === 'stubbornness') return;
-			this.boost({spe: 1}, pokemon);
-		},
-		isNonstandard: "Custom",
-		gen: 8,
-	},
-
 	// Celine
 	guardianarmor: {
-		desc: "Raises Defense and Special Defense by two stages upon switch in.",
-		shortDesc: "+2 Def and SpD on switch in.",
+		desc: "On switch-in, this Pokemon's Defense and Special Defense are raised by 2 stages.",
 		name: "Guardian Armor",
 		onStart(pokemon) {
 			this.boost({def: 2, spd: 2}, pokemon);
@@ -647,8 +633,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// dream
 	greedpunisher: {
-		desc: "This Pokemon can only be damaged by direct attacks. On switch-in, this Pokemon's stats are boosted based on the number of hazards on the field. 1 stat is raised if 1-2 hazards are up, and 2 stats are raised if 3 or more hazards are up.",
-		shortDesc: "On switch-in, boosts stats based on the number of hazards up on this Pokemon's side.",
+		desc: "This Pokemon can only be damaged by direct attacks. On switch-in, this Pokemon's stats are boosted based on the number of hazards on the field. 1 random stat is raised if 1-2 hazards are up, and 2 random stats are raised if 3 or more hazards are up.",
+		shortDesc: "On switch-in, boosts stats based on the number of hazards on this Pokemon's side.",
 		name: "Greed Punisher",
 		onSwitchIn(pokemon) {
 			const side = pokemon.side;
@@ -705,8 +691,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// EpicNikolai
 	dragonheart: {
-		desc: "Once per battle, at 25% or lower this pokemon heals 50% hp.",
-		shortDesc: "Heals 50% when 25% or lower once per battle.",
+		desc: "Once per battle, when this Pokemon's HP is at or below 25% of its max HP, this Pokemon heals 50% of its max HP.",
+		shortDesc: "Once per battle, heals 50% when 25% or lower.",
 		name: "Dragon Heart",
 		onUpdate(pokemon) {
 			if (pokemon.hp > 0 && pokemon.hp < pokemon.maxhp / 4 && !this.effectData.dragonheart) {
@@ -720,7 +706,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// estarossa
 	sandsoftime: {
-		desc: "On switch-in, this Pokemon summons Sandstorm. This Pokemon's Ground/Rock/Steel type moves do x1.3 damage under Sandstorm. This Pokemon takes no damage from Sandstorm.",
+		desc: "On switch-in, this Pokemon summons Sandstorm. If Sandstorm is active, this Pokemon's Ground-, Rock-, and Steel-type attacks have their power multiplied by 1.3. This Pokemon takes no damage from Sandstorm.",
 		shortDesc: "Sand Stream + Sand Force.",
 		name: "Sands of Time",
 		onStart(source) {
@@ -743,8 +729,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// fart
 	bipolar: {
-		desc: "When this Pokemon switches in, it changes to two random types and gets STAB.",
-		shortDesc: "2 random types + STAB on switch-in.",
+		desc: "When this Pokemon switches in, it changes to two random types and gets corresponding STAB attacks.",
+		shortDesc: "This Pokemon has 2 random types and STAB moves on switch-in.",
 		name: "Bipolar",
 		isPermanent: true,
 		onSwitchIn(pokemon) {
@@ -800,8 +786,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Finland
 	windingsong: {
-		desc: "Calm mind boost. Alternates between moves.",
-		shortDesc: "+1 Spa/Spd. Alternates between moves.",
+		desc: "On switch-in, this Pokemon's Special Attack and Special Defense are boosted by 1 stage. If this Pokemon's species is Alcremie, it alternates one of its moves between two different options at the end of each turn, depending on the forme of Alcremie.",
+		shortDesc: "Calm Mind on switch-in. Alcremie: alternates between moves each turn.",
 		name: "Winding Song",
 		isPermanent: true,
 		onSwitchIn(source) {
@@ -876,7 +862,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// gallant's pear
 	armortime: {
 		name: "Armor Time",
-		shortDesc: "On status or custom, this Pokemon changes type.",
+		desc: "If this Pokemon uses a status move or a custom move, it changes its typing and boosts one of its stats by 1 stage randomly between four options: Bug/Fire type with a Special Attack boost, Bug/Steel type with a Defense boost, Bug/Rock type with a Special Defense boost, and Bug/Electric type with a Speed boost.",
+		shortDesc: "On use of status or custom, this Pokemon changes type and gets a boost.",
 		isPermanent: true,
 		onPrepareHit(source, target, move) {
 			if (move.category !== "Status" && move.isNonstandard !== "Custom") return;
@@ -909,7 +896,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Gimmick
 	ic3peak: {
-		shortDesc: "Refrigerate + Echoed Voice modifier.",
+		desc: "This Pokemon's Normal-type moves become Ice-type moves and have their power multiplied by 1.2. This Pokemon's moves, if they are not affected by Refrigerate, have their Base Power multiplied by the number of consecutive turns the move is used by this Pokemon.",
+		shortDesc: "Refrigerate; Echoed Voice modifier on non-Refrigerate moves.",
 		name: "IC3PEAK",
 		onModifyTypePriority: -1,
 		onModifyType(move, pokemon) {
@@ -984,8 +972,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// grimAuxiliatrix
 	biosteel: {
-		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out and prevents other Pokemon from lowering this Pokemon's stat stages.",
-		shortDesc: "This Pokemon restores 1/3 max HP when it switches out. Other Pokemon can't lower this Pokemon's stat stages.",
+		desc: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out, and other Pokemon cannot lower this Pokemon's stat stages.",
+		shortDesc: "Regenerator + Clear Body.",
 		name: "Bio-steel",
 		isUnbreakable: true,
 		onSwitchOut(pokemon) {
@@ -1011,7 +999,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// HoeenHero
 	tropicalcyclone: {
-		desc: "On switch-in, the weather becomes rain. In addition, if Rain Dance or Heavy Rain is active and this Pokemon is not holding Utility Umbrella, this Pokemon's Speed is doubled.",
+		desc: "On switch-in, this Pokemon summons Rain Dance. If Rain Dance or Heavy Rain is active, this Pokemon's Speed is doubled.",
 		shortDesc: "Summons Rain. 2x Speed while rain is active.",
 		name: "Tropical Cyclone",
 		onStart(source) {
@@ -1029,7 +1017,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Hydro
 	hydrostatic: {
 		desc: "This Pokemon is immune to Water- and Electric-type moves and raises its Special Attack by 1 stage when hit by a Water- or Electric-type move. If this Pokemon is not the target of a single-target Water- or Electric-type move used by another Pokemon, this Pokemon redirects that move to itself if it is within the range of that move. This Pokemon's Water- and Electric-type moves have their accuracy multiplied by 1.3.",
-		shortDesc: "Storm Drain + Lightning Rod. Water/Electric moves used by this Pokemon have 1.3x acc.",
+		shortDesc: "Storm Drain + Lightning Rod. This Pokemon's Water/Electric moves have 1.3x acc.",
 		onSourceModifyAccuracyPriority: 9,
 		onSourceModifyAccuracy(accuracy, source, target, move) {
 			if (typeof accuracy !== 'number') return;
@@ -1063,8 +1051,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 
 	// Inactive
-	dragonscale: {
-		shortDesc: "If this Pokemon gets statused, its Def is 1.5x and it restores 25% HP.",
+	dragonsfury: {
+		desc: "If this Pokemon has a non-volatile status condition, its Defense is multiplied by 1.5x and its HP is restored by 25% of damage it deals.",
+		shortDesc: "If this Pokemon is statused, its Def is 1.5x and it heals for 25% of dmg dealt.",
 		onModifyDefPriority: 6,
 		onModifyDef(def, pokemon) {
 			if (pokemon.status) {
@@ -1074,14 +1063,15 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyMove(move, attacker) {
 			if (attacker.status) move.drain = [1, 4];
 		},
-		name: "Dragon Scale",
+		name: "Dragon's Fury",
 		isNonstandard: "Custom",
 		gen: 8,
 	},
 
 	// Iyarito
 	pollodiablo: {
-		shortDesc: "This Pokemon's Special Attack is 1.5x, but it can only select the first move it executes.",
+		desc: "This Pokemon's Special Attack is 1.5x, but it can only select the first move it executes.",
+		shortDesc: "This Pokemon's Sp. Atk is 1.5x, but it can only select the first move it executes.",
 		name: "Pollo Diablo",
 		onStart(pokemon) {
 			pokemon.abilityData.choiceLock = "";
@@ -1164,7 +1154,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Jordy
 	divinesandstorm: {
-		desc: "This Pokemon does not take recoil damage besides Struggle/Life Orb/crash damage and switch-in, this Pokemon summons Sandstorm.",
+		desc: "On switch-in, this Pokemon summons Sandstorm. This Pokemon does not take recoil damage besides Struggle/Life Orb/crash damage.",
 		shortDesc: "Sand Stream + Rock Head.",
 		name: "Divine Sandstorm",
 		onDamage(damage, target, source, effect) {
@@ -1182,13 +1172,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Kaiju Bunny
 	secondwind: {
-		desc: "This Pokemon restores 1/2 of its HP if it falls below 1/4 of its maximum HP by an enemy attack. This effect only occurs once.",
-		shortDesc: "If hit below 1/4 HP, heal 1/2 max HP. One time.",
+		desc: "Once per battle, when this Pokemon's HP is at or below 25% of its max HP, this Pokemon heals 50% of its max HP.",
+		shortDesc: "Once per battle, heals 50% when 25% or lower.",
 		name: "Second Wind",
-		onDamagingHit(damage, target, source, move) {
-			if (move && target.hp > 0 && target.hp < target.maxhp / 4 && !this.effectData.secondwind) {
-				this.effectData.secondwind = true;
-				this.heal(target.maxhp / 2);
+		onUpdate(pokemon) {
+			if (pokemon.hp > 0 && pokemon.hp < pokemon.maxhp / 4 && !this.effectData.dragonheart) {
+				this.effectData.dragonheart = true;
+				this.heal(pokemon.maxhp / 2);
 			}
 		},
 		isNonstandard: "Custom",
@@ -1198,7 +1188,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Kennedy
 	falsenine: {
 		desc: "This Pokemon's type changes to match the type of the move it is about to use. This effect comes after all effects that change a move's type. This Pokemon's critical hit ratio is raised by 1 stage.",
-		shortDesc: "Pokemon's type changes to match the type of the move it's about to use. +1 crit ratio.",
+		shortDesc: "Protean + Super Luck.",
 		onPrepareHit(source, target, move) {
 			if (move.hasBounced) return;
 			const type = move.type;
@@ -1217,7 +1207,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Kev
 	kingofatlantis: {
-		shortDesc: "Drizzle + Dry Skin; +1 turn of rain for every water type teammate.",
+		desc: "On switch-in, this Pokemon summons Rain Dance for 5 turns, plus 1 additional turn for each Water-type teammate. This Pokemon also has the effects of Dry Skin.",
+		shortDesc: "Drizzle + Dry Skin; +1 turn of rain for each Water-type teammate.",
 		onStart(source) {
 			this.field.setWeather('raindance', source);
 			// See conditions.ts for weather modifications.
