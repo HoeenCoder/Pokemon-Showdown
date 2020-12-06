@@ -525,7 +525,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Brandon
 	banesurge: {
-		desc: "On switch-in, this Pokemon summons Bane Terrain for 5 turns. For the duration of the effect, all Pokemon use their weaker offensive stat for all attacks. The move category used does not change."
+		desc: "On switch-in, this Pokemon summons Bane Terrain for 5 turns. For the duration of the effect, all Pokemon use their weaker offensive stat for all attacks. The move category used does not change.",
 		shortDesc: "On switch-in, 5 turns: all Pokemon use weaker offensive stat.",
 		onStart(source) {
 			this.field.setTerrain('baneterrain');
