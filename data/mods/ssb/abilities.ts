@@ -1242,8 +1242,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// KingSwordYT
 	bambookingdom: {
-		desc: "On switch-in, this Pokemon's Defense and Special Defense are raised by 1 stage. Pokemon using physical moves against this Pokemon lose 1/8 of their maximum HP. Pokemon using special moves against this Pokemon lose 1/16 of their maximum HP. Attacking moves have their priority set to -7.",
-		shortDesc: "+1 Def/SpD. -7 priority on attacks. 1/8 recoil when hit with physical move, 1/16 when hit with special move.",
+		desc: "On switch-in, this Pokemon's Defense and Special Defense are raised by 1 stage. Pokemon using physical moves against this Pokemon lose 1/8 of their maximum HP. Pokemon using special moves against this Pokemon lose 1/16 of their maximum HP. Attacking moves used by this Pokemon have their priority set to -7.",
+		shortDesc: "+1 Def/SpD. -7 priority on attacks. 1/8 recoil hit by phys, 1/16 hit by spec.",
 		name: "Bamboo Kingdom",
 		onStart(pokemon) {
 			this.boost({def: 1, spd: 1}, pokemon);
@@ -1265,7 +1265,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Kipkluif
 	degenerator: {
-		shortDesc: "Opponents that switch out while this Pokémon is active lose 33% of their health.",
+		desc: "While this Pokemon is active, foes that switch out lose 1/3 of their maximum HP, rounded down. This damage will never cause a Pokemon to faint, and will instead leave them at 1 HP.",
+		shortDesc: "While this Pokemon is active, foes that switch out lose 1/3 of their maximum HP.",
 		onStart(pokemon) {
 			pokemon.side.foe.addSideCondition('degenerator', pokemon);
 			const data = pokemon.side.foe.getSideConditionData('degenerator');
@@ -1297,6 +1298,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Lamp
 	candlewax: {
+		desc: "This Pokemon's Special Attack is raised by 1 stage when another Pokemon faints. This Pokemon is immune to Ground-type attacks and the effects of Spikes, Toxic Spikes, Sticky Web, and the Arena Trap Ability. The effects of Gravity, Ingrain, Smack Down, Thousand Arrows, and Iron Ball nullify the immunity.",
 		shortDesc: "Soul-Heart + Levitate.",
 		onAnyFaintPriority: 1,
 		onAnyFaint() {
@@ -1310,7 +1312,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Lionyx
 	tension: {
-		desc: "On switch-in, the Pokémon builds up tension, making its next hit a critical hit, and guaranteeing that it will hit.",
+		desc: "On switch-in, the Pokemon builds up tension, making the next attack always hit and always be a critical hit.",
 		shortDesc: "On switch-in, the Pokemon's next attack will always be a critical hit and will always hit.",
 		name: "Tension",
 		onStart(pokemon) {
@@ -1348,8 +1350,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// LittEleven
 	darkroyalty: {
-		desc: "While this Pokemon is active, priority moves from opposing Pokemon targeted at allies are prevented from having an effect. Dark type moves are boosted 1.2x.",
-		shortDesc: "While this Pokemon is active, allies are protected from opposing priority moves. Dark type moves are boosted by 1.2x.",
+		desc: "While this Pokemon is active, priority moves from opposing Pokemon targeted at allies are prevented from having an effect. Dark-type attacks used by this Pokemon have their power multiplied by 1.2.",
+		shortDesc: "Immune to priority. Dark-type attacks have 1.2x power.",
 		onFoeTryMove(target, source, move) {
 			const targetAllExceptions = ['perishsong', 'flowershield', 'rototiller'];
 			if (move.target === 'foeSide' || (move.target === 'all' && !targetAllExceptions.includes(move.id))) {
@@ -1374,7 +1376,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Mad Monty ¾°
 	petrichor: {
-		desc: "On switch-in, this Pokemon summons Rain Dance. Electric-type moves have 1.2x power in the rain.",
+		desc: "On switch-in, this Pokemon summons Rain Dance. If Rain Dance or Heavy Rain is active, this Pokemon's Electric-type moves have 1.2x power.",
 		shortDesc: "Summons rain. Electric-type moves have 1.2x power in rain.",
 		name: "Petrichor",
 		onStart(source) {
@@ -1390,8 +1392,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Marshmallon
 	stubbornness: {
-		desc: "this Pokemon does not take recoil damage; its Atk, Def, and SpD are immediately raised by 1 at the first instance that an opponent's stat is raised; after this, each time an opponent's has its stats boosted, the user gains +1 Atk.",
-		shortDesc: "Rock Head + boosts its Atk, Def, SpD by 1 on opponents first stat boost; after which with every of opponent's stat boost it raises its Atk by 1.",
+		desc: "this Pokemon does not take recoil damage. The first time an opposing Pokemon boosts a stat each time this Pokemon is active, this Pokemon's Attack, Defense, and Special Defense are raised by 1 stage; each time the opponent boosts after this, this Pokemon's Attack is boosted by 1 stage. Activation of opposing Stubbornness will not activate Stubbornness.",
+		shortDesc: "Rock Head + when foe first boosts, Atk/Def/SpD+1. Further foe boosts=+1 Atk.",
 		name: "Stubbornness",
 		onDamage(damage, target, source, effect) {
 			if (effect.id === 'recoil') {
@@ -1429,7 +1431,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Mitsuki
 	photosynthesis: {
 		desc: "On switch-in, this Pokemon summons Sunny Day. If Sunny Day is active and this Pokemon is not holding Utility Umbrella, this Pokemon's Speed is doubled. If Sunny Day is active, this Pokemon's Attack is multiplied by 1.5 and it loses 1/8 of its maximum HP, rounded down, at the end of each turn. If this Pokemon is holding Utility Umbrella, its Attack remains the same and it does not lose any HP.",
-		shortDesc: "Summons Sunny Day. Under sun, 2x Speed, 1.5x Attack. End of turn: lose 1/8 max HP.",
+		shortDesc: "Drought + Chlorophyll + physical Solar Power",
 		name: "Photosynthesis",
 		onStart(source) {
 			for (const action of this.queue) {
