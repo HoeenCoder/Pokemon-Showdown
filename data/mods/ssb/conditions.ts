@@ -23,7 +23,7 @@ export function getName(name: string): string {
 	return group + name;
 }
 
-export const Conditions: {[k: string]: ModdedConditionData} = {
+export const Conditions: {[k: string]: ModdedConditionData & {innatename?: string}} = {
 	/*
 	// Example:
 	userid: {
@@ -279,7 +279,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		onFaint() {
 			this.add(`c|${getName('Billo')}|Yep, definitely hacked.`);
 		},
-		// name: "Unaware",
+		innatename: "Unaware",
 		shortDesc: "This Pokemon ignores other Pokemon's stat stages when taking or doing damage.",
 		// Unaware innate
 		onAnyModifyBoost(boosts, pokemon) {
@@ -339,7 +339,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 	},
 	cake: {
 		noCopy: true,
-		// name: "h",
+		innatename: "h",
 		shortDesc: "On Switch in and at the end of every turn, it changes type randomly.",
 		onStart(target, pokemon) {
 			this.add(`c|${getName('Cake')}|AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`);
@@ -399,7 +399,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		onFaint() {
 			this.add(`c|${getName('cant say')}|${['imagine taking pokemon seriously when you can just get haxed', '/me plays curb your enthusiasm theme', 'bad players always get lucky'][this.random(3)]}`);
 		},
-		// name: "Magic Guard",
+		innatename: "Magic Guard",
 		shortDesc: "This Pokemon can only be damaged by direct attacks.",
 		// Magic Guard Innate
 		onDamage(damage, target, source, effect) {
@@ -741,9 +741,9 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		onFaint(source) {
 			this.add(`c|${getName('INStruct')}|its ok ill just use leppacycle blissey stall next time :3`);
 		},
-		// name: "Extinction Level Event",
+		innatename: "Extinction Level Event",
 		shortDesc: "Deals 50% of their max hp to those who made contact upon death",
-		//  Innate
+		// Extinction Level Event Innate
 		onSourceHit(target, source, move) {
 			if (source.illusion) return;
 			if (!move || !target) return;
@@ -847,7 +847,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('Kalalokki')}|( •_•)>⌐■-■`);
 			this.add(`c|${getName('Kalalokki')}|(x_x)`);
 		},
-		// name: "Sturdy",
+		innatename: "Sturdy",
 		shortDesc: "If this Pokemon is at full HP, it survives one hit with at least 1 HP. Immune to OHKO.",
 		// Sturdy Innate
 		onTryHit(pokemon, target, move) {
@@ -925,7 +925,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 	},
 	kris: {
-		// name: "phuck",
+		innatename: "phuck",
 		shortDesc: "Changes this Pokemon into another Unown forme at the end of every turn.",
 		noCopy: true,
 		onStart(source) {
@@ -1128,7 +1128,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		onFaint() {
 			this.add(`c|${getName('Nol')}|nerd`);
 		},
-		// name: "Prankster + Eviolite",
+		innatename: "Prankster + Eviolite",
 		shortDesc: "+1 priority to status moves. 1.5x def and spd.",
 		// Innate Prankster and Eviolite
 		onModifyPriority(priority, pokemon, target, move) {
@@ -1340,7 +1340,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		onFaint() {
 			this.add(`c|${getName('ptoad')}|OKKKK DUUUDE`);
 		},
-		// name: "Sticky Hold",
+		innatename: "Sticky Hold",
 		shortDesc: "This Pokemon cannot lose its held item due to another Pokemon's attack.",
 		// Sticky Hold Innate
 		onTakeItem(item, pokemon, source) {
