@@ -1462,8 +1462,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// n10siT
 	greedymagician: {
-		desc: "This Pokemon steals the item off a Pokemon it hits with an attack. If you already have an item, it is replaced with the stolen item. Does not affect Doom Desire and Future Sight.",
-		shortDesc: "This Pokemon steals the item off a Pokemon it hits with an attack; existing item gets replaced with the stolen item.",
+		desc: "This Pokemon steals the item off a Pokemon it hits with an attack. If this Pokemon already has an item, it is replaced with the stolen item. This ability does not affect Doom Desire and Future Sight.",
+		shortDesc: "Steals item from foe on attack; replace current item with stolen item.",
 		name: "Greedy Magician",
 		onSourceHit(target, source, move) {
 			if (!move || !target) return;
@@ -1483,6 +1483,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Nol
 	burningsoul: {
+		desc: "On switch-in, this Pokemon summons Sunny Day. If this Pokemon is at full HP, it survives one hit with at least 1 HP. OHKO moves fail when used against this Pokemon.",
 		shortDesc: "Drought + Sturdy.",
 		onStart(source) {
 			this.field.setWeather('sunnyday');
@@ -1507,6 +1508,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Notater517
 	lastminutelag: {
+		desc: "This Pokemon applies the Recharge status to the opposing Pokemon if this Pokemon needs to recharge.",
 		shortDesc: "Applies Recharge volatile to the opposing Pokemon if this Pokemon has it.",
 		onModifyMove(move, pokemon, target) {
 			if (move.self?.volatileStatus === 'mustrecharge') {
@@ -1525,7 +1527,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// nui
 	conditionoverride: {
-		desc: "On switch-in, this Pokemon attracts the opponents regardless of gender. Pokemon who are attracted have their Special Defense stat reduced by 25%.",
+		desc: "On switch-in, this Pokemon attracts the opponents, regardless of gender. Pokemon that are attracted have their Special Defense stat reduced by 25%.",
 		shortDesc: "Attracts opponent. Attracted Pokemon have SpD reduced by 25%.",
 		// See conditions.ts for implementation
 		name: "Condition Override",
@@ -1535,7 +1537,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// pants
 	ghostspores: {
-		desc: "This Pokemon ignores the foe's stat boosts. On switch-out, regenerates 1/3 health. If hit by an attack, foe is Leech Seeded. If knocked out, foe is Cursed.",
+		desc: "This Pokemon ignores the foe's stat boosts. On switch-out, this Pokemon regenerates 1/3 HP, rounded down. If this Pokemon is hit by an attack, Leech Seed is applied to the foe. If this Pokemon is KOed, Curse is applied to the foe.",
 		shortDesc: "Unaware + Regenerator. If hit, foe is Leech Seeded. If KOed, foe is Cursed.",
 		name: 'Ghost Spores',
 		onDamagingHit(damage, target, source, move) {
@@ -1566,8 +1568,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// peapod
 	stealthblack: {
-		desc: "User boosts +1 Speed upon switch-in.",
-		shortDesc: "+1 Speed on switch-in.",
+		desc: "On switch-in, this Pokemon's Speed is raised by 1 stage.",
 		name: 'Stealth Black',
 		onStart(pokemon) {
 			this.boost({spe: 1}, pokemon);
@@ -1579,7 +1580,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Perish Song
 	soupsipper: {
 		desc: "This Pokemon is immune to Grass- and Water-type moves, restores 1/4 of its maximum HP, rounded down, when hit by these types, and boosts its Attack by 1 stage when hit by these types.",
-		shortDesc: "Heals 1/4 of its max HP and gains +1 Atk when hit by Water and Grass moves; Water and Grass immunity.",
+		shortDesc: "Immune to Water and Grass moves, heals 1/4 HP and gains +1 Atk when hit by them.",
 		onTryHit(target, source, move) {
 			if (target !== source && ['Water', 'Grass'].includes(move.type)) {
 				if (!this.heal(target.baseMaxhp / 4) || !this.boost({atk: 1})) {
@@ -1595,8 +1596,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// phiwings99
 	plausibledeniability: {
-		desc: "This Pokemon's Status moves have priority raised by 1, but Dark types are immune. Additionally, This Pokemon ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage.",
-		shortDesc: "The effects of Unaware and Prankster combined. Dark types: immune to Prankster moves.",
+		desc: "This Pokemon's Status moves have priority raised by 1, but Dark-types are immune. Additionally, This Pokemon ignores other Pokemon's Attack, Special Attack, and accuracy stat stages when taking damage, and ignores other Pokemon's Defense, Special Defense, and evasiveness stat stages when dealing damage.",
+		shortDesc: "Unaware + Prankster. Dark-types still immune to Prankster moves.",
 		name: "Plausible Deniability",
 		onAnyModifyBoost(boosts, pokemon) {
 			const unawareUser = this.effectData.target;
@@ -1626,7 +1627,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// piloswine gripado
 	foreverwinternights: {
-		shortDesc: "On switch-in, this Pokemon summons Winter Hail.",
+		desc: "On switch-in, this Pokemon summons Winter Hail. Winter Hail is hail that also lowers the Speed of non-Ice-type Pokemon by 75%. This weather remains in effect until this Ability is no longer active for any Pokemon, or the weather is changed by Delta Stream, Desolate Land, or Primordial Sea.",
+		shortDesc: "Sets permahail until this Pokemon switches out. Non-Ice: 1/4 Speed",
 		onStart(source) {
 			this.field.setWeather('winterhail');
 		},
@@ -1651,8 +1653,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// PiraTe Princess
 	wildmagicsurge: {
-		desc: "Randomly changes the Pokemon's type at the end of every turn to the type of one of its moves; same-type attack bonus (STAB) is 2 instead of 1.5.",
-		shortDesc: "Adaptability + Randomly changes the Pokemon’s type to the type of one of its moves every turn.",
+		desc: "Randomly changes this Pokemon's type at the end of every turn to the type of one of its moves; same-type attack bonus (STAB) is 2 instead of 1.5.",
+		shortDesc: "Adaptability + Randomly changes to the type of one of its moves every turn.",
 		name: "Wild Magic Surge",
 		onModifyMove(move) {
 			move.stab = 2;
@@ -1676,7 +1678,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Psynergy
 	supernova: {
-		shortDesc: "On switch-in, if total positive boosts - total negative boosts => 8, both Pokemon faint.",
+		shortDesc: "On switch-in, if total positive boosts - total negative boosts ≥ 8, both Pokemon faint.",
 		onStart(source) {
 			let result = 0;
 			const pokemon = this.getAllActive();
@@ -1697,7 +1699,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// ptoad
 	swampysurge: {
-		shortDesc: "On switch-in, this Pokemon summons Swampy Terrain.",
+		desc: "On switch-in, this Pokemon summons Swampy Terrain. Swampy Terrain halves the power of Electric-, Grass-, and Ice-type moves used by grounded Pokemon and heals grounded Water- and Ground-types by 1/16 of their maximum HP, rounded down, each turn.",
+		shortDesc: "5 turns: Grounded: 1/2 Elec/Grass/Ice power, +1/16 HP/turn for Water or Ground.",
 		onStart(source) {
 			this.field.setTerrain('swampyterrain');
 		},
@@ -1708,7 +1711,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// quadrophenic
 	extremeways: {
-		shortDesc: "On switch-in, Boosts a random stat by 2.",
+		desc: "On switch-in, this Pokemon boosts a random stat by 2 stages.",
 		onStart(source) {
 			const stats: BoostName[] = [];
 			let stat: BoostName;
@@ -1733,7 +1736,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Rach
 	burnitdown: {
-		shortDesc: "Lowerrs the foe's higher offensive stat. Status ailments ignore typing. Regenerator.",
+		desc: "On switch-in, this Pokemon lowers the foe's higher offensive stat. Status ailments afflicted by this Pokemon ignore any status immunities that come with the foe's typing. This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out.",
+		shortDesc: "Lower the foe's higher offensive stat. Status ailments ignore typing. Regenerator.",
 		onSwitchOut(pokemon) {
 			pokemon.heal(pokemon.baseMaxhp / 3);
 		},
@@ -1761,7 +1765,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Rage
 	inversionsurge: {
-		shortDesc: "On switch-in, this Pokemon summons Inversion Terrain.",
+		desc: "On switch-in, this Pokemon summons Inversion Terrain. While Inversion Terrain is active, type effectiveness for all Pokemon on the field is inverted, and paralyzed Pokemon have doubled, instead of halved, Speed.",
+		shortDesc: "Summons Inversion Terrain; 5 turns: Inverse Battle, par: 2x Spe.",
 		onStart(source) {
 			this.field.setTerrain('inversionterrain');
 		},
@@ -1772,7 +1777,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// RavioliQueen
 	phantomplane: {
-		shortDesc: "On switch-in, this Pokemon summons Pitch Black Terrain.",
+		desc: "On switch-in, this Pokemon summons Pitch Black Terrain. While Pitch Black Terrain is active, all non-Ghost-type Pokemon take damage equal to 1/16 of their max HP, rounded down, at the end of each turn.",
+		shortDesc: "Summons Pitch Black Terrain, which damages non-Ghosts by 1/16 per turn.",
 		onStart(source) {
 			this.field.setTerrain('pitchblackterrain');
 		},
@@ -1783,8 +1789,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Robb576
 	thenumbersgame: {
-		desc: "Changes the pokemon's form upon switch-in depending on the amount of pokemon still alive on the user's team; Necrozma-Dusk-Mane if 3 or fewer, Necrozma-Ultra if it is the last Pokemon left on the team.",
-		shortDesc: "Changes the pokemon's form upon switch-in depending on the amount of pokemon still alive on the user's team.",
+		desc: "Changes the pokemon's forme upon switch-in depending on the number of unfainted Pokemon on the user's team: Necrozma-Dusk-Mane if 3 or fewer, Necrozma-Ultra if it is the last Pokemon left on the team.",
+		shortDesc: "Changes forme on switch-in depending on # of remaining Pokemon on user's team.",
 		name: "The Numbers Game",
 		isPermanent: true,
 		onStart(target) {
@@ -1805,8 +1811,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// 	SectoniaServant
 	royalaura: {
-		desc: "If this Pokemon is the target of an opposing Pokemon's move, that move loses one additional PP. If move uses by it is self targetting, it loses only half.",
-		shortDesc: "If this Pokemon is the target of a foe's move, that move loses one additional PP. If it targets itself, it loses half than it should..",
+		desc: "If this Pokemon is the target of an opposing Pokemon's move, that move loses one additional PP. Moves used by this Pokemon only use 0.5 PP.",
+		shortDesc: "Pressure, and this Pokemon uses 0.5 PP per move.",
 		name: "Royal Aura",
 		onStart(pokemon) {
 			this.add('-ability', pokemon, 'Royal Aura');
@@ -1828,7 +1834,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Segmr
 	skilldrain: {
-		desc: "Secondary effects are nullified when this Pokemon is active, and switching moves lose effect.",
+		desc: "While this Pokemon is active, no moves will trigger their secondary effects, and moves that cause the user to switch out will no longer do so.",
+		shortdesc: "While active: no secondary effects, moves can't switch out."
 		name: "Skill Drain",
 		onAnyModifyMove(move) {
 			delete move.secondaries;
@@ -1840,7 +1847,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// sejesensei
 	trashconsumer: {
-		desc: "Poison Absorb + Rough Skin",
+		desc: "This Pokemon is immune to Poison-type moves and restores 1/4 of its maximum HP, rounded down, when hit by a Poison-type move. Pokemon making contact with this Pokemon lose 1/8 of their maximum HP, rounded down.",
 		shortDesc: "Poison Absorb + Rough Skin",
 		name: "Trash Consumer",
 		onTryHit(target, source, move) {
@@ -1863,8 +1870,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Shadecession
 	shadydeal: {
-		desc: "on entering the battle, this mon gains a 1 stage boost to a random stat that isn't SpA and 2 random type immunities that are displayed to the opponent.",
-		shortDesc: "on Switch in, oosts Random Stat other than SpA o.",
+		desc: "On switch-in, this Pokemon boosts a random stat other than Special Attack by 1 stage and gains 2 random type immunities that are displayed to the opponent.",
+		shortDesc: "On switch-in, gains random +1 to non-SpA, 2 random immunities.",
 		onStart(pokemon) {
 			const stats: BoostName[] = [];
 			let stat: BoostName;
@@ -1905,8 +1912,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Soft Flex
 	eyeofthestorm: {
 		name: "Eye of the Storm",
-		shortDesc: "Summons rain and tempest terrain",
-		desc: "Summons rain and tempest terrain",
+		desc: "On switch-in, this Pokemon summons Rain Dance and Tempest Terrain. While Tempest Terrain is active, Electric-type Pokemon are healed by 1/16 of their maximum HP, rounded down, at the end of each turn, and Flying- and Steel-type Pokemon lose 1/16 of their maximum HP, rounded down, at the end of each turn. If the Flying- or Steel-type Pokemon is also Electric-type, they only receive the healing.",
+		shortDesc: "5 turns: Rain, +1/16 HP/turn to Elec, -1/16/turn to Fly/Steel.",
 		onStart(source) {
 			this.field.setWeather('raindance', source);
 			this.field.setTerrain('tempestterrain', source);
@@ -1914,6 +1921,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	// Spandan
 	hackedcorrosion: {
+		desc: "This Pokemon ignores other Pokemon's stat stages when taking or doing damage. This Pokemon can poison or badly poison Pokemon regardless of their typing.",
 		shortDesc: "Unaware + Corrosion.",
 		onAnyModifyBoost(boosts, pokemon) {
 			const unawareUser = this.effectData.target;
@@ -1936,8 +1944,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Struchni
 	overaskedclause: {
-		desc: "If hit by a move that is not very effective, become Aggron-Mega (but keep the same type).",
-		shortDesc: "Hit with a resisted attack mega evolves and gives +1 atk.",
+		desc: "If this Pokemon is an Aggron and is hit by a move that is not very effective, this Pokemon becomes Aggron-Mega and its Attack is boosted by 1 stage.",
+		shortDesc: "Aggron: If hit by resisted move, Mega Evolve and gain +1 Atk.",
 		name: "Overasked Clause",
 		isPermanent: true,
 		onHit(target, source, move) {
@@ -1955,7 +1963,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Teclis
 	fieryfur: {
 		name: "Fiery Fur",
-		shortDesc: "If this Pokemon is at full HP, damage taken from attacks is halved.",
+		desc: "If this Pokemon is at full HP, damage taken from attacks is halved.",
 		onSourceModifyDamage(damage, source, target, move) {
 			if (target.hp >= target.maxhp) {
 				this.debug('Fiery Fur weaken');
@@ -1988,6 +1996,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// temp
 	chargedup: {
+		desc: "If this Pokemon has a negative stat boost at -2 or lower, this Pokemon's negative stat boosts are cleared.",
 		shortDesc: "Resets negative stat boosts if there is one at -2 or lower.",
 		name: "Charged Up",
 		onUpdate(pokemon) {
@@ -2042,8 +2051,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Trickster
 	trillionageroots: {
-		desc: "Sturdy + seeds the opposing Pokemon when hit with an attacking move.",
-		shortDesc: "Sturdy + seeds the opposing Pokemon when hit with an attacking move.",
+		desc: "This Pokemon applies Leech Seed to the opposing Pokemon when hit with an attacking move. If this Pokemon is at full HP, it survives one hit with at least 1 HP. OHKO moves fail when used against this Pokemon.",
+		shortDesc: "Sturdy + apply Leech Seed when hit by foe.",
 		onTryHit(pokemon, target, move) {
 			if (move.ohko) {
 				this.add('-immune', pokemon, '[from] ability: Trillionage Roots');
@@ -2070,8 +2079,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// Volco
 	speedrunning: {
-		desc: "Soul Heart + Moves that are 60 Base Power or lower gain an additional 25 Base Power. Freezes can only be broken out of naturally, no moves can defrost a frozen Pokemon while this one is active.",
-		shortDesc: "Soul Heart + Weak moves get a 25 Base Power buff. Moves cannot defrost, only natural thaws.",
+		desc: "This Pokemon's Special Attack is raised by 1 stage when another Pokemon faints. Moves used by this Pokemon that are 60 Base Power or lower gain an additional 25 Base Power. No moves can defrost a frozen Pokemon while this Pokemon is active.",
+		shortDesc: "Soul Heart + Weak moves get +25 BP. Moves cannot defrost, only natural thaws.",
 		onAnyFaintPriority: 1,
 		onAnyFaint() {
 			this.boost({spa: 1}, this.effectData.target);
@@ -2096,7 +2105,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	// Vexen
 	aquilasblessing: {
 		desc: "This Pokemon's attacks with secondary effects have their power multiplied by 1.3, but the secondary effects are removed. If this Pokemon gets hit by a damaging Fire type move, its Defense and Special Defense get raised by 1 stage.",
-		shortDesc: "Moves with secondary effects: 1.3x power, secondary removed. Hit with Fire: +1 Def/SpD.",
+		shortDesc: "Sheer Force + when hit with Fire move: +1 Def/SpD.",
 		onModifyMove(move, pokemon) {
 			if (move.secondaries) {
 				delete move.secondaries;
@@ -2122,7 +2131,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	// vooper
 	qigong: {
-		shortDesc: "This Pokemon's Defense is doubled, and it receives 1/2 damage from special attacks.",
+		desc: "This Pokemon's Defense is doubled, and it receives 1/2 damage from special attacks.",
 		onModifyDefPriority: 6,
 		onModifyDef(def) {
 			return this.chainModify(2);
