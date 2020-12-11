@@ -1160,16 +1160,12 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onModifyDefPriority: 2,
 		onModifyDef(def, pokemon) {
 			if (pokemon.illusion) return;
-			if (pokemon.baseSpecies.nfe) {
-				return this.chainModify(1.5);
-			}
+			return this.chainModify(1.5);
 		},
 		onModifySpDPriority: 2,
 		onModifySpD(spd, pokemon) {
 			if (pokemon.illusion) return;
-			if (pokemon.baseSpecies.nfe) {
-				return this.chainModify(1.5);
-			}
+			return this.chainModify(1.5);
 		},
 	},
 	notater517: {
