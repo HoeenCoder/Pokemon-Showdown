@@ -945,7 +945,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	},
 	kris: {
 		innateName: "phuck",
-		shortDesc: "Changes this Pokemon into another Unown forme at the end of every turn.",
+		desc: "If this Pokemon is an Unown forme, it is immune to indirect damage and transforms into a different Unown letter forme, aside from ! and ?, at the end of each turn.",
+		shortDesc: "Unown: Magic Guard + change letter every turn.",
 		noCopy: true,
 		onStart(source) {
 			const foeName = source.side.foe.active[0].illusion ?
