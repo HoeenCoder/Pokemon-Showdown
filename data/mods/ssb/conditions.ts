@@ -279,7 +279,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFaint() {
 			this.add(`c|${getName('Billo')}|Yep, definitely hacked.`);
 		},
-		innateName: "Unaware",
+		
+			: "Unaware",
 		shortDesc: "This Pokemon ignores other Pokemon's stat stages when taking or doing damage.",
 		// Unaware innate
 		onAnyModifyBoost(boosts, pokemon) {
@@ -340,7 +341,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 	cake: {
 		noCopy: true,
 		innateName: "h",
-		shortDesc: "On Switch in and at the end of every turn, it changes type randomly.",
+		shortDesc: "On switch-in and at the end of every turn, this Pokemon changes type randomly.",
 		onStart(target, pokemon) {
 			this.add(`c|${getName('Cake')}|AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`);
 			// h innate
@@ -628,7 +629,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			}
 		},
 		innateName: "Fickle Decorator",
-		shortDesc: "Calm Mind on switch in. Changes boosts depending on move used.",
+		shortDesc: "Calm Mind on switch-in. Changes boosts depending on move used.",
 		onSwitchOut() {
 			this.add(`c|${getName('Finland')}|i hope running away is safe on shield?`);
 		},
@@ -760,7 +761,8 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c|${getName('INStruct')}|Forgive me, entity of darkness... I couldn't fulfill my prophecy...`);
 		},
 		innateName: "Extinction Level Event",
-		shortDesc: "Deals 50% of their max hp to those who made contact upon death",
+		desc: "Upon fainting, this Pokemon deals damage to all Pokemon that have made contact with it equal to 50% of their max HP. This damage cannot KO Pokemon.",
+		shortDesc: "Upon fainting, deal 50% of their max HP to all foes that this Pokemon contacted.",
 		// Extinction Level Event Innate
 		onSourceHit(target, source, move) {
 			if (source.illusion) return;
@@ -1147,7 +1149,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 			this.add(`c|${getName('Nol')}|nerd`);
 		},
 		innateName: "RSUA",
-		shortDesc: "+1 priority to status moves. 1.5x def and spd.",
+		shortDesc: "+1 priority to status moves. 1.5x Defense and Special Defense.",
 		// Innate Prankster and Eviolite
 		onModifyPriority(priority, pokemon, target, move) {
 			if (move?.category === 'Status') {
