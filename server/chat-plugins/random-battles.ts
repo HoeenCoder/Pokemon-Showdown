@@ -606,7 +606,7 @@ function SSBSets(target: string) {
 			buf += generateSSBPokemonInfo(item.megaStone, dex, baseDex);
 		} else if (set.species === 'Rayquaza') {
 			buf += generateSSBPokemonInfo('Rayquaza-Mega', dex, baseDex);
-		// Struchni and Raj.shoot has itemless Mega Evolution
+		// Struchni and Raj.shoot have itemless Mega Evolution
 		} else if (set.species === 'Aggron') {
 			buf += generateSSBPokemonInfo('Aggron-Mega', dex, baseDex);
 		} else if (set.species === 'Charizard') {
