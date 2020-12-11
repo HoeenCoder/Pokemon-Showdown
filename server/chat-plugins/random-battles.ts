@@ -439,7 +439,7 @@ function generateSSBAbilityInfo(set: SSBSet, dex: ModdedDex, baseDex: ModdedDex)
 			if (details[detail] === '') return detail;
 			return `<font color="#686868">${detail}:</font> ${details[detail]}`;
 		}).join("&nbsp;|&ThickSpace;")}</font>`;
-		if (sigAbil.desc) {
+		if (sigAbil.desc && sigAbil.shortDesc && sigAbil.desc !== sigAbil.shortDesc) {
 			buf += `<details><summary><strong>In-Depth Description</strong></summary>${sigAbil.desc}</details>`;
 		}
 	}
