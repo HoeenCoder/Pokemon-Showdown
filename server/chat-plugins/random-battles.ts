@@ -441,7 +441,7 @@ function generateSSBAbilityInfo(set: SSBSet, dex: ModdedDex, baseDex: ModdedDex)
 		}).join("&nbsp;|&ThickSpace;")}</font>`;
 		if (sigAbil.desc) {
 			buf += `<details><summary><strong>In-Depth Description</strong></summary>${sigAbil.desc}</details>`;
-  	}
+		}
 	}
 	return buf;
 }
