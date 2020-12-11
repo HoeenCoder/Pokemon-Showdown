@@ -279,8 +279,7 @@ export const Conditions: {[k: string]: ModdedConditionData & {innateName?: strin
 		onFaint() {
 			this.add(`c|${getName('Billo')}|Yep, definitely hacked.`);
 		},
-		
-			: "Unaware",
+		innateName: "Unaware",
 		shortDesc: "This Pokemon ignores other Pokemon's stat stages when taking or doing damage.",
 		// Unaware innate
 		onAnyModifyBoost(boosts, pokemon) {
