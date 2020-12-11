@@ -5024,10 +5024,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, 'Blue Flare', target);
 		},
 		onHit(target, source, move) {
-			if (this.random(1000) === 69) {
-				this.add(`raw|<div class="broadcast-red"><strong>Pokemon Showdown has not crashed!</strong><br />It just got sick of all the rng in Volco's Glitch Exploiting move and gave up.<br /><small>(Do not report this, this is intended.)</small></div>`);
-				this.tie();
-			}
 			const random = this.random(4096);
 			if (random === 1) {
 				target.faint(source, move);
@@ -5036,40 +5032,31 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				this.add(`c|${getName('Volco')}|haha memory corruption go brrr...`);
 				target.forceSwitchFlag = true;
 				source.forceSwitchFlag = true;
+			} else if (random === 69) {
+				this.add(`raw|<div class="broadcast-red"><strong>Pokemon Showdown has not crashed!</strong><br />It just got sick of all the rng in Volco's Glitch Exploiting move and gave up.<br /><small>(Do not report this, this is intended.)</small></div>`);
+				this.tie();
 			}
 		},
 		secondaries: [
 			{
-				chance: 20,
+				chance: 5,
 				onHit(target, source) {
-					if (this.randomChance(1, 10)) {
-						const status = this.sample(['frz', 'par']);
-						this.add(`c|${getName('Volco')}|Ever just screw up the trick and corrupt the memory and cause the wrong thing to happen possibly ruining a run? No? Just me? okay...`);
-						if (this.randomChance(1, 2)) {
-							target.trySetStatus(status);
-						} else {
-							source.trySetStatus(status);
-						}
+					const status = this.sample(['frz', 'par']);
+					this.add(`c|${getName('Volco')}|Ever just screw up the trick and corrupt the memory and cause the wrong thing to happen possibly ruining a run? No? Just me? okay...`);
+					if (this.randomChance(1, 2)) {
+						target.trySetStatus(status);
 					} else {
-						target.trySetStatus('brn');
+						source.trySetStatus(status);
 					}
 				},
 			},
 			{
+				chance: 20,
+				status: 'brn',
+			},
+			{
 				chance: 30,
-				onHit(target, source) {
-					if (this.randomChance(1, 10)) {
-						const status = this.sample(['frz', 'par']);
-						this.add(`c|${getName('Volco')}|Ever just screw up the trick and corrupt the memory and cause the wrong thing to happen possibly ruining a run? No? Just me? okay...`);
-						if (this.randomChance(1, 2)) {
-							target.trySetStatus(status);
-						} else {
-							source.trySetStatus(status);
-						}
-					} else {
-						target.addVolatile('confusion');
-					}
-				},
+				volatileStatus: 'confusion',
 			},
 		],
 		target: "normal",
