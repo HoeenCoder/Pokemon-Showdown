@@ -604,13 +604,11 @@ function SSBSets(target: string) {
 		buf += generateSSBPokemonInfo(set.species, dex, baseDex);
 		if (!Array.isArray(set.item) && item.megaStone) {
 			buf += generateSSBPokemonInfo(item.megaStone, dex, baseDex);
-		} else if (set.species === 'Rayquaza') {
-			buf += generateSSBPokemonInfo('Rayquaza-Mega', dex, baseDex);
-		// Struchni and Raj.shoot have itemless Mega Evolution
-		} else if (set.species === 'Aggron') {
-			buf += generateSSBPokemonInfo('Aggron-Mega', dex, baseDex);
+		// Psynergy, Struchni, and Raj.shoot have itemless Mega Evolutions
+		} else if (['Aggron', 'Rayquaza'].includes(set.species)) {
+			buf += generateSSBPokemonInfo(`${set.species}-Mega`, dex, baseDex);
 		} else if (set.species === 'Charizard') {
-			buf += generateSSBPokemonInfo('Charizard-Mega', dex, baseDex);
+			buf += generateSSBPokemonInfo('Charizard-Mega-X', dex, baseDex);
 		}
 		if (set.skip) buf += `</details>`;
 	}
