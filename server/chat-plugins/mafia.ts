@@ -741,10 +741,12 @@ class Mafia extends Rooms.RoomGame<MafiaPlayer> {
 
 	distributeRoles() {
 		const roles = Utils.shuffle(this.roles.slice());
-		if (roles.length < this.players.length) {
-			throw new Chat.ErrorMessage(`Not enough roles for all players. Have ${roles.length} roles but ${this.players.length} players.`);
-		}
+		// IDEA modules set roles directly onto players when choices are finalized, so no roles are present here.
 		if (roles.length) {
+			if (roles.length < this.players.length) {
+				throw new Chat.ErrorMessage(`Not enough roles for all players. Have ${roles.length} roles but ${this.players.length} players.`);
+			}
+
 			for (const p of this.players) {
 				const role = roles.shift();
 				if (!role) throw new Error(`Ran out of roles.`);
